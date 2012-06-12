@@ -540,7 +540,15 @@ JXG.createPerpendicularPoint = function(board, parents, attributes) {
  * </script><pre>
  */
 JXG.createPerpendicularSegment = function(board, parents, attributes) {
-    var p, l, pd, t, attr;
+    var p, l, pd, t, attr,
+        lineDef = function () {
+            // If this.perpendicularLine exists, this function was called within the
+            // context of the perpendicularsegment. If it doesn't exist, it is called in
+            // createLine and the context is the parent array, hence the this[0]. The
+            // index is the position of the function in the parent array.
+            var that = this.perpendicularLine ? this : this[0];
+            return (JXG.Math.Geometry.perpendicular(that.perpendicularLine, that.perpendicularPoint, board)[1] ? [that.point, that.perpendicularPoint] : [that.perpendicularPoint, that.point]);
+        };
 
     parents[0] = JXG.getReference(board, parents[0]);
     parents[1] = JXG.getReference(board, parents[1]);
@@ -562,9 +570,17 @@ JXG.createPerpendicularSegment = function(board, parents, attributes) {
 
     t.dump = false;
 
-    if (!JXG.exists(attributes.layer)) attributes.layer = board.options.layer.line;
+    if (!JXG.exists(attributes.layer)) {
+        attributes.layer = board.options.layer.line;
+    }
     attr = JXG.copyAttributes(attributes, board.options, 'perpendicularsegment');
-    pd = JXG.createLine(board, [function () { return (JXG.Math.Geometry.perpendicular(l, p, board)[1] ? [t, p] : [p, t]); }], attr);
+
+    // lineDef is called in createLine before the line is created -> we have to store the relevant data
+    // in the function, too.
+    lineDef.perpendicularLine = l;
+    lineDef.perpendicularPoint = p;
+    lineDef.point = t;
+    pd = JXG.createLine(board, [lineDef], attr);
 
     /**
      * Helper point
@@ -573,6 +589,10 @@ JXG.createPerpendicularSegment = function(board, parents, attributes) {
      * @name point
      */
     pd.point = t;
+
+    // we need to store these two to be able to access them from within lineDef.
+    pd.perpendicularLine = l;
+    pd.perpendicularPoint = p;
 
     pd.elType = 'perpendicularsegment';
     pd.parents = [p.id, l.id];
