@@ -67,9 +67,9 @@
 define([
     'jxg', 'base/constants', 'base/coords', 'options', 'math/numerics', 'math/math', 'math/geometry', 'math/complex',
     'parser/jessiecode', 'parser/geonext', 'utils/color', 'utils/type', 'utils/event', 'utils/env', 'base/transformation',
-    'base/point', 'base/line', 'base/text', 'element/composition', 'base/composition'
+    'base/point', 'base/line', 'base/text', 'element/composition', 'base/composition', 'extern/hammer'
 ], function (JXG, Const, Coords, Options, Numerics, Mat, Geometry, Complex, JessieCode, GeonextParser, Color, Type,
-                EventEmitter, Env, Transform, Point, Line, Text, Composition, EComposition) {
+                EventEmitter, Env, Transform, Point, Line, Text, Composition, EComposition, Hammer) {
 
     'use strict';
 
@@ -752,6 +752,7 @@ define([
             v = Mat.matVecMult(this.cssTransMat, v);
             v[1] /= v[0];
             v[2] /= v[0];
+
             return [v[1], v[2]];
 
             // Method without CSS transformation
@@ -1244,12 +1245,20 @@ define([
         },
 
         addTouchEventHandlers: function () {
+            var self = this;
+
             if (!this.hasTouchHandlers && Env.isBrowser) {
                 Env.addEvent(this.containerObj, 'touchstart', this.touchStartListener, this);
                 Env.addEvent(this.containerObj, 'touchmove', this.touchMoveListener, this);
 
-                Env.addEvent(this.containerObj, 'gesturestart', this.gestureStartListener, this);
-                Env.addEvent(this.containerObj, 'gesturechange', this.gestureChangeListener, this);
+                Hammer(this.containerObj, {
+                    prevent_default: false
+                }).on('pinch', function (e) {
+                    return self.gestureChangeListener(e);
+                });
+
+                //Env.addEvent(this.containerObj, 'gesturestart', this.gestureStartListener, this);
+                //Env.addEvent(this.containerObj, 'gesturechange', this.gestureChangeListener, this);
 
                 this.hasTouchHandlers = true;
             }
@@ -1295,8 +1304,9 @@ define([
                     this.hasTouchEnd = false;
                 }
 
-                Env.removeEvent(this.containerObj, 'gesturestart', this.gestureStartListener, this);
-                Env.removeEvent(this.containerObj, 'gesturechange', this.gestureChangeListener, this);
+                Hammer(this.containerObj).off('pinch');
+                //Env.removeEvent(this.containerObj, 'gesturestart', this.gestureStartListener, this);
+                //Env.removeEvent(this.containerObj, 'gesturechange', this.gestureChangeListener, this);
 
                 this.hasTouchHandlers = false;
             }
@@ -1350,6 +1360,7 @@ define([
          */
         gestureChangeListener: function (evt) {
             var c,
+                dt = evt.gesture.deltaTime,
                 zx = this.attr.zoom.factorx,
                 zy = this.attr.zoom.factory;
 
@@ -1357,16 +1368,15 @@ define([
                 return true;
             }
 
-            evt.preventDefault();
-
             if (this.mode === this.BOARD_MODE_ZOOM) {
-                c = new Coords(Const.COORDS_BY_SCREEN, this.getMousePosition(evt), this);
+                evt.gesture.preventDefault();
 
-                this.attr.zoom.factorx = evt.scale / this.prevScale;
-                this.attr.zoom.factory = evt.scale / this.prevScale;
+                c = new Coords(Const.COORDS_BY_SCREEN, this.getMousePosition(evt.gesture.center), this);
+                this.attr.zoom.factorx = evt.gesture.scale / this.prevScale;
+                this.attr.zoom.factory = evt.gesture.scale / this.prevScale;
 
                 this.zoomIn(c.usrCoords[1], c.usrCoords[2]);
-                this.prevScale = evt.scale;
+                this.prevScale = evt.gesture.scale;
 
                 this.attr.zoom.factorx = zx;
                 this.attr.zoom.factory = zy;
@@ -1663,7 +1673,7 @@ define([
                 obj, found, targets,
                 evtTouches = evt[JXG.touchProperty],
                 target;
-
+console.log('touch start');
             if (!this.hasTouchEnd) {
                 Env.addEvent(document, 'touchend', this.touchEndListener, this);
                 this.hasTouchEnd = true;
@@ -1806,6 +1816,7 @@ define([
             }
 
             if (this.touches.length > 0) {
+console.log('stop prop in touchstart');
                 evt.preventDefault();
                 evt.stopPropagation();
             }
@@ -1814,6 +1825,15 @@ define([
             if (this.mode === this.BOARD_MODE_NONE && this.touchOriginMoveStart(evt)) {
                 this.triggerEventHandlers(['touchstart', 'down'], [evt]);
                 return false;
+            }
+
+            // neither in drag nor origin_move mode? check for zoom
+            if (this.mode === this.BOARD_MODE_NONE && evtTouches.length === 2 && this.touches.length === 0) {
+                // initialize zoom
+                this.prevScale = 1;
+                this.mode = this.BOARD_MODE_ZOOM;
+
+                return true;
             }
 
             if (Env.isWebkitAndroid()) {
@@ -1836,6 +1856,10 @@ define([
         touchMoveListener: function (evt) {
             var i, pos, time,
                 evtTouches = evt[JXG.touchProperty];
+
+            if (this.mode === this.BOARD_MODE_ZOOM) {
+                return true;
+            }
 
             if (this.mode !== this.BOARD_MODE_NONE) {
                 evt.preventDefault();
@@ -1924,6 +1948,14 @@ define([
 
             this.triggerEventHandlers(['touchend', 'up'], [evt]);
             this.renderer.hide(this.infobox);
+
+            // end zoom mode
+            if (this.mode === this.BOARD_MODE_ZOOM) {
+console.log('end zoom');
+                this.touches.length = 0;
+                this.mode = this.BOARD_MODE_NONE;
+                return true;
+            }
 
             if (evtTouches.length > 0) {
                 for (i = 0; i < this.touches.length; i++) {
