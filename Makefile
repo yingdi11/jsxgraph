@@ -3,8 +3,7 @@
 # build tools
 REQUIREJS=./node_modules/.bin/r.js
 UGLIFYJS=./node_modules/.bin/uglifyjs
-JSDOC2=node ./node_modules/.bin/jsdoc2
-#JSDOC2=node ./node_modules/.bin/jsdoc
+JSDOC=node --max-old-space-size=8192 ./node_modules/.bin/jsdoc
 LINT=./node_modules/.bin/jslint
 HINT=./node_modules/.bin/jshint
 JSTESTDRIVER=java -jar ./node_modules/jstestdriver/lib/jstestdriver.jar 
@@ -24,16 +23,14 @@ BUILD=build
 TMP=tmp
 BUILDBIN=$(BUILD)/bin
 BUILDREADERS=$(BUILDBIN)/readers
-JSDOC2PLG=doc/jsdoc-tk/plugins
-JSDOC2TPL=doc/jsdoc-tk/template
-#JSDOC2TPL=./node_modules/ink-docstrap/template
-JSDOC2TPLSTAT=$(JSDOC2TPL)/static
+JSDOCPLG=doc/jsdoc-tk/plugins
+JSDOCTPL=doc/jsdoc-tk/template
+JSDOCTPLSTAT=$(JSDOCTPL)/static
 
 # flags
 MKDIRFLAGS=-p
 RMFLAGS=-rf
-JSDOC2FLAGS=-v -p -t=$(JSDOC2TPL) -d=$(TMP)/docs
-#JSDOC2FLAGS=--verbose -p --template $(JSDOC2TPL) --destination $(TMP)/docs
+JSDOCFLAGS=-p --destination $(TMP)/docs
 
 ZIPFLAGS=-r
 JSTESTPORT=4224
@@ -88,15 +85,15 @@ docs: core core-min
 	$(MKDIR) $(MKDIRFLAGS) $(OUTPUT)
 
 	# update template related files
-	$(CP) distrib/jquery.min.js $(JSDOC2TPLSTAT)/jquery.min.js
-	$(CP) $(BUILDBIN)/jsxgraphcore.min.js $(JSDOC2TPLSTAT)/jsxgraphcore.js
-	$(CP) distrib/jsxgraph.css $(JSDOC2TPLSTAT)/jsxgraph.css
+	$(CP) distrib/jquery.min.js $(JSDOCTPLSTAT)/jquery.min.js
+	$(CP) $(BUILDBIN)/jsxgraphcore.min.js $(JSDOCTPLSTAT)/jsxgraphcore.js
+	$(CP) distrib/jsxgraph.css $(JSDOCTPLSTAT)/jsxgraph.css
 
 	# update the plugin
-	$(CP) $(JSDOC2PLG)/*.js ./node_modules/jsdoc2/app/plugins/
+	$(CP) $(JSDOCPLG)/*.js ./node_modules/jsdoc/plugins/
 
-	# run node-jsdoc2
-	$(JSDOC2) $(JSDOC2FLAGS) src/loadjsxgraph.js src/$(FILELIST).js
+	# run node-jsdoc
+	$(JSDOC) $(JSDOCFLAGS) src/loadjsxgraph.js src/$(FILELIST).js
 
 	# zip -r tmp/docs.zip tmp/docs/
 	$(CD) $(TMP) && $(ZIP) $(ZIPFLAGS) docs.zip docs/
