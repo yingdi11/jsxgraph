@@ -3,7 +3,7 @@
 # build tools
 REQUIREJS=./node_modules/.bin/r.js
 UGLIFYJS=./node_modules/.bin/uglifyjs
-JSDOC=node --max-old-space-size=8192 ./node_modules/.bin/jsdoc
+JSDOC=./node_modules/.bin/yuidoc
 LINT=./node_modules/.bin/jslint
 HINT=./node_modules/.bin/jshint
 JSTESTDRIVER=java -jar ./node_modules/jstestdriver/lib/jstestdriver.jar 
@@ -30,7 +30,8 @@ JSDOCTPLSTAT=$(JSDOCTPL)/static
 # flags
 MKDIRFLAGS=-p
 RMFLAGS=-rf
-JSDOCFLAGS=-p --destination $(TMP)/docs
+#JSDOCFLAGS=-p --destination $(TMP)/docs
+JSDOCFLAGS=--outdir $(TMP)/docs
 
 ZIPFLAGS=-r
 JSTESTPORT=4224
@@ -93,7 +94,8 @@ docs: core core-min
 	$(CP) $(JSDOCPLG)/*.js ./node_modules/jsdoc/plugins/
 
 	# run node-jsdoc
-	$(JSDOC) $(JSDOCFLAGS) src/loadjsxgraph.js src/$(FILELIST).js
+	$(JSDOC) $(JSDOCFLAGS) src/
+	#src/loadjsxgraph.js src/$(FILELIST).js
 
 	# zip -r tmp/docs.zip tmp/docs/
 	$(CD) $(TMP) && $(ZIP) $(ZIPFLAGS) docs.zip docs/
