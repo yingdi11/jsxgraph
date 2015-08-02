@@ -3,7 +3,7 @@
 # build tools
 REQUIREJS=./node_modules/.bin/r.js
 UGLIFYJS=./node_modules/.bin/uglifyjs
-JSDOC=./node_modules/.bin/yuidoc
+JSDOC=node doc/yuidoc/wrapper.js
 LINT=./node_modules/.bin/jslint
 HINT=./node_modules/.bin/jshint
 JSTESTDRIVER=java -jar ./node_modules/jstestdriver/lib/jstestdriver.jar 
@@ -31,7 +31,7 @@ JSDOCTPLSTAT=$(JSDOCTPL)/static
 MKDIRFLAGS=-p
 RMFLAGS=-rf
 #JSDOCFLAGS=-p --destination $(TMP)/docs
-JSDOCFLAGS=--outdir $(TMP)/docs
+JSDOCFLAGS=--outdir $(TMP)/docs --themedir doc/yuidoc/theme
 
 ZIPFLAGS=-r
 JSTESTPORT=4224
