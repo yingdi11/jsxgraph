@@ -2616,7 +2616,7 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
         /**
          * Maximum number of iterations in {@link JXG.Math.Numerics#fzero}
          *
-         * @property
+         * @property maxIterationsRoot
          * @type Number
          * @default 80
          * @memberof JXG.Math.Numerics
@@ -2626,7 +2626,7 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
         /**
          * Maximum number of iterations in {@link JXG.Math.Numerics#fminbr}
          *
-         * @property
+         * @property maxIterationsMinimize
          * @type Number
          * @default 500
          * @memberof JXG.Math.Numerics
