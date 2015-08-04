@@ -53,12 +53,15 @@ define([
 
     /**
      * Constructs a new GeometryElement object.
-     * @class This is the basic class for geometry elements like points, circles and lines.
+     * This is the basic class for geometry elements like points, circles and lines.
+     *
+     * @class JXG.GeometryElement
      * @constructor
      * @param {JXG.Board} board Reference to the board the element is constructed on.
      * @param {Object} attributes Hash of attributes and their values.
      * @param {Number} type Element type (a <tt>JXG.OBJECT_TYPE_</tt> value).
      * @param {Number} oclass The element's class (a <tt>JXG.OBJECT_CLASS_</tt> value).
+     *
      * @borrows JXG.EventEmitter#on as this.on
      * @borrows JXG.EventEmitter#off as this.off
      * @borrows JXG.EventEmitter#triggerEventHandlers as this.triggerEventHandlers
@@ -69,6 +72,8 @@ define([
 
         /**
          * Controls if updates are necessary
+         *
+         * @property needsUpdate
          * @type Boolean
          * @default true
          */
@@ -77,6 +82,8 @@ define([
         /**
          * Controls if this element can be dragged. In GEONExT only
          * free points and gliders can be dragged.
+         *
+         * @property isDraggable
          * @type Boolean
          * @default false
          */
@@ -84,6 +91,8 @@ define([
 
         /**
          * If element is in two dimensional real space this is true, else false.
+         *
+         * @property isReal
          * @type Boolean
          * @default true
          */
@@ -91,12 +100,16 @@ define([
 
         /**
          * Stores all dependent objects to be updated when this point is moved.
+         *
+         * @property childElements
          * @type Object
          */
         this.childElements = {};
 
         /**
          * If element has a label subelement then this property will be set to true.
+         *
+         * @property hasLabel
          * @type Boolean
          * @default false
          */
@@ -104,6 +117,8 @@ define([
 
         /**
          * True, if the element is currently highlighted.
+         *
+         * @property highlighted
          * @type Boolean
          * @default false
          */
@@ -112,15 +127,20 @@ define([
         /**
          * Stores all Intersection Objects which in this moment are not real and
          * so hide this element.
+         *
+         * @property notExistingParents
          * @type Object
          */
         this.notExistingParents = {};
 
         /**
          * Keeps track of all objects drawn as part of the trace of the element.
+         *
          * @see JXG.GeometryElement#traced
          * @see JXG.GeometryElement#clearTrace
          * @see JXG.GeometryElement#numTraces
+         *
+         * @property traces
          * @type Object
          */
         this.traces = {};
@@ -130,18 +150,24 @@ define([
          * @see JXG.GeometryElement#traced
          * @see JXG.GeometryElement#clearTrace
          * @see JXG.GeometryElement#traces
+         *
+         * @property numTraces
          * @type Number
          */
         this.numTraces = 0;
 
         /**
          * Stores the  transformations which are applied during update in an array
+         *
+         * @property transformations
          * @type Array
          * @see JXG.Transformation
          */
         this.transformations = [];
 
         /**
+         *
+         * @property baseElement
          * @type JXG.GeometryElement
          * @default null
          * @private
@@ -150,36 +176,48 @@ define([
 
         /**
          * Elements depending on this element are stored here.
+         *
+         * @property descendants
          * @type Object
          */
         this.descendants = {};
 
         /**
          * Elements on which this element depends on are stored here.
+         *
+         * @property ancestors
          * @type Object
          */
         this.ancestors = {};
 
         /**
          * Ids of elements on which this element depends directly are stored here.
+         *
+         * @property parents
          * @type Object
          */
         this.parents = [];
 
         /**
          * Stores variables for symbolic computations
+         *
+         * @property symbolic
          * @type Object
          */
         this.symbolic = {};
 
         /**
          * Stores the rendering node for the element.
+         *
+         * @property rendNode
          * @type Object
          */
         this.rendNode = null;
 
         /**
          * The string used with {@link JXG.Board#create}
+         *
+         * @property elType
          * @type String
          */
         this.elType = '';
@@ -187,6 +225,8 @@ define([
         /**
          * The element is saved with an explicit entry in the file (<tt>true</tt>) or implicitly
          * via a composition.
+         *
+         * @property dump
          * @type Boolean
          * @default true
          */
@@ -194,12 +234,16 @@ define([
 
         /**
          * Subs contains the subelements, created during the create method.
+         *
+         * @property subs
          * @type Object
          */
         this.subs = {};
 
         /**
          * The position of this element inside the {@link JXG.Board#objectsList}.
+         *
+         * @property _pos
          * @type {Number}
          * @default -1
          * @private
@@ -227,6 +271,8 @@ define([
          * b: normalized vector, representing the direction of the line.
          *
          * Should be put into Coords, when all elements possess Coords.
+         *
+         * @property stdform
          * @type Array
          * @default [1, 0, 0, 0, 1, 1, 0, 0]
          */
@@ -236,6 +282,8 @@ define([
          * The methodMap determines which methods can be called from within JessieCode and under which name it
          * can be used. The map is saved in an object, the name of a property is the name of the method used in JessieCode,
          * the value of a property is the name of the method in JavaScript.
+         *
+         * @property methodMap
          * @type Object
          */
         this.methodMap = {
@@ -255,6 +303,8 @@ define([
 
         /**
          * Quadratic form representation of circles (and conics)
+         *
+         * @property quadraticform
          * @type Array
          * @default [[1,0,0],[0,1,0],[0,0,1]]
          */
@@ -262,6 +312,8 @@ define([
 
         /**
          * An associative array containing all visual properties.
+         *
+         * @property visProp
          * @type Object
          * @default empty object
          */
@@ -271,6 +323,8 @@ define([
 
         /**
          * Is the mouse over this element?
+         *
+         * @property mouseover
          * @type Boolean
          * @default false
          */
@@ -278,6 +332,8 @@ define([
 
         /**
          * Time stamp containing the last time this element has been dragged.
+         *
+         * @property lastDragTime
          * @type Date
          * @default creation time
          */
@@ -286,12 +342,16 @@ define([
         if (arguments.length > 0) {
             /**
              * Reference to the board associated with the element.
+             *
+             * @property board
              * @type JXG.Board
              */
             this.board = board;
 
             /**
              * Type of the element.
+             *
+             * @property type
              * @constant
              * @type number
              */
@@ -299,6 +359,8 @@ define([
 
             /**
              * Original type of the element at construction time. Used for removing glider property.
+             *
+             * @property _org_type
              * @constant
              * @type number
              */
@@ -306,6 +368,8 @@ define([
 
             /**
              * The element's class.
+             *
+             * @property elementClass
              * @constant
              * @type number
              */
@@ -313,6 +377,8 @@ define([
 
             /**
              * Unique identifier for the element. Equivalent to id-attribute of renderer element.
+             *
+             * @property id
              * @type String
              */
             this.id = attributes.id;
@@ -329,6 +395,8 @@ define([
 
             /**
              * Not necessarily unique name for the element.
+             *
+             * @property name
              * @type String
              * @default Name generated by {@link JXG.Board#generateName}.
              * @see JXG.Board#generateName
@@ -358,7 +426,10 @@ define([
     JXG.extend(JXG.GeometryElement.prototype, /** @lends JXG.GeometryElement.prototype */ {
         /**
          * Add an element as a child to the current element. Can be used to model dependencies between geometry elements.
+         *
+         * @method addChild
          * @param {JXG.GeometryElement} obj The dependent object.
+         * @chainable
          */
         addChild: function (obj) {
             var el, el2;
@@ -393,9 +464,10 @@ define([
 
         /**
          * Adds the given object to the descendants list of this object and all its child objects.
+         * @method addDescendants
          * @param {JXG.GeometryElement} obj The element that is to be added to the descendants list.
          * @private
-         * @return
+         * @chainable
          */
         addDescendants: function (obj) {
             var el;
@@ -414,24 +486,26 @@ define([
          * can not be detected automatically by JSXGraph. For example if a function graph is given by a function
          * which referes to coordinates of a point, calling addParents() is necessary.
          *
+         * @method addParents
          * @param {Array} parents Array of elements or ids of elements.
          * Alternatively, one can give a list of objects as parameters.
-         * @returns {JXG.Object} reference to the object itself.
+         * @return {JXG.Object} reference to the object itself.
+         * @chainable
          *
          * @example
-         * // Movable function graph
-         * var A = board.create('point', [1, 0], {name:'A'}),
-         *     B = board.create('point', [3, 1], {name:'B'}),
-         *     f = board.create('functiongraph', function(x) {
-         *          var ax = A.X(),
-         *              ay = A.Y(),
-         *              bx = B.X(),
-         *              by = B.Y(),
-         *              a = (by - ay) / ( (bx - ax) * (bx - ax) );
-         *           return a * (x - ax) * (x - ax) + ay;
-         *      }, {fixed: false});
-         * f.addParents([A, B]);
-         * </pre><div id="7c91d4d2-986c-4378-8135-24505027f251" style="width: 400px; height: 400px;"></div>
+         *     // Movable function graph
+         *     var A = board.create('point', [1, 0], {name:'A'}),
+         *         B = board.create('point', [3, 1], {name:'B'}),
+         *         f = board.create('functiongraph', function(x) {
+         *                  var ax = A.X(),
+         *                      ay = A.Y(),
+         *                      bx = B.X(),
+         *                      by = B.Y(),
+         *                     a = (by - ay) / ( (bx - ax) * (bx - ax) );
+         *                  return a * (x - ax) * (x - ax) + ay;
+         *              }, {fixed: false});
+         *     f.addParents([A, B]);
+         * <div id="7c91d4d2-986c-4378-8135-24505027f251" style="width: 400px; height: 400px;"></div>
          * <script type="text/javascript">
          * (function() {
          *   var board = JXG.JSXGraph.initBoard('7c91d4d2-986c-4378-8135-24505027f251', {boundingbox: [-1, 9, 9, -1], axis: true, showcopyright: false, shownavigation: false});
@@ -445,9 +519,9 @@ define([
          *                a = (by - ay) / ( (bx - ax) * (bx - ax) );
          *             return a * (x - ax) * (x - ax) + ay;
          *        }, {fixed: false});
-         *   f.addParents([A, B]); 
+         *   f.addParents([A, B]);
          * })();
-         * </script><pre>
+         * </script>
          *
          **/
         addParents: function (parents) {
@@ -468,23 +542,31 @@ define([
                 }
             }
             this.parents = Type.uniqueArray(this.parents);
+
+            return this;
         },
 
         /**
          * Sets ids of elements to the array this.parents.
          * First, this.parents is cleared. See {@link Element#addParents}.
+         *
+         * @method setParents
          * @param {Array} parents Array of elements or ids of elements.
          * Alternatively, one can give a list of objects as parameters.
-         * @returns {JXG.Object} reference to the object itself.
+         * @return {JXG.Object} reference to the object itself.
+         * @chainable
          **/
         setParents: function(parents) {
             this.parents = [];
-            this.addParents(parents);
+            return this.addParents(parents);
         },
 
         /**
          * Remove an element as a child from the current element.
+         *
+         * @method removeChild
          * @param {JXG.GeometryElement} obj The dependent object.
+         * @chainable
          */
         removeChild: function (obj) {
             var el, el2;
@@ -522,9 +604,11 @@ define([
 
         /**
          * Removes the given object from the descendants list of this object and all its child objects.
+         *
+         * @method removeDescendants
          * @param {JXG.GeometryElement} obj The element that is to be removed from the descendants list.
          * @private
-         * @return
+         * @chainable
          */
         removeDescendants: function (obj) {
             var el;
@@ -540,6 +624,8 @@ define([
 
         /**
          * Counts the direct children of an object without counting labels.
+         *
+         * @method countChildren
          * @private
          * @return {number} Number of children
          */
@@ -557,7 +643,9 @@ define([
         },
 
         /**
-         * Returns the elements name, Used in JessieCode.
+         * Returns the elements name, used in JessieCode.
+         *
+         * @method getName
          * @returns {String}
          */
         getName: function () {
@@ -566,8 +654,12 @@ define([
 
         /**
          * Add transformations to this element.
-         * @param {JXG.Transformation|Array} transform Either one {@link JXG.Transformation} or an array of {@link JXG.Transformation}s.
-         * @returns {JXG.GeometryElement} Reference to the element.
+         *
+         * @method addTransform
+         * @param {JXG.Transformation|Array} transform Either one {@link JXG.Transformation}
+         *   or an array of {@link JXG.Transformation}s.
+         * @return {JXG.GeometryElement} Reference to the element.
+         * @chainable
          */
         addTransform: function (transform) {
             return this;
@@ -576,6 +668,8 @@ define([
         /**
          * Decides whether an element can be dragged. This is used in {@link JXG.GeometryElement#setPositionDirectly} methods
          * where all parent elements are checked if they may be dragged, too.
+         *
+         * @method draggable
          * @private
          * @return {boolean}
          */
@@ -587,10 +681,13 @@ define([
         /**
          * Translates the object by <tt>(x, y)</tt>. In case the element is defined by points, the defining points are
          * translated, e.g. a circle constructed by a center point and a point on the circle line.
+         *
+         * @method setPosition
          * @param {Number} method The type of coordinates used here.
          * Possible values are {@link JXG.COORDS_BY_USER} and {@link JXG.COORDS_BY_SCREEN}.
          * @param {Array} coords array of translation vector.
-         * @returns {JXG.GeometryElement} Reference to the element object.
+         * @return {JXG.GeometryElement} Reference to the element object.
+         * @chainable
          */
         setPosition: function (method, coords) {
             var parents = [], el, i, len, t;
@@ -651,10 +748,13 @@ define([
 
         /**
          * Moves an by the difference of two coordinates.
+         *
+         * @method setPositionDirectly
          * @param {Number} method The type of coordinates used here. Possible values are {@link JXG.COORDS_BY_USER} and {@link JXG.COORDS_BY_SCREEN}.
          * @param {Array} coords coordinates in screen/user units
          * @param {Array} oldcoords previous coordinates in screen/user units
-         * @returns {JXG.GeometryElement} this element
+         * @return {JXG.GeometryElement} this element
+         * @chainable
          */
         setPositionDirectly: function (method, coords, oldcoords) {
             var c = new Coords(method, coords, this.board, false),
@@ -669,8 +769,9 @@ define([
         /**
          * Array of strings containing the polynomials defining the element.
          * Used for determining geometric loci the groebner way.
-         * @returns {Array} An array containing polynomials describing the locus of the current object.
-         * @public
+         *
+         * @method generatePolynomial
+         * @return {Array} An array containing polynomials describing the locus of the current object.
          */
         generatePolynomial: function () {
             return [];
@@ -679,10 +780,13 @@ define([
         /**
          * Animates properties for that object like stroke or fill color, opacity and maybe
          * even more later.
+         *
+         * @method animate
          * @param {Object} hash Object containing properties with target values for the animation.
          * @param {number} time Number of milliseconds to complete the animation.
          * @param {Object} [options] Optional settings for the animation:<ul><li>callback: A function that is called as soon as the animation is finished.</li></ul>
-         * @returns {JXG.GeometryElement} A reference to the object
+         * @return {JXG.GeometryElement} A reference to the object
+         * @chainable
          */
         animate: function (hash, time, options) {
             options = options || {};
@@ -762,6 +866,9 @@ define([
         /**
          * General update method. Should be overwritten by the element itself.
          * Can be used sometimes to commit changes to the object.
+         *
+         * @method update
+         * @chainable
          */
         update: function () {
             if (this.visProp.trace) {
@@ -772,6 +879,9 @@ define([
 
         /**
          * Provide updateRenderer method.
+         *
+         * @method updateRenderer
+         * @chainable
          * @private
          */
         updateRenderer: function () {
@@ -780,6 +890,9 @@ define([
 
         /**
          * Hide the element. It will still exist but not visible on the board.
+         *
+         * @method hideElement
+         * @chainable
          */
         hideElement: function () {
             this.visProp.visible = false;
@@ -796,6 +909,9 @@ define([
 
         /**
          * Make the element visible.
+         *
+         * @method showElement
+         * @chainable
          */
         showElement: function () {
             this.visProp.visible = true;
@@ -812,9 +928,12 @@ define([
 
         /**
          * Sets the value of property <tt>property</tt> to <tt>value</tt>.
+         *
+         * @method _set
          * @param {String} property The property's name.
          * @param value The new value
          * @private
+         * @chainable
          */
         _set: function (property, value) {
             property = property.toLocaleLowerCase();
@@ -830,11 +949,15 @@ define([
             } else {
                 this.visProp[property] = value;
             }
+
+            return this;
         },
 
         /**
          * Resolves property shortcuts like <tt>color</tt> and expands them, e.g. <tt>strokeColor</tt> and <tt>fillColor</tt>.
          * Writes the expanded properties back to the given <tt>properties</tt>.
+         *
+         * @method resolveShortcuts
          * @param {Object} properties
          * @returns {Object} The given parameter with shortcuts expanded.
          */
@@ -858,18 +981,24 @@ define([
         /**
          * Sets a label and it's text
          * If label doesn't exist, it creates one
+         *
+         * @method setLabel
          * @param {String} str
+         * @chainable
          */
         setLabel: function (str) {
             if (!this.hasLabel) {
                 this.setAttribute({'withlabel': true});
             }
-            this.setLabelText(str);
+            return this.setLabelText(str);
         },
 
         /**
          * Updates the element's label text, strips all html.
+         *
+         * @method setLabelText
          * @param {String} str
+         * @chainable
          */
         setLabelText: function (str) {
 
@@ -883,7 +1012,10 @@ define([
 
         /**
          * Updates the element's label text and the element's attribute "name", strips all html.
+         *
+         * @method setName
          * @param {String} str
+         * @chainable
          */
         setName: function (str) {
             str = str.replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -891,10 +1023,13 @@ define([
                 this.setLabelText(str);
             }
             this.setAttribute({name: str});
+            return this;
         },
 
         /**
          * Deprecated alias for {@link JXG.GeometryElement#setAttribute}.
+         *
+         * @method setProperty
          * @deprecated Use {@link JXG.GeometryElement#setAttribute}.
          */
         setProperty: function () {
@@ -904,18 +1039,20 @@ define([
 
         /**
          * Sets an arbitrary number of attributes.
-         * @param {Object} attributes An object with attributes.
-         * @function
-         * @example
-         * // Set property directly on creation of an element using the attributes object parameter
-         * var board = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [-1, 5, 5, 1]};
-         * var p = board.create('point', [2, 2], {visible: false});
          *
-         * // Now make this point visible and fixed:
-         * p.setAttribute({
-         *     fixed: true,
-         *     visible: true
-         * });
+         * @method setAttribute
+         * @param {Object} attributes An object with attributes.
+         * @chainable
+         * @example
+         *     // Set property directly on creation of an element using the attributes object parameter
+         *     var board = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [-1, 5, 5, 1]};
+         *     var p = board.create('point', [2, 2], {visible: false});
+         *
+         *     // Now make this point visible and fixed:
+         *     p.setAttribute({
+         *         fixed: true,
+         *         visible: true
+         *     });
          */
         setAttribute: function (attributes) {
             var i, key, value, arg, opacity, pair, oldvalue,
@@ -1098,6 +1235,8 @@ define([
 
         /**
          * Deprecated alias for {@link JXG.GeometryElement#getAttribute}.
+         *
+         * @method getProperty
          * @deprecated Use {@link JXG.GeometryElement#getAttribute}.
          */
         getProperty: function () {
@@ -1107,8 +1246,10 @@ define([
 
         /**
          * Get the value of the property <tt>key</tt>.
+         *
+         * @method getAttribute
          * @param {String} key The name of the property you are looking for
-         * @returns The value of the property
+         * @return The value of the property
          */
         getAttribute: function (key) {
             var result;
@@ -1138,8 +1279,11 @@ define([
         /**
          * Set the dash style of an object. See {@link #dash} for a list of available dash styles.
          * You should use {@link #setAttribute} instead of this method.
+         *
+         * @method setDash
          * @param {number} dash Indicates the new dash style
          * @private
+         * @chainable
          */
         setDash: function (dash) {
             this.setAttribute({dash: dash});
@@ -1148,7 +1292,10 @@ define([
 
         /**
          * Notify all child elements for updates.
+         *
+         * @method prepareUpdate
          * @private
+         * @chainable
          */
         prepareUpdate: function () {
             this.needsUpdate = true;
@@ -1158,6 +1305,9 @@ define([
         /**
          * Removes the element from the construction.  This only removes the SVG or VML node of the element and its label (if available) from
          * the renderer, to remove the element completely you should use {@link JXG.Board#removeObject}.
+         *
+         * @method remove
+         * @chainable
          */
         remove: function () {
             this.board.renderer.remove(this.board.renderer.getElementById(this.id));
@@ -1171,7 +1321,9 @@ define([
         /**
          * Returns the coords object where a text that is bound to the element shall be drawn.
          * Differs in some cases from the values that getLabelAnchor returns.
-         * @returns {JXG.Coords} JXG.Coords Place where the text shall be drawn.
+         *
+         * @method getTextAnchor
+         * @return {JXG.Coords} JXG.Coords Place where the text shall be drawn.
          * @see JXG.GeometryElement#getLabelAnchor
          */
         getTextAnchor: function () {
@@ -1181,7 +1333,9 @@ define([
         /**
          * Returns the coords object where the label of the element shall be drawn.
          * Differs in some cases from the values that getTextAnchor returns.
-         * @returns {JXG.Coords} JXG.Coords Place where the text shall be drawn.
+         *
+         * @method getLabelAnchor
+         * @return {JXG.Coords} JXG.Coords Place where the text shall be drawn.
          * @see JXG.GeometryElement#getTextAnchor
          */
         getLabelAnchor: function () {
@@ -1190,8 +1344,11 @@ define([
 
         /**
          * Determines whether the element has arrows at start or end of the arc.
+         *
+         * @method setArrow
          * @param {Boolean} firstArrow True if there is an arrow at the start of the arc, false otherwise.
          * @param {Boolean} lastArrow True if there is an arrow at the end of the arc, false otherwise.
+         * @chainable
          */
         setArrow: function (firstArrow, lastArrow) {
             this.visProp.firstarrow = firstArrow;
@@ -1202,17 +1359,24 @@ define([
 
         /**
          * Creates a gradient nodes in the renderer.
+         *
+         * @method createGradient
          * @see JXG.SVGRenderer#setGradient
          * @private
+         * @chainable
          */
         createGradient: function () {
             if (this.visProp.gradient === 'linear' || this.visProp.gradient === 'radial') {
                 this.board.renderer.setGradient(this);
             }
+            return this;
         },
 
         /**
          * Creates a label element for this geometry element.
+         *
+         * @method createLabel
+         * @chainable
          * @see #addLabelToElement
          */
         createLabel: function () {
@@ -1257,8 +1421,10 @@ define([
 
         /**
          * Highlights the element.
+         *
+         * @method highlight
          * @param {Boolean} [force=false] Force the highlighting
-         * @returns {JXG.Board}
+         * @chainable
          */
         highlight: function (force) {
             force = Type.def(force, false);
@@ -1285,7 +1451,9 @@ define([
 
         /**
          * Uses the "normal" properties of the element.
-         * @returns {JXG.Board}
+         *
+         * @method noHighlight
+         * @chainable
          */
         noHighlight: function () {
             // see comment in JXG.GeometryElement.highlight()
@@ -1301,6 +1469,9 @@ define([
 
         /**
          * Removes all objects generated by the trace function.
+         *
+         * @method clearTrace
+         * @chainable
          */
         clearTrace: function () {
             var obj;
@@ -1317,7 +1488,9 @@ define([
 
         /**
          * Copy the element to background. This is used for tracing elements.
-         * @returns {JXG.GeometryElement} A reference to the element
+         *
+         * @method cloneToBackground
+         * @chainable
          */
         cloneToBackground: function () {
             return this;
@@ -1325,7 +1498,9 @@ define([
 
         /**
          * Dimensions of the smallest rectangle enclosing the element.
-         * @returns {Array} The coordinates of the enclosing rectangle in a format like the bounding box in {@link JXG.Board#setBoundingBox}.
+         *
+         * @method bounds
+         * @return {Array} The coordinates of the enclosing rectangle in a format like the bounding box in {@link JXG.Board#setBoundingBox}.
          */
         bounds: function () {
             return [0, 0, 0, 0];
@@ -1333,7 +1508,10 @@ define([
 
         /**
          * Normalize the element's standard form.
+         *
+         * @method normalize
          * @private
+         * @chainable
          */
         normalize: function () {
             this.stdform = Mat.normalize(this.stdform);
@@ -1342,6 +1520,8 @@ define([
 
         /**
          * EXPERIMENTAL. Generate JSON object code of visProp and other properties.
+         *
+         * @method toJSON
          * @type string
          * @private
          * @ignore
@@ -1370,8 +1550,11 @@ define([
 
         /**
          * Rotate texts or images by a given degree. Works only for texts where JXG.Text#display equal to "internal".
+         *
+         * @method addRotation
          * @param {number} angle The degree of the rotation (90 means vertical text).
          * @see JXG.GeometryElement#rotate
+         * @chainable
          */
         addRotation: function (angle) {
             var tOffInv, tOff, tS, tSInv, tRot,
@@ -1426,9 +1609,12 @@ define([
 
         /**
          * Set the highlightStrokeColor of an element
+         *
+         * @method highlightStrokeColor
          * @param {String} sColor String which determines the stroke color of an object when its highlighted.
          * @see JXG.GeometryElement#highlightStrokeColor
          * @deprecated Use {@link #setAttribute}
+         * @chainable
          */
         highlightStrokeColor: function (sColor) {
             JXG.deprecated('highlightStrokeColor()', 'setAttribute()');
@@ -1438,9 +1624,12 @@ define([
 
         /**
          * Set the strokeColor of an element
+         *
+         * @method strokeColor
          * @param {String} sColor String which determines the stroke color of an object.
          * @see JXG.GeometryElement#strokeColor
          * @deprecated Use {@link #setAttribute}
+         * @chainable
          */
         strokeColor: function (sColor) {
             JXG.deprecated('strokeColor()', 'setAttribute()');
@@ -1450,9 +1639,12 @@ define([
 
         /**
          * Set the strokeWidth of an element
+         *
+         * @method strokeWidth
          * @param {Number} width Integer which determines the stroke width of an outline.
          * @see JXG.GeometryElement#strokeWidth
          * @deprecated Use {@link #setAttribute}
+         * @chainable
          */
         strokeWidth: function (width) {
             JXG.deprecated('strokeWidth()', 'setAttribute()');
@@ -1463,9 +1655,13 @@ define([
 
         /**
          * Set the fillColor of an element
+         *
+         * @method fillColor
          * @param {String} fColor String which determines the fill color of an object.
          * @see JXG.GeometryElement#fillColor
          * @deprecated Use {@link #setAttribute}
+         * @chainable
+         *
          */
         fillColor: function (fColor) {
             JXG.deprecated('fillColor()', 'setAttribute()');
@@ -1475,9 +1671,12 @@ define([
 
         /**
          * Set the highlightFillColor of an element
+         *
+         * @method highlightFillColor
          * @param {String} fColor String which determines the fill color of an object when its highlighted.
          * @see JXG.GeometryElement#highlightFillColor
          * @deprecated Use {@link #setAttribute}
+         * @chainable
          */
         highlightFillColor: function (fColor) {
             JXG.deprecated('highlightFillColor()', 'setAttribute()');
@@ -1487,9 +1686,12 @@ define([
 
         /**
          * Set the labelColor of an element
+         *
+         * @method labelColor
          * @param {String} lColor String which determines the text color of an object's label.
          * @see JXG.GeometryElement#labelColor
          * @deprecated Use {@link #setAttribute}
+         * @chainable
          */
         labelColor: function (lColor) {
             JXG.deprecated('labelColor()', 'setAttribute()');
@@ -1499,9 +1701,12 @@ define([
 
         /**
          * Set the dash type of an element
+         *
+         * @method dash
          * @param {Number} d Integer which determines the way of dashing an element's outline.
          * @see JXG.GeometryElement#dash
          * @deprecated Use {@link #setAttribute}
+         * @chainable
          */
         dash: function (d) {
             JXG.deprecated('dash()', 'setAttribute()');
@@ -1511,9 +1716,12 @@ define([
 
         /**
          * Set the visibility of an element
+         *
+         * @method visible
          * @param {Boolean} v Boolean which determines whether the element is drawn.
          * @see JXG.GeometryElement#visible
          * @deprecated Use {@link #setAttribute}
+         * @chainable
          */
         visible: function (v) {
             JXG.deprecated('visible()', 'setAttribute()');
@@ -1523,9 +1731,12 @@ define([
 
         /**
          * Set the shadow of an element
+         *
+         * @method shadow
          * @param {Boolean} s Boolean which determines whether the element has a shadow or not.
          * @see JXG.GeometryElement#shadow
          * @deprecated Use {@link #setAttribute}
+         * @chainable
          */
         shadow: function (s) {
             JXG.deprecated('shadow()', 'setAttribute()');
@@ -1535,7 +1746,9 @@ define([
 
         /**
          * The type of the element as used in {@link JXG.Board#create}.
-         * @returns {String}
+         *
+         * @method getTpye
+         * @return {String}
          */
         getType: function () {
             return this.elType;
@@ -1543,7 +1756,9 @@ define([
 
         /**
          * List of the element ids resp. values used as parents in {@link JXG.Board#create}.
-         * @returns {Array}
+         *
+         * @method getParents
+         * @return {Array}
          */
         getParents: function () {
             return Type.isArray(this.parents) ? this.parents : [];
@@ -1553,7 +1768,10 @@ define([
          * Snaps the element to the grid. Only works for points, lines and circles. Points will snap to the grid
          * as defined in their properties {@link JXG.Point#snapSizeX} and {@link JXG.Point#snapSizeY}. Lines and circles
          * will snap their parent points to the grid, if they have {@link JXG.Point#snapToGrid} set to true.
-         * @returns {JXG.GeometryElement} Reference to the element.
+         *
+         * @method snapToGrid
+         * @return {JXG.GeometryElement} Reference to the element.
+         * @chainable
          */
         snapToGrid: function () {
             return this;
@@ -1564,7 +1782,9 @@ define([
          * as defined in their properties {@link JXG.Point#attractorDistance} and {@link JXG.Point#attractorUnit}.
          * Lines and circles
          * will snap their parent points to points.
-         * @returns {JXG.GeometryElement} Reference to the element.
+         *
+         * @method snapToPoints
+         * @return {JXG.GeometryElement} Reference to the element.
          */
         snapToPoints: function () {
             return this;
@@ -1572,7 +1792,9 @@ define([
 
         /**
          * Retrieve a copy of the current visProp.
-         * @returns {Object}
+         *
+         * @method getAttributes
+         * @return {Object}
          */
         getAttributes: function () {
             var attributes = Type.deepCopy(this.visProp),
@@ -1593,9 +1815,11 @@ define([
 
         /**
          * Checks whether (x,y) is near the element.
+         *
+         * @method hasPoint
          * @param {Number} x Coordinate in x direction, screen coordinates.
          * @param {Number} y Coordinate in y direction, screen coordinates.
-         * @returns {Boolean} True if (x,y) is near the element, False otherwise.
+         * @return {Boolean} True if (x,y) is near the element, False otherwise.
          */
         hasPoint: function (x, y) {
             return false;
@@ -1605,8 +1829,11 @@ define([
          * Move an element to its nearest grid point.
          * The function uses the coords object of the element as
          * its actual position. If there is no coords object, nothing is done.
+         *
+         * @method handleSnapToGrid
          * @param {Boolean} force force snapping independent from what the snaptogrid attribute says
-         * @returns {JXG.GeometryElement} Reference to this element
+         * @return {JXG.GeometryElement} Reference to this element
+         * @chainable
          */
         handleSnapToGrid: function (force) {
             var x, y, ticks,
@@ -1701,7 +1928,7 @@ define([
         /**
          * @event
          * @description This event is fired whenever the user is hovering over an element.
-         * @name JXG.GeometryElement#over
+         * @name over
          * @param {Event} e The browser's event object.
          */
         __evt__over: function (e) { },
@@ -1709,7 +1936,7 @@ define([
         /**
          * @event
          * @description This event is fired whenever the user puts the mouse over an element.
-         * @name JXG.GeometryElement#mouseover
+         * @name mouseover
          * @param {Event} e The browser's event object.
          */
         __evt__mouseover: function (e) { },
@@ -1717,7 +1944,7 @@ define([
         /**
          * @event
          * @description This event is fired whenever the user is leaving an element.
-         * @name JXG.GeometryElement#out
+         * @name out
          * @param {Event} e The browser's event object.
          */
         __evt__out: function (e) { },
@@ -1725,7 +1952,7 @@ define([
         /**
          * @event
          * @description This event is fired whenever the user puts the mouse away from an element.
-         * @name JXG.GeometryElement#mouseout
+         * @name mouseout
          * @param {Event} e The browser's event object.
          */
         __evt__mouseout: function (e) { },
@@ -1733,7 +1960,7 @@ define([
         /**
          * @event
          * @description This event is fired whenever the user is moving over an element.
-         * @name JXG.GeometryElement#move
+         * @name move
          * @param {Event} e The browser's event object.
          */
         __evt__move: function (e) { },
@@ -1741,7 +1968,7 @@ define([
         /**
          * @event
          * @description This event is fired whenever the user is moving the mouse over an element.
-         * @name JXG.GeometryElement#mousemove
+         * @name mousemove
          * @param {Event} e The browser's event object.
          */
         __evt__mousemove: function (e) { },
@@ -1749,7 +1976,7 @@ define([
         /**
          * @event
          * @description This event is fired whenever the user drags an element.
-         * @name JXG.GeometryElement#drag
+         * @name drag
          * @param {Event} e The browser's event object.
          */
         __evt__drag: function (e) { },
@@ -1757,7 +1984,7 @@ define([
         /**
          * @event
          * @description This event is fired whenever the user drags the element with a mouse.
-         * @name JXG.GeometryElement#mousedrag
+         * @name mousedrag
          * @param {Event} e The browser's event object.
          */
         __evt__mousedrag: function (e) { },
@@ -1765,7 +1992,7 @@ define([
         /**
          * @event
          * @description This event is fired whenever the user drags the element on a touch device.
-         * @name JXG.GeometryElement#touchdrag
+         * @name touchdrag
          * @param {Event} e The browser's event object.
          */
         __evt__touchdrag: function (e) { },
@@ -1773,7 +2000,7 @@ define([
         /**
          * @event
          * @description Whenever the user starts to touch or click an element.
-         * @name JXG.GeometryElement#down
+         * @name down
          * @param {Event} e The browser's event object.
          */
         __evt__down: function (e) { },
@@ -1781,7 +2008,7 @@ define([
         /**
          * @event
          * @description Whenever the user starts to click an element.
-         * @name JXG.GeometryElement#mousedown
+         * @name mousedown
          * @param {Event} e The browser's event object.
          */
         __evt__mousedown: function (e) { },
@@ -1789,7 +2016,7 @@ define([
         /**
          * @event
          * @description Whenever the user starts to touch an element.
-         * @name JXG.GeometryElement#touchdown
+         * @name touchdown
          * @param {Event} e The browser's event object.
          */
         __evt__touchdown: function (e) { },
@@ -1797,7 +2024,7 @@ define([
         /**
          * @event
          * @description Whenever the user stops to touch or click an element.
-         * @name JXG.GeometryElement#up
+         * @name up
          * @param {Event} e The browser's event object.
          */
         __evt__up: function (e) { },
@@ -1805,7 +2032,7 @@ define([
         /**
          * @event
          * @description Whenever the user releases the mousebutton over an element.
-         * @name JXG.GeometryElement#mouseup
+         * @name mouseup
          * @param {Event} e The browser's event object.
          */
         __evt__mouseup: function (e) { },
@@ -1813,7 +2040,7 @@ define([
         /**
          * @event
          * @description Whenever the user stops touching an element.
-         * @name JXG.GeometryElement#touchup
+         * @name touchup
          * @param {Event} e The browser's event object.
          */
         __evt__touchup: function (e) {},
@@ -1821,7 +2048,7 @@ define([
         /**
          * @event
          * @description Notify everytime an attribute is changed.
-         * @name JXG.GeometryElement#attribute
+         * @name attribute
          * @param {Object} o A list of changed attributes and their new value.
          * @param {Object} el Reference to the element
          */
@@ -1832,7 +2059,7 @@ define([
          * @description This is a generic event handler. It exists for every possible attribute that can be set for
          * any element, e.g. if you want to be notified everytime an element's strokecolor is changed, is the event
          * <tt>attribute:strokecolor</tt>.
-         * @name JXG.GeometryElement#attribute:&lt;attribute&gt;
+         * @name attribute:<attribute>
          * @param val The old value.
          * @param nval The new value
          * @param {Object} el Reference to the element

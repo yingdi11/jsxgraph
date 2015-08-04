@@ -65,10 +65,12 @@ define([
     /**
      * The Line class is a basic class for all kind of line objects, e.g. line, arrow, and axis. It is usually defined by two points and can
      * be intersected with some other geometry elements.
-     * @class Creates a new basic line object. Do not use this constructor to create a line. Use {@link JXG.Board#create} with
+     * Creates a new basic line object. Do not use this constructor to create a line. Use {@link JXG.Board#create} with
      * type {@link Line}, {@link Arrow}, or {@link Axis} instead.
+     *
+     * @class JXG.Line
      * @constructor
-     * @augments JXG.GeometryElement
+     * @extends JXG.GeometryElement
      * @param {String,JXG.Board} board The board the new line is drawn on.
      * @param {Point} p1 Startpoint of the line.
      * @param {Point} p2 Endpoint of the line.
@@ -86,12 +88,16 @@ define([
         /**
          * Startpoint of the line. You really should not set this field directly as it may break JSXGraph's
          * udpate system so your construction won't be updated properly.
+         *
+         * @property point1
          * @type JXG.Point
          */
         this.point1 = this.board.select(p1);
 
         /**
          * Endpoint of the line. Just like {@link #point1} you shouldn't write this field directly.
+         *
+         * @property point2
          * @type JXG.Point
          */
         this.point2 = this.board.select(p2);
@@ -99,6 +105,8 @@ define([
         /**
          * Array of ticks storing all the ticks on this line. Do not set this field directly and use
          * {@link JXG.Line#addTicks} and {@link JXG.Line#removeTicks} to add and remove ticks to and from the line.
+         *
+         * @property ticks
          * @type Array
          * @see JXG.Ticks
          */
@@ -106,6 +114,8 @@ define([
 
         /**
          * Reference of the ticks created automatically when constructing an axis.
+         *
+         * @property defaultTicks
          * @type JXG.Ticks
          * @see JXG.Ticks
          */
@@ -113,6 +123,8 @@ define([
 
         /**
          * If the line is the border of a polygon, the polygon object is stored, otherwise null.
+         *
+         * @property parentPolygon
          * @type JXG.Polygon
          * @default null
          * @private
@@ -129,7 +141,6 @@ define([
         /* Add arrow as child to defining points */
         this.point1.addChild(this);
         this.point2.addChild(this);
-
 
         this.updateStdform(); // This is needed in the following situation:
         // * the line is defined by three coordinates
@@ -160,6 +171,8 @@ define([
     JXG.extend(JXG.Line.prototype, /** @lends JXG.Line.prototype */ {
         /**
          * Checks whether (x,y) is near the line.
+         *
+         * @method hasPoint
          * @param {Number} x Coordinate in x direction, screen coordinates.
          * @param {Number} y Coordinate in y direction, screen coordinates.
          * @return {Boolean} True if (x,y) is near the line, False otherwise.
