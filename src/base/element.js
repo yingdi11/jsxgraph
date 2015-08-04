@@ -864,7 +864,8 @@ define([
         },
 
         /**
-         * General update method. Should be overwritten by the element itself.
+         * Update method. Position and content of the element are updated.
+         * The element is redrawn by a subsequent call of {@see #updateRenderer}.
          * Can be used sometimes to commit changes to the object.
          *
          * @method update

@@ -315,7 +315,10 @@ define([
 
         /**
          * Update segments with fixed length and at least one movable point.
+         *
+         * @method updateSegmentFixedLength
          * @private
+         * @chainable
          */
         updateSegmentFixedLength: function () {
             var d, dnew, d1, d2, drag1, drag2, x, y;
@@ -388,7 +391,10 @@ define([
 
         /**
          * Updates the stdform derived from the parent point positions.
+         *
+         * @method updateStdform
          * @private
+         * @chainable
          */
         updateStdform: function () {
             var v = Mat.crossProduct(this.point1.coords.usrCoords, this.point2.coords.usrCoords);
@@ -399,11 +405,15 @@ define([
             this.stdform[3] = 0;
 
             this.normalize();
+            return this;
         },
 
         /**
          * Uses the boards renderer to update the line.
+         *
+         * @method updateRenderer
          * @private
+         * @chainable
          */
         updateRenderer: function () {
             var wasReal;
@@ -446,6 +456,8 @@ define([
         /**
          * Used to generate a polynomial for a point p that lies on this line, i.e. p is collinear to {@link #point1}
          * and {@link #point2}.
+         *
+         * @method generatePolynomial
          * @param {JXG.Point} p The point for that the polynomial is generated.
          * @return {Array} An array containing the generated polynomial.
          * @private
@@ -480,7 +492,9 @@ define([
 
         /**
          * Calculates the y intersect of the line.
-         * @returns {Number} The y intersect.
+         *
+         * @method getRise
+         * @return {Number} The y intersect.
          */
         getRise: function () {
             if (Math.abs(this.stdform[2]) >= Mat.eps) {
@@ -492,7 +506,9 @@ define([
 
         /**
          * Calculates the slope of the line.
-         * @returns {Number} The slope of the line or Infinity if the line is parallel to the y-axis.
+         *
+         * @method getSlope
+         * @return {Number} The slope of the line or Infinity if the line is parallel to the y-axis.
          */
         getSlope: function () {
             if (Math.abs(this.stdform[2]) >= Mat.eps) {
@@ -503,8 +519,10 @@ define([
         },
 
         /**
-         * Determines the angle between the positive x axis and the line.
-         * @returns {Number}
+         * Determines the angle in Radians between the positive x axis and the line.
+         *
+         * @method getAngle
+         * @return {Number} Radians
          */
         getAngle: function () {
             return Math.atan2(-this.stdform[1], this.stdform[2]);
@@ -512,6 +530,8 @@ define([
 
         /**
          * Determines whether the line is drawn beyond {@link #point1} and {@link #point2} and updates the line.
+         *
+         * @method setStraight
          * @param {Boolean} straightFirst True if the Line shall be drawn beyond {@link #point1}, false otherwise.
          * @param {Boolean} straightLast True if the Line shall be drawn beyond {@link #point2}, false otherwise.
          * @see #straightFirst
@@ -533,6 +553,8 @@ define([
 
         /**
          * Adjusts Label coords relative to Anchor. DESCRIPTION
+         *
+         * @method setLabelRelativeCoords
          * @private
          */
         setLabelRelativeCoords: function (relCoords) {
@@ -647,9 +669,12 @@ define([
 
         /**
          * Add transformations to this line.
+         *
+         * @method addTransform
          * @param {JXG.Transformation|Array} transform Either one {@link JXG.Transformation} or an array of
          * {@link JXG.Transformation}s.
-         * @returns {JXG.Line} Reference to this line object.
+         * @return {JXG.Line} Reference to this line object.
+         * @chainable
          */
         addTransform: function (transform) {
             var i,
@@ -742,8 +767,9 @@ define([
          * and
          * [z, x, y] (t=0) to [0, -b, a] (t=1)
          *
+         * @method X
          * @param {Number} t Parameter running from 0 to 1.
-         * @returns {Number} X(t) x-coordinate of the line treated as parametric curve.
+         * @return {Number} X(t) x-coordinate of the line treated as parametric curve.
          * */
         X: function (t) {
             var x,
@@ -760,8 +786,10 @@ define([
 
         /**
          * Treat the line as parametric curve in homogeneous coordinates. See {@link #X} for a detailed description.
+         *
+         * @method Y
          * @param {Number} t Parameter running from 0 to 1.
-         * @returns {Number} Y(t) y-coordinate of the line treated as parametric curve.
+         * @return {Number} Y(t) y-coordinate of the line treated as parametric curve.
          */
         Y: function (t) {
             var y,
@@ -778,8 +806,10 @@ define([
 
         /**
          * Treat the line as parametric curve in homogeneous coordinates. See {@link #X} for a detailed description.
+         *
+         * @method Z
          * @param {Number} t Parameter running from 0 to 1.
-         * @returns {Number} Z(t) z-coordinate of the line treated as parametric curve.
+         * @return {Number} Z(t) z-coordinate of the line treated as parametric curve.
          */
         Z: function (t) {
             var z = (Math.abs(this.point1.coords.usrCoords[0]) > Mat.eps) ?
@@ -794,15 +824,20 @@ define([
 
         /**
          * The distance between the two points defining the line.
-         * @returns {Number}
+         *
+         * @method L
+         * @return {Number}
          */
         L: function () {
             return this.point1.Dist(this.point2);
         },
 
         /**
-         * Treat the element  as a parametric curve
+         * Treat the element as a parametric curve
+         *
+         * @method minX
          * @private
+         * @return {Number} 0.0
          */
         minX: function () {
             return 0.0;
@@ -810,7 +845,10 @@ define([
 
         /**
          * Treat the element as parametric curve
+         *
+         * @method maxX
          * @private
+         * @return {Number} 1.0
          */
         maxX: function () {
             return 1.0;
@@ -826,8 +864,10 @@ define([
 
         /**
          * Adds ticks to this line. Ticks can be added to any kind of line: line, arrow, and axis.
+         *
+         * @method addTicks
          * @param {JXG.Ticks} ticks Reference to a ticks object which is describing the ticks (color, distance, how many, etc.).
-         * @returns {String} Id of the ticks object.
+         * @return {String} Id of the ticks object.
          */
         addTicks: function (ticks) {
             if (ticks.id === '' || !Type.exists(ticks.id)) {
@@ -848,6 +888,9 @@ define([
 
         /**
          * Removes all ticks from a line.
+         *
+         * @method removeAllTicks
+         * @chainable
          */
         removeAllTicks: function () {
             var t;
@@ -858,11 +901,15 @@ define([
 
             this.ticks = [];
             this.board.update();
+            return this;
         },
 
         /**
          * Removes ticks identified by parameter named tick from this line.
+         *
+         * @method rmoveTicks
          * @param {JXG.Ticks} tick Reference to tick object to remove.
+         * @chainable
          */
         removeTicks: function (tick) {
             var t, j;
@@ -887,8 +934,10 @@ define([
                     break;
                 }
             }
+            return this;
         },
 
+        // documented in GeometryElement.js
         hideElement: function () {
             var i;
 
@@ -899,6 +948,7 @@ define([
             }
         },
 
+        // documented in GeometryElement.js
         showElement: function () {
             var i;
 
@@ -911,12 +961,12 @@ define([
     });
 
     /**
-     * @class This element is used to provide a constructor for a general line. A general line is given by two points. By setting additional properties
+     * This element is used to provide a constructor for a general line. A general line is given by two points. By setting additional properties
      * a line can be used as an arrow and/or axis.
      * @pseudo
-     * @description
-     * @name Line
-     * @augments JXG.Line
+     *
+     * @class Line
+     * @extends JXG.Line
      * @constructor
      * @type JXG.Line
      * @throws {Exception} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -927,24 +977,28 @@ define([
      * the set of solutions of the equation <tt>a*x+b*y+c*z = 0</tt>. It is possible to provide three functions returning numbers, too.
      * @param {function} f This function must return an array containing three numbers forming the line's homogeneous coordinates.
      * @example
-     * // Create a line using point and coordinates/
-     * // The second point will be fixed and invisible.
-     * var p1 = board.create('point', [4.5, 2.0]);
-     * var l1 = board.create('line', [p1, [1.0, 1.0]]);
-     * </pre><div id="c0ae3461-10c4-4d39-b9be-81d74759d122" style="width: 300px; height: 300px;"></div>
+     *     // Create a line using point and coordinates/
+     *     // The second point will be fixed and invisible.
+     *     var p1 = board.create('point', [4.5, 2.0]);
+     *     var l1 = board.create('line', [p1, [1.0, 1.0]]);
+     * <div id="c0ae3461-10c4-4d39-b9be-81d74759d122" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
+     * (function(){
      *   var glex1_board = JXG.JSXGraph.initBoard('c0ae3461-10c4-4d39-b9be-81d74759d122', {boundingbox: [-1, 7, 7, -1], axis: true, showcopyright: false, shownavigation: false});
      *   var glex1_p1 = glex1_board.create('point', [4.5, 2.0]);
      *   var glex1_l1 = glex1_board.create('line', [glex1_p1, [1.0, 1.0]]);
-     * </script><pre>
+     * })();
+     * </script>
      * @example
-     * // Create a line using three coordinates
-     * var l1 = board.create('line', [1.0, -2.0, 3.0]);
-     * </pre><div id="cf45e462-f964-4ba4-be3a-c9db94e2593f" style="width: 300px; height: 300px;"></div>
+     *     // Create a line using three coordinates
+     *     var l1 = board.create('line', [1.0, -2.0, 3.0]);
+     * <div id="cf45e462-f964-4ba4-be3a-c9db94e2593f" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
+     * (function(){
      *   var glex2_board = JXG.JSXGraph.initBoard('cf45e462-f964-4ba4-be3a-c9db94e2593f', {boundingbox: [-1, 7, 7, -1], axis: true, showcopyright: false, shownavigation: false});
      *   var glex2_l1 = glex2_board.create('line', [1.0, -2.0, 3.0]);
-     * </script><pre>
+     * })();
+     * </script>
      */
     JXG.createLine = function (board, parents, attributes) {
         var ps, el, p1, p2, i, attr,
@@ -1142,14 +1196,14 @@ define([
     JXG.registerElement('line', JXG.createLine);
 
     /**
-     * @class This element is used to provide a constructor for a segment.
+     * This element is used to provide a constructor for a segment.
      * It's strictly spoken just a wrapper for element {@link Line} with {@link JXG.Line#straightFirst}
      * and {@link JXG.Line#straightLast} properties set to false. If there is a third variable then the
      * segment has a fixed length (which may be a function, too).
+     *
+     * @class Segment
      * @pseudo
-     * @description
-     * @name Segment
-     * @augments JXG.Line
+     * @extends JXG.Line
      * @constructor
      * @type JXG.Line
      * @throws {Exception} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -1160,31 +1214,34 @@ define([
      * has a this value.
      * @see Line
      * @example
-     * // Create a segment providing two points.
-     *   var p1 = board.create('point', [4.5, 2.0]);
-     *   var p2 = board.create('point', [1.0, 1.0]);
-     *   var l1 = board.create('segment', [p1, p2]);
-     * </pre><div id="d70e6aac-7c93-4525-a94c-a1820fa38e2f" style="width: 300px; height: 300px;"></div>
+     *     // Create a segment providing two points.
+     *     var p1 = board.create('point', [4.5, 2.0]);
+     *     var p2 = board.create('point', [1.0, 1.0]);
+     *     var l1 = board.create('segment', [p1, p2]);
+     * <div id="d70e6aac-7c93-4525-a94c-a1820fa38e2f" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
+     * (function(){
      *   var slex1_board = JXG.JSXGraph.initBoard('d70e6aac-7c93-4525-a94c-a1820fa38e2f', {boundingbox: [-1, 7, 7, -1], axis: true, showcopyright: false, shownavigation: false});
      *   var slex1_p1 = slex1_board.create('point', [4.5, 2.0]);
      *   var slex1_p2 = slex1_board.create('point', [1.0, 1.0]);
      *   var slex1_l1 = slex1_board.create('segment', [slex1_p1, slex1_p2]);
-     * </script><pre>
+     *  })();
+     * </script>
      *
      * @example
-     * // Create a segment providing two points.
-     *   var p1 = board.create('point', [4.0, 1.0]);
-     *   var p2 = board.create('point', [1.0, 1.0]);
-     *   var l1 = board.create('segment', [p1, p2]);
-     *   var p3 = board.create('point', [4.0, 2.0]);
-     *   var p4 = board.create('point', [1.0, 2.0]);
-     *   var l2 = board.create('segment', [p3, p4, 3]);
-     *   var p5 = board.create('point', [4.0, 3.0]);
-     *   var p6 = board.create('point', [1.0, 4.0]);
-     *   var l3 = board.create('segment', [p5, p6, function(){ return l1.L();} ]);
-     * </pre><div id="617336ba-0705-4b2b-a236-c87c28ef25be" style="width: 300px; height: 300px;"></div>
+     *     // Create a segment providing two points.
+     *     var p1 = board.create('point', [4.0, 1.0]);
+     *     var p2 = board.create('point', [1.0, 1.0]);
+     *     var l1 = board.create('segment', [p1, p2]);
+     *     var p3 = board.create('point', [4.0, 2.0]);
+     *     var p4 = board.create('point', [1.0, 2.0]);
+     *     var l2 = board.create('segment', [p3, p4, 3]);
+     *     var p5 = board.create('point', [4.0, 3.0]);
+     *     var p6 = board.create('point', [1.0, 4.0]);
+     *     var l3 = board.create('segment', [p5, p6, function(){ return l1.L();} ]);
+     * <div id="617336ba-0705-4b2b-a236-c87c28ef25be" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
+     * (function(){
      *   var slex2_board = JXG.JSXGraph.initBoard('617336ba-0705-4b2b-a236-c87c28ef25be', {boundingbox: [-1, 7, 7, -1], axis: true, showcopyright: false, shownavigation: false});
      *   var slex2_p1 = slex2_board.create('point', [4.0, 1.0]);
      *   var slex2_p2 = slex2_board.create('point', [1.0, 1.0]);
@@ -1195,7 +1252,8 @@ define([
      *   var slex2_p5 = slex2_board.create('point', [4.0, 2.0]);
      *   var slex2_p6 = slex2_board.create('point', [1.0, 2.0]);
      *   var slex2_l3 = slex2_board.create('segment', [slex2_p5, slex2_p6, function(){ return slex2_l1.L();}]);
-     * </script><pre>
+     * })();
+     * </script>
      *
      */
     JXG.createSegment = function (board, parents, attributes) {
@@ -1239,12 +1297,12 @@ define([
     JXG.registerElement('segment', JXG.createSegment);
 
     /**
-     * @class This element is used to provide a constructor for arrow, which is just a wrapper for element {@link Line} with {@link JXG.Line#straightFirst}
+     * This element is used to provide a constructor for arrow, which is just a wrapper for element {@link Line} with {@link JXG.Line#straightFirst}
      * and {@link JXG.Line#straightLast} properties set to false and {@link JXG.Line#lastArrow} set to true.
+     * @class Arrow
      * @pseudo
      * @description
-     * @name Arrow
-     * @augments JXG.Line
+     * @extends JXG.Line
      * @constructor
      * @type JXG.Line
      * @throws {Exception} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -1254,16 +1312,18 @@ define([
      * of the equation <tt>a*x+b*y+c*z = 0</tt>.
      * @see Line
      * @example
-     * // Create an arrow providing two points.
-     *   var p1 = board.create('point', [4.5, 2.0]);
-     *   var p2 = board.create('point', [1.0, 1.0]);
-     *   var l1 = board.create('arrow', [p1, p2]);
-     * </pre><div id="1d26bd22-7d6d-4018-b164-4c8bc8d22ccf" style="width: 300px; height: 300px;"></div>
+     *     // Create an arrow providing two points.
+     *     var p1 = board.create('point', [4.5, 2.0]);
+     *     var p2 = board.create('point', [1.0, 1.0]);
+     *     var l1 = board.create('arrow', [p1, p2]);
+     * <div id="1d26bd22-7d6d-4018-b164-4c8bc8d22ccf" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
+     * (function(){
      *   var alex1_board = JXG.JSXGraph.initBoard('1d26bd22-7d6d-4018-b164-4c8bc8d22ccf', {boundingbox: [-1, 7, 7, -1], axis: true, showcopyright: false, shownavigation: false});
      *   var alex1_p1 = alex1_board.create('point', [4.5, 2.0]);
      *   var alex1_p2 = alex1_board.create('point', [1.0, 1.0]);
      *   var alex1_l1 = alex1_board.create('arrow', [alex1_p1, alex1_p2]);
+     * })();
      * </script><pre>
      */
     JXG.createArrow = function (board, parents, attributes) {
@@ -1282,12 +1342,12 @@ define([
     JXG.registerElement('arrow', JXG.createArrow);
 
     /**
-     * @class This element is used to provide a constructor for an axis. It's strictly spoken just a wrapper for element {@link Line} with {@link JXG.Line#straightFirst}
+     * This element is used to provide a constructor for an axis. It's strictly spoken just a wrapper for element {@link Line} with {@link JXG.Line#straightFirst}
      * and {@link JXG.Line#straightLast} properties set to true. Additionally {@link JXG.Line#lastArrow} is set to true and default {@link Ticks} will be created.
+     *
+     * @class Axis
      * @pseudo
-     * @description
-     * @name Axis
-     * @augments JXG.Line
+     * @extends JXG.Line
      * @constructor
      * @type JXG.Line
      * @throws {Exception} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -1296,13 +1356,15 @@ define([
      * @param {Number_Number_Number} a,b,c A line can also be created providing three numbers. The line is then described by the set of solutions
      * of the equation <tt>a*x+b*y+c*z = 0</tt>.
      * @example
-     * // Create an axis providing two coord pairs.
-     *   var l1 = board.create('axis', [[0.0, 1.0], [1.0, 1.3]]);
-     * </pre><div id="4f414733-624c-42e4-855c-11f5530383ae" style="width: 300px; height: 300px;"></div>
+     *     // Create an axis providing two coord pairs.
+     *     var l1 = board.create('axis', [[0.0, 1.0], [1.0, 1.3]]);
+     * <div id="4f414733-624c-42e4-855c-11f5530383ae" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
+     * (function(){
      *   var axex1_board = JXG.JSXGraph.initBoard('4f414733-624c-42e4-855c-11f5530383ae', {boundingbox: [-1, 7, 7, -1], axis: true, showcopyright: false, shownavigation: false});
      *   var axex1_l1 = axex1_board.create('axis', [[0.0, 1.0], [1.0, 1.3]]);
-     * </script><pre>
+     *  })();
+     * </script>
      */
     JXG.createAxis = function (board, parents, attributes) {
         var attr, el, els, dist;
@@ -1362,7 +1424,7 @@ define([
      * @pseudo
      * @description
      * @name Tangent
-     * @augments JXG.Line
+     * @extends JXG.Line
      * @constructor
      * @type JXG.Line
      * @throws {Exception} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -1595,7 +1657,7 @@ define([
      * @pseudo
      * @description
      * @name RadicalAxis
-     * @augments JXG.Line
+     * @extends JXG.Line
      * @constructor
      * @type JXG.Line
      * @throws {Exception} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -1662,7 +1724,7 @@ define([
      * A point on a conic has the polar line of that point with respect to that conic as the tangent line to that conic at that point.
      * See {@link http://en.wikipedia.org/wiki/Pole_and_polar} for more information on pole and polar.
      * @name PolarLine
-     * @augments JXG.Line
+     * @extends JXG.Line
      * @constructor
      * @type JXG.Line
      * @throws {Exception} If the element cannot be constructed with the given parent objects an exception is thrown.
