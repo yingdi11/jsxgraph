@@ -10,20 +10,20 @@
     This file is part of JSXGraph.
 
     JSXGraph is free software dual licensed under the GNU LGPL or MIT License.
-    
+
     You can redistribute it and/or modify it under the terms of the
-    
+
       * GNU Lesser General Public License as published by
         the Free Software Foundation, either version 3 of the License, or
         (at your option) any later version
       OR
       * MIT License: https://github.com/jsxgraph/jsxgraph/blob/master/LICENSE.MIT
-    
+
     JSXGraph is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU Lesser General Public License for more details.
-    
+
     You should have received a copy of the GNU Lesser General Public License and
     the MIT License along with JSXGraph. If not, see <http://www.gnu.org/licenses/>
     and <http://opensource.org/licenses/MIT/>.
@@ -37,20 +37,19 @@
  jxg
  */
 
-/**
- * @fileoverview A class for complex arithmetics JXG.Complex is defined in this
- * file. Also a namespace JXG.C is included to provide instance-independent
- * arithmetic functions.
- */
-
 define(['jxg', 'math/math'], function (JXG) {
 
     "use strict";
 
     /**
-     * Creates a new complex number.
-     * @class This class is for calculating with complex numbers.
+     * This class is for calculating with complex numbers.
+     * A class for complex arithmetics JXG.Complex is defined in this
+     * file. Also a namespace JXG.C is included to provide instance-independent
+     * arithmetic functions.
+     *
+     * @class JXG.Complex
      * @constructor
+     *
      * @param {Number} [x=0] Real part.
      * @param {Number} [y=0] Imaginary part.
      */
@@ -58,6 +57,8 @@ define(['jxg', 'math/math'], function (JXG) {
         /**
          * This property is only to signalize that this object is of type JXG.Complex. Only
          * used internally to distinguish between normal JavaScript numbers and JXG.Complex numbers.
+         *
+         * @property isComplex
          * @type Boolean
          * @default true
          * @private
@@ -73,6 +74,8 @@ define(['jxg', 'math/math'], function (JXG) {
 
         /**
          * Real part of the complex number.
+         *
+         * @property real
          * @type Number
          * @default 0
          */
@@ -80,6 +83,8 @@ define(['jxg', 'math/math'], function (JXG) {
 
         /**
          * Imaginary part of the complex number.
+         *
+         * @property imaginary
          * @type Number
          * @default 0
          */
@@ -87,12 +92,16 @@ define(['jxg', 'math/math'], function (JXG) {
 
         /**
          * Absolute value in the polar form of the complex number. Currently unused.
+         *
+         * @property absval
          * @type Number
          */
         this.absval = 0;
 
         /**
          * Angle value in the polar form of the complex number. Currently unused.
+         *
+         * @property angle
          * @type Number
          */
         this.angle = 0;
@@ -101,7 +110,9 @@ define(['jxg', 'math/math'], function (JXG) {
     JXG.extend(JXG.Complex.prototype, /** @lends JXG.Complex.prototype */ {
         /**
          * Converts a complex number into a string.
-         * @returns {String} Formatted string containing the complex number in human readable form (algebraic form).
+         *
+         * @method toString
+         * @return {String} Formatted string containing the complex number in human readable form (algebraic form).
          */
         toString: function () {
             return this.real + ' + ' + this.imaginary + 'i';
@@ -109,8 +120,11 @@ define(['jxg', 'math/math'], function (JXG) {
 
         /**
          * Add another complex number to this complex number.
-         * @param {JXG.Complex,Number} c A JavaScript number or a JXG.Complex object to be added to the current object.
-         * @returns {JXG.Complex} Reference to this complex number
+         *
+         * @method add
+         * @param {JXG.Complex|Number} c A JavaScript number or a JXG.Complex object to be added to the current object.
+         * @return {JXG.Complex} Reference to this complex number
+         * @chainable
          */
         add: function (c) {
             if (typeof c === 'number') {
@@ -125,8 +139,11 @@ define(['jxg', 'math/math'], function (JXG) {
 
         /**
          * Subtract another complex number from this complex number.
-         * @param {JXG.Complex,Number} c A JavaScript number or a JXG.Complex object to subtract from the current object.
-         * @returns {JXG.Complex} Reference to this complex number
+         *
+         * @method sub
+         * @param {JXG.Complex|Number} c A JavaScript number or a JXG.Complex object to subtract from the current object.
+         * @return {JXG.Complex} Reference to this complex number
+         * @chainable
          */
         sub: function (c) {
             if (typeof c === 'number') {
@@ -141,9 +158,12 @@ define(['jxg', 'math/math'], function (JXG) {
 
         /**
          * Multiply another complex number to this complex number.
-         * @param {JXG.Complex,Number} c A JavaScript number or a JXG.Complex object to
+         *
+         * @method mult
+         * @param {JXG.Complex|Number} c A JavaScript number or a JXG.Complex object to
          * multiply with the current object.
-         * @returns {JXG.Complex} Reference to this complex number
+         * @return {JXG.Complex} Reference to this complex number
+         * @chainable
          */
         mult: function (c) {
             var re, im;
@@ -165,9 +185,12 @@ define(['jxg', 'math/math'], function (JXG) {
 
         /**
          * Divide this complex number by the given complex number.
-         * @param {JXG.Complex,Number} c A JavaScript number or a JXG.Complex object to
+         *
+         * @method div
+         * @param {JXG.Complex|Number} c A JavaScript number or a JXG.Complex object to
          * divide the current object by.
          * @returns {JXG.Complex} Reference to this complex number
+         * @chainable
          */
         div: function (c) {
             var denom, im, re;
@@ -204,7 +227,10 @@ define(['jxg', 'math/math'], function (JXG) {
 
         /**
          * Conjugate a complex number in place.
-         * @returns {JXG.Complex} Reference to this complex number
+         *
+         * @method conj
+         * @return {JXG.Complex} Reference to this complex number
+         * @chainable
          */
         conj: function () {
             this.imaginary *= -1;
@@ -214,27 +240,34 @@ define(['jxg', 'math/math'], function (JXG) {
     });
 
     /**
-     * @description
      * JXG.C is the complex number (name)space. It provides functions to calculate with
      * complex numbers (defined in {@link JXG.Complex}). With this namespace you don't have to modify
      * your existing complex numbers, e.g. to add two complex numbers:
-     * <pre class="code">   var z1 = new JXG.Complex(1, 0);
-     *    var z2 = new JXG.Complex(0, 1);
-     *    z = JXG.C.add(z1, z1);</pre>
+     *
+     *     var z1 = new JXG.Complex(1, 0);
+     *     var z2 = new JXG.Complex(0, 1);
+     *     z = JXG.C.add(z1, z1);
+     *
      * z1 and z2 here remain unmodified. With the object oriented approach above this
      * section the code would look like:
-     * <pre class="code">   var z1 = new JXG.Complex(1, 0);
-     *    var z2 = new JXG.Complex(0, 1);
-     *    var z = new JXG.Complex(z1);
-     *    z.add(z2);</pre>
-     * @namespace Namespace for the complex number arithmetic functions.
+     *
+     *     var z1 = new JXG.Complex(1, 0);
+     *     var z2 = new JXG.Complex(0, 1);
+     *     var z = new JXG.Complex(z1);
+     *     z.add(z2);
+     *
+     * @class JXG.C
+     * @static
+     *
      */
     JXG.C = {};
 
     /**
      * Add two (complex) numbers z1 and z2 and return the result as a (complex) number.
-     * @param {JXG.Complex,Number} z1 Summand
-     * @param {JXG.Complex,Number} z2 Summand
+     *
+     * @method add
+     * @param {JXG.Complex|Number} z1 Summand
+     * @param {JXG.Complex|Number} z2 Summand
      * @returns {JXG.Complex} A complex number equal to the sum of the given parameters.
      */
     JXG.C.add = function (z1, z2) {
@@ -245,8 +278,10 @@ define(['jxg', 'math/math'], function (JXG) {
 
     /**
      * Subtract two (complex) numbers z1 and z2 and return the result as a (complex) number.
-     * @param {JXG.Complex,Number} z1 Minuend
-     * @param {JXG.Complex,Number} z2 Subtrahend
+     *
+     * @method sub
+     * @param {JXG.Complex|Number} z1 Minuend
+     * @param {JXG.Complex|Number} z2 Subtrahend
      * @returns {JXG.Complex} A complex number equal to the difference of the given parameters.
      */
     JXG.C.sub = function (z1, z2) {
@@ -257,8 +292,10 @@ define(['jxg', 'math/math'], function (JXG) {
 
     /**
      * Multiply two (complex) numbers z1 and z2 and return the result as a (complex) number.
-     * @param {JXG.Complex,Number} z1 Factor
-     * @param {JXG.Complex,Number} z2 Factor
+     *
+     * @method mult
+     * @param {JXG.Complex|Number} z1 Factor
+     * @param {JXG.Complex|Number} z2 Factor
      * @returns {JXG.Complex} A complex number equal to the product of the given parameters.
      */
     JXG.C.mult = function (z1, z2) {
@@ -269,8 +306,10 @@ define(['jxg', 'math/math'], function (JXG) {
 
     /**
      * Divide two (complex) numbers z1 and z2 and return the result as a (complex) number.
-     * @param {JXG.Complex,Number} z1 Dividend
-     * @param {JXG.Complex,Number} z2 Divisor
+     *
+     * @method div
+     * @param {JXG.Complex|Number} z1 Dividend
+     * @param {JXG.Complex|Number} z2 Divisor
      * @returns {JXG.Complex} A complex number equal to the quotient of the given parameters.
      */
     JXG.C.div = function (z1, z2) {
@@ -281,7 +320,9 @@ define(['jxg', 'math/math'], function (JXG) {
 
     /**
      * Conjugate a complex number and return the result.
-     * @param {JXG.Complex,Number} z1 Complex number
+     *
+     * @method conj
+     * @param {JXG.Complex|Number} z1 Complex number
      * @returns {JXG.Complex} A complex number equal to the conjugate of the given parameter.
      */
     JXG.C.conj = function (z1) {
@@ -292,7 +333,9 @@ define(['jxg', 'math/math'], function (JXG) {
 
     /**
      * Absolute value of a complex number.
-     * @param {JXG.Complex,Number} z1 Complex number
+     *
+     * @method abs
+     * @param {JXG.Complex|Number} z1 Complex number
      * @returns {Number} real number equal to the absolute value of the given parameter.
      */
     JXG.C.abs = function (z1) {

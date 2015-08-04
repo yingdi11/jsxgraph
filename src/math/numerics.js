@@ -38,8 +38,7 @@
  */
 
 /**
- * @fileoverview In this file the namespace Math.Numerics is defined, which holds numerical
- * algorithms for solving linear equations etc.
+ * @fileoverview
  */
 
 define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
@@ -80,8 +79,9 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
 
     /**
      * The JXG.Math.Numerics namespace holds numerical algorithms, constants, and variables.
-     * @name JXG.Math.Numerics
-     * @namespace
+     *
+     * @class JXG.Math.Numerics
+     * @static
      */
     Mat.Numerics = {
 
@@ -89,10 +89,12 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
         /**
          * Solves a system of linear equations given by A and b using the Gauss-Jordan-elimination.
          * The algorithm runs in-place. I.e. the entries of A and b are changed.
+         *
+         * @method Gauss
          * @param {Array} A Square matrix represented by an array of rows, containing the coefficients of the lineare equation system.
          * @param {Array} b A vector containing the linear equation system's right hand side.
          * @throws {Error} If a non-square-matrix is given or if b has not the right length or A's rank is not full.
-         * @returns {Array} A vector that solves the linear equation system.
+         * @return {Array} A vector that solves the linear equation system.
          * @memberof JXG.Math.Numerics
          */
         Gauss: function (A, b) {
@@ -154,6 +156,8 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
 
         /**
          * Solves a system of linear equations given by the right triangular matrix R and vector b.
+         *
+         * @method backwardSolve
          * @param {Array} R Right triangular matrix represented by an array of rows. All entries a_(i,j) with i &lt; j are ignored.
          * @param {Array} b Right hand side of the linear equation system.
          * @param {Boolean} [canModify=false] If true, the right hand side vector is allowed to be changed by this method.
@@ -185,7 +189,6 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
         },
 
         /**
-         * @private
          * Gauss-Bareiss algorithm to compute the
          * determinant of matrix without fractions.
          * See Henri Cohen, "A Course in Computational
@@ -194,6 +197,11 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
          * ISBN 3-540-55640-0 / 0-387-55640-0
          * Third, Corrected Printing 1996
          * "Algorithm 2.2.6", pg. 52-53
+         *
+         * @method gaussBareiss
+         * @param {Array} mat Matrix
+         * @return {Number} Determinant of matrix mat
+         * @private
          * @memberof JXG.Math.Numerics
          */
         gaussBareiss: function (mat) {
@@ -263,8 +271,10 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
         /**
          * Computes the determinant of a square nxn matrix with the
          * Gauss-Bareiss algorithm.
+         *
+         * @method det
          * @param {Array} mat Matrix.
-         * @returns {Number} The determinant pf the matrix mat.
+         * @return {Number} The determinant pf the matrix mat.
          *                   The empty matrix returns 0.
          * @memberof JXG.Math.Numerics
          */
@@ -281,8 +291,10 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
         /**
          * Compute the Eigenvalues and Eigenvectors of a symmetric 3x3 matrix with the Jacobi method
          * Adaption of a FORTRAN program by Ed Wilson, Dec. 25, 1990
+         *
+         * @method Jacobi
          * @param {Array} Ain A symmetric 3x3 matrix.
-         * @returns {Array} [A,V] the matrices A and V. The diagonal of A contains the Eigenvalues, V contains the Eigenvectors.
+         * @return {Array} [A,V] the matrices A and V. The diagonal of A contains the Eigenvalues, V contains the Eigenvectors.
          * @memberof JXG.Math.Numerics
          */
         Jacobi: function (Ain) {
@@ -375,30 +387,32 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
         },
 
         /**
-         * Calculates the integral of function f over interval using Newton-Cotes-algorithm.
+         * Calculates the integral of function f over interval using Newton-Cotes-algorithm
+         *
+         * @method NewtonCotes
          * @param {Array} interval The integration interval, e.g. [0, 3].
          * @param {function} f A function which takes one argument of type number and returns a number.
          * @param {Object} [config] The algorithm setup. Accepted properties are number_of_nodes of type number and integration_type
          * with value being either 'trapez', 'simpson', or 'milne'.
          * @param {Number} [config.number_of_nodes=28]
          * @param {String} [config.integration_type='milne'] Possible values are 'milne', 'simpson', 'trapez'
-         * @returns {Number} Integral value of f over interval
+         * @return {Number} Integral value of f over interval
          * @throws {Error} If config.number_of_nodes doesn't match config.integration_type an exception is thrown. If you want to use
          * simpson rule respectively milne rule config.number_of_nodes must be dividable by 2 respectively 4.
          * @example
-         * function f(x) {
-         *   return x*x;
-         * }
+         *     function f(x) {
+         *         return x*x;
+         *     }
          *
-         * // calculates integral of <tt>f</tt> from 0 to 2.
-         * var area1 = JXG.Math.Numerics.NewtonCotes([0, 2], f);
+         *     // calculates integral of <tt>f</tt> from 0 to 2.
+         *     var area1 = JXG.Math.Numerics.NewtonCotes([0, 2], f);
          *
-         * // the same with an anonymous function
-         * var area2 = JXG.Math.Numerics.NewtonCotes([0, 2], function (x) { return x*x; });
+         *     // the same with an anonymous function
+         *     var area2 = JXG.Math.Numerics.NewtonCotes([0, 2], function (x) { return x*x; });
          *
-         * // use trapez rule with 16 nodes
-         * var area3 = JXG.Math.Numerics.NewtonCotes([0, 2], f,
-         *                                   {number_of_nodes: 16, integration_type: 'trapez'});
+         *     // use trapez rule with 16 nodes
+         *     var area3 = JXG.Math.Numerics.NewtonCotes([0, 2], f,
+         *                        {number_of_nodes: 16, integration_type: 'trapez'});
          * @memberof JXG.Math.Numerics
          */
         NewtonCotes: function (interval, f, config) {
@@ -479,25 +493,27 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
 
        /**
          * Calculates the integral of function f over interval using Romberg iteration.
+         *
+         * @method Romberg
          * @param {Array} interval The integration interval, e.g. [0, 3].
          * @param {function} f A function which takes one argument of type number and returns a number.
          * @param {Object} [config] The algorithm setup. Accepted properties are max_iterations of type number and precision eps.
          * @param {Number} [config.max_iterations=20]
          * @param {Number} [config.eps=0.0000001]
-         * @returns {Number} Integral value of f over interval
+         * @return {Number} Integral value of f over interval
          * @example
-         * function f(x) {
-         *   return x*x;
-         * }
+         *     function f(x) {
+         *         return x*x;
+         *     }
          *
-         * // calculates integral of <tt>f</tt> from 0 to 2.
-         * var area1 = JXG.Math.Numerics.Romberg([0, 2], f);
+         *     // calculates integral of <tt>f</tt> from 0 to 2.
+         *     var area1 = JXG.Math.Numerics.Romberg([0, 2], f);
          *
-         * // the same with an anonymous function
-         * var area2 = JXG.Math.Numerics.Romberg([0, 2], function (x) { return x*x; });
+         *     // the same with an anonymous function
+         *     var area2 = JXG.Math.Numerics.Romberg([0, 2], function (x) { return x*x; });
          *
-         * // use trapez rule with maximum of 16 iterations or stop if the precision 0.0001 has been reached.
-         * var area3 = JXG.Math.Numerics.Romberg([0, 2], f,
+         *     // use trapez rule with maximum of 16 iterations or stop if the precision 0.0001 has been reached.
+         *     var area3 = JXG.Math.Numerics.Romberg([0, 2], f,
          *                                   {max_iterations: 16, eps: 0.0001});
          * @memberof JXG.Math.Numerics
          */
@@ -547,25 +563,27 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
 
        /**
          * Calculates the integral of function f over interval using Gauss-Legendre quadrature.
+         *
+         * @method GaussLegendre
          * @param {Array} interval The integration interval, e.g. [0, 3].
          * @param {function} f A function which takes one argument of type number and returns a number.
          * @param {Object} [config] The algorithm setup. Accepted property is the order n of type number. n is allowed to take
          * values between 2 and 18, default value is 12.
          * @param {Number} [config.n=16]
-         * @returns {Number} Integral value of f over interval
+         * @return {Number} Integral value of f over interval
          * @example
-         * function f(x) {
-         *   return x*x;
-         * }
+         *     function f(x) {
+         *         return x*x;
+         *     }
          *
-         * // calculates integral of <tt>f</tt> from 0 to 2.
-         * var area1 = JXG.Math.Numerics.GaussLegendre([0, 2], f);
+         *     // calculates integral of <tt>f</tt> from 0 to 2.
+         *     var area1 = JXG.Math.Numerics.GaussLegendre([0, 2], f);
          *
-         * // the same with an anonymous function
-         * var area2 = JXG.Math.Numerics.GaussLegendre([0, 2], function (x) { return x*x; });
+         *     // the same with an anonymous function
+         *     var area2 = JXG.Math.Numerics.GaussLegendre([0, 2], function (x) { return x*x; });
          *
-         * // use 16 point Gauss-Legendre rule.
-         * var area3 = JXG.Math.Numerics.GaussLegendre([0, 2], f,
+         *     // use 16 point Gauss-Legendre rule.
+         *     var area3 = JXG.Math.Numerics.GaussLegendre([0, 2], f,
          *                                   {n: 16});
          * @memberof JXG.Math.Numerics
          */
@@ -714,6 +732,8 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
          * Generic Gauss-Kronrod quadrature algorithm.
          * Internal method used in {@link #GaussKronrod15}, {@link #GaussKronrod21}, {@link #GaussKronrod31}.
          * Taken from QUADPACK.
+         *
+         * @method _gaussKonrod
          * @param {Array} interval The integration interval, e.g. [0, 3].
          * @param {function} f A function which takes one argument of type number and returns a number.
          * @param {Number} n order
@@ -723,7 +743,7 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
          * @param {Object} resultObj Object returning resultObj.abserr, resultObj.resabs, resultObj.resasc. See the library
          *  QUADPACK for an explanation.
          *
-         * @returns {Number} Integral value of f over interval
+         * @return {Number} Integral value of f over interval
          *
          * @private
          * @memberof JXG.Math.Numerics
@@ -805,12 +825,18 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
 
         /**
          * 15 point Gauss-Kronrod quadrature algorithm, see the library QUADPACK
+         *
+         * Gauss quadrature weights and kronrod quadrature abscissae and
+         * weights as evaluated with 80 decimal digit arithmetic by
+         * L. W. Fullerton, Bell Labs, Nov. 1981.
+         *
+         * @method GaussKronrod15
          * @param {Array} interval The integration interval, e.g. [0, 3].
          * @param {function} f A function which takes one argument of type number and returns a number.
          * @param {Object} resultObj Object returning resultObj.abserr, resultObj.resabs, resultObj.resasc. See the library
          *  QUADPACK for an explanation.
          *
-         * @returns {Number} Integral value of f over interval
+         * @return {Number} Integral value of f over interval
          *
          * @memberof JXG.Math.Numerics
          */
@@ -859,19 +885,23 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
 
         /**
          * 21 point Gauss-Kronrod quadrature algorithm, see the library QUADPACK
+         *
+         * Gauss quadrature weights and kronrod quadrature abscissae and
+         * weights as evaluated with 80 decimal digit arithmetic by
+         * L. W. Fullerton, Bell Labs, Nov. 1981.
+         *
+         * @method GaussKronrod21
          * @param {Array} interval The integration interval, e.g. [0, 3].
          * @param {function} f A function which takes one argument of type number and returns a number.
          * @param {Object} resultObj Object returning resultObj.abserr, resultObj.resabs, resultObj.resasc. See the library
          *  QUADPACK for an explanation.
          *
-         * @returns {Number} Integral value of f over interval
+         * @return {Number} Integral value of f over interval
          *
          * @memberof JXG.Math.Numerics
          */
         GaussKronrod21: function (interval, f, resultObj) {
-            /* Gauss quadrature weights and kronrod quadrature abscissae and
-                weights as evaluated with 80 decimal digit arithmetic by
-                L. W. Fullerton, Bell Labs, Nov. 1981. */
+            /*  */
 
             var xgk =   /* abscissae of the 21-point kronrod rule */
                     [
@@ -919,6 +949,12 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
 
         /**
          * 31 point Gauss-Kronrod quadrature algorithm, see the library QUADPACK
+         *
+         * Gauss quadrature weights and kronrod quadrature abscissae and
+         * weights as evaluated with 80 decimal digit arithmetic by
+         * L. W. Fullerton, Bell Labs, Nov. 1981.
+         *
+         * @method GaussKronrod31
          * @param {Array} interval The integration interval, e.g. [0, 3].
          * @param {function} f A function which takes one argument of type number and returns a number.
          * @param {Object} resultObj Object returning resultObj.abserr, resultObj.resabs, resultObj.resasc. See the library
@@ -992,9 +1028,11 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
 
         /**
          * Generate workspace object for {@link #Qag}.
+         *
+         * @method _workspace
          * @param {Array} interval The integration interval, e.g. [0, 3].
          * @param {Number} n Max. limit
-         * @returns {Object} Workspace object
+         * @return {Object} Workspace object
          *
          * @private
          * @memberof JXG.Math.Numerics
@@ -1159,6 +1197,8 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
         /**
          * Quadrature algorithm qag from QUADPACK.
          * Internal method used in {@link #GaussKronrod15}, {@link #GaussKronrod21}, {@link #GaussKronrod31}.
+         *
+         * @method Qag
          * @param {Array} interval The integration interval, e.g. [0, 3].
          * @param {function} f A function which takes one argument of type number and returns a number.
          * @param {Object} [config] The algorithm setup. Accepted propert are max. recursion limit of type number,
@@ -1168,21 +1208,21 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
          * @param {Number} [config.epsrel=0.0000001]
          * @param {Number} [config.epsabs=0.0000001]
          * @param {Number} [config.q=JXG.Math.Numerics.GaussKronrod15]
-         * @returns {Number} Integral value of f over interval
+         * @return {Number} Integral value of f over interval
          *
          * @example
-         * function f(x) {
-         *   return x*x;
-         * }
+         *     function f(x) {
+         *         return x*x;
+         *     }
          *
-         * // calculates integral of <tt>f</tt> from 0 to 2.
-         * var area1 = JXG.Math.Numerics.Qag([0, 2], f);
+         *     // calculates integral of <tt>f</tt> from 0 to 2.
+         *     var area1 = JXG.Math.Numerics.Qag([0, 2], f);
          *
-         * // the same with an anonymous function
-         * var area2 = JXG.Math.Numerics.Qag([0, 2], function (x) { return x*x; });
+         *     // the same with an anonymous function
+         *     var area2 = JXG.Math.Numerics.Qag([0, 2], function (x) { return x*x; });
          *
-         * // use JXG.Math.Numerics.GaussKronrod31 rule as sub-algorithm.
-         * var area3 = JXG.Math.Numerics.Quag([0, 2], f,
+         *     // use JXG.Math.Numerics.GaussKronrod31 rule as sub-algorithm.
+         *     var area3 = JXG.Math.Numerics.Quag([0, 2], f,
          *                                   {q: JXG.Math.Numerics.GaussKronrod31});
          * @memberof JXG.Math.Numerics
          */
@@ -1361,6 +1401,8 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
 
         /**
          * Integral of function f over interval.
+         *
+         * @method I
          * @param {Array} interval The integration interval, e.g. [0, 3].
          * @param {function} f A function which takes one argument of type number and returns a number.
          * @returns {Number} The value of the integral of f over interval
@@ -1377,11 +1419,13 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
 
         /**
          * Newton's method to find roots of a funtion in one variable.
+         *
+         * @method Newton
          * @param {function} f We search for a solution of f(x)=0.
          * @param {Number} x initial guess for the root, i.e. start value.
          * @param {Object} context optional object that is treated as "this" in the function body. This is useful if
          * the function is a method of an object and contains a reference to its parent object via "this".
-         * @returns {Number} A root of the function f.
+         * @return {Number} A root of the function f.
          * @memberof JXG.Math.Numerics
          */
         Newton: function (f, x, context) {
@@ -1416,11 +1460,13 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
 
         /**
          * Abstract method to find roots of univariate functions.
+         *
+         * @method root
          * @param {function} f We search for a solution of f(x)=0.
          * @param {Number} x initial guess for the root, i.e. starting value.
          * @param {Object} context optional object that is treated as "this" in the function body. This is useful if
          * the function is a method of an object and contains a reference to its parent object via "this".
-         * @returns {Number} A root of the function f.
+         * @return {Number} A root of the function f.
          * @memberof JXG.Math.Numerics
          */
         root: function (f, x, context) {
@@ -1456,11 +1502,12 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
          * After stopping of the Newton algorithm the values of t1 and t2 are stored in
          * t1memo and t2memo.
          *
+         * @method generalizedNewton
          * @param {JXG.Curve} c1 Curve, Line or Circle
          * @param {JXG.Curve} c2 Curve, Line or Circle
          * @param {Number} t1ini start value for t1
          * @param {Number} t2ini start value for t2
-         * @returns {JXG.Coords} intersection point
+         * @return {JXG.Coords} intersection point
          * @memberof JXG.Math.Numerics
          */
         generalizedNewton: function (c1, c2, t1ini, t2ini) {
@@ -1517,8 +1564,10 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
          * Jean-Paul Berrut, Lloyd N. Trefethen: Barycentric Lagrange Interpolation,
          * SIAM Review, Vol 46, No 3, (2004) 501-517.
          * The graph of the parametric curve [x(t),y(t)] runs through the given points.
+         *
+         * @method Neville
          * @param {Array} p Array of JXG.Points
-         * @returns {Array} An array consisting of two functions x(t), y(t) which define a parametric curve
+         * @return {Array} An array consisting of two functions x(t), y(t) which define a parametric curve
          * f(t) = (x(t), y(t)) and two numbers x1 and x2 defining the curve's domain. x1 always equals zero.
          * @memberof JXG.Math.Numerics
          */
@@ -1567,9 +1616,11 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
 
         /**
          * Calculates second derivatives at the given knots.
+         *
+         * @method splineDef
          * @param {Array} x x values of knots
          * @param {Array} y y values of knots
-         * @returns {Array} Second derivatives of the interpolated function at the knots.
+         * @return {Array} Second derivatives of the interpolated function at the knots.
          * @see #splineEval
          * @memberof JXG.Math.Numerics
          */
@@ -1636,12 +1687,14 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
 
         /**
          * Evaluate points on spline.
-         * @param {Number,Array} x0 A single float value or an array of values to evaluate
+         *
+         * @method splineEval
+         * @param {Number|Array} x0 A single float value or an array of values to evaluate
          * @param {Array} x x values of knots
          * @param {Array} y y values of knots
          * @param {Array} F Second derivatives at knots, calculated by {@link #splineDef}
          * @see #splineDef
-         * @returns {Number,Array} A single value or an array, depending on what is given as x0.
+         * @return {Number|Array} A single value or an array, depending on what is given as x0.
          * @memberof JXG.Math.Numerics
          */
         splineEval: function (x0, x, y, F) {
@@ -1695,6 +1748,8 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
 
         /**
          * Generate a string containing the function term of a polynomial.
+         *
+         * @method generatePolynomialTerm
          * @param {Array} coeffs Coefficients of the polynomial. The position i belongs to x^i.
          * @param {Number} deg Degree of the polynomial
          * @param {String} varname Name of the variable (usually 'x')
@@ -1723,8 +1778,10 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
          * Returns the Lagrange polynomials, see
          * Jean-Paul Berrut, Lloyd N. Trefethen: Barycentric Lagrange Interpolation,
          * SIAM Review, Vol 46, No 3, (2004) 501-517.
+         *
+         * @method lagrangePolynomial
          * @param {Array} p Array of JXG.Points
-         * @returns {function} A function of one parameter which returns the value of the polynomial, whose graph runs through the given points.
+         * @return {function} A function of one parameter which returns the value of the polynomial, whose graph runs through the given points.
          * @memberof JXG.Math.Numerics
          */
         lagrangePolynomial: function (p) {
@@ -1783,10 +1840,12 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
          * Computes the cubic cardinal spline curve through a given set of points. The curve
          * is uniformly parametrized.
          * Two artificial control points at the beginning and the end are added.
+         *
+         * @method CardinalSpline
          * @param {Array} points Array consisting of JXG.Points.
          * @param {Number|Function} tau The tension parameter, either a constant number or a function returning a number. This number is between 0 and 1.
          * tau=1/2 give Catmull-Rom splines.
-         * @returns {Array} An Array consisting of four components: Two functions each of one parameter t
+         * @return {Array} An Array consisting of four components: Two functions each of one parameter t
          * which return the x resp. y coordinates of the Catmull-Rom-spline curve in t, a zero value, and a function simply
          * returning the length of the points array minus three.
          * @memberof JXG.Math.Numerics
@@ -1877,8 +1936,10 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
          * Computes the cubic Catmull-Rom spline curve through a given set of points. The curve
          * is uniformly parametrized. The curve is the cardinal spline curve for tau=0.5.
          * Two artificial control points at the beginning and the end are added.
+         *
+         * @method CatmullRomSpline
          * @param {Array} points Array consisting of JXG.Points.
-         * @returns {Array} An Array consisting of four components: Two functions each of one parameter t
+         * @return {Array} An Array consisting of four components: Two functions each of one parameter t
          * which return the x resp. y coordinates of the Catmull-Rom-spline curve in t, a zero value, and a function simply
          * returning the length of the points array minus three.
          * @memberof JXG.Math.Numerics
@@ -1890,12 +1951,14 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
         /**
          * Computes the regression polynomial of a given degree through a given set of coordinates.
          * Returns the regression polynomial function.
-         * @param {Number,function,Slider} degree number, function or slider.
+         *
+         * @method regressionPolynomial
+         * @param {Number|Function|JXG.Slider} degree number, function or slider.
          * Either
          * @param {Array} dataX Array containing either the x-coordinates of the data set or both coordinates in
          * an array of {@link JXG.Point}s or {@link JXG.Coords}. In the latter case, the <tt>dataY</tt> parameter will be ignored.
          * @param {Array} dataY Array containing the y-coordinates of the data set,
-         * @returns {function} A function of one parameter which returns the value of the regression polynomial of the given degree.
+         * @return {Function} A function of one parameter which returns the value of the regression polynomial of the given degree.
          * It possesses the method getTerm() which returns the string containing the function term of the polynomial.
          * @memberof JXG.Math.Numerics
          */
@@ -2023,10 +2086,12 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
 
         /**
          * Computes the cubic Bezier curve through a given set of points.
+         *
+         * @method bezier
          * @param {Array} points Array consisting of 3*k+1 {@link JXG.Points}.
          * The points at position k with k mod 3 = 0 are the data points,
          * points at position k with k mod 3 = 1 or 2 are the control points.
-         * @returns {Array} An array consisting of two functions of one parameter t which return the
+         * @return {Array} An array consisting of two functions of one parameter t which return the
          * x resp. y coordinates of the Bezier curve in t, one zero value, and a third function accepting
          * no parameters and returning one third of the length of the points.
          * @memberof JXG.Math.Numerics
@@ -2069,6 +2134,8 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
 
         /**
          * Computes the B-spline curve of order k (order = degree+1) through a given set of points.
+         *
+         * @method bspline
          * @param {Array} points Array consisting of JXG.Points.
          * @param {Number} order Order of the B-spline curve.
          * @returns {Array} An Array consisting of four components: Two functions each of one parameter t
@@ -2184,10 +2251,12 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
         /**
          * Numerical (symmetric) approximation of derivative. suspendUpdate is piped through, see {@link JXG.Curve#updateCurve}
          * and {@link JXG.Curve#hasPoint}.
-         * @param {function} f Function in one variable to be differentiated.
-         * @param {object} [obj] Optional object that is treated as "this" in the function body. This is useful, if the function is a
+         *
+         * @method D
+         * @param {Function} f Function in one variable to be differentiated.
+         * @param {Object} [obj] Optional object that is treated as "this" in the function body. This is useful, if the function is a
          * method of an object and contains a reference to its parent object via "this".
-         * @returns {function} Derivative function of a given function f.
+         * @returns {Function} Derivative function of a given function f.
          * @memberof JXG.Math.Numerics
          */
         D: function (f, obj) {
@@ -2207,12 +2276,14 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
 
         /**
          * Evaluate the function term for {@see #riemann}.
+         *
+         * @method _riemannValue
          * @private
          * @param {Number} x function argument
          * @param {function} f JavaScript function returning a number
          * @param {String} type Name of the Riemann sum type, e.g. 'lower', see {@see #riemann}.
          * @param {Number} delta Width of the bars in user coordinates
-         * @returns {Number} Upper (delta > 0) or lower (delta < 0) value of the bar containing x of the Riemann sum.
+         * @return {Number} Upper (delta > 0) or lower (delta < 0) value of the bar containing x of the Riemann sum.
          *
          * @memberof JXG.Math.Numerics
          */
@@ -2282,6 +2353,8 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
         /**
          * Helper function to create curve which displays Riemann sums.
          * Compute coordinates for the rectangles showing the Riemann sum.
+         *
+         * @method riemann
          * @param {Function,Array} f Function or array of two functions.
          * If f is a function the integral of this function is approximated by the Riemann sum.
          * If f is an array consisting of two functions the area between the two functions is filled
@@ -2290,7 +2363,7 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
          * @param {String} type Type of approximation. Possible values are: 'left', 'right', 'middle', 'lower', 'upper', 'random', 'simpson', or 'trapezoidal'.
          * @param {Number} start Left border of the approximation interval
          * @param {Number} end Right border of the approximation interval
-         * @returns {Array} An array of two arrays containing the x and y coordinates for the rectangles showing the Riemann sum. This
+         * @return {Array} An array of two arrays containing the x and y coordinates for the rectangles showing the Riemann sum. This
          * array may be used as parent array of a {@link JXG.Curve}. The third parameteris the riemann sum, i.e. the sum of the volumes of all
          * rectangles.
          * @memberof JXG.Math.Numerics
@@ -2383,6 +2456,8 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
         /**
          * Approximate the integral by Riemann sums.
          * Compute the area described by the riemann sum rectangles.
+         *
+         * @method riemannsum
          * @deprecated Replaced by JXG.Curve.Value(), see {@link JXG.Curve#riemannsum}
          * @param {Function_Array} f Function or array of two functions.
          * If f is a function the integral of this function is approximated by the Riemann sum.
@@ -2404,6 +2479,8 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
         /**
          * Solve initial value problems numerically using Runge-Kutta-methods.
          * See {@link http://en.wikipedia.org/wiki/Runge-Kutta_methods} for more information on the algorithm.
+         *
+         * @method rungeKutta
          * @param {object,String} butcher Butcher tableau describing the Runge-Kutta method to use. This can be either a string describing
          * a Runge-Kutta method with a Butcher tableau predefined in JSXGraph like 'euler', 'heun', 'rk4' or an object providing the structure
          * <pre>
@@ -2423,25 +2500,25 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
          * vector <tt>x</tt>, and has to return a vector of the same dimension as <tt>x</tt> has.
          * @returns {Array} An array of vectors describing the solution of the ode on the given interval I.
          * @example
-         * // A very simple autonomous system dx(t)/dt = x(t);
-         * function f(t, x) {
-         *     return x;
-         * }
+         *     // A very simple autonomous system dx(t)/dt = x(t);
+         *     function f(t, x) {
+         *         return x;
+         *     }
          *
-         * // Solve it with initial value x(0) = 1 on the interval [0, 2]
-         * // with 20 evaluation points.
-         * var data = JXG.Math.Numerics.rungeKutta('heun', [1], [0, 2], 20, f);
+         *     // Solve it with initial value x(0) = 1 on the interval [0, 2]
+         *     // with 20 evaluation points.
+         *     var data = JXG.Math.Numerics.rungeKutta('heun', [1], [0, 2], 20, f);
          *
-         * // Prepare data for plotting the solution of the ode using a curve.
-         * var dataX = [];
-         * var dataY = [];
-         * var h = 0.1;        // (I[1] - I[0])/N  = (2-0)/20
-         * for(var i=0; i&lt;data.length; i++) {
-         *     dataX[i] = i*h;
-         *     dataY[i] = data[i][0];
-         * }
-         * var g = board.create('curve', [dataX, dataY], {strokeWidth:'2px'});
-         * </pre><div id="d2432d04-4ef7-4159-a90b-a2eb8d38c4f6" style="width: 300px; height: 300px;"></div>
+         *     // Prepare data for plotting the solution of the ode using a curve.
+         *     var dataX = [];
+         *     var dataY = [];
+         *     var h = 0.1;        // (I[1] - I[0])/N  = (2-0)/20
+         *     for(var i=0; i&lt;data.length; i++) {
+         *         dataX[i] = i*h;
+         *         dataY[i] = data[i][0];
+         *     }
+         *     var g = board.create('curve', [dataX, dataY], {strokeWidth:'2px'});
+         * <div id="d2432d04-4ef7-4159-a90b-a2eb8d38c4f6" style="width: 300px; height: 300px;"></div>
          * <script type="text/javascript">
          * var board = JXG.JSXGraph.initBoard('d2432d04-4ef7-4159-a90b-a2eb8d38c4f6', {boundingbox: [-1, 5, 5, -1], axis: true, showcopyright: false, shownavigation: false});
          * function f(t, x) {
@@ -2458,7 +2535,7 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
          *     dataY[i] = data[i][0];
          * }
          * var g = board.create('curve', [dataX, dataY], {strokeColor:'red', strokeWidth:'2px'});
-         * </script><pre>
+         * </script>
          * @memberof JXG.Math.Numerics
          */
         rungeKutta: function (butcher, x0, I, N, f) {
@@ -2538,6 +2615,8 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
 
         /**
          * Maximum number of iterations in {@link JXG.Math.Numerics#fzero}
+         *
+         * @property
          * @type Number
          * @default 80
          * @memberof JXG.Math.Numerics
@@ -2546,6 +2625,8 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
 
         /**
          * Maximum number of iterations in {@link JXG.Math.Numerics#fminbr}
+         *
+         * @property
          * @type Number
          * @default 500
          * @memberof JXG.Math.Numerics
@@ -2555,11 +2636,9 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
         /**
          *
          * Find zero of an univariate function f.
-         * @param {function} f Function, whose root is to be found
-         * @param {Array,Number} x0  Start value or start interval enclosing the root
-         * @param {Object} object Parent object in case f is method of it
-         * @returns {Number} the approximation of the root
-         * Algorithm:
+         *
+         * *Algorithm:*
+         *
          *  G.Forsythe, M.Malcolm, C.Moler, Computer methods for mathematical
          *  computations. M., Mir, 1980, p.180 of the Russian edition
          *
@@ -2567,6 +2646,12 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
          * algorithm 748 is applied. Otherwise, if x0 is a number,
          * the algorithm tries to bracket a zero of f starting from x0.
          * If this fails, we fall back to Newton's method.
+         *
+         * @method fzero
+         * @param {function} f Function, whose root is to be found
+         * @param {Array|Number} x0  Start value or start interval enclosing the root
+         * @param {Object} object Parent object in case f is method of it
+         * @return {Number} the approximation of the root
          * @memberof JXG.Math.Numerics
          */
         fzero: function (f, x0, object) {
@@ -2738,14 +2823,17 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
         /**
          *
          * Find minimum of an univariate function f.
-         * @param {function} f Function, whose minimum is to be found
-         * @param {Array} x0  Start interval enclosing the minimum
-         * @param {Object} context Parent object in case f is method of it
-         * @returns {Number} the approximation of the minimum value position
-         * Algorithm:
+         * *Algorithm:*
+         *
          *  G.Forsythe, M.Malcolm, C.Moler, Computer methods for mathematical
          *  computations. M., Mir, 1980, p.180 of the Russian edition
          * x0
+         *
+         * @method fminbr
+         * @param {function} f Function, whose minimum is to be found
+         * @param {Array} x0  Start interval enclosing the minimum
+         * @param {Object} context Parent object in case f is method of it
+         * @return {Number} the approximation of the minimum value position
          * @memberof JXG.Math.Numerics
          **/
         fminbr: function (f, x0, context) {
@@ -2882,9 +2970,11 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
          * It discards points which are not necessary from the polygonal line defined by the point array
          * pts. The computation is done in screen coordinates.
          * Average runtime is O(nlog(n)), worst case runtime is O(n^2), where n is the number of points.
+         *
+         * @method RamerDouglasPeucker
          * @param {Array} pts Array of {@link JXG.Coords}
          * @param {Number} eps If the absolute value of a given number <tt>x</tt> is smaller than <tt>eps</tt> it is considered to be equal <tt>0</tt>.
-         * @returns {Array} An array containing points which represent an apparently identical curve as the points of pts do, but contains fewer points.
+         * @return {Array} An array containing points which represent an apparently identical curve as the points of pts do, but contains fewer points.
          * @memberof JXG.Math.Numerics
          */
         RamerDouglasPeucker: function (pts, eps) {
@@ -3020,6 +3110,8 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
 
         /**
          * Old name for the implementation of the Ramer-Douglas-Peucker algorithm.
+         *
+         * @method RamerDouglasPeuker
          * @deprecated Use {@link JXG.Math.Numerics#RamerDouglasPeucker}
          * @memberof JXG.Math.Numerics
          */

@@ -38,8 +38,7 @@
  */
 
 /**
- * @fileoverview In this file the namespace JXG.Math is defined, which is the base namespace
- * for namespaces like Math.Numerics, Math.Algebra, Math.Statistics etc.
+ * @fileoverview
  */
 
 define(['jxg', 'utils/type'], function (JXG, Type) {
@@ -81,13 +80,20 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
         };
 
     /**
-     * Math namespace.
-     * @namespace
+     * Mathematics subroutines
+     *
+     * Here, the namespace JXG.Math is defined, which is the base namespace
+     * for namespaces like Math.Numerics, Math.Algebra, Math.Statistics etc.
+     *
+     * @class JXG.Math
+     * @static
      */
     JXG.Math = {
         /**
          * eps defines the closeness to zero. If the absolute value of a given number is smaller
          * than eps, it is considered to be equal to zero.
+         *
+         * @property eps
          * @type number
          */
         eps: 0.000001,
@@ -95,9 +101,11 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
         /**
          * The JavaScript implementation of the % operator returns the symmetric modulo.
          * They are both identical if a >= 0 and m >= 0 but the results differ if a or m < 0.
+         *
+         * @method mod
          * @param {Number} a
          * @param {Number} m
-         * @returns {Number} Mathematical modulo <tt>a mod m</tt>
+         * @return {Number} Mathematical modulo <tt>a mod m</tt>
          */
         mod: function (a, m) {
             return a - Math.floor(a / m) * m;
@@ -105,10 +113,12 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
 
         /**
          * Initializes a vector as an array with the coefficients set to the given value resp. zero.
+         *
+         * @method vector
          * @param {Number} n Length of the vector
          * @param {Number} [init=0] Initial value for each coefficient
-         * @returns {Array} A <tt>n</tt> times <tt>m</tt>-matrix represented by a
-         * two-dimensional array. The inner arrays hold the columns, the outer array holds the rows.
+         * @return {Array} A vector of length n represented by a
+         * one-dimensional array.
          */
         vector: function (n, init) {
             var r, i;
@@ -125,10 +135,12 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
 
         /**
          * Initializes a matrix as an array of rows with the given value.
+         *
+         * @method matrix
          * @param {Number} n Number of rows
          * @param {Number} [m=n] Number of columns
          * @param {Number} [init=0] Initial value for each coefficient
-         * @returns {Array} A <tt>n</tt> times <tt>m</tt>-matrix represented by a
+         * @return {Array} An <tt>n</tt> times <tt>m</tt>-matrix represented by a
          * two-dimensional array. The inner arrays hold the columns, the outer array holds the rows.
          */
         matrix: function (n, m, init) {
@@ -152,9 +164,11 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
         /**
          * Generates an identity matrix. If n is a number and m is undefined or not a number, a square matrix is generated,
          * if n and m are both numbers, an nxm matrix is generated.
+         *
+         * @method identity
          * @param {Number} n Number of rows
          * @param {Number} [m=n] Number of columns
-         * @returns {Array} A square matrix of length <tt>n</tt> with all coefficients equal to 0 except a_(i,i), i out of (1, ..., n), if <tt>m</tt> is undefined or not a number
+         * @return {Array} A square matrix of length <tt>n</tt> with all coefficients equal to 0 except a_(i,i), i out of (1, ..., n), if <tt>m</tt> is undefined or not a number
          * or a <tt>n</tt> times <tt>m</tt>-matrix with a_(i,j) = 0 and a_(i,i) = 1 if m is a number.
          */
         identity: function (n, m) {
@@ -175,13 +189,15 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
 
         /**
          * Generates a 4x4 matrix for 3D to 2D projections.
+         *
+         * @method frustum
          * @param {Number} l Left
          * @param {Number} r Right
          * @param {Number} t Top
          * @param {Number} b Bottom
          * @param {Number} n Near
          * @param {Number} f Far
-         * @returns {Array} 4x4 Matrix
+         * @return {Array} 4x4 Matrix
          */
         frustum: function (l, r, b, t, n, f) {
             var ret = this.matrix(4, 4);
@@ -211,11 +227,13 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
 
         /**
          * Generates a 4x4 matrix for 3D to 2D projections.
+         *
+         * @method projection
          * @param {Number} fov Field of view in vertical direction, given in rad.
          * @param {Number} ratio Aspect ratio of the projection plane.
          * @param {Number} n Near
          * @param {Number} f Far
-         * @returns {Array} 4x4 Projection Matrix
+         * @return {Array} 4x4 Projection Matrix
          */
         projection: function (fov, ratio, n, f) {
             var t = n * Math.tan(fov / 2),
@@ -227,16 +245,18 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
         /**
          * Multiplies a vector vec to a matrix mat: mat * vec. The matrix is interpreted by this function as an array of rows. Please note: This
          * function does not check if the dimensions match.
+         *
+         * @method matVecMult
          * @param {Array} mat Two dimensional array of numbers. The inner arrays describe the columns, the outer ones the matrix' rows.
          * @param {Array} vec Array of numbers
-         * @returns {Array} Array of numbers containing the result
+         * @returns {Array} Array of numbers containing mat * vec
          * @example
-         * var A = [[2, 1],
-         *          [1, 3]],
-         *     b = [4, 5],
-         *     c;
-         * c = JXG.Math.matVecMult(A, b)
-         * // c === [13, 19];
+         *     var A = [[2, 1],
+         *   	       [1, 3]],
+         *         b = [4, 5],
+         *         c;
+         *     c = JXG.Math.matVecMult(A, b)
+         *     // c === [13, 19];
          */
         matVecMult: function (mat, vec) {
             var i, s, k,
@@ -262,9 +282,11 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
 
         /**
          * Computes the product of the two matrices mat1*mat2.
+         *
+         * @method matMatMult
          * @param {Array} mat1 Two dimensional array of numbers
          * @param {Array} mat2 Two dimensional array of numbers
-         * @returns {Array} Two dimensional Array of numbers containing result
+         * @return {Array} Two dimensional Array of numbers containing mat1 * mat2
          */
         matMatMult: function (mat1, mat2) {
             var i, j, s, k,
@@ -287,8 +309,10 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
 
         /**
          * Transposes a matrix given as a two dimensional array.
+         *
+         * @method transpose
          * @param {Array} M The matrix to be transposed
-         * @returns {Array} The transpose of M
+         * @return {Array} The transpose of M
          */
         transpose: function (M) {
             var MT, i, j,
@@ -311,8 +335,10 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
 
         /**
          * Compute the inverse of an nxn matrix with Gauss elimination.
-         * @param {Array} Ain
-         * @returns {Array} Inverse matrix of Ain
+         *
+         * @method inverse
+         * @param {Array} Ain matrix
+         * @return {Array} Inverse matrix of Ain
          */
         inverse: function (Ain) {
             var i, j, k, s, ma, r, swp,
@@ -393,10 +419,12 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
 
         /**
          * Inner product of two vectors a and b. n is the length of the vectors.
+         *
+         * @method innerProduct
          * @param {Array} a Vector
          * @param {Array} b Vector
          * @param {Number} [n] Length of the Vectors. If not given the length of the first vector is taken.
-         * @returns {Number} The inner product of a and b.
+         * @return {Number} The inner product of a and b.
          */
         innerProduct: function (a, b, n) {
             var i,
@@ -416,13 +444,14 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
         /**
          * Calculates the cross product of two vectors both of length three.
          * In case of homogeneous coordinates this is either
-         * <ul>
-         * <li>the intersection of two lines</li>
-         * <li>the line through two points</li>
-         * </ul>
+         *
+         * * the intersection of two lines
+         * * the line through two points
+         *
+         * @method crossProduct
          * @param {Array} c1 Homogeneous coordinates of line or point 1
          * @param {Array} c2 Homogeneous coordinates of line or point 2
-         * @returns {Array} vector of length 3: homogeneous coordinates of the resulting point / line.
+         * @return {Array} vector of length 3: homogeneous coordinates of the resulting point / line.
          */
         crossProduct: function (c1, c2) {
             return [c1[1] * c2[2] - c1[2] * c2[1],
@@ -433,9 +462,10 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
         /**
          * Compute the factorial of a positive integer. If a non-integer value
          * is given, the fraction will be ignored.
-         * @function
+         *
+         * @method factorial
          * @param {Number} n
-         * @returns {Number} n! = n*(n-1)*...*2*1
+         * @return {Number} n! = n * (n-1) * ... * 2 * 1
          */
         factorial: memoizer(function (n) {
             if (n < 0) {
@@ -453,10 +483,11 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
 
         /**
          * Computes the binomial coefficient n over k.
-         * @function
+         *
+         * @method binomial
          * @param {Number} n Fraction will be ignored
          * @param {Number} k Fraction will be ignored
-         * @returns {Number} The binomial coefficient n over k
+         * @return {Number} The binomial coefficient n choose k
          */
         binomial: memoizer(function (n, k) {
             var b, i;
@@ -484,8 +515,10 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
 
         /**
          * Calculates the cosine hyperbolicus of x.
+         *
+         * @method cosh
          * @param {Number} x The number the cosine hyperbolicus will be calculated of.
-         * @returns {Number} Cosine hyperbolicus of the given value.
+         * @return {Number} Cosine hyperbolicus of the given value.
          */
         cosh: function (x) {
             return (Math.exp(x) + Math.exp(-x)) * 0.5;
@@ -493,6 +526,8 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
 
         /**
          * Sine hyperbolicus of x.
+         *
+         * @method sinh
          * @param {Number} x The number the sine hyperbolicus will be calculated of.
          * @returns {Number} Sine hyperbolicus of the given value.
          */
@@ -501,10 +536,13 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
         },
 
         /**
-         * Compute base to the power of exponent.
+         * Compute base to the power of exponent. This method expands the JavaScript
+         * method Math.pow. It also works if the exponent is not an integer.
+         *
+         * @method pow
          * @param {Number} base
          * @param {Number} exponent
-         * @returns {Number} base to the power of exponent.
+         * @return {Number} base to the power of exponent.
          */
         pow: function (base, exponent) {
             if (base === 0) {
@@ -516,11 +554,9 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
             }
 
             if (Math.floor(exponent) === exponent) {
-                // a is an integer
                 return Math.pow(base, exponent);
             }
 
-            // a is not an integer
             if (base > 0) {
                 return Math.exp(exponent * Math.log(Math.abs(base)));
             }
@@ -530,17 +566,21 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
 
         /**
          * Logarithm to base 10.
+         *
+         * @method log10
          * @param {Number} x
-         * @returns {Number} log10(x) Logarithm of x to base 10.
+         * @return {Number} log10(x) Logarithm of x to base 10.
          */
         log10: function (x) {
             return Math.log(x) / Math.log(10.0);
         },
 
         /**
-         * Logarithm to base 2.
+         * Logarithm to base 2
+         *
+         * @method log2
          * @param {Number} x
-         * @returns {Number} log2(x) Logarithm of x to base 2.
+         * @return {Number} log2(x) Logarithm of x to base 2.
          */
         log2: function (x) {
             return Math.log(x) / Math.log(2.0);
@@ -548,9 +588,11 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
 
         /**
          * Logarithm to arbitrary base b. If b is not given, natural log is taken, i.e. b = e.
+         *
+         * @method log
          * @param {Number} x
          * @param {Number} b base
-         * @returns {Number} log(x, b) Logarithm of x to base b, that is log(x)/log(b).
+         * @return {Number} log(x, b) Logarithm of x to base b, that is log(x)/log(b).
          */
         log: function (x, b) {
             if (typeof b !== 'undefined' && Type.isNumber(b)) {
@@ -563,6 +605,8 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
         /**
          * A square & multiply algorithm to compute base to the power of exponent.
          * Implementated by Wolfgang Riedl.
+         *
+         * @method squampow
          * @param {Number} base
          * @param {Number} exponent
          * @returns {Number} Base to the power of exponent
@@ -595,10 +639,13 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
         },
 
         /**
-         * Normalize the standard form [c, b0, b1, a, k, r, q0, q1].
+         * Normalize the standard form [c, b0, b1, a, k, r, q0, q1] of
+         * JXG.GeometryElement
+         *
+         * @method normalize
          * @private
          * @param {Array} stdform The standard form to be normalized.
-         * @returns {Array} The normalized standard form.
+         * @return {Array} The normalized standard form.
          */
         normalize: function (stdform) {
             var n, signr,
@@ -637,8 +684,10 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
 
         /**
          * Converts a two dimensional array to a one dimensional Float32Array that can be processed by WebGL.
+         *
+         * @method toGL
          * @param {Array} m A matrix in a two dimensional array.
-         * @returns {Float32Array} A one dimensional array containing the matrix in column wise notation. Provides a fall
+         * @return {Float32Array} A one dimensional array containing the matrix in column wise notation. Provides a fall
          * back to the default JavaScript Array if Float32Array is not available.
          */
         toGL: function (m) {
