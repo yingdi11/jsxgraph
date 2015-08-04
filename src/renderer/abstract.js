@@ -156,6 +156,14 @@ define([
          * @type String
          */
         this.type = '';
+
+        /**
+         * True if the browsers' SVG engine supports foreignObject.
+         * Not supporting browsers are IE 9 - 11.
+         * @type Boolean
+         * @private
+         */
+        this.supportsForeignObject = false;
     };
 
     JXG.extend(JXG.AbstractRenderer.prototype, /** @lends JXG.AbstractRenderer.prototype */ {
@@ -596,21 +604,37 @@ define([
          * @see JXG.AbstractRenderer#updateTextStyle
          */
         drawText: function (element) {
-            var node, z;
+            var node, z, level;
 
             if (element.visProp.display === 'html' && Env.isBrowser) {
                 node = this.container.ownerDocument.createElement('div');
                 node.style.position = 'absolute';
 
                 node.className = element.visProp.cssclass;
-                if (this.container.style.zIndex === '') {
-                    z = 0;
+
+                /* SVG renderer - beside IE 9-11 - support foreignObject. This
+                   is used to host the HTML. Then, conversion to canvas works also
+                   for HTML text.
+                 */
+                if (this.supportsForeignObject) {
+                    level = element.visProp.layer;
+                    if (!Type.exists(level)) { // trace nodes have level not set
+                        level = 0;
+                    } else if (level >= Options.layer.numlayers) {
+                        level = Options.layer.numlayers - 1;
+                    }
+                    this.foreignObjLayer[level].appendChild(node);
                 } else {
-                    z = parseInt(this.container.style.zIndex, 10);
+                    if (this.container.style.zIndex === '') {
+                        z = 0;
+                    } else {
+                        z = parseInt(this.container.style.zIndex, 10);
+                    }
+
+                    node.style.zIndex = z + element.board.options.layer.text;
+                    this.container.appendChild(node);
                 }
 
-                node.style.zIndex = z + element.board.options.layer.text;
-                this.container.appendChild(node);
                 node.setAttribute('id', this.container.id + '_' + element.id);
             } else {
                 node = this.drawInternalText(element);
@@ -1403,7 +1427,15 @@ define([
          * @param {Number} i Number of the crosshair to show
          * @param {Array} pos New positon in screen coordinates
          */
-        updateTouchpoint: function (i, pos) {}
+        updateTouchpoint: function (i, pos) {},
+
+        /**
+         * Convert SVG construction to canvas.
+         * Only available on SVGRenderer.
+         * 
+         * @see JXG.SVGRenderer#dumpToCanvas
+         */
+        dumpToCanvas: function(canvasId) {}
     });
 
     return JXG.AbstractRenderer;

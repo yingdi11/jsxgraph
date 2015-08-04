@@ -283,22 +283,24 @@ define([
          * for aligning text.
          */
         updateSize: function () {
-            var tmp, s, that;
+            var tmp, s, that, node;
 
             if (!Env.isBrowser || this.board.renderer.type === 'no') {
                 return this;
             }
 
+            node = this.rendNode;
+
             /**
              * offsetWidth and offsetHeight seem to be supported for internal vml elements by IE10+ in IE8 mode.
              */
             if (this.visProp.display === 'html' || this.board.renderer.type === 'vml') {
-                if (JXG.exists(this.rendNode.offsetWidth)) {
-                    s = [this.rendNode.offsetWidth, this.rendNode.offsetHeight];
+                if (JXG.exists(node.offsetWidth)) {
+                    s = [node.offsetWidth, node.offsetHeight];
                     if (s[0] === 0 && s[1] === 0) { // Some browsers need some time to set offsetWidth and offsetHeight
                         that = this;
                         window.setTimeout(function () {
-                            that.size = [that.rendNode.offsetWidth, that.rendNode.offsetHeight];
+                            that.size = [node.offsetWidth, node.offsetHeight];
                         }, 0);
                     } else {
                         this.size = s;
@@ -309,7 +311,7 @@ define([
             } else if (this.visProp.display === 'internal') {
                 if (this.board.renderer.type === 'svg') {
                     try {
-                        tmp = this.rendNode.getBBox();
+                        tmp = node.getBBox();
                         this.size = [tmp.width, tmp.height];
                     } catch (e) {}
                 } else if (this.board.renderer.type === 'canvas') {
@@ -722,6 +724,23 @@ define([
      *   var s = t2_board.create('slider',[[0,4],[3,4],[-2,0,2]]);
      *   var t2 = t2_board.create('text',[function(x){ return s.Value();}, 1, function(){return "The value of s is "+s.Value().toFixed(2);}]);
      * </script><pre>
+     * @example
+     * // Create a text bound to the point A
+     * var p = board.create('point',[0, 1]),
+     *     t = board.create('text',[0, -1,"Hello World"], {anchor: p});
+     *
+     * </pre><div id="ff5a64b2-2b9a-11e5-8dd9-901b0e1b8723" style="width: 300px; height: 300px;"></div>
+     * <script type="text/javascript">
+     *     (function() {
+     *         var board = JXG.JSXGraph.initBoard('ff5a64b2-2b9a-11e5-8dd9-901b0e1b8723',
+     *             {boundingbox: [-8, 8, 8,-8], axis: true, showcopyright: false, shownavigation: false});
+     *     var p = board.create('point',[0, 1]),
+     *         t = board.create('text',[0, -1,"Hello World"], {anchor: p});
+     *
+     *     })();
+     *
+     * </script><pre>
+     *
      */
     JXG.createText = function (board, parents, attributes) {
         var t,
