@@ -1419,28 +1419,30 @@ define([
     JXG.registerElement('axis', JXG.createAxis);
 
     /**
-     * @class With the element tangent the slope of a line, circle, or curve in a certain point can be visualized. A tangent is always constructed
+     * With the element tangent the slope of a line, circle, or curve in a certain point can be visualized. A tangent is always constructed
      * by a glider on a line, circle, or curve and describes the tangent in the glider point on that line, circle, or curve.
+
+     * @class Tangent
      * @pseudo
-     * @description
-     * @name Tangent
      * @extends JXG.Line
      * @constructor
      * @type JXG.Line
      * @throws {Exception} If the element cannot be constructed with the given parent objects an exception is thrown.
      * @param {Glider} g A glider on a line, circle, or curve.
      * @example
-     * // Create a tangent providing a glider on a function graph
-     *   var c1 = board.create('curve', [function(t){return t},function(t){return t*t*t;}]);
-     *   var g1 = board.create('glider', [0.6, 1.2, c1]);
-     *   var t1 = board.create('tangent', [g1]);
-     * </pre><div id="7b7233a0-f363-47dd-9df5-4018d0d17a98" style="width: 400px; height: 400px;"></div>
+     *     // Create a tangent providing a glider on a function graph
+     *     var c1 = board.create('curve', [function(t){return t},function(t){return t*t*t;}]);
+     *     var g1 = board.create('glider', [0.6, 1.2, c1]);
+     *     var t1 = board.create('tangent', [g1]);
+     * <div id="7b7233a0-f363-47dd-9df5-4018d0d17a98" style="width: 400px; height: 400px;"></div>
      * <script type="text/javascript">
-     *   var tlex1_board = JXG.JSXGraph.initBoard('7b7233a0-f363-47dd-9df5-4018d0d17a98', {boundingbox: [-6, 6, 6, -6], axis: true, showcopyright: false, shownavigation: false});
+     * (function(){
+     *     var tlex1_board = JXG.JSXGraph.initBoard('7b7233a0-f363-47dd-9df5-4018d0d17a98', {boundingbox: [-6, 6, 6, -6], axis: true, showcopyright: false, shownavigation: false});
      *   var tlex1_c1 = tlex1_board.create('curve', [function(t){return t},function(t){return t*t*t;}]);
      *   var tlex1_g1 = tlex1_board.create('glider', [0.6, 1.2, tlex1_c1]);
      *   var tlex1_t1 = tlex1_board.create('tangent', [tlex1_g1]);
-     * </script><pre>
+     * })();
+     * </script>
      */
     JXG.createTangent = function (board, parents, attributes) {
         var p, c, g, f, j, el, tangent;
@@ -1650,13 +1652,12 @@ define([
     };
 
     /**
-     * @class This element is used to provide a constructor for the radical axis with respect to two circles with distinct centers.
+     * @class RadicalAxis
+     * This element is used to provide a constructor for the radical axis with respect to two circles with distinct centers.
      * The angular bisector of the polar lines of the circle centers with respect to the other circle is always the radical axis.
      * The radical axis passes through the intersection points when the circles intersect.
      * When a circle about the midpoint of circle centers, passing through the circle centers, intersects the circles, the polar lines pass through those intersection points.
      * @pseudo
-     * @description
-     * @name RadicalAxis
      * @extends JXG.Line
      * @constructor
      * @type JXG.Line
@@ -1664,17 +1665,18 @@ define([
      * @param {JXG.Circle} circle Circle one of the two respective circles.
      * @param {JXG.Circle} circle Circle the other of the two respective circles.
      * @example
-     * // Create the radical axis line with respect to two circles
-     *   var board = JXG.JSXGraph.initBoard('7b7233a0-f363-47dd-9df5-5018d0d17a98', {boundingbox: [-1, 9, 9, -1], axis: true, showcopyright: false, shownavigation: false});
-     *   var p1 = board.create('point', [2, 3]);
-     *   var p2 = board.create('point', [1, 4]);
-     *   var c1 = board.create('circle', [p1, p2]);
-     *   var p3 = board.create('point', [6, 5]);
-     *   var p4 = board.create('point', [8, 6]);
-     *   var c2 = board.create('circle', [p3, p4]);
-     *   var r1 = board.create('radicalaxis', [c1, c2]);
-     * </pre><div id='7b7233a0-f363-47dd-9df5-5018d0d17a98' class='jxgbox' style='width:400px; height:400px;'></div>
+     *     // Create the radical axis line with respect to two circles
+     *     var board = JXG.JSXGraph.initBoard('7b7233a0-f363-47dd-9df5-5018d0d17a98', {boundingbox: [-1, 9, 9, -1], axis: true, showcopyright: false, shownavigation: false});
+     *     var p1 = board.create('point', [2, 3]);
+     *     var p2 = board.create('point', [1, 4]);
+     *     var c1 = board.create('circle', [p1, p2]);
+     *     var p3 = board.create('point', [6, 5]);
+     *     var p4 = board.create('point', [8, 6]);
+     *     var c2 = board.create('circle', [p3, p4]);
+     *     var r1 = board.create('radicalaxis', [c1, c2]);
+     * <div id='7b7233a0-f363-47dd-9df5-5018d0d17a98' class='jxgbox' style='width:400px; height:400px;'></div>
      * <script type='text/javascript'>
+     * (function(){
      *   var rlex1_board = JXG.JSXGraph.initBoard('7b7233a0-f363-47dd-9df5-5018d0d17a98', {boundingbox: [-1, 9, 9, -1], axis: true, showcopyright: false, shownavigation: false});
      *   var rlex1_p1 = rlex1_board.create('point', [2, 3]);
      *   var rlex1_p2 = rlex1_board.create('point', [1, 4]);
@@ -1683,7 +1685,8 @@ define([
      *   var rlex1_p4 = rlex1_board.create('point', [8, 6]);
      *   var rlex1_c2 = rlex1_board.create('circle', [rlex1_p3, rlex1_p4]);
      *   var rlex1_r1 = rlex1_board.create('radicalaxis', [rlex1_c1, rlex1_c2]);
-     * </script><pre>
+     * })();
+     * </script>
      */
     JXG.createRadicalAxis = function (board, parents, attributes) {
         var el, el1, el2;
@@ -1717,13 +1720,16 @@ define([
     };
 
     /**
-     * @class This element is used to provide a constructor for the polar line of a point with respect to a conic or a circle.
-     * @pseudo
-     * @description The polar line is the unique reciprocal relationship of a point with respect to a conic.
+     * This element is used to provide a constructor for the polar line of a point with respect to a conic or a circle.
+     *
+     * The polar line is the unique reciprocal relationship of a point with respect to a conic.
      * The lines through the intersections of a conic and the polar line of a point with respect to that conic and through that point are tangent to the conic.
      * A point on a conic has the polar line of that point with respect to that conic as the tangent line to that conic at that point.
      * See {@link http://en.wikipedia.org/wiki/Pole_and_polar} for more information on pole and polar.
-     * @name PolarLine
+     *
+     * @class PolarLine
+     * @pseudo
+     * @name
      * @extends JXG.Line
      * @constructor
      * @type JXG.Line
@@ -1731,17 +1737,18 @@ define([
      * @param {JXG.Conic,JXG.Circle_JXG.Point} el1,el2 or
      * @param {JXG.Point_JXG.Conic,JXG.Circle} el1,el2 The result will be the polar line of the point with respect to the conic or the circle.
      * @example
-     * // Create the polar line of a point with respect to a conic
-     * var p1 = board.create('point', [-1, 2]);
-     * var p2 = board.create('point', [ 1, 4]);
-     * var p3 = board.create('point', [-1,-2]);
-     * var p4 = board.create('point', [ 0, 0]);
-     * var p5 = board.create('point', [ 4,-2]);
-     * var c1 = board.create('conic',[p1,p2,p3,p4,p5]);
-     * var p6 = board.create('point', [-1, 1]);
-     * var l1 = board.create('polarline', [c1, p6]);
-     * </pre><div id='7b7233a0-f363-47dd-9df5-6018d0d17a98' class='jxgbox' style='width:400px; height:400px;'></div>
+     *     // Create the polar line of a point with respect to a conic
+     *     var p1 = board.create('point', [-1, 2]);
+     *     var p2 = board.create('point', [ 1, 4]);
+     *     var p3 = board.create('point', [-1,-2]);
+     *     var p4 = board.create('point', [ 0, 0]);
+     *     var p5 = board.create('point', [ 4,-2]);
+     *     var c1 = board.create('conic',[p1,p2,p3,p4,p5]);
+     *     var p6 = board.create('point', [-1, 1]);
+     *     var l1 = board.create('polarline', [c1, p6]);
+     * <div id='7b7233a0-f363-47dd-9df5-6018d0d17a98' class='jxgbox' style='width:400px; height:400px;'></div>
      * <script type='text/javascript'>
+     * (function(){
      * var plex1_board = JXG.JSXGraph.initBoard('7b7233a0-f363-47dd-9df5-6018d0d17a98', {boundingbox: [-3, 5, 5, -3], axis: true, showcopyright: false, shownavigation: false});
      * var plex1_p1 = plex1_board.create('point', [-1, 2]);
      * var plex1_p2 = plex1_board.create('point', [ 1, 4]);
@@ -1751,23 +1758,26 @@ define([
      * var plex1_c1 = plex1_board.create('conic',[plex1_p1,plex1_p2,plex1_p3,plex1_p4,plex1_p5]);
      * var plex1_p6 = plex1_board.create('point', [-1, 1]);
      * var plex1_l1 = plex1_board.create('polarline', [plex1_c1, plex1_p6]);
-     * </script><pre>
+     * })();
+     * </script>
      * @example
-     * // Create the polar line of a point with respect to a circle.
-     * var p1 = board.create('point', [ 1, 1]);
-     * var p2 = board.create('point', [ 2, 3]);
-     * var c1 = board.create('circle',[p1,p2]);
-     * var p3 = board.create('point', [ 6, 6]);
-     * var l1 = board.create('polarline', [c1, p3]);
-     * </pre><div id='7b7233a0-f363-47dd-9df5-7018d0d17a98' class='jxgbox' style='width:400px; height:400px;'></div>
+     *     // Create the polar line of a point with respect to a circle.
+     *     var p1 = board.create('point', [ 1, 1]);
+     *     var p2 = board.create('point', [ 2, 3]);
+     *     var c1 = board.create('circle',[p1,p2]);
+     *     var p3 = board.create('point', [ 6, 6]);
+     *     var l1 = board.create('polarline', [c1, p3]);
+     * <div id='7b7233a0-f363-47dd-9df5-7018d0d17a98' class='jxgbox' style='width:400px; height:400px;'></div>
      * <script type='text/javascript'>
+     * (function(){
      * var plex2_board = JXG.JSXGraph.initBoard('7b7233a0-f363-47dd-9df5-7018d0d17a98', {boundingbox: [-3, 7, 7, -3], axis: true, showcopyright: false, shownavigation: false});
      * var plex2_p1 = plex2_board.create('point', [ 1, 1]);
      * var plex2_p2 = plex2_board.create('point', [ 2, 3]);
      * var plex2_c1 = plex2_board.create('circle',[plex2_p1,plex2_p2]);
      * var plex2_p3 = plex2_board.create('point', [ 6, 6]);
      * var plex2_l1 = plex2_board.create('polarline', [plex2_c1, plex2_p3]);
-     * </script><pre>
+     * })();
+     * </script>
      */
     JXG.createPolarLine = function (board, parents, attributes) {
         var el, el1, el2,
