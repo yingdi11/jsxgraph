@@ -1786,6 +1786,7 @@ define([
          *
          * @method snapToPoints
          * @return {JXG.GeometryElement} Reference to the element.
+         * @chainable
          */
         snapToPoints: function () {
             return this;

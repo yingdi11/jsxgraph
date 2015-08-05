@@ -1,6 +1,6 @@
 {
     "name": "JSXGraph",
-    "description": "JSXGraph API documentation",
+    "description": "JSXGraph, an API for dynamic geometry with JavaScript",
     "version": "0.99.4",
     "url": "http://jsxgraph.uni-bayreuth.de/docs"
 }

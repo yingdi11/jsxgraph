@@ -65,9 +65,11 @@ define([
      * A point is the basic geometric element. Based on points lines and circles can be constructed which can be intersected
      * which in turn are points again which can be used to construct new lines, circles, polygons, etc. This class holds methods for
      * all kind of points like free points, gliders, and intersection points.
-     * @class Creates a new point object. Do not use this constructor to create a point. Use {@link JXG.Board#create} with
+     *
+     * Creates a new point object. Do not use this constructor to create a point. Use {@link JXG.Board#create} with
      * type {@link Point}, {@link Glider}, or {@link Intersection} instead.
-     * @extends JXG.GeometryElement
+     *
+     * @class JXG.Point
      * @extends JXG.CoordsElement
      * @param {string|JXG.Board} board The board the new point is drawn on.
      * @param {Array} coordinates An array with the user coordinates of the point.
