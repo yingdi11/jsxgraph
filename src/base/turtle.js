@@ -59,17 +59,21 @@ define([
 
     /**
      * Constructs a new Turtle object.
-     * @class This is the Turtle class.
+     * 
      * It is derived from {@link JXG.GeometryElement}.
      * It stores all properties required
      * to move a turtle.
+     * 
+     * @class JXG.Turtle
      * @constructor
      * @param {JXG.Board} board The board the new turtle is drawn on.
      * @param {Array} parents Start position and start direction of the turtle. Possible values are
-     * [x, y, angle]
-     * [[x, y], angle]
-     * [x, y]
-     * [[x, y]]
+     * 
+     * * [x, y, angle]
+     * * [[x, y], angle]
+     * * [x, y]
+     * * [[x, y]]
+     * 
      * @param {Object} attributes Attributes to change the visual properties of the turtle object
      * All angles are in degrees.
      */
@@ -164,6 +168,7 @@ define([
     JXG.extend(JXG.Turtle.prototype, /** @lends JXG.Turtle.prototype */ {
         /**
          * Initialize a new turtle or reinitialize a turtle after {@link JXG.Turtle#clearScreen}.
+         * 
          * @private
          */
         init: function (x, y, dir) {
@@ -727,10 +732,10 @@ define([
     });
 
     /**
-     * @class This element is used to provide a constructor for a turtle.
+     * This element is used to provide a constructor for a turtle.
+     * 
      * @pseudo
-     * @description  Creates a new turtle
-     * @name Turtle
+     * @class Turtle
      * @extends JXG.Turtle
      * @constructor
      * @type JXG.Turtle
