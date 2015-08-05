@@ -161,7 +161,7 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
          * @param {Array} R Right triangular matrix represented by an array of rows. All entries a_(i,j) with i &lt; j are ignored.
          * @param {Array} b Right hand side of the linear equation system.
          * @param {Boolean} [canModify=false] If true, the right hand side vector is allowed to be changed by this method.
-         * @returns {Array} An array representing a vector that solves the system of linear equations.
+         * @return {Array} An array representing a vector that solves the system of linear equations.
          * @memberof JXG.Math.Numerics
          */
         backwardSolve: function (R, b, canModify) {
@@ -960,7 +960,7 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
          * @param {Object} resultObj Object returning resultObj.abserr, resultObj.resabs, resultObj.resasc. See the library
          *  QUADPACK for an explanation.
          *
-         * @returns {Number} Integral value of f over interval
+         * @return {Number} Integral value of f over interval
          *
          * @memberof JXG.Math.Numerics
          */
@@ -1405,7 +1405,7 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
          * @method I
          * @param {Array} interval The integration interval, e.g. [0, 3].
          * @param {function} f A function which takes one argument of type number and returns a number.
-         * @returns {Number} The value of the integral of f over interval
+         * @return {Number} The value of the integral of f over interval
          * @see JXG.Math.Numerics.NewtonCotes
          * @see JXG.Math.Numerics.Romberg
          * @see JXG.Math.Numerics.Qag
@@ -1754,7 +1754,7 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
          * @param {Number} deg Degree of the polynomial
          * @param {String} varname Name of the variable (usually 'x')
          * @param {Number} prec Precision
-         * @returns {String} A string containg the function term of the polynomial.
+         * @return {String} A string containg the function term of the polynomial.
          * @memberof JXG.Math.Numerics
          */
         generatePolynomialTerm: function (coeffs, deg, varname, prec) {
@@ -2138,7 +2138,7 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
          * @method bspline
          * @param {Array} points Array consisting of JXG.Points.
          * @param {Number} order Order of the B-spline curve.
-         * @returns {Array} An Array consisting of four components: Two functions each of one parameter t
+         * @return {Array} An Array consisting of four components: Two functions each of one parameter t
          * which return the x resp. y coordinates of the B-spline curve in t, a zero value, and a function simply
          * returning the length of the points array minus one.
          * @memberof JXG.Math.Numerics
@@ -2256,7 +2256,7 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
          * @param {Function} f Function in one variable to be differentiated.
          * @param {Object} [obj] Optional object that is treated as "this" in the function body. This is useful, if the function is a
          * method of an object and contains a reference to its parent object via "this".
-         * @returns {Function} Derivative function of a given function f.
+         * @return {Function} Derivative function of a given function f.
          * @memberof JXG.Math.Numerics
          */
         D: function (f, obj) {
@@ -2468,7 +2468,7 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
          *
          * @param {Number} start Left border of the approximation interval
          * @param {Number} end Right border of the approximation interval
-         * @returns {Number} The sum of the areas of the rectangles.
+         * @return {Number} The sum of the areas of the rectangles.
          * @memberof JXG.Math.Numerics
          */
         riemannsum: function (f, n, type, start, end) {
@@ -2498,7 +2498,7 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
          * @param {function} f Function describing the right hand side of the first order ordinary differential equation, i.e. if the ode
          * is given by the equation <pre>dx/dt = f(t, x(t)).</pre> So f has to take two parameters, a number <tt>t</tt> and a
          * vector <tt>x</tt>, and has to return a vector of the same dimension as <tt>x</tt> has.
-         * @returns {Array} An array of vectors describing the solution of the ode on the given interval I.
+         * @return {Array} An array of vectors describing the solution of the ode on the given interval I.
          * @example
          *     // A very simple autonomous system dx(t)/dt = x(t);
          *     function f(t, x) {

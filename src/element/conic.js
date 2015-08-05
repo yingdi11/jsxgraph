@@ -61,7 +61,7 @@ define([
      * @pseudo
      * @description
      * @name Ellipse
-     * @augments Conic
+     * @extends Conic
      * @constructor
      * @type JXG.Curve
      * @throws {Exception} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -232,7 +232,7 @@ define([
          * (in case JXG.Options.conic#hasInnerPoints is true).
          * @param {Number} x Coordinate in x direction, screen coordinates.
          * @param {Number} y Coordinate in y direction, screen coordinates.
-         * @returns {Boolean} True if (x,y) is near the ellipse, False otherwise.
+         * @return {Boolean} True if (x,y) is near the ellipse, False otherwise.
          * @private
          */
         curve.hasPoint =  function (x, y) {
@@ -271,7 +271,7 @@ define([
      * @pseudo
      * @description
      * @name Hyperbola
-     * @augments Conic
+     * @extends Conic
      * @constructor
      * @type JXG.Curve
      * @throws {Exception} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -451,7 +451,7 @@ define([
      * @pseudo
      * @description
      * @name Parabola
-     * @augments Conic
+     * @extends Conic
      * @constructor
      * @type JXG.Curve
      * @throws {Exception} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -616,7 +616,7 @@ define([
      * @pseudo
      * @description
      * @name Conic
-     * @augments JXG.Curve
+     * @extends JXG.Curve
      * @constructor
      * @type JXG.Conic
      * @throws {Exception} If the element cannot be constructed with the given parent objects an exception is thrown.

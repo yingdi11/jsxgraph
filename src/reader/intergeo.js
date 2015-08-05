@@ -935,7 +935,7 @@
         /**
          * Extract the xml-code as String from the zipped Intergeo archive.
          * @param {String} fileStr
-         * @returns {String} xml code
+         * @return {String} xml code
          */
         prepareString: function (fileStr) {
             var i,

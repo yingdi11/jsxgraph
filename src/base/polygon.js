@@ -313,7 +313,7 @@ define([
 
         /**
          * Area of (not self-intersecting) polygon
-         * @returns {Number} Area of (not self-intersecting) polygon
+         * @return {Number} Area of (not self-intersecting) polygon
          */
         Area: function () {
             return Math.abs(Geometry.signedPolygon(this.vertices, true));
@@ -329,7 +329,7 @@ define([
          * var width = box[2] - box[0];
          * var height = box[1] - box[3];
          *
-         * @returns {Array} Array containing four numbers: [minX, maxY, maxX, minY]
+         * @return {Array} Array containing four numbers: [minX, maxY, maxX, minY]
          */
         boundingBox: function () {
             var box = [0, 0, 0, 0], i, v,
@@ -404,7 +404,7 @@ define([
         /**
          * Add more points to the polygon. The new points will be inserted at the end.
          * @param {JXG.Point} p Arbitrary number of points
-         * @returns {JXG.Polygon} Reference to the polygon
+         * @return {JXG.Polygon} Reference to the polygon
          */
         addPoints: function (p) {
             var args = Array.prototype.slice.call(arguments);
@@ -416,7 +416,7 @@ define([
          * Adds more points to the vertex list of the polygon, starting with index <tt><i</tt>
          * @param {Number} idx The position where the new vertices are inserted, starting with 0.
          * @param {JXG.Point} p Arbitrary number of points to insert.
-         * @returns {JXG.Polygon} Reference to the polygon object
+         * @return {JXG.Polygon} Reference to the polygon object
          */
         insertPoints: function (idx, p) {
             var i, npoints = [], tmp;
@@ -459,7 +459,7 @@ define([
         /**
          * Removes given set of vertices from the polygon
          * @param {JXG.Point} p Arbitrary number of vertices as {@link JXG.Point} elements or index numbers
-         * @returns {JXG.Polygon} Reference to the polygon
+         * @return {JXG.Polygon} Reference to the polygon
          */
         removePoints: function (p) {
             var i, j, idx, nvertices = [], nborders = [],
@@ -604,7 +604,7 @@ define([
          * @param {Number} method The type of coordinates used here. Possible values are {@link JXG.COORDS_BY_USER} and {@link JXG.COORDS_BY_SCREEN}.
          * @param {Array} coords coordinates in screen/user units
          * @param {Array} oldcoords previous coordinates in screen/user units
-         * @returns {JXG.Polygon} this element
+         * @return {JXG.Polygon} this element
          */
         setPositionDirectly: function (method, coords, oldcoords) {
             var dc, t, i, len,
@@ -635,7 +635,7 @@ define([
         *
         * @param {JXG.Polygon} polygon Polygon which will be clipped.
         *
-        * @returns {Array} of (normalized homogeneous user) coordinates (i.e. [z, x, y], where z==1 in most cases,
+        * @return {Array} of (normalized homogeneous user) coordinates (i.e. [z, x, y], where z==1 in most cases,
         *   representing the vertices of the intersection polygon.
         *
         */
@@ -703,7 +703,7 @@ define([
          *
          * @param {JXG.Polygon} polygon Polygon which will be clipped.
          *
-         * @returns {Array} of (normalized homogeneous user) coordinates (i.e. [z, x, y], where z==1 in most cases,
+         * @return {Array} of (normalized homogeneous user) coordinates (i.e. [z, x, y], where z==1 in most cases,
          *   representing the vertices of the intersection polygon.
          *
          * @example
@@ -816,7 +816,7 @@ define([
      * @constructor
      * @name Polygon
      * @type Polygon
-     * @augments JXG.Polygon
+     * @extends JXG.Polygon
      * @throws {Exception} If the element cannot be constructed with the given parent objects an exception is thrown.
      * @param {Array} vertices The polygon's vertices. If the first and the last vertex don't match the first one will be
      * added to the array by the creator.
@@ -895,7 +895,7 @@ define([
      * @constructor
      * @name RegularPolygon
      * @type Polygon
-     * @augments Polygon
+     * @extends Polygon
      * @throws {Exception} If the element cannot be constructed with the given parent objects an exception is thrown.
      * @param {JXG.Point_JXG.Point_Number} p1,p2,n The constructed regular polygon has n vertices and the base line defined by p1 and p2.
      * @example

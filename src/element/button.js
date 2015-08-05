@@ -64,7 +64,7 @@ define([
      * @pseudo
      * @description
      * @name Button
-     * @augments Text
+     * @extends Text
      * @constructor
      * @type JXG.Text
      *

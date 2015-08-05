@@ -72,8 +72,8 @@ define([
      * MathJax, HTML and GEONExT syntax can be handled.
      * @class Creates a new text object. Do not use this constructor to create a text. Use {@link JXG.Board#create} with
      * type {@link Text} instead.
-     * @augments JXG.GeometryElement
-     * @augments JXG.CoordsElement
+     * @extends JXG.GeometryElement
+     * @extends JXG.CoordsElement
      * @param {string|JXG.Board} board The board the new text is drawn on.
      * @param {Array} coordinates An array with the user coordinates of the text.
      * @param {Object} attributes An object containing visual properties and optional a name and a id.
@@ -333,7 +333,7 @@ define([
         /**
          * Decode unicode entities into characters.
          * @param {String} string
-         * @returns {String}
+         * @return {String}
          */
         utf8_decode : function (string) {
             return string.replace(/&#x(\w+);/g, function (m, p1) {
@@ -344,7 +344,7 @@ define([
         /**
          * Replace _{} by &lt;sub&gt;
          * @param {String} te String containing _{}.
-         * @returns {String} Given string with _{} replaced by &lt;sub&gt;.
+         * @return {String} Given string with _{} replaced by &lt;sub&gt;.
          */
         replaceSub: function (te) {
             if (!te.indexOf) {
@@ -379,7 +379,7 @@ define([
         /**
          * Replace ^{} by &lt;sup&gt;
          * @param {String} te String containing ^{}.
-         * @returns {String} Given string with ^{} replaced by &lt;sup&gt;.
+         * @return {String} Given string with ^{} replaced by &lt;sup&gt;.
          */
         replaceSup: function (te) {
             if (!te.indexOf) {
@@ -523,7 +523,7 @@ define([
          *
          * @private
          * @param{String} expr Math term
-         * @returns {string} expanded String
+         * @return {string} expanded String
          */
         expandShortMath: function(expr) {
             var re = /([\)0-9\.])\s*([\(a-zA-Z_])/g;
@@ -684,7 +684,7 @@ define([
      * @pseudo
      * @description
      * @name Text
-     * @augments JXG.Text
+     * @extends JXG.Text
      * @constructor
      * @type JXG.Text
      *

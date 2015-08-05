@@ -4,7 +4,7 @@
  *
  * Copyright (c) 2010 Robert Kieffer
  * Dual licensed under the MIT and GPL licenses.
- * @returns {String}
+ * @return {String}
  * @example
  *   var uuid = JXG.Util.genUUID();
  *   > uuid = '92329D39-6F5C-4520-ABFC-AAB64544E172'

@@ -60,25 +60,32 @@ define([
     "use strict";
 
     /**
+     * Creates a new circle object. Do not use this constructor to create a circle. Use {@link JXG.Board#create} with
+     * type {@link Circle} instead.
+     *
      * A circle consists of all points with a given distance from one point. This point is called center, the distance is called radius.
      * A circle can be constructed by providing a center and a point on the circle or a center and a radius (given as a number, function,
      * line, or circle).
-     * @class Creates a new circle object. Do not use this constructor to create a circle. Use {@link JXG.Board#create} with
-     * type {@link Circle} instead.
+     *
+     * @class JXG.Circle
      * @constructor
-     * @augments JXG.GeometryElement
+     * @extends JXG.GeometryElement
      * @param {JXG.Board} board The board the new circle is drawn on.
      * @param {String} method Can be
-     * <ul><li> <b>'twoPoints'</b> which means the circle is defined by its center and a point on the circle.</li>
-     * <li><b>'pointRadius'</b> which means the circle is defined by its center and its radius in user units</li>
-     * <li><b>'pointLine'</b> which means the circle is defined by its center and its radius given by the distance from the startpoint and the endpoint of the line</li>
-     * <li><b>'pointCircle'</b> which means the circle is defined by its center and its radius given by the radius of another circle</li></ul>
+     *
+     *   * **'twoPoints'** which means the circle is defined by its center and a point on the circle.
+     *   * **'pointRadius'** which means the circle is defined by its center and its radius in user units
+     *   * **'pointLine'** which means the circle is defined by its center and its radius given by the distance from the startpoint and the endpoint of the line
+     *   * **'pointCircle'** which means the circle is defined by its center and its radius given by the radius of another circle
+     *
      * The parameters p1, p2 and radius must be set according to this method parameter.
      * @param {JXG.Point} par1 center of the circle.
      * @param {JXG.Point|JXG.Line|JXG.Circle} par2 Can be
-     * <ul><li>a point on the circle if method is 'twoPoints'</li>
-     * <li>a line if the method is 'pointLine'</li>
-     * <li>a circle if the method is 'pointCircle'</li></ul>
+     *
+     *   * a point on the circle if method is 'twoPoints'
+     *   * a line if the method is 'pointLine'
+     *   * a circle if the method is 'pointCircle'
+     *
      * @param {Object} attributes
      * @see JXG.Board#generateName
      */
@@ -89,10 +96,13 @@ define([
         /**
          * Stores the given method.
          * Can be
-         * <ul><li><b>'twoPoints'</b> which means the circle is defined by its center and a point on the circle.</li>
-         * <li><b>'pointRadius'</b> which means the circle is defined by its center and its radius given in user units or as term.</li>
-         * <li><b>'pointLine'</b> which means the circle is defined by its center and its radius given by the distance from the startpoint and the endpoint of the line.</li>
-         * <li><b>'pointCircle'</b> which means the circle is defined by its center and its radius given by the radius of another circle.</li></ul>
+         *
+         *  * **'twoPoints'** which means the circle is defined by its center and a point on the circle.
+         *  * **'pointRadius'** which means the circle is defined by its center and its radius given in user units or as term.
+         *  * **'pointLine'** which means the circle is defined by its center and its radius given by the distance from the startpoint and the endpoint of the line.
+         *  * **'pointCircle'** which means the circle is defined by its center and its radius given by the radius of another circle.
+         *
+         * @property method
          * @type string
          * @see #center
          * @see #point2
@@ -107,11 +117,16 @@ define([
 
         /**
          * The circles center. Do not set this parameter directly as it will break JSXGraph's update system.
+         *
+         * @property center
          * @type JXG.Point
          */
         this.center = this.board.select(par1);
 
         /** Point on the circle only set if method equals 'twoPoints'. Do not set this parameter directly as it will break JSXGraph's update system.
+         *
+         * @property point2
+         * @private
          * @type JXG.Point
          * @see #method
          */
@@ -119,6 +134,8 @@ define([
 
         /** Radius of the circle
          * only set if method equals 'pointRadius'
+         *
+         * @property radius
          * @type Number
          * @default null
          * @see #method
@@ -127,6 +144,8 @@ define([
 
         /** Line defining the radius of the circle given by the distance from the startpoint and the endpoint of the line
          * only set if method equals 'pointLine'. Do not set this parameter directly as it will break JSXGraph's update system.
+         *
+         * @property line
          * @type JXG.Line
          * @default null
          * @see #method
@@ -135,6 +154,8 @@ define([
 
         /** Circle defining the radius of the circle given by the radius of the other circle
          * only set if method equals 'pointLine'. Do not set this parameter directly as it will break JSXGraph's update system.
+         *
+         * @property circle
          * @type JXG.Circle
          * @default null
          * @see #method
@@ -199,9 +220,11 @@ define([
         /**
          * Checks whether (x,y) is near the circle line or inside of the ellipse
          * (in case JXG.Options.conic#hasInnerPoints is true).
+         *
+         * @method hasPoint
          * @param {Number} x Coordinate in x direction, screen coordinates.
          * @param {Number} y Coordinate in y direction, screen coordinates.
-         * @returns {Boolean} True if (x,y) is near the circle, False otherwise.
+         * @return {Boolean} True if (x,y) is near the circle, False otherwise.
          * @private
          */
         hasPoint: function (x, y) {
@@ -220,8 +243,10 @@ define([
 
         /**
          * Used to generate a polynomial for a point p that lies on this circle.
+         *
+         * @method generatePolynomial
          * @param {JXG.Point} p The point for which the polynomial is generated.
-         * @returns {Array} An array containing the generated polynomial.
+         * @return {Array} An array containing the generated polynomial.
          * @private
          */
         generatePolynomial: function (p) {
@@ -272,8 +297,10 @@ define([
         },
 
         /**
-         * Generate symbolic radius calculation for loci determination with Groebner-Basis algorithm.
-         * @returns {String} String containing symbolic calculation of the circle's radius or an empty string
+         * Generate symbolic radius calculation for loci determination with Groebner basis algorithm.
+         *
+         * @method generateRadiusSquared
+         * @return {String} String containing symbolic calculation of the circle's radius or an empty string
          * if the radius can't be expressed in a polynomial equation.
          * @private
          */
@@ -315,9 +342,7 @@ define([
             return rsq;
         },
 
-        /**
-         * Uses the boards renderer to update the circle.
-         */
+        // Documented in GeometryElement
         update: function () {
             if (this.needsUpdate) {
                 if (this.visProp.trace) {
@@ -341,7 +366,10 @@ define([
 
         /**
          * Updates this circle's {@link JXG.Circle#quadraticform}.
+         *
+         * @method updateQuadraticform
          * @private
+         * @chainable
          */
         updateQuadraticform: function () {
             var m = this.center,
@@ -354,11 +382,16 @@ define([
                 [-mX, 1, 0],
                 [-mY, 0, 1]
             ];
+
+            return this;
         },
 
         /**
          * Updates the stdform derived from the position of the center and the circle's radius.
+         *
+         * @method updateStdform
          * @private
+         * @chainable
          */
         updateStdform: function () {
             this.stdform[3] = 0.5;
@@ -372,12 +405,10 @@ define([
                 ) : 0;
             }
             this.normalize();
+            return this;
         },
 
-        /**
-         * Uses the boards renderer to update the circle.
-         * @private
-         */
+        // Documented in GeometryElement
         updateRenderer: function () {
             var wasReal;
 
@@ -411,24 +442,33 @@ define([
                 this.label.update();
                 this.board.renderer.updateText(this.label);
             }
+
+            return this;
         },
 
         /**
          * Finds dependencies in a given term and resolves them by adding the elements referenced in this
          * string to the circle's list of ancestors.
+         *
+         * @method notifyParents
          * @param {String} contentStr
          * @private
+         * @chainable
          */
         notifyParents: function (contentStr) {
             if (typeof contentStr === 'string') {
                 GeonextParser.findDependencies(this, contentStr, this.board);
             }
+            return this;
         },
 
         /**
          * Set a new radius, then update the board.
+         *
+         * @method setRadius
          * @param {String|Number|function} r A string, function or number describing the new radius.
-         * @returns {JXG.Circle} Reference to this circle
+         * @return {JXG.Circle} Reference to this circle
+         * @chainable
          */
         setRadius: function (r) {
             this.updateRadius = Type.createFunction(r, this.board, null, true);
@@ -438,9 +478,11 @@ define([
         },
 
         /**
-         * Calculates the radius of the circle.
+         * Calculates the radius of the circle or sets the radius.
+         *
+         * @method Radius
          * @param {String|Number|function} [value] Set new radius
-         * @returns {Number} The radius of the circle
+         * @return {Number} The radius of the circle
          */
         Radius: function (value) {
             if (Type.exists(value)) {
@@ -471,6 +513,8 @@ define([
 
         /**
          * Use {@link JXG.Circle#Radius}.
+         *
+         * @method getRadius
          * @deprecated
          */
         getRadius: function () {
@@ -565,8 +609,11 @@ define([
 
         /**
          * Add transformations to this circle.
+         *
+         * @method addTransform
          * @param {JXG.Transformation|Array} transform Either one {@link JXG.Transformation} or an array of {@link JXG.Transformation}s.
-         * @returns {JXG.Circle} Reference to this circle object.
+         * @return {JXG.Circle} Reference to this circle object.
+         * @chainable
          */
         addTransform: function (transform) {
             var i,
@@ -609,25 +656,31 @@ define([
         },
 
         /**
-         * Treats the circle as parametric curve and calculates its X coordinate.
+         * Treats the circle as parametric curve running from 0 to 1 and calculates its X coordinate.
+         *
+         * @method X
          * @param {Number} t Number between 0 and 1.
-         * @returns {Number} <tt>X(t)= radius*cos(t)+centerX</tt>.
+         * @return {Number} <tt>X(t)= radius*cos(t)+centerX</tt>.
          */
         X: function (t) {
             return this.Radius() * Math.cos(t * 2 * Math.PI) + this.center.coords.usrCoords[1];
         },
 
         /**
-         * Treats the circle as parametric curve and calculates its Y coordinate.
+         * Treats the circle as parametric curve running from 0 to 1 and calculates its Y coordinate.
+         *
+         * @method Y
          * @param {Number} t Number between 0 and 1.
-         * @returns {Number} <tt>X(t)= radius*sin(t)+centerY</tt>.
+         * @return {Number} <tt>X(t)= radius*sin(t)+centerY</tt>.
          */
         Y: function (t) {
             return this.Radius() * Math.sin(t * 2 * Math.PI) + this.center.coords.usrCoords[2];
         },
 
         /**
-         * Treat the circle as parametric curve and calculates its Z coordinate.
+         * Treat the circle as parametric curve running from 0 to 1 and calculates its Z coordinate.
+         *
+         * @method Z
          * @param {Number} t ignored
          * @return {Number} 1.0
          */
@@ -637,6 +690,8 @@ define([
 
         /**
          * Returns 0.
+         *
+         * @method minX
          * @private
          */
         minX: function () {
@@ -645,6 +700,8 @@ define([
 
         /**
          * Returns 1.
+         *
+         * @method maxX
          * @private
          */
         maxX: function () {
@@ -653,6 +710,8 @@ define([
 
         /**
          * Circle area
+         *
+         * @method Area
          * @return {Number} area of the circle.
          */
         Area: function () {
@@ -663,6 +722,8 @@ define([
 
         /**
          * Get bounding box of the circle.
+         *
+         * @method bounds
          * @return {Array} [x1, y1, x2, y2]
          */
         bounds: function () {
@@ -675,6 +736,8 @@ define([
         /**
          * Get data to construct this element. Data consists of the parent elements
          * and static data like radius.
+         *
+         * @method getParents
          * @return {Array} data necessary to construct this element
          */
         getParents: function() {
@@ -686,13 +749,15 @@ define([
     });
 
     /**
-     * @class This element is used to provide a constructor for a circle.
-     * @pseudo
-     * @description  A circle consists of all points with a given distance from one point. This point is called center, the distance is called radius.
+     * This element is used to provide a constructor for a circle.
+     *
+     * A circle consists of all points with a given distance from one point. This point is called center, the distance is called radius.
      * A circle can be constructed by providing a center and a point on the circle or a center and a radius (given as a number, function,
      * line, or circle).
-     * @name Circle
-     * @augments JXG.Circle
+     *
+     * @pseudo
+     * @class Circle
+     * @extends JXG.Circle
      * @constructor
      * @type JXG.Circle
      * @throws {Exception} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -700,43 +765,44 @@ define([
      * as a number (which will create a circle with a fixed radius), another {@link JXG.Point}, a {@link JXG.Line} (the distance of start and end point of the
      * line will determine the radius), or another {@link JXG.Circle}.
      * @example
-     * // Create a circle providing two points
-     * var p1 = board.create('point', [2.0, 2.0]),
-     *     p2 = board.create('point', [2.0, 0.0]),
-     *     c1 = board.create('circle', [p1, p2]);
+     *     // Create a circle providing two points
+     *     var p1 = board.create('point', [2.0, 2.0]),
+     *         p2 = board.create('point', [2.0, 0.0]),
+     *         c1 = board.create('circle', [p1, p2]);
      *
-     * // Create another circle using the above circle
-     * var p3 = board.create('point', [3.0, 2.0]),
-     *     c2 = board.create('circle', [p3, c1]);
-     * </pre><div id="5f304d31-ef20-4a8e-9c0e-ea1a2b6c79e0" style="width: 400px; height: 400px;"></div>
+     *     // Create another circle using the above circle
+     *     var p3 = board.create('point', [3.0, 2.0]),
+     *         c2 = board.create('circle', [p3, c1]);
+     * <div id="5f304d31-ef20-4a8e-9c0e-ea1a2b6c79e0" style="width: 400px; height: 400px;"></div>
      * <script type="text/javascript">
      * (function() {
-     *   var cex1_board = JXG.JSXGraph.initBoard('5f304d31-ef20-4a8e-9c0e-ea1a2b6c79e0', {boundingbox: [-1, 9, 9, -1], axis: true, showcopyright: false, shownavigation: false});
-     *       cex1_p1 = cex1_board.create('point', [2.0, 2.0]),
-     *       cex1_p2 = cex1_board.create('point', [2.0, 0.0]),
-     *       cex1_c1 = cex1_board.create('circle', [cex1_p1, cex1_p2]),
-     *       cex1_p3 = cex1_board.create('point', [3.0, 2.0]),
-     *       cex1_c2 = cex1_board.create('circle', [cex1_p3, cex1_c1]);
+     *   var board = JXG.JSXGraph.initBoard('5f304d31-ef20-4a8e-9c0e-ea1a2b6c79e0', {boundingbox: [-1, 9, 9, -1], axis: true, showcopyright: false, shownavigation: false});
+     *       p1 = board.create('point', [2.0, 2.0]),
+     *       p2 = board.create('point', [2.0, 0.0]),
+     *       c1 = board.create('circle', [p1, p2]),
+     *       p3 = board.create('point', [3.0, 2.0]),
+     *       c2 = board.create('circle', [p3, c1]);
      * })();
-     * </script><pre>
+     * </script>
      * @example
-     * // Create a circle providing two points
-     * var p1 = board.create('point', [2.0, 2.0]),
-     *     c1 = board.create('circle', [p1, 3]);
+     *     // Create a circle providing two points
+     *     var p1 = board.create('point', [2.0, 2.0]),
+     *         c1 = board.create('circle', [p1, 3]);
      *
-     * // Create another circle using the above circle
-     * var c2 = board.create('circle', [function() { return [p1.X(), p1.Y() + 1];}, function() { return c1.Radius(); }]);
-     * </pre><div id="54165f60-93b9-441d-8979-ac5d0f193020" style="width: 400px; height: 400px;"></div>
+     *     // Create another circle using the above circle
+     *     var c2 = board.create('circle', [
+     *                function() { return [p1.X(), p1.Y() + 1];},
+     *                function() { return c1.Radius(); }
+     *             ]);
+     * <div id="54165f60-93b9-441d-8979-ac5d0f193020" style="width: 400px; height: 400px;"></div>
      * <script type="text/javascript">
      * (function() {
-     * var cex1_board = JXG.JSXGraph.initBoard('54165f60-93b9-441d-8979-ac5d0f193020', {boundingbox: [-1, 9, 9, -1], axis: true, showcopyright: false, shownavigation: false});
+     * var board = JXG.JSXGraph.initBoard('54165f60-93b9-441d-8979-ac5d0f193020', {boundingbox: [-1, 9, 9, -1], axis: true, showcopyright: false, shownavigation: false});
      * var p1 = board.create('point', [2.0, 2.0]);
      * var c1 = board.create('circle', [p1, 3]);
-     *
-     * // Create another circle using the above circle
      * var c2 = board.create('circle', [function() { return [p1.X(), p1.Y() + 1];}, function() { return c1.Radius(); }]);
      * })();
-     * </script><pre>
+     * </script>
      */
     JXG.createCircle = function (board, parents, attributes) {
         var el, p, i, attr,

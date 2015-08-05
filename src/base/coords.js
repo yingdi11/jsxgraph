@@ -154,7 +154,7 @@ define([
          * Calculate distance of one point to another.
          * @param {Number} coord_type The type of coordinates used here. Possible values are <b>JXG.COORDS_BY_USER</b> and <b>JXG.COORDS_BY_SCREEN</b>.
          * @param {JXG.Coords} coordinates The Coords object to which the distance is calculated.
-         * @returns {Number} The distance
+         * @return {Number} The distance
          */
         distance: function (coord_type, coordinates) {
             var sum = 0,
@@ -195,7 +195,7 @@ define([
          * @param {Boolean} [doRound=true] flag If true or null round the coordinates in usr2screen. This is used in smooth curve plotting.
          * The IE needs rounded coordinates. Id doRound==false we have to round in updatePathString.
          * @param {Boolean} [noevent=false]
-         * @returns {JXG.Coords} Reference to the coords object.
+         * @return {JXG.Coords} Reference to the coords object.
          */
         setCoordinates: function (coord_type, coordinates, doRound, noevent) {
             var uc = this.usrCoords,
@@ -235,7 +235,7 @@ define([
         * @private
         * @param {String} obj Either 'srcCoords' or 'usrCoords'
         * @param {Number} offset Offset, defaults to 0 if not given
-        * @returns {Array} Returns copy of the coords array either as standard array or as
+        * @return {Array} Returns copy of the coords array either as standard array or as
         *   typed array.
         */
         copy: function (obj, offset) {

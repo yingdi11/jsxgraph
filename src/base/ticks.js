@@ -176,7 +176,7 @@ define([
          *
          * @private
          * @param {Number} ticks Distance between two major ticks
-         * @returns {Function} returns method ticksFunction
+         * @return {Function} returns method ticksFunction
          */
         makeTicksFunction: function (ticks) {
             return function () {
@@ -250,7 +250,7 @@ define([
          * @param {number} method The type of coordinates used here. Possible values are {@link JXG.COORDS_BY_USER} and {@link JXG.COORDS_BY_SCREEN}.
          * @param {Array} coords coordinates in screen/user units
          * @param {Array} oldcoords previous coordinates in screen/user units
-         * @returns {JXG.Ticks} this element
+         * @return {JXG.Ticks} this element
          */
         setPositionDirectly: function (method, coords, oldcoords) {
             var dx, dy,
@@ -876,7 +876,7 @@ define([
 
         /**
          * Recalculate the tick positions and the labels.
-         * @returns {JXG.Ticks}
+         * @return {JXG.Ticks}
          */
         update: function () {
             if (this.needsUpdate) {
@@ -891,7 +891,7 @@ define([
 
         /**
          * Uses the boards renderer to update the arc.
-         * @returns {JXG.Ticks}
+         * @return {JXG.Ticks}
          */
         updateRenderer: function () {
             if (this.needsUpdate) {
@@ -938,7 +938,7 @@ define([
      * @pseudo
      * @description
      * @name Ticks
-     * @augments JXG.Ticks
+     * @extends JXG.Ticks
      * @constructor
      * @type JXG.Ticks
      * @throws {Exception} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -996,7 +996,7 @@ define([
      * @pseudo
      * @description
      * @name Hatch
-     * @augments JXG.Ticks
+     * @extends JXG.Ticks
      * @constructor
      * @type JXG.Ticks
      * @throws {Exception} If the element cannot be constructed with the given parent objects an exception is thrown.

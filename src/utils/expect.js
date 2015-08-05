@@ -56,7 +56,7 @@ define([
          * @param {function} format
          * @param {Boolean} [copy=false]
          *
-         * @returns {Array}
+         * @return {Array}
          */
         each: function (a, format, copy) {
             var i, len,
@@ -78,7 +78,7 @@ define([
          * @param {JXG.Point|JXG.Coords} c
          * @param {Boolean} [copy=false] Return a copy, not a reference
          *
-         * @returns {JXG.Coords}
+         * @return {JXG.Coords}
          */
         coords: function (c, copy) {
             var coord = c;
@@ -102,7 +102,7 @@ define([
          * @param {JXG.Point|JXG.Coords|Array} c
          * @param {Boolean} [copy=false] Return a copy, not a reference
          *
-         * @returns {Array} Homogeneous coordinates
+         * @return {Array} Homogeneous coordinates
          */
         coordsArray: function (c, copy) {
             var coord;

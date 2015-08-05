@@ -65,7 +65,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
 
         /**
          * Detect browser support for VML.
-         * @returns {Boolean} True, if the browser supports VML.
+         * @return {Boolean} True, if the browser supports VML.
          */
         supportsVML: function () {
             // From stackoverflow.com
@@ -74,7 +74,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
 
         /**
          * Detect browser support for SVG.
-         * @returns {Boolean} True, if the browser supports SVG.
+         * @return {Boolean} True, if the browser supports SVG.
          */
         supportsSVG: function () {
             return this.isBrowser && document.implementation.hasFeature('http://www.w3.org/TR/SVG11/feature#BasicStructure', '1.1');
@@ -82,7 +82,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
 
         /**
          * Detect browser support for Canvas.
-         * @returns {Boolean} True, if the browser supports HTML canvas.
+         * @return {Boolean} True, if the browser supports HTML canvas.
          */
         supportsCanvas: function () {
             var c, hasCanvas = false;
@@ -99,7 +99,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
 
         /**
          * True, if run inside a node.js environment.
-         * @returns {Boolean}
+         * @return {Boolean}
          */
         isNode: function () {
             // this is not a 100% sure but should be valid in most cases
@@ -115,7 +115,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
 
         /**
          * True if run inside a webworker environment.
-         * @returns {Boolean}
+         * @return {Boolean}
          */
         isWebWorker: function () {
             return !this.isBrowser && (typeof self === 'object' && typeof self.postMessage === 'function');
@@ -131,7 +131,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
 
         /**
          * Determine if the current browser supports touch events
-         * @returns {Boolean} True, if the browser supports touch events.
+         * @return {Boolean} True, if the browser supports touch events.
          */
         isTouchDevice: function () {
             return this.isBrowser && window.ontouchstart !== undefined;
@@ -139,7 +139,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
 
         /**
          * Detects if the user is using an Android powered device.
-         * @returns {Boolean}
+         * @return {Boolean}
          */
         isAndroid: function () {
             return Type.exists(navigator) && navigator.userAgent.toLowerCase().indexOf('android') > -1;
@@ -147,7 +147,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
 
         /**
          * Detects if the user is using the default Webkit browser on an Android powered device.
-         * @returns {Boolean}
+         * @return {Boolean}
          */
         isWebkitAndroid: function () {
             return this.isAndroid() && navigator.userAgent.indexOf(' AppleWebKit/') > -1;
@@ -155,7 +155,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
 
         /**
          * Detects if the user is using a Apple iPad / iPhone.
-         * @returns {Boolean}
+         * @return {Boolean}
          */
         isApple: function () {
             return Type.exists(navigator) && (navigator.userAgent.indexOf('iPad') > -1 || navigator.userAgent.indexOf('iPhone') > -1);
@@ -163,7 +163,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
 
         /**
          * Detects if the user is using Safari on an Apple device.
-         * @returns {Boolean}
+         * @return {Boolean}
          */
         isWebkitApple: function () {
             return this.isApple() && (navigator.userAgent.search(/Mobile\/[0-9A-Za-z\.]*Safari/) > -1);
@@ -179,7 +179,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
 
         /**
          * Detects if the user is using a Mozilla browser
-         * @returns {Boolean}
+         * @return {Boolean}
          */
         isMozilla: function () {
             return Type.exists(navigator) &&
@@ -189,7 +189,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
 
         /**
          * Detects if the user is using a firefoxOS powered device.
-         * @returns {Boolean}
+         * @return {Boolean}
          */
         isFirefoxOS: function () {
             return Type.exists(navigator) &&
@@ -225,7 +225,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
         /**
          * Reads the width and height of an HTML element.
          * @param {String} elementId The HTML id of an HTML DOM node.
-         * @returns {Object} An object with the two properties width and height.
+         * @return {Object} An object with the two properties width and height.
          */
         getDimensions: function (elementId, doc) {
             var element, display, els, originalVisibility, originalPosition,
@@ -394,7 +394,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
          * @param {Object} [e] The browsers event object. If omitted, <tt>window.event</tt> will be used.
          * @param {Number} [index] If <tt>e</tt> is a touch event, this provides the index of the touch coordinates, i.e. it determines which finger.
          * @param {Object} [doc] The document object.
-         * @returns {Array} Contains the position as x,y-coordinates in the first resp. second component.
+         * @return {Array} Contains the position as x,y-coordinates in the first resp. second component.
          */
         getPosition: function (e, index, doc) {
             var i, len, evtTouches,
@@ -443,7 +443,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
         /**
          * Calculates recursively the offset of the DOM element in which the board is stored.
          * @param {Object} obj A DOM element
-         * @returns {Array} An array with the elements left and top offset.
+         * @return {Array} An array with the elements left and top offset.
          */
         getOffset: function (obj) {
             var cPos,
@@ -498,7 +498,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
          * Access CSS style sheets.
          * @param {Object} obj A DOM element
          * @param {String} stylename The CSS property to read.
-         * @returns The value of the CSS property and <tt>undefined</tt> if it is not set.
+         * @return The value of the CSS property and <tt>undefined</tt> if it is not set.
          */
         getStyle: function (obj, stylename) {
             var r, doc;
@@ -529,7 +529,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
          * defaults the read value to <tt>0</tt> if it can't be parsed as an integer value.
          * @param {DOMElement} el
          * @param {string} css
-         * @returns {number}
+         * @return {number}
          */
         getProp: function (el, css) {
             var n = parseInt(this.getStyle(el, css), 10);
@@ -543,7 +543,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
          * in {@link JXG.Board#getMousePosition}.
          * @param {Array} cPos Previously determined position
          * @param {Object} obj A DOM element
-         * @returns {Array} The corrected position.
+         * @return {Array} The corrected position.
          */
         getCSSTransform: function (cPos, obj) {
             var i, j, str, arrStr, start, len, len2, arr,
@@ -594,7 +594,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
         /**
          * Scaling CSS transformations applied to the div element containing the JSXGraph constructions
          * are determined. Not implemented are 'rotate', 'skew', 'skewX', 'skewY'.
-         * @returns {Array} 3x3 transformation matrix. See {@link JXG.Board#updateCSSTransforms}.
+         * @return {Array} 3x3 transformation matrix. See {@link JXG.Board#updateCSSTransforms}.
          */
         getCSSTransformMatrix: function (obj) {
             var i, j, str, arrstr, start, len, len2, arr,

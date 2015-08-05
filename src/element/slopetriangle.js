@@ -68,7 +68,7 @@ define([
      * @class Slope triangle for a point on a line.
      * @pseudo
      * @name Slopetriangle
-     * @augments JXG.Line
+     * @extends JXG.Line
      * @constructor
      * @type JXG.Polygon
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.

@@ -3472,7 +3472,7 @@ define([
      * <tr><td>triangleright, &gt;</td><td>&gt;</td></tr>
      * </table>
      * @param {String} s A string which should determine a valid point face.
-     * @returns {String} Returns a normalized string or undefined if the given string is not a valid
+     * @return {String} Returns a normalized string or undefined if the given string is not a valid
      * point face.
      */
     JXG.normalizePointFace = function (s) {

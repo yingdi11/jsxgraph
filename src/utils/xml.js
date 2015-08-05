@@ -67,7 +67,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
         /**
          * Converts a given string into a XML tree.
          * @param {String} str
-         * @returns {Object} The xml tree represented by the root node.
+         * @return {Object} The xml tree represented by the root node.
          */
         parse: function (str) {
             var parser, tree, DP;

@@ -1499,7 +1499,7 @@
          * @param {Object} gxtEl element of which attributes are to set
          * @param {Object} Data element of which attributes are to set
          * @param {Object} attr object containing the necessary attribute values
-         * @returns {Object} The attr parameter
+         * @return {Object} The attr parameter
          */
         boardProperties: function (gxtEl, Data, attr) {
             return attr;
@@ -1508,7 +1508,7 @@
         /**
          * @param {Object} gxtEl element of which attributes are to set
          * @param {Object} Data element of which attributes are to set
-         * @returns {Object} updated element
+         * @return {Object} updated element
          */
         coordinates: function (gxtEl, Data) {
             var a, tmp,
@@ -1560,7 +1560,7 @@
          * Writing element attributes to the given object
          * @param {Object} Data expects the content of the current element
          * @param {Object} attr
-         * @returns {Object} object with according attributes
+         * @return {Object} object with according attributes
          */
         visualProperties: function (Data, attr) {
             var show = Data.getElementsByTagName("show"),
@@ -1678,7 +1678,7 @@
          * Searching for an element in the geogebra tree
          * @param {String} name the name of the element to search for
          * @param {Boolean} [expr=false] whether it is search for an expression or not
-         * @returns {Object} object with according label
+         * @return {Object} object with according label
          */
         getElement: function (name, expr) {
             var Data, i, j;
@@ -1711,7 +1711,7 @@
         /**
          * Check if an element is already registered in the temporary ggbElements register. If not, create and register the element.
          * @param {String} name the name of the element to check
-         * @returns {Object} newly created element
+         * @return {Object} newly created element
          */
         checkElement: function (name) {
             var input;
@@ -1765,7 +1765,7 @@
          * Prepare expression for this.ggbParse with solving multiplications and replacing mathematical functions.
          * @param {String} type c, s, or something else
          * @param {String} exp Expression to parse and correct
-         * @returns {String} correct expression with fixed function and multiplication
+         * @return {String} correct expression with fixed function and multiplication
          */
         functionParse: function (type, exp) {
             var input, vars, expr, output, i, s, o;
@@ -1899,7 +1899,7 @@
          * @param {Object} output ggb element whose attributes are to parse
          * @param {Array} input list of all input elements
          * @param {String} cmd output construction method
-         * @returns {Object} return newly created element or false
+         * @return {Object} return newly created element or false
          */
         writeElement: function (output, input, cmd) {
             var p, res, re2, poly, t2, t, m, i, l2, p2, l1, p1, slopeWidth,
@@ -3115,7 +3115,7 @@
         /**
          * Clean the utf8-symbols in a Geogebra expression in JavaScript syntax
          * @param {String} exp string to clean
-         * @returns {String} replaced string
+         * @return {String} replaced string
          */
         utf8replace: function (exp) {
             exp = exp.replace(/\u03C0/g, 'PI')
@@ -3134,7 +3134,7 @@
         /**
          * Extracting the packed geogebra file in order to return the "blank" xml-tree for further parsing.
          * @param {String} fileStr archive containing geogebra.xml-file or raw input string (eg. xml-tree)
-         * @returns {String} content of geogebra.xml-file if an archive was passed in
+         * @return {String} content of geogebra.xml-file if an archive was passed in
          */
         prepareString: function (fileStr) {
             var i, bA, len, fstr,
@@ -3175,7 +3175,7 @@
         /**
          * Checking if a parameter is a Geogebra vector (array with length 3)
          * @param {Object} v possible Geogebra vector
-         * @returns {Boolean}
+         * @return {Boolean}
          */
         isGGBVector: function (v) {
             return JXG.isArray(v) && v.length === 3 && v[0] === 1;

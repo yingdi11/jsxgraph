@@ -129,7 +129,7 @@ define([
     JXG.extend(JXG.Group.prototype, /** @lends JXG.Group.prototype */ {
         /**
          * Releases all elements of this group.
-         * @returns {JXG.Group} returns this (empty) group
+         * @return {JXG.Group} returns this (empty) group
          */
         ungroup: function () {
             var el, p, i;
@@ -154,7 +154,7 @@ define([
          * of {@link Element.addParents}.
          * @param {Array} parents Array of elements or ids of elements.
          * Alternatively, one can give a list of objects as parameters.
-         * @returns {JXG.Object} reference to the object itself.
+         * @return {JXG.Object} reference to the object itself.
          **/
         addParents: function (parents) {
             var i, len, par;
@@ -183,7 +183,7 @@ define([
          * First, this.parents is cleared. See {@link Group#addParents}.
          * @param {Array} parents Array of elements or ids of elements.
          * Alternatively, one can give a list of objects as parameters.
-         * @returns {JXG.Object} reference to the object itself.
+         * @return {JXG.Object} reference to the object itself.
          **/
         setParents: function(parents) {
             this.parents = [];
@@ -192,7 +192,7 @@ define([
 
         /**
          * List of the element ids resp. values used as parents in {@link JXG.Board#create}.
-         * @returns {Array}
+         * @return {Array}
          */
         getParents: function () {
             return Type.isArray(this.parents) ? this.parents : [];
@@ -202,7 +202,7 @@ define([
          * Sends an update to all group members. This method is called from the points' coords object event listeners
          * and not by the board.
          * @param{JXG.GeometryElement} drag Element that caused the update.
-         * @returns {JXG.Group} returns this group
+         * @return {JXG.Group} returns this group
          */
         update: function (drag) {
             var el, actionCenter, desc, s, sx, sy, alpha, t, center, obj = null;
@@ -356,7 +356,7 @@ define([
         /**
          * @private
          * Determine the Euclidean coordinates of the centroid of the group.
-         * @returns {Array} array of length two,
+         * @return {Array} array of length two,
          */
         _update_centroid_center: function () {
             var center, len, el;
@@ -421,7 +421,7 @@ define([
         /**
          * Adds an Point to this group.
          * @param {JXG.Point} object The point added to the group.
-         * @returns {JXG.Group} returns this group
+         * @return {JXG.Group} returns this group
          */
         addPoint: function (object) {
             this.objects[object.id] = {point: this.board.select(object)};
@@ -437,7 +437,7 @@ define([
         /**
          * Adds multiple points to this group.
          * @param {Array} objects An array of points to add to the group.
-         * @returns {JXG.Group} returns this group
+         * @return {JXG.Group} returns this group
          */
         addPoints: function (objects) {
             var p;
@@ -452,7 +452,7 @@ define([
         /**
          * Adds all points in a group to this group.
          * @param {JXG.Group} group The group added to this group.
-         * @returns {JXG.Group} returns this group
+         * @return {JXG.Group} returns this group
          */
         addGroup: function (group) {
             var el;
@@ -469,7 +469,7 @@ define([
         /**
          * Removes a point from the group.
          * @param {JXG.Point} point
-         * @returns {JXG.Group} returns this group
+         * @return {JXG.Group} returns this group
          */
         removePoint: function (point) {
             delete this.objects[point.id];
@@ -482,7 +482,7 @@ define([
          * @param {JXG.Point|String} object A point which will be the center of rotation, the string "centroid", or
          * an array of length two, or a function returning an array of length two.
          * @default 'centroid'
-         * @returns {JXG.Group} returns this group
+         * @return {JXG.Group} returns this group
          */
         setRotationCenter: function (object) {
             this.rotationCenter = object;
@@ -494,7 +494,7 @@ define([
          * Sets the rotation points of the group. Dragging at one of these points results into a rotation of the whole group around
          * the rotation center of the group {@see JXG.Group#setRotationCenter}.
          * @param {Array|JXG.Point} objects Array of {@link JXG.Point} or arbitrary number of {@link JXG.Point} elements.
-         * @returns {JXG.Group} returns this group
+         * @return {JXG.Group} returns this group
          */
         setRotationPoints: function (objects) {
             return this._setActionPoints('rotation', objects);
@@ -504,7 +504,7 @@ define([
          * Adds a point to the set of rotation points of the group. Dragging at one of these points results into a rotation of the whole group around
          * the rotation center of the group {@see JXG.Group#setRotationCenter}.
          * @param {JXG.Point} point {@link JXG.Point} element.
-         * @returns {JXG.Group} returns this group
+         * @return {JXG.Group} returns this group
          */
         addRotationPoint: function (point) {
             return this._addActionPoint('rotation', point);
@@ -513,7 +513,7 @@ define([
         /**
          * Removes the rotation property from a point of the group.
          * @param {JXG.Point} point {@link JXG.Point} element.
-         * @returns {JXG.Group} returns this group
+         * @return {JXG.Group} returns this group
          */
         removeRotationPoint: function (point) {
             return this._removeActionPoint('rotation', point);
@@ -524,7 +524,7 @@ define([
          * @param {Array|JXG.Point} objects Array of {@link JXG.Point} or arbitrary number of {@link JXG.Point} elements.
          *
          * By default, all points of the group are translation points.
-         * @returns {JXG.Group} returns this group
+         * @return {JXG.Group} returns this group
          */
         setTranslationPoints: function (objects) {
             return this._setActionPoints('translation', objects);
@@ -533,7 +533,7 @@ define([
         /**
          * Adds a point to the set of the translation points of the group. Dragging at one of these points results into a translation of the whole group.
          * @param {JXG.Point} point {@link JXG.Point} element.
-         * @returns {JXG.Group} returns this group
+         * @return {JXG.Group} returns this group
          */
         addTranslationPoint: function (point) {
             return this._addActionPoint('translation', point);
@@ -542,7 +542,7 @@ define([
         /**
          * Removes the translation property from a point of the group.
          * @param {JXG.Point} point {@link JXG.Point} element.
-         * @returns {JXG.Group} returns this group
+         * @return {JXG.Group} returns this group
          */
         removeTranslationPoint: function (point) {
             return this._removeActionPoint('translation', point);
@@ -552,7 +552,7 @@ define([
          * Sets the center of scaling for the group. This is either a point or the centroid of the group.
          * @param {JXG.Point|String} object A point which will be the center of scaling, the string "centroid", or
          * an array of length two, or a function returning an array of length two.
-         * @returns {JXG.Group} returns this group
+         * @return {JXG.Group} returns this group
          */
         setScaleCenter: function (object) {
             this.scaleCenter = object;
@@ -566,7 +566,7 @@ define([
          * @param {String} direction Restricts the directions to be scaled. Possible values are 'x', 'y', 'xy'. Default value is 'xy'.
          *
          * By default, all points of the group are translation points.
-         * @returns {JXG.Group} returns this group
+         * @return {JXG.Group} returns this group
          */
         setScalePoints: function (objects, direction) {
             var objs, i, len;
@@ -588,7 +588,7 @@ define([
          * Adds a point to the set of the scale points of the group. Dragging at one of these points results into a scaling of the whole group.
          * @param {JXG.Point} point {@link JXG.Point} element.
          * @param {String} direction Restricts the directions to be scaled. Possible values are 'x', 'y', 'xy'. Default value is 'xy'.
-         * @returns {JXG.Group} returns this group
+         * @return {JXG.Group} returns this group
          */
         addScalePoint: function (point, direction) {
             this._addActionPoint('scale', point);
@@ -600,7 +600,7 @@ define([
         /**
          * Removes the scaling property from a point of the group.
          * @param {JXG.Point} point {@link JXG.Point} element.
-         * @returns {JXG.Group} returns this group
+         * @return {JXG.Group} returns this group
          */
         removeScalePoint: function (point) {
             return this._removeActionPoint('scale', point);
@@ -681,13 +681,13 @@ define([
      * @pseudo
      * @description
      * @name Group
-     * @augments JXG.Group
+     * @extends JXG.Group
      * @constructor
      * @type JXG.Group
      * @param {JXG.Board} board The board the points are on.
      * @param {Array} parents Array of points to group.
      * @param {Object} attributes Visual properties (unused).
-     * @returns {JXG.Group}
+     * @return {JXG.Group}
      *
      * @example
      *

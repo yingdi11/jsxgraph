@@ -64,8 +64,8 @@ define([
      *
      * @class Creates a new image object. Do not use this constructor to create a image. Use {@link JXG.Board#create} with
      * type {@link Image} instead.
-     * @augments JXG.GeometryElement
-     * @augments JXG.CoordsElement
+     * @extends JXG.GeometryElement
+     * @extends JXG.CoordsElement
      * @param {string|JXG.Board} board The board the new text is drawn on.
      * @param {Array} coordinates An array with the user coordinates of the text.
      * @param {Object} attributes An object containing visual and - optionally - a name and an id.
@@ -245,7 +245,7 @@ define([
      * @description
      * @name Image
      * @type JXG.Image
-     * @augments JXG.Image
+     * @extends JXG.Image
      * @constructor
      * @constructor
      * @throws {Exception} If the element cannot be constructed with the given parent objects an exception is thrown.

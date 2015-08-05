@@ -123,7 +123,7 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
 
         /**
          * Creates a deep copy of the monomial.
-         * @returns {JXG.Math.Poly.Monomial}
+         * @return {JXG.Math.Poly.Monomial}
          */
         copy: function () {
             return new Mat.Poly.Monomial(this.ring, this.coefficient, this.exponents);
@@ -131,7 +131,7 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
 
         /**
          * Print the monomial.
-         * @returns {String} String representation of the monomial
+         * @return {String} String representation of the monomial
          */
         print: function () {
             var s = [],
@@ -186,7 +186,7 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
         /**
          * Find a monomial with the given signature, i.e. exponent vector.
          * @param {Array} sig An array of numbers
-         * @returns {Number} The index of the first monomial with the given signature, or -1
+         * @return {Number} The index of the first monomial with the given signature, or -1
          * if no monomial could be found.
          */
         findSignature: function (sig) {
@@ -267,7 +267,7 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
 
         /**
          * Creates a deep copy of the polynomial.
-         * @returns {JXG.Math.Poly.Polynomial}
+         * @return {JXG.Math.Poly.Polynomial}
          */
         copy: function () {
             var i, p;
@@ -282,7 +282,7 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
 
         /**
          * Prints the polynomial.
-         * @returns {String} A string representation of the polynomial.
+         * @return {String} A string representation of the polynomial.
          */
         print: function () {
             var s = [],

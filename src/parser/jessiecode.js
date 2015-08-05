@@ -219,7 +219,7 @@ define([
         /**
          * Create a new scope.
          * @param {Array} args
-         * @returns {Object}
+         * @return {Object}
          */
         pushScope: function (args) {
             var scope = {
@@ -238,7 +238,7 @@ define([
 
         /**
          * Remove the current scope and reinstate the previous scope
-         * @returns {Object}
+         * @return {Object}
          */
         popScope: function () {
             var s = this.scope.previous;
@@ -252,7 +252,7 @@ define([
         /**
          * Looks up an {@link JXG.GeometryElement} by its id.
          * @param {String} id
-         * @returns {JXG.GeometryElement}
+         * @return {JXG.GeometryElement}
          */
         getElementById: function (id) {
             return this.board.objects[id];
@@ -269,7 +269,7 @@ define([
         /**
          * Returns a element creator function which takes two parameters: the parents array and the attributes object.
          * @param {String} vname The element type, e.g. 'point', 'line', 'midpoint'
-         * @returns {function}
+         * @return {function}
          */
         creator: (function () {
             // stores the already defined creators
@@ -329,7 +329,7 @@ define([
         /**
          * Checks if the given variable name can be found in the current scope chain.
          * @param {String} vname
-         * @returns {Object} A reference to the scope object the variable can be found in or null if it can't be found.
+         * @return {Object} A reference to the scope object the variable can be found in or null if it can't be found.
          */
         isLocalVariable: function (vname) {
             var s = this.scope;
@@ -348,7 +348,7 @@ define([
         /**
          * Checks if the given variable name is a parameter in any scope from the current to the global scope.
          * @param {String} vname
-         * @returns {Object} A reference to the scope object that contains the variable in its arg list.
+         * @return {Object} A reference to the scope object that contains the variable in its arg list.
          */
         isParameter: function (vname) {
             var s = this.scope;
@@ -367,7 +367,7 @@ define([
         /**
          * Checks if the given variable name is a valid creator method.
          * @param {String} vname
-         * @returns {Boolean}
+         * @return {Boolean}
          */
         isCreator: function (vname) {
             // check for an element with this name
@@ -377,7 +377,7 @@ define([
         /**
          * Checks if the given variable identifier is a valid member of the JavaScript Math Object.
          * @param {String} vname
-         * @returns {Boolean}
+         * @return {Boolean}
          */
         isMathMethod: function (vname) {
             return vname !== 'E' && !!Math[vname];
@@ -386,7 +386,7 @@ define([
         /**
          * Returns true if the given identifier is a builtIn variable/function.
          * @param {String} vname
-         * @returns {Boolean}
+         * @return {Boolean}
          */
         isBuiltIn: function (vname) {
             return !!this.builtIn[vname];
@@ -434,7 +434,7 @@ define([
         /**
          * Look up the value of a local variable.
          * @param {string} vname
-         * @returns {*}
+         * @return {*}
          */
         resolve: function (vname) {
             var s = this.scope;
@@ -510,7 +510,7 @@ define([
         /**
          * Adds the property <tt>isMap</tt> to a function and sets it to true.
          * @param {function} f
-         * @returns {function}
+         * @return {function}
          */
         makeMap: function (f) {
             f.isMap = true;
@@ -541,7 +541,7 @@ define([
          * Converts a node type <tt>node_op</tt> and value <tt>op_map</tt> or <tt>op_function</tt> into a executable
          * function.
          * @param {Object} node
-         * @returns {function}
+         * @return {function}
          */
         defineFunction: function (node) {
             var fun, i,
@@ -622,7 +622,7 @@ define([
         /**
          * Merge all atribute values given with an element creator into one object.
          * @param {Object} o An arbitrary number of objects
-         * @returns {Object} All given objects merged into one. If properties appear in more (case sensitive) than one
+         * @return {Object} All given objects merged into one. If properties appear in more (case sensitive) than one
          * object the last value is taken.
          */
         mergeAttributes: function (o) {
@@ -846,7 +846,7 @@ define([
          * Replaces node_var nodes with node_op&gt;op_execfun nodes, calling the internal $() function with the id of the
          * element accessed by the node_var node.
          * @param {Object} node
-         * @returns {Object} op_execfun node
+         * @return {Object} op_execfun node
          */
         createReplacementNode: function (node) {
             var v = node.value,
@@ -932,7 +932,7 @@ define([
         /**
          * Resolves the lefthand side of an assignment operation
          * @param node
-         * @returns {Object} An object with two properties. <strong>o</strong> which contains the object, and
+         * @return {Object} An object with two properties. <strong>o</strong> which contains the object, and
          * a string <strong>what</strong> which contains the property name.
          */
         getLHS: function (node) {
@@ -985,7 +985,7 @@ define([
         /**
          * Executes a parse subtree.
          * @param {Object} node
-         * @returns {Number|String|Object|Boolean} Something
+         * @return {Number|String|Object|Boolean} Something
          * @private
          */
         execute: function (node) {
@@ -1325,7 +1325,7 @@ define([
          * Compiles a parse tree back to JessieCode.
          * @param {Object} node
          * @param {Boolean} [js=false] Currently ignored. Compile either to JavaScript or back to JessieCode (required for the UI).
-         * @returns Something
+         * @return Something
          * @private
          */
         compile: function (node, js) {
@@ -1607,7 +1607,7 @@ define([
         /**
          * This is used as the global X() function.
          * @param {JXG.Point|JXG.Text} e
-         * @returns {Number}
+         * @return {Number}
          */
         X: function (e) {
             return e.X();
@@ -1616,7 +1616,7 @@ define([
         /**
          * This is used as the global Y() function.
          * @param {JXG.Point|JXG.Text} e
-         * @returns {Number}
+         * @return {Number}
          */
         Y: function (e) {
             return e.Y();
@@ -1625,7 +1625,7 @@ define([
         /**
          * This is used as the global V() function.
          * @param {Glider|Slider} e
-         * @returns {Number}
+         * @return {Number}
          */
         V: function (e) {
             return e.Value();
@@ -1634,7 +1634,7 @@ define([
         /**
          * This is used as the global L() function.
          * @param {JXG.Line} e
-         * @returns {Number}
+         * @return {Number}
          */
         L: function (e) {
             return e.L();
@@ -1644,7 +1644,7 @@ define([
          * This is used as the global dist() function.
          * @param {JXG.Point} p1
          * @param {JXG.Point} p2
-         * @returns {Number}
+         * @return {Number}
          */
         dist: function (p1, p2) {
             if (!Type.exists(p1) || !Type.exists(p1.Dist)) {
@@ -1658,7 +1658,7 @@ define([
          * + operator implementation
          * @param {Number|Array|JXG.Point} a
          * @param {Number|Array|JXG.Point} b
-         * @returns {Number|Array}
+         * @return {Number|Array}
          */
         add: function (a, b) {
             var i, len, res;
@@ -1688,7 +1688,7 @@ define([
          * + operator implementation
          * @param {Number|Array|JXG.Point} a
          * @param {Number|Array|JXG.Point} b
-         * @returns {Number|Array}
+         * @return {Number|Array}
          */
         sub: function (a, b) {
             var i, len, res;
@@ -1716,7 +1716,7 @@ define([
          * Multiplication of vectors and numbers
          * @param {Number|Array} a
          * @param {Number|Array} b
-         * @returns {Number|Array} (Inner) product of the given input values.
+         * @return {Number|Array} (Inner) product of the given input values.
          */
         mul: function (a, b) {
             var i, len, res;
@@ -1754,7 +1754,7 @@ define([
          * Implementation of the / operator.
          * @param {Number|Array} a
          * @param {Number} b
-         * @returns {Number|Array}
+         * @return {Number|Array}
          */
         div: function (a, b) {
             var i, len, res;
@@ -1782,7 +1782,7 @@ define([
          * Implementation of the % operator.
          * @param {Number|Array} a
          * @param {Number} b
-         * @returns {Number|Array}
+         * @return {Number|Array}
          */
         mod: function (a, b) {
             var i, len, res;
@@ -1810,7 +1810,7 @@ define([
          * Pow function wrapper to allow direct usage of sliders.
          * @param {Number|Slider} a
          * @param {Number|Slider} b
-         * @returns {Number}
+         * @return {Number}
          */
         pow: function (a, b) {
             a = Type.evalSlider(a);
@@ -1824,7 +1824,7 @@ define([
          * @param {Boolean} cond Condition
          * @param {*} v1
          * @param {*} v2
-         * @returns {*} Either v1 or v2.
+         * @return {*} Either v1 or v2.
          */
         ifthen: function (cond, v1, v2) {
             if (cond) {
@@ -1879,7 +1879,7 @@ define([
          * Find the first symbol to the given value from the given scope upwards.
          * @param v Value
          * @param {Number} [scope=-1] The scope, default is to start with current scope (-1).
-         * @returns {Array} An array containing the symbol and the scope if a symbol could be found,
+         * @return {Array} An array containing the symbol and the scope if a symbol could be found,
          * an empty array otherwise;
          */
         findSymbol: function (v, scope) {
@@ -1916,7 +1916,7 @@ define([
 
         /**
          * Defines built in methods and constants.
-         * @returns {Object} BuiltIn control object
+         * @return {Object} BuiltIn control object
          */
         defineBuiltIn: function () {
             var that = this,

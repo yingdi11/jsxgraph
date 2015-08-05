@@ -646,7 +646,7 @@ define([
          * Returns the elements name, used in JessieCode.
          *
          * @method getName
-         * @returns {String}
+         * @return {String}
          */
         getName: function () {
             return this.name;
@@ -960,7 +960,7 @@ define([
          *
          * @method resolveShortcuts
          * @param {Object} properties
-         * @returns {Object} The given parameter with shortcuts expanded.
+         * @return {Object} The given parameter with shortcuts expanded.
          */
         resolveShortcuts: function (properties) {
             var key, i;

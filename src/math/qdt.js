@@ -98,7 +98,7 @@ define(['math/math', 'utils/type'], function (Mat, Type) {
          * Checks if the given coordinates are inside the quad tree.
          * @param {Number} x
          * @param {Number} y
-         * @returns {Boolean}
+         * @return {Boolean}
          */
         contains: function (x, y) {
             return this.xlb < x && x <= this.xub && this.ylb < y && y <= this.yub;
@@ -107,7 +107,7 @@ define(['math/math', 'utils/type'], function (Mat, Type) {
         /**
          * Insert a new point into this quad tree.
          * @param {JXG.Coords} p
-         * @returns {Boolean}
+         * @return {Boolean}
          */
         insert: function (p) {
             if (!this.contains(p.usrCoords[1], p.usrCoords[2])) {
@@ -166,7 +166,7 @@ define(['math/math', 'utils/type'], function (Mat, Type) {
          * Internal _query method that lacks adjustment of the parameter.
          * @param {Number} x
          * @param {Number} y
-         * @returns {Boolean|JXG.Quadtree} The quad tree if the point is found, false
+         * @return {Boolean|JXG.Quadtree} The quad tree if the point is found, false
          * if none of the quad trees contains the point (i.e. the point is not inside
          * the root tree's AABB).
          * @private
@@ -207,7 +207,7 @@ define(['math/math', 'utils/type'], function (Mat, Type) {
          * Retrieve the smallest quad tree that contains the given point.
          * @param {JXG.Coords|Number} xp
          * @param {Number} y
-         * @returns {Boolean|JXG.Quadtree} The quad tree if the point is found, false
+         * @return {Boolean|JXG.Quadtree} The quad tree if the point is found, false
          * if none of the quad trees contains the point (i.e. the point is not inside
          * the root tree's AABB).
          * @private

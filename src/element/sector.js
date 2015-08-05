@@ -58,7 +58,7 @@ define([
      * @class A circular sector is a subarea of the area enclosed by a circle. It is enclosed by two radii and an arc.
      * @pseudo
      * @name Sector
-     * @augments JXG.Curve
+     * @extends JXG.Curve
      * @constructor
      * @type JXG.Curve
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -371,7 +371,7 @@ define([
             * @memberOf Sector.prototype
             * @name Radius
             * @function
-            * @returns {Number} The distance between {@link Sector#point1} and {@link Sector#point2}.
+            * @return {Number} The distance between {@link Sector#point1} and {@link Sector#point2}.
             */
             el.Radius = function () {
                 return this.point2.Dist(this.point1);
@@ -417,7 +417,7 @@ define([
         * @function
         * @param {Number} x Coordinate in x direction, screen coordinates.
         * @param {Number} y Coordinate in y direction, screen coordinates.
-        * @returns {Boolean} True if (x,y) is within the sector defined by the arc, False otherwise.
+        * @return {Boolean} True if (x,y) is within the sector defined by the arc, False otherwise.
         */
         el.hasPointSector = function (x, y) {
             var angle,
@@ -523,7 +523,7 @@ define([
          * @param {Number} method The type of coordinates used here. Possible values are {@link JXG.COORDS_BY_USER} and {@link JXG.COORDS_BY_SCREEN}.
          * @param {Array} coords coordinates in screen/user units
          * @param {Array} oldcoords previous coordinates in screen/user units
-         * @returns {JXG.Curve} this element
+         * @return {JXG.Curve} this element
          */
         if (type === '3points') {
             el.setPositionDirectly = function (method, coords, oldcoords) {
@@ -557,7 +557,7 @@ define([
      * <tt>p2</tt> to <tt>p3</tt>.
      * @pseudo
      * @name CircumcircleSector
-     * @augments Sector
+     * @extends Sector
      * @constructor
      * @type Sector
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -622,7 +622,7 @@ define([
      * defines the radius, and a third point that defines the angle of the sector.
      * @pseudo
      * @name MinorSector
-     * @augments Curve
+     * @extends Curve
      * @constructor
      * @type JXG.Curve
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -660,7 +660,7 @@ define([
      * defines the radius, and a third point that defines the angle of the sector.
      * @pseudo
      * @name MajorSector
-     * @augments Curve
+     * @extends Curve
      * @constructor
      * @type JXG.Curve
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -702,7 +702,7 @@ define([
      * If no name is provided the angle label is automatically set to a lower greek letter.
      * @pseudo
      * @name Angle
-     * @augments Sector
+     * @extends Sector
      * @constructor
      * @type Sector
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -871,7 +871,7 @@ define([
             * @name setAngle
             * @function
             * @param {Number|Function} val Number or Function which returns the size of the angle in Radians
-            * @returns {Object} Pointer to the angle element..
+            * @return {Object} Pointer to the angle element..
             * @memberOf Angle.prototype
             */
             el.setAngle = function (val) {
@@ -893,7 +893,7 @@ define([
             * setAngle() previously. The anglepoint is set to a free point.
             * @name free
             * @function
-            * @returns {Object} Pointer to the angle element..
+            * @return {Object} Pointer to the angle element..
             * @memberOf Angle.prototype
             */
             el.free = function () {
@@ -1106,7 +1106,7 @@ define([
          * @memberOf Angle.prototype
          * @name Value
          * @function
-         * @returns {Number} The angle value in Radians
+         * @return {Number} The angle value in Radians
          */
         el.Value = function () {
             return Geometry.rad(this.point2, this.point1, this.point3);
@@ -1129,7 +1129,7 @@ define([
      * defines the radius, and a third point that defines the angle of the sector.
      * @pseudo
      * @name NonReflexAngle
-     * @augments Angle
+     * @extends Angle
      * @constructor
      * @type Sector
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -1177,7 +1177,7 @@ define([
      * defines the radius, and a third point that defines the angle of the sector.
      * @pseudo
      * @name ReflexAngle
-     * @augments Angle
+     * @extends Angle
      * @constructor
      * @type Sector
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.

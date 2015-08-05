@@ -75,7 +75,7 @@ define([
          * @deprecated Use {@link JXG.Math.Geometry#rad} instead.
          * @see #rad
          * @see #trueAngle
-         * @returns {Number} The angle in radian measure.
+         * @return {Number} The angle in radian measure.
          */
         angle: function (A, B, C) {
             var u, v, s, t,
@@ -122,7 +122,7 @@ define([
          * @param {JXG.Point,Array} B Point or [x,y] array
          * @param {JXG.Point,Array} C Point or [x,y] array
          * @see #rad
-         * @returns {Number} The angle in degrees.
+         * @return {Number} The angle in degrees.
          */
         trueAngle: function (A, B, C) {
             return this.rad(A, B, C) * 57.295779513082323; // *180.0/Math.PI;
@@ -134,7 +134,7 @@ define([
          * @param {JXG.Point,Array} B Point or [x,y] array
          * @param {JXG.Point,Array} C Point or [x,y] array
          * @see #trueAngle
-         * @returns {Number} Angle in radians.
+         * @return {Number} Angle in radians.
          */
         rad: function (A, B, C) {
             var ax, ay, bx, by, cx, cy, phi;
@@ -181,7 +181,7 @@ define([
          * @param {JXG.Point} B Point
          * @param {JXG.Point} C Point
          * @param [board=A.board] Reference to the board
-         * @returns {JXG.Coords} Coordinates of the second point defining the bisection.
+         * @return {JXG.Coords} Coordinates of the second point defining the bisection.
          */
         angleBisector: function (A, B, C, board) {
             var phiA, phiC, phi,
@@ -226,7 +226,7 @@ define([
          * @param {JXG.Line} line Axis of reflection.
          * @param {JXG.Point} point Point to reflect.
          * @param [board=point.board] Reference to the board
-         * @returns {JXG.Coords} Coordinates of the reflected point.
+         * @return {JXG.Coords} Coordinates of the reflected point.
          */
         reflection: function (line, point, board) {
             // (v,w) defines the slope of the line
@@ -261,7 +261,7 @@ define([
          * @param {JXG.Point} point point to be rotated
          * @param {Number} phi rotation angle in arc length
          * @param {JXG.Board} [board=point.board] Reference to the board
-         * @returns {JXG.Coords} Coordinates of the new position.
+         * @return {JXG.Coords} Coordinates of the new position.
          */
         rotation: function (rotpoint, point, phi, board) {
             var x0, y0, c, s, x1, y1,
@@ -290,7 +290,7 @@ define([
          * @param {JXG.Line} line A line.
          * @param {JXG.Point} point Point which is projected to the line.
          * @param {JXG.Board} [board=point.board] Reference to the board
-         * @returns {Array} Array of length two containing coordinates of a point on the perpendicular to the given line
+         * @return {Array} Array of length two containing coordinates of a point on the perpendicular to the given line
          *                  through the given point and boolean flag "change".
          */
         perpendicular: function (line, point, board) {
@@ -375,7 +375,7 @@ define([
          * @param {JXG.Point} point2 Point
          * @param {JXG.Point} point3 Point
          * @param {JXG.Board} [board=point1.board] Reference to the board
-         * @returns {JXG.Coords} Coordinates of the center of the circumcircle of the given points.
+         * @return {JXG.Coords} Coordinates of the center of the circumcircle of the given points.
          */
         circumcenter: function (point1, point2, point3, board) {
             var u, v, m1, m2,
@@ -403,7 +403,7 @@ define([
          * @param {Array} array1 Array of Number
          * @param {Array} array2 Array of Number
          * @param {Number} [n] Length of the arrays. Default is the minimum length of the given arrays.
-         * @returns {Number} Euclidean distance of the given vectors.
+         * @return {Number} Euclidean distance of the given vectors.
          */
         distance: function (array1, array2, n) {
             var i,
@@ -427,7 +427,7 @@ define([
          * @param {Array} array1 Array containing elements of type number.
          * @param {Array} array2 Array containing elements of type number.
          * @param {Number} [n] Length of the arrays. Default is the minimum length of the given arrays.
-         * @returns {Number} Euclidean (affine) distance of the given vectors.
+         * @return {Number} Euclidean (affine) distance of the given vectors.
          */
         affineDistance: function (array1, array2, n) {
             var d;
@@ -446,7 +446,7 @@ define([
          *
          * @param {Array} p An array containing {@link JXG.Point}, {@link JXG.Coords}, and/or arrays.
          *
-         * @returns {Array}
+         * @return {Array}
          */
         sortVertices: function (p) {
             var i, ll,
@@ -490,7 +490,7 @@ define([
          * @param {JXG.Point|JXG.Coords|Array} p2
          * @param {JXG.Point|JXG.Coords|Array} p3
          *
-         * @returns {Number}
+         * @return {Number}
          */
         signedTriangle: function (p1, p2, p3) {
             var A = Expect.coordsArray(p1),
@@ -507,7 +507,7 @@ define([
          * @param {Array} p An array containing {@link JXG.Point}, {@link JXG.Coords}, and/or arrays.
          * @param {Boolean} [sort=true]
          *
-         * @returns {Number}
+         * @return {Number}
          */
         signedPolygon: function (p, sort) {
             var i, N,
@@ -540,7 +540,7 @@ define([
          *
          * @param {Array} points An array containing {@link JXG.Point}, {@link JXG.Coords}, and/or arrays.
          *
-         * @returns {Array}
+         * @return {Array}
          */
         GrahamScan: function (points) {
             var i,
@@ -871,7 +871,7 @@ define([
          * @param {JXG.Coords} p2
          * @param {JXG.Coords} i1
          * @param {JXG.Coords} i2
-         * @returns {Boolean} True, if <tt>p2-p1</tt> and <tt>i2-i1</tt> point into the same direction
+         * @return {Boolean} True, if <tt>p2-p1</tt> and <tt>i2-i1</tt> point into the same direction
          */
         isSameDir: function (p1, p2, i1, i2) {
             var dpx = p2.usrCoords[1] - p1.usrCoords[1],
@@ -897,7 +897,7 @@ define([
          * @param {JXG.Coords} start The point you're standing on.
          * @param {JXG.Coords} p The point in which direction you're looking.
          * @param {JXG.Coords} s The point that should be visible.
-         * @returns {Boolean} True, if from start the point p is in the same direction as s is, that means s-start = k*(p-start) with k>=0.
+         * @return {Boolean} True, if from start the point p is in the same direction as s is, that means s-start = k*(p-start) with k>=0.
          */
         isSameDirection: function (start, p, s) {
             var dx, dy, sx, sy, r = false;
@@ -948,7 +948,7 @@ define([
          * See further {@see JXG.Point#createIntersectionPoint}.
          * @param {Boolean} alwaysintersect. Flag that determines if segements and arc can have an outer intersection point
          * on their defining line or circle.
-         * @returns {Function} Function returning a {@see JXG.Coords} object that determines the intersection point.
+         * @return {Function} Function returning a {@see JXG.Coords} object that determines the intersection point.
          */
         intersectionFunction: function (board, el1, el2, i, j, alwaysintersect) {
             var func, that = this;
@@ -1034,7 +1034,7 @@ define([
          * @param {Array} el2 stdform of the second element (line or circle)
          * @param {Number} i Index of the intersection point that should be returned.
          * @param board Reference to the board.
-         * @returns {JXG.Coords} Coordinates of one of the possible two or more intersection points.
+         * @return {JXG.Coords} Coordinates of one of the possible two or more intersection points.
          * Which point will be returned is determined by i.
          */
         meet: function (el1, el2, i, board) {
@@ -1145,7 +1145,7 @@ define([
          * @param {Array} l2 stdform of the second line
          * @param {number} i unused
          * @param {JXG.Board} board Reference to the board.
-         * @returns {JXG.Coords} Coordinates of the intersection point.
+         * @return {JXG.Coords} Coordinates of the intersection point.
          */
         meetLineLine: function (l1, l2, i, board) {
             /*
@@ -1169,7 +1169,7 @@ define([
          *   i==0: use the positive square root,
          *   i==1: use the negative square root.
          * @param {JXG.Board} board Reference to a board.
-         * @returns {JXG.Coords} Coordinates of the intersection point
+         * @return {JXG.Coords} Coordinates of the intersection point
          */
         meetLineCircle: function (lin, circ, i, board) {
             var a, b, c, d, n,
@@ -1223,7 +1223,7 @@ define([
          *   i==0: use the positive square root,
          *   i==1: use the negative square root.
          * @param {JXG.Board} board Reference to the board.
-         * @returns {JXG.Coords} Coordinates of the intersection point
+         * @return {JXG.Coords} Coordinates of the intersection point
          */
         meetCircleCircle: function (circ1, circ2, i, board) {
             var radicalAxis;
@@ -1267,7 +1267,7 @@ define([
          * @param {Number} t2ini not longer used.
          * @param {JXG.Board} [board=c1.board] Reference to a board object.
          * @param {String} [method='segment'] Intersection method, possible values are 'newton' and 'segment'.
-         * @returns {JXG.Coords} intersection point
+         * @return {JXG.Coords} intersection point
          */
         meetCurveCurve: function (c1, c2, nr, t2ini, board, method) {
             var co;
@@ -1293,7 +1293,7 @@ define([
          * @param {Number} nr the nr-th intersection point will be returned.
          * @param {JXG.Board} [board=el1.board] Reference to a board object.
          * @param {Boolean} alwaysIntersect If false just the segment between the two defining points are tested for intersection
-         * @returns {JXG.Coords} Intersection point. In case no intersection point is detected,
+         * @return {JXG.Coords} Intersection point. In case no intersection point is detected,
          * the ideal point [0,1,0] is returned.
          */
         meetCurveLine: function (el1, el2, nr, board, alwaysIntersect) {
@@ -1454,7 +1454,7 @@ define([
          * @param {Boolean} testSegment Test if intersection has to be inside of the segment or somewhere on the
          * line defined by the segment
          *
-         * @returns {JXG.Coords} Intersection point. In case no intersection point is detected,
+         * @return {JXG.Coords} Intersection point. In case no intersection point is detected,
          * the ideal point [0,1,0] is returned.
          */
         meetCurveLineDiscrete: function (cu, li, nr, board, testSegment) {
@@ -1587,7 +1587,7 @@ define([
          * @param {Array} p2 Second point of segment 1 using homogeneous coordinates [z,x,y]
          * @param {Array} q1 First point of segment 2 using homogeneous coordinates [z,x,y]
          * @param {Array} q2 Second point of segment 2 using homogeneous coordinates [z,x,y]
-         * @returns {Array} [Intersection point, t, u] The first entry contains the homogeneous coordinates
+         * @return {Array} [Intersection point, t, u] The first entry contains the homogeneous coordinates
          * of the intersection point. The second and third entry gives the position of the intersection between the
          * two defining points. For example, the second entry t is defined by: intersection point = t*p1 + (1-t)*p2.
          **/
@@ -1620,7 +1620,7 @@ define([
          * two Bezier curve segments. Dissection point is t=1/2.
          * @param {Array} curve Array of four coordinate arrays of length 2 defining a
          * Bezier curve segment, i.e. [[x0,y0], [x1,y1], [x2,y2], [x3,y3]].
-         * @returns {Array} Array consisting of two coordinate arrays for Bezier curves.
+         * @return {Array} Array consisting of two coordinate arrays for Bezier curves.
          */
         _bezierSplit: function (curve) {
             var p0, p1, p2, p00, p22, p000;
@@ -1642,7 +1642,7 @@ define([
          * from its control points.
          * @param {Array} curve Array of four coordinate arrays of length 2 defining a
          * Bezier curve segment, i.e. [[x0,y0], [x1,y1], [x2,y2], [x3,y3]].
-         * @returns {Array} Bounding box [minX, maxY, maxX, minY]
+         * @return {Array} Bounding box [minX, maxY, maxX, minY]
          */
         _bezierBbox: function (curve) {
             var bb = [];
@@ -1666,7 +1666,7 @@ define([
          * Decide if two Bezier curve segments overlap by comparing their bounding boxes.
          * @param {Array} bb1 Bounding box of the first Bezier curve segment
          * @param {Array} bb2 Bounding box of the second Bezier curve segment
-         * @returns {Boolean} true if the bounding boxes overlap, false otherwise.
+         * @return {Boolean} true if the bounding boxes overlap, false otherwise.
          */
         _bezierOverlap: function (bb1, bb2) {
             return bb1[2] >= bb2[0] && bb1[0] <= bb2[2] && bb1[1] >= bb2[3] && bb1[3] <= bb2[1];
@@ -1710,7 +1710,7 @@ define([
          * @param {Array} blue Array of four coordinate arrays of length 2 defining the second
          * Bezier curve segment, i.e. [[x0,y0], [x1,y1], [x2,y2], [x3,y3]].
          * @param {Number} level Recursion level
-         * @returns {Array} List of intersection points (up to nine). Each intersction point is an
+         * @return {Array} List of intersection points (up to nine). Each intersction point is an
          * array of length three (homogeneous coordinates) plus preimages.
          */
         _bezierMeetSubdivision: function (red, blue, level) {
@@ -1811,7 +1811,7 @@ define([
          * @param {Array} blue Array of four coordinate arrays of length 2 defining the second
          * Bezier curve segment, i.e. [[x0,y0], [x1,y1], [x2,y2], [x3,y3]].
          * @param {Boolean} testSegment Test if intersection has to be inside of the segment or somewhere on the line defined by the segment
-         * @returns {Array} Array containing the list of all intersection points as homogeneous coordinate arrays plus
+         * @return {Array} Array containing the list of all intersection points as homogeneous coordinate arrays plus
          * preimages [x,y], t_1, t_2] of the two Bezier curve segments.
          *
          */
@@ -1843,7 +1843,7 @@ define([
          * @param {JXG.Curve} red Curve with bezierDegree == 3
          * @param {JXG.Curve} blue Curve with bezierDegree == 3
          * @param {Number} nr The number of the intersection point which should be returned.
-         * @returns {Array} The homogeneous coordinates of the nr-th intersection point.
+         * @return {Array} The homogeneous coordinates of the nr-th intersection point.
          */
         meetBezierCurveRedBlueSegments: function (red, blue, nr) {
             var p, i, j,
@@ -2025,7 +2025,7 @@ define([
          * @param {JXG.Point,JXG.Coords} point Point to project or coords object to project.
          * @param {JXG.Circle} circle Circle on that the point is projected.
          * @param {JXG.Board} [board=point.board] Reference to the board
-         * @returns {JXG.Coords} The coordinates of the projection of the given point on the given circle.
+         * @return {JXG.Coords} The coordinates of the projection of the given point on the given circle.
          */
         projectPointToCircle: function (point, circle, board) {
             var dist, P, x, y, factor,
@@ -2062,7 +2062,7 @@ define([
          * @param {JXG.Point} point Point to project.
          * @param {JXG.Line} line Line on that the point is projected.
          * @param {JXG.Board} [board=point.board] Reference to a board.
-         * @returns {JXG.Coords} The coordinates of the projection of the given point on the given line.
+         * @return {JXG.Coords} The coordinates of the projection of the given point on the given line.
          */
         projectPointToLine: function (point, line, board) {
             // Homogeneous version
@@ -2083,7 +2083,7 @@ define([
          * @param {Array} p Point to project.
          * @param {Array} q1 Start point of the line segment on that the point is projected.
          * @param {Array} q2 End point of the line segment on that the point is projected.
-         * @returns {Array} The coordinates of the projection of the given point on the given segment
+         * @return {Array} The coordinates of the projection of the given point on the given segment
          * and the factor that determines the projected point as a convex combination of the
          * two endpoints q1 and q2 of the segment.
          */
@@ -2113,7 +2113,7 @@ define([
          * @param {Array} pos Point to project in homogeneous coordinates.
          * @param {JXG.Curve} curve Curve of type "plot" having Bezier degree 3.
          * @param {Number} start Number of the Bezier segment of the curve.
-         * @returns {Array} The coordinates of the projection of the given point
+         * @return {Array} The coordinates of the projection of the given point
          * on the given Bezier segment and the preimage of the curve which
          * determines the closest point.
          */
@@ -2140,7 +2140,7 @@ define([
          * @param {JXG.Curve} curve Curve on that the point is projected.
          * @param {JXG.Board} [board=point.board] Reference to a board.
          * @see #projectCoordsToCurve
-         * @returns {JXG.Coords} The coordinates of the projection of the given point on the given graph.
+         * @return {JXG.Coords} The coordinates of the projection of the given point on the given graph.
          */
         projectPointToCurve: function (point, curve, board) {
             if (!Type.exists(board)) {
@@ -2167,7 +2167,7 @@ define([
          * @param {JXG.Curve} curve Curve on that the point is projected.
          * @param {JXG.Board} [board=curve.board] Reference to a board.
          * @see #projectPointToCurve
-         * @returns {JXG.Coords} Array containing the coordinates of the projection of the given point on the given graph and
+         * @return {JXG.Coords} Array containing the coordinates of the projection of the given point on the given graph and
          * the position on the curve.
          */
         projectCoordsToCurve: function (x, y, t, curve, board) {
@@ -2284,7 +2284,7 @@ define([
          * border of a polygon.
          * @param {Array} p Point to project.
          * @param {JXG.Polygon} pol Polygon element
-         * @returns {Array} The coordinates of the closest projection of the given point to the border of the polygon.
+         * @return {Array} The coordinates of the closest projection of the given point to the border of the polygon.
          */
         projectCoordsToPolygon: function (p, pol) {
             var i,
@@ -2316,7 +2316,7 @@ define([
          * @param {JXG.Point} point Point to project.
          * @param {JXG.Turtle} turtle on that the point is projected.
          * @param {JXG.Board} [board=point.board] Reference to a board.
-         * @returns {JXG.Coords} The coordinates of the projection of the given point on the given turtle.
+         * @return {JXG.Coords} The coordinates of the projection of the given point on the given turtle.
          */
         projectPointToTurtle: function (point, turtle, board) {
             var newCoords, t, x, y, i, dist, el, minEl,
@@ -2359,7 +2359,7 @@ define([
          * Trivial projection of a point to another point.
          * @param {JXG.Point} point Point to project (not used).
          * @param {JXG.Point} dest Point on that the point is projected.
-         * @returns {JXG.Coords} The coordinates of the projection of the given point on the given circle.
+         * @return {JXG.Coords} The coordinates of the projection of the given point on the given circle.
          */
         projectPointToPoint: function (point, dest) {
             return dest.coords;
@@ -2408,7 +2408,7 @@ define([
          * coordinates. For lines this can be line.stdform.
          * @param {Array} point Homogeneous coordinates of a point.
          * @param {Array} line Homogeneous coordinates of a line ([C,A,B] where A*x+B*y+C*z=0).
-         * @returns {Number} Distance of the point to the line.
+         * @return {Number} Distance of the point to the line.
          */
         distPointLine: function (point, line) {
             var a = line[1],
@@ -2433,7 +2433,7 @@ define([
          * @param {Array} points Array of points which should be the vertices of the Reuleaux polygon. Typically,
          * these point list is the array vrtices of a regular polygon.
          * @param {Number} nr Number of vertices
-         * @returns {Array} An array containing the two functions defining the Reuleaux polygon and the two values
+         * @return {Array} An array containing the two functions defining the Reuleaux polygon and the two values
          * for the start and the end of the paramtric curve. array may be used as parent array of a {@link JXG.Curve}.
          * @example
          * var A = brd.create('point',[-2,-2]);

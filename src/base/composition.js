@@ -172,7 +172,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
          * JavaScript.
          * @param {JXG.GeometryElement|JXG.Composition} element A reference to the element that is to be added. This can be
          * another composition, too.
-         * @returns {Boolean} True, if the element was added successfully. Reasons why adding the element failed include
+         * @return {Boolean} True, if the element was added successfully. Reasons why adding the element failed include
          * using a reserved name and providing an invalid element.
          */
         add: function (what, element) {
@@ -204,7 +204,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
         /**
          * Remove an element from the composition container.
          * @param {String} what The name used to access the element.
-         * @returns {Boolean} True, if the element has been removed successfully.
+         * @return {Boolean} True, if the element has been removed successfully.
          */
         remove: function (what) {
             var found = false,

@@ -67,8 +67,8 @@ define([
      * all kind of points like free points, gliders, and intersection points.
      * @class Creates a new point object. Do not use this constructor to create a point. Use {@link JXG.Board#create} with
      * type {@link Point}, {@link Glider}, or {@link Intersection} instead.
-     * @augments JXG.GeometryElement
-     * @augments JXG.CoordsElement
+     * @extends JXG.GeometryElement
+     * @extends JXG.CoordsElement
      * @param {string|JXG.Board} board The board the new point is drawn on.
      * @param {Array} coordinates An array with the user coordinates of the point.
      * @param {Object} attributes An object containing visual properties like in {@link JXG.Options#point} and
@@ -101,7 +101,7 @@ define([
          * Checks whether (x,y) is near the point.
          * @param {Number} x Coordinate in x direction, screen coordinates.
          * @param {Number} y Coordinate in y direction, screen coordinates.
-         * @returns {Boolean} True if (x,y) is near the point, False otherwise.
+         * @return {Boolean} True if (x,y) is near the point, False otherwise.
          * @private
          */
         hasPoint: function (x, y) {
@@ -134,7 +134,7 @@ define([
         /**
          * Applies the transformations of the element to {@link JXG.Point#baseElement}.
          * Point transformations are relative to a base element.
-         * @returns {JXG.CoordsElement} Reference to this object.
+         * @return {JXG.CoordsElement} Reference to this object.
          */
         updateTransform: function () {
             var c, i;
@@ -313,7 +313,7 @@ define([
      * @pseudo
      * @description
      * @name Point
-     * @augments JXG.Point
+     * @extends JXG.Point
      * @constructor
      * @type JXG.Point
      * @throws {Exception} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -373,7 +373,7 @@ define([
      * @pseudo
      * @description A glider is a point which lives on another geometric element like a line, circle, curve, turtle.
      * @name Glider
-     * @augments JXG.Point
+     * @extends JXG.Point
      * @constructor
      * @type JXG.Point
      * @throws {Exception} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -430,7 +430,7 @@ define([
      * @description An intersection point is a point which lives on two Lines or Circles or one Line and one Circle at the same time, i.e.
      * an intersection point of the two elements.
      * @name Intersection
-     * @augments JXG.Point
+     * @extends JXG.Point
      * @constructor
      * @type JXG.Point
      * @throws {Exception} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -521,7 +521,7 @@ define([
      * @description An intersection point is a point which lives on two Lines or Circles or one Line and one Circle at the same time, i.e.
      * an intersection point of the two elements. Additionally, one intersection point is provided. The function returns the other intersection point.
      * @name OtherIntersection
-     * @augments JXG.Point
+     * @extends JXG.Point
      * @constructor
      * @type JXG.Point
      * @throws {Exception} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -608,7 +608,7 @@ define([
      * A line tangent to a conic has the pole point of that line with respect to that conic as the tangent point.
      * See {@link http://en.wikipedia.org/wiki/Pole_and_polar} for more information on pole and polar.
      * @name PolePoint
-     * @augments JXG.Point
+     * @extends JXG.Point
      * @constructor
      * @type JXG.Point
      * @throws {Exception} If the element cannot be constructed with the given parent objects an exception is thrown.

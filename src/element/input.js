@@ -62,7 +62,7 @@ define([
      * @pseudo
      * @description
      * @name Input
-     * @augments Text
+     * @extends Text
      * @constructor
      * @type JXG.Text
      *

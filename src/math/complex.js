@@ -189,7 +189,7 @@ define(['jxg', 'math/math'], function (JXG) {
          * @method div
          * @param {JXG.Complex|Number} c A JavaScript number or a JXG.Complex object to
          * divide the current object by.
-         * @returns {JXG.Complex} Reference to this complex number
+         * @return {JXG.Complex} Reference to this complex number
          * @chainable
          */
         div: function (c) {
@@ -268,7 +268,7 @@ define(['jxg', 'math/math'], function (JXG) {
      * @method add
      * @param {JXG.Complex|Number} z1 Summand
      * @param {JXG.Complex|Number} z2 Summand
-     * @returns {JXG.Complex} A complex number equal to the sum of the given parameters.
+     * @return {JXG.Complex} A complex number equal to the sum of the given parameters.
      */
     JXG.C.add = function (z1, z2) {
         var z = new JXG.Complex(z1);
@@ -282,7 +282,7 @@ define(['jxg', 'math/math'], function (JXG) {
      * @method sub
      * @param {JXG.Complex|Number} z1 Minuend
      * @param {JXG.Complex|Number} z2 Subtrahend
-     * @returns {JXG.Complex} A complex number equal to the difference of the given parameters.
+     * @return {JXG.Complex} A complex number equal to the difference of the given parameters.
      */
     JXG.C.sub = function (z1, z2) {
         var z = new JXG.Complex(z1);
@@ -296,7 +296,7 @@ define(['jxg', 'math/math'], function (JXG) {
      * @method mult
      * @param {JXG.Complex|Number} z1 Factor
      * @param {JXG.Complex|Number} z2 Factor
-     * @returns {JXG.Complex} A complex number equal to the product of the given parameters.
+     * @return {JXG.Complex} A complex number equal to the product of the given parameters.
      */
     JXG.C.mult = function (z1, z2) {
         var z = new JXG.Complex(z1);
@@ -310,7 +310,7 @@ define(['jxg', 'math/math'], function (JXG) {
      * @method div
      * @param {JXG.Complex|Number} z1 Dividend
      * @param {JXG.Complex|Number} z2 Divisor
-     * @returns {JXG.Complex} A complex number equal to the quotient of the given parameters.
+     * @return {JXG.Complex} A complex number equal to the quotient of the given parameters.
      */
     JXG.C.div = function (z1, z2) {
         var z = new JXG.Complex(z1);
@@ -323,7 +323,7 @@ define(['jxg', 'math/math'], function (JXG) {
      *
      * @method conj
      * @param {JXG.Complex|Number} z1 Complex number
-     * @returns {JXG.Complex} A complex number equal to the conjugate of the given parameter.
+     * @return {JXG.Complex} A complex number equal to the conjugate of the given parameter.
      */
     JXG.C.conj = function (z1) {
         var z = new JXG.Complex(z1);
@@ -336,7 +336,7 @@ define(['jxg', 'math/math'], function (JXG) {
      *
      * @method abs
      * @param {JXG.Complex|Number} z1 Complex number
-     * @returns {Number} real number equal to the absolute value of the given parameter.
+     * @return {Number} real number equal to the absolute value of the given parameter.
      */
     JXG.C.abs = function (z1) {
         var z = new JXG.Complex(z1);

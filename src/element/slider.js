@@ -66,7 +66,7 @@ define([
      * @pseudo
      * @description
      * @name Slider
-     * @augments Glider
+     * @extends Glider
      * @constructor
      * @type JXG.Point
      * @throws {Exception} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -168,7 +168,7 @@ define([
          * Returns the current slider value.
          * @memberOf Slider.prototype
          * @name Value
-         * @returns {Number}
+         * @return {Number}
          */
         p3.Value = function () {
             var sdiff = this._smax - this._smin;
@@ -204,7 +204,7 @@ define([
          * @memberOf Slider.prototype
          * @name setMax
          * @param {Number} val New maximum value
-         * @returns {Object} this object
+         * @return {Object} this object
          */
         p3.setMax = function(val) {
             this._smax = val;
@@ -217,7 +217,7 @@ define([
          * @memberOf Slider.prototype
          * @name setValue
          * @param {Number} val New value
-         * @returns {Object} this object
+         * @return {Object} this object
          */
         p3.setValue = function(val) {
             var sdiff = this._smax - this._smin;
@@ -234,7 +234,7 @@ define([
          * @memberOf Slider.prototype
          * @name setMin
          * @param {Number} val New minimum value
-         * @returns {Object} this object
+         * @return {Object} this object
          */
         p3.setMin = function(val) {
             this._smin = val;

@@ -55,7 +55,7 @@ define([
          * Checks if the given string is an id within the given board.
          * @param {JXG.Board} board
          * @param {String} s
-         * @returns {Boolean}
+         * @return {Boolean}
          */
         isId: function (board, s) {
             return (typeof s === 'string') && !!board.objects[s];
@@ -65,7 +65,7 @@ define([
          * Checks if the given string is a name within the given board.
          * @param {JXG.Board} board
          * @param {String} s
-         * @returns {Boolean}
+         * @return {Boolean}
          */
         isName: function (board, s) {
             return typeof s === 'string' && !!board.elementsByName[s];
@@ -75,7 +75,7 @@ define([
          * Checks if the given string is a group id within the given board.
          * @param {JXG.Board} board
          * @param {String} s
-         * @returns {Boolean}
+         * @return {Boolean}
          */
         isGroup: function (board, s) {
             return typeof s === 'string' && !!board.groups[s];
@@ -84,7 +84,7 @@ define([
         /**
          * Checks if the value of a given variable is of type string.
          * @param v A variable of any type.
-         * @returns {Boolean} True, if v is of type string.
+         * @return {Boolean} True, if v is of type string.
          */
         isString: function (v) {
             return typeof v === "string";
@@ -93,7 +93,7 @@ define([
         /**
          * Checks if the value of a given variable is of type number.
          * @param v A variable of any type.
-         * @returns {Boolean} True, if v is of type number.
+         * @return {Boolean} True, if v is of type number.
          */
         isNumber: function (v) {
             return typeof v === "number" || Object.prototype.toString.call(v) === '[Object Number]';
@@ -102,7 +102,7 @@ define([
         /**
          * Checks if a given variable references a function.
          * @param v A variable of any type.
-         * @returns {Boolean} True, if v is a function.
+         * @return {Boolean} True, if v is a function.
          */
         isFunction: function (v) {
             return typeof v === "function";
@@ -111,7 +111,7 @@ define([
         /**
          * Checks if a given variable references an array.
          * @param v A variable of any type.
-         * @returns {Boolean} True, if v is of type array.
+         * @return {Boolean} True, if v is of type array.
          */
         isArray: function (v) {
             var r;
@@ -137,7 +137,7 @@ define([
         /**
          * Checks if a given variable is a reference of a JSXGraph Point element.
          * @param v A variable of any type.
-         * @returns {Boolean} True, if v is of type JXG.Point.
+         * @return {Boolean} True, if v is of type JXG.Point.
          */
         isPoint: function (v) {
             if (v !== null && typeof v === 'object') {
@@ -152,7 +152,7 @@ define([
          * a function returning an array of length two or three.
          * @param {JXG.Board} board
          * @param v A variable of any type.
-         * @returns {Boolean} True, if v is of type JXG.Point.
+         * @return {Boolean} True, if v is of type JXG.Point.
          */
         isPointType: function (board, v) {
             var val;
@@ -174,7 +174,7 @@ define([
          * Checks if a given variable is neither undefined nor null. You should not use this together with global
          * variables!
          * @param v A variable of any type.
-         * @returns {Boolean} True, if v is neither undefined nor null.
+         * @return {Boolean} True, if v is neither undefined nor null.
          */
         exists: (function (undef) {
             return function (v) {
@@ -186,7 +186,7 @@ define([
          * Handle default parameters.
          * @param v Given value
          * @param d Default value
-         * @returns <tt>d</tt>, if <tt>v</tt> is undefined or null.
+         * @return <tt>d</tt>, if <tt>v</tt> is undefined or null.
          */
         def: function (v, d) {
             if (JXG.exists(v)) {
@@ -199,7 +199,7 @@ define([
         /**
          * Converts a string containing either <strong>true</strong> or <strong>false</strong> into a boolean value.
          * @param {String} s String containing either <strong>true</strong> or <strong>false</strong>.
-         * @returns {Boolean} String typed boolean value converted to boolean.
+         * @return {Boolean} String typed boolean value converted to boolean.
          */
         str2Bool: function (s) {
             if (!JXG.exists(s)) {
@@ -224,7 +224,7 @@ define([
          * values is of type string.
          * @param {Array} param An array containing strings, numbers, or functions.
          * @param {Number} n Length of <tt>param</tt>.
-         * @returns {Function} A function taking one parameter k which specifies the index of the param element
+         * @return {Function} A function taking one parameter k which specifies the index of the param element
          * to evaluate.
          */
         createEvalFunction: function (board, param, n) {
@@ -248,7 +248,7 @@ define([
          * @param {String} variableName Only required if evalGeonext is set to true. Describes the variable name
          * of the variable in a GEONE<sub>X</sub>T string given as term.
          * @param {Boolean} [evalGeonext=true] Set this true, if term should be treated as a GEONE<sub>X</sub>T string.
-         * @returns {Function} A function evaluation the value given by term or null if term is not of type string,
+         * @return {Function} A function evaluation the value given by term or null if term is not of type string,
          * function or number.
          */
         createFunction: function (term, board, variableName, evalGeonext) {
@@ -302,7 +302,7 @@ define([
          *  In the last three cases a new point will be created.
          * @param {String} attrClass Main attribute class of newly created points, see {@link JXG@copyAttributes}
          * @param {Array} attrArray List of subtype attributes for the newly created points. The list of subtypes is mapped to the list of new points.
-         * @returns {Array} List of newly created {@link JXG.Point} elements or false if not all returned elements are points.
+         * @return {Array} List of newly created {@link JXG.Point} elements or false if not all returned elements are points.
          */
         providePoints: function (board, parents, attributes, attrClass, attrArray) {
             var i, j,
@@ -349,7 +349,7 @@ define([
          * Generates a function which calls the function fn in the scope of owner.
          * @param {Function} fn Function to call.
          * @param {Object} owner Scope in which fn is executed.
-         * @returns {Function} A function with the same signature as fn.
+         * @return {Function} A function with the same signature as fn.
          */
         bind: function (fn, owner) {
             return function () {
@@ -361,7 +361,7 @@ define([
          * If <tt>val</tt> is a function, it will be evaluated without giving any parameters, else the input value
          * is just returned.
          * @param val Could be anything. Preferably a number or a function.
-         * @returns If <tt>val</tt> is a function, it is evaluated and the result is returned. Otherwise <tt>val</tt> is returned.
+         * @return If <tt>val</tt> is a function, it is evaluated and the result is returned. Otherwise <tt>val</tt> is returned.
          */
         evaluate: function (val) {
             if (JXG.isFunction(val)) {
@@ -376,7 +376,7 @@ define([
          * @param {Array} array
          * @param value
          * @param {String} [sub] Use this property if the elements of the array are objects.
-         * @returns {Number} The index of the first appearance of the given value, or
+         * @return {Number} The index of the first appearance of the given value, or
          * <tt>-1</tt> if the value was not found.
          */
         indexOf: function (array, value, sub) {
@@ -398,7 +398,7 @@ define([
         /**
          * Eliminates duplicate entries in an array consisting of numbers and strings.
          * @param {Array} a An array of numbers and/or strings.
-         * @returns {Array} The array with duplicate entries eliminated.
+         * @return {Array} The array with duplicate entries eliminated.
          */
         eliminateDuplicates: function (a) {
             var i,
@@ -424,7 +424,7 @@ define([
          * @param {Array} arr
          * @param {Number} i
          * @param {Number} j
-         * @returns {Array} Reference to the given array.
+         * @return {Array} Reference to the given array.
          */
         swap: function (arr, i, j) {
             var tmp;
@@ -440,7 +440,7 @@ define([
          * Generates a copy of an array and removes the duplicate entries. The original
          * Array will be altered.
          * @param {Array} arr
-         * @returns {Array}
+         * @return {Array}
          */
         uniqueArray: function (arr) {
             var i, j, isArray, ret = [];
@@ -483,7 +483,7 @@ define([
          * Checks if an array contains an element equal to <tt>val</tt> but does not check the type!
          * @param {Array} arr
          * @param val
-         * @returns {Boolean}
+         * @return {Boolean}
          */
         isInArray: function (arr, val) {
             return JXG.indexOf(arr, val) > -1;
@@ -493,7 +493,7 @@ define([
          * Converts an array of {@link JXG.Coords} objects into a coordinate matrix.
          * @param {Array} coords
          * @param {Boolean} split
-         * @returns {Array}
+         * @return {Array}
          */
         coordsArrayToMatrix: function (coords, split) {
             var i,
@@ -520,7 +520,7 @@ define([
          * Compare two arrays.
          * @param {Array} a1
          * @param {Array} a2
-         * @returns {Boolean} <tt>true</tt>, if the arrays coefficients are of same type and value.
+         * @return {Boolean} <tt>true</tt>, if the arrays coefficients are of same type and value.
          */
         cmpArrays: function (a1, a2) {
             var i;
@@ -547,7 +547,7 @@ define([
          * Removes an element from the given array
          * @param {Array} ar
          * @param el
-         * @returns {Array}
+         * @return {Array}
          */
         removeElementFromArray: function (ar, el) {
             var i;
@@ -566,7 +566,7 @@ define([
          * Truncate a number <tt>n</tt> after <tt>p</tt> decimals.
          * @param {Number} n
          * @param {Number} p
-         * @returns {Number}
+         * @return {Number}
          */
         trunc: function (n, p) {
             p = JXG.def(p, 0);
@@ -590,7 +590,7 @@ define([
         /**
          * Truncate a number <tt>val</tt> automatically.
          * @param val
-         * @returns {Number}
+         * @return {Number}
          */
         autoDigits: function (val) {
             var x = Math.abs(val);
@@ -612,7 +612,7 @@ define([
          * @param object The object the keys are to be extracted
          * @param onlyOwn If true, hasOwnProperty() is used to verify that only keys are collected
          * the object owns itself and not some other object in the prototype chain.
-         * @returns {Array} All keys of the given object.
+         * @return {Array} All keys of the given object.
          */
         keys: function (object, onlyOwn) {
             var keys = [], property;
@@ -638,7 +638,7 @@ define([
          * you need a copy of an e.g. attributes object and want to overwrite some of the attributes
          * without changing the original object.
          * @param {Object} obj Object to be embedded.
-         * @returns {Object} An object with a base class reference to <tt>obj</tt>.
+         * @return {Object} An object with a base class reference to <tt>obj</tt>.
          */
         clone: function (obj) {
             var cObj = {};
@@ -653,7 +653,7 @@ define([
          * to the new one. Warning: The copied properties of obj2 are just flat copies.
          * @param {Object} obj Object to be copied.
          * @param {Object} obj2 Object with data that is to be copied to the new one as well.
-         * @returns {Object} Copy of given object including some new/overwritten data from obj2.
+         * @return {Object} Copy of given object including some new/overwritten data from obj2.
          */
         cloneAndCopy: function (obj, obj2) {
             var r,
@@ -680,7 +680,7 @@ define([
          * but instead will
          * @param {Object} obj1
          * @param {Object} obj2
-         * @returns {Object}
+         * @return {Object}
          */
         merge: function (obj1, obj2) {
             var i, j;
@@ -721,7 +721,7 @@ define([
          * @param {Object} obj This object will be copied.
          * @param {Object} obj2 This object will merged into the newly created object
          * @param {Boolean} [toLower=false] If true the keys are convert to lower case. This is needed for visProp, see JXG#copyAttributes
-         * @returns {Object} copy of obj or merge of obj and obj2.
+         * @return {Object} copy of obj or merge of obj and obj2.
          */
         deepCopy: function (obj, obj2, toLower) {
             var c, i, prop, i2;
@@ -791,7 +791,7 @@ define([
          * @param {Object} attributes user specified attributes
          * @param {Object} options defaults options
          * @param {String} s variable number of strings, e.g. 'slider', subtype 'point1'.
-         * @returns {Object} The resulting attributes object
+         * @return {Object} The resulting attributes object
          */
         copyAttributes: function (attributes, options, s) {
             var a, i, len, o, isAvail,
@@ -876,7 +876,7 @@ define([
          * in subObject as subObject.constructor[constructorName].
          * @param {Object} subObj A JavaScript object which receives new methods.
          * @param {Object} superObj A JavaScript object which lends its prototype methods to subObject
-         * @returns {String} constructorName Under this name the constructor of superObj will be available
+         * @return {String} constructorName Under this name the constructor of superObj will be available
          * in subObject.
          * @private
          */
@@ -893,7 +893,7 @@ define([
          * Converts a JavaScript object into a JSON string.
          * @param {Object} obj A JavaScript object, functions will be ignored.
          * @param {Boolean} [noquote=false] No quotes around the name of a property.
-         * @returns {String} The given object stored in a JSON string.
+         * @return {String} The given object stored in a JSON string.
          */
         toJSON: function (obj, noquote) {
             var list, prop, i, s, val;
@@ -956,7 +956,7 @@ define([
         /**
          * Resets visPropOld.
          * @param {JXG.GeometryElement} el
-         * @returns {GeometryElement}
+         * @return {GeometryElement}
          */
         clearVisPropOld: function (el) {
             el.visPropOld = {
@@ -981,7 +981,7 @@ define([
          * Checks if an object contains a key, whose value equals to val.
          * @param {Object} obj
          * @param val
-         * @returns {Boolean}
+         * @return {Boolean}
          */
         isInObject: function (obj, val) {
             var el;
@@ -1000,7 +1000,7 @@ define([
         /**
          * Replaces all occurences of &amp; by &amp;amp;, &gt; by &amp;gt;, and &lt; by &amp;lt;.
          * @param {String} str
-         * @returns {String}
+         * @return {String}
          */
         escapeHTML: function (str) {
             return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -1010,7 +1010,7 @@ define([
          * Eliminates all substrings enclosed by &lt; and &gt; and replaces all occurences of
          * &amp;amp; by &amp;, &amp;gt; by &gt;, and &amp;lt; by &lt;.
          * @param {String} str
-         * @returns {String}
+         * @return {String}
          */
         unescapeHTML: function (str) {
             // this regex is NOT insecure. We are replacing everything found with ''
@@ -1021,7 +1021,7 @@ define([
         /**
          * Makes a string lower case except for the first character which will be upper case.
          * @param {String} str Arbitrary string
-         * @returns {String} The capitalized string.
+         * @return {String} The capitalized string.
          */
         capitalize: function (str) {
             return str.charAt(0).toUpperCase() + str.substring(1).toLowerCase();
@@ -1030,7 +1030,7 @@ define([
         /**
          * Make numbers given as strings nicer by removing all unnecessary leading and trailing zeroes.
          * @param {String} str
-         * @returns {String}
+         * @return {String}
          */
         trimNumber: function (str) {
             str = str.replace(/^0+/, '');
@@ -1051,7 +1051,7 @@ define([
          * Filter an array of elements.
          * @param {Array} list
          * @param {Object|function} filter
-         * @returns {Array}
+         * @return {Array}
          */
         filterElements: function (list, filter) {
             var i, f, item, flower, value, visPropValue, pass,
@@ -1109,7 +1109,7 @@ define([
         /**
          * Remove all leading and trailing whitespaces from a given string.
          * @param {String} str
-         * @returns {String}
+         * @return {String}
          */
         trim: function (str) {
             str = str.replace(/^\s+/, '');
@@ -1122,7 +1122,7 @@ define([
          * Convert HTML tags to entities or use html_sanitize if the google caja html sanitizer is available.
          * @param {String} str
          * @param {Boolean} caja
-         * @returns {String} Sanitized string
+         * @return {String} Sanitized string
          */
         sanitizeHTML: function (str, caja) {
             if (typeof html_sanitize === 'function' && caja) {
@@ -1139,7 +1139,7 @@ define([
         /**
          * If <tt>s</tt> is a slider, it returns the sliders value, otherwise it just returns the given value.
          * @param {*} s
-         * @returns {*} s.Value() if s is an element of type slider, s otherwise
+         * @return {*} s.Value() if s is an element of type slider, s otherwise
          */
         evalSlider: function (s) {
             if (s && s.type === Const.OBJECT_TYPE_GLIDER && typeof s.Value === 'function') {

@@ -55,7 +55,7 @@ define([
         /**
          * Converts expression of the form <i>leftop^rightop</i> into <i>Math.pow(leftop,rightop)</i>.
          * @param {String} te Expression of the form <i>leftop^rightop</i>
-         * @returns {String} Converted expression.
+         * @return {String} Converted expression.
          */
         replacePow: function (te) {
             var count, pos, c,
@@ -153,7 +153,7 @@ define([
         /**
          * Converts expression of the form <i>If(a,b,c)</i> into <i>(a)?(b):(c)/i>.
          * @param {String} te Expression of the form <i>If(a,b,c)</i>
-         * @returns {String} Converted expression.
+         * @return {String} Converted expression.
          */
         replaceIf: function (te) {
             var left, right,
@@ -236,7 +236,7 @@ define([
          * @param {String} term Term containing names of elements.
          * @param {JXG.Board} board Reference to the board the elements are on.
          * @param {Boolean} [jc=false] If true, all id's will be surrounded by <tt>$('</tt> and <tt>')</tt>.
-         * @returns {String} The same string with names replaced by ids.
+         * @return {String} The same string with names replaced by ids.
          **/
         replaceNameById: function (term, board, jc) {
             var end, elName, el, i,
@@ -360,7 +360,7 @@ define([
         /**
          * Replaces element ids in terms by element this.board.objects['id'].
          * @param {String} term A GEONE<sub>x</sub>T function string with JSXGraph ids in it.
-         * @returns {String} The input string with element ids replaced by this.board.objects["id"].
+         * @return {String} The input string with element ids replaced by this.board.objects["id"].
          **/
         replaceIdByObj: function (term) {
             // Search for expressions like "X(gi23)" or "Y(gi23A)" and convert them to objects['gi23'].X().
@@ -392,7 +392,7 @@ define([
          * Converts the given algebraic expression in GEONE<sub>x</sub>T syntax into an equivalent expression in JavaScript syntax.
          * @param {String} term Expression in GEONExT syntax
          * @param {JXG.Board} board
-         * @returns {String} Given expression translated to JavaScript.
+         * @return {String} Given expression translated to JavaScript.
          */
         geonext2JS: function (term, board) {
             var expr, newterm, i,
@@ -480,7 +480,7 @@ define([
          * Converts the given algebraic expression in GEONE<sub>x</sub>T syntax into an equivalent expression in JessieCode syntax.
          * @param {String} term Expression in GEONExT syntax
          * @param {JXG.Board} board
-         * @returns {String} Given expression translated to JavaScript.
+         * @return {String} Given expression translated to JavaScript.
          */
         gxt2jc: function (term, board) {
             var newterm,

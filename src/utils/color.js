@@ -251,7 +251,7 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
      * expects the parameters ag and ab.
      * @param {Number} ag
      * @param {Number} ab
-     * @returns {Array} RGB color values as an array [r, g, b] with values ranging from 0 to 255.
+     * @return {Array} RGB color values as an array [r, g, b] with values ranging from 0 to 255.
      */
     JXG.rgbParser = function (color, ag, ab) {
         var color_string, channels, re, processor, bits, i,
@@ -335,7 +335,7 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
      * expects the parameters ag and ab.
      * @param {Number} ag
      * @param {Number} ab
-     * @returns {String} A 'rgb(r, g, b)' formatted string
+     * @return {String} A 'rgb(r, g, b)' formatted string
      */
     JXG.rgb2css = function (color, ag, ab) {
         var r;
@@ -353,7 +353,7 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
      * expects the parameters ag and ab.
      * @param {Number} ag
      * @param {Number} ab
-     * @returns {String} A '#rrggbb' formatted string
+     * @return {String} A '#rrggbb' formatted string
      */
     JXG.rgb2hex = function (color, ag, ab) {
         var r, g, b;
@@ -385,7 +385,7 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
      * Converts a valid HTML/CSS color string from the '#rrggbb' format into the 'rgb(r, g, b)' format.
      * @param {String} hex A valid HTML or CSS styled color value, e.g. '#12ab21', '#abc', or 'black'
      * @deprecated Use {@link JXG#rgb2css} instead.
-     * @returns {String} A 'rgb(r, g, b)' formatted string
+     * @return {String} A 'rgb(r, g, b)' formatted string
      */
     JXG.hex2rgb = function (hex) {
         JXG.deprecated('JXG.hex2rgb()', 'JXG.rgb2css()');
@@ -484,7 +484,7 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
      * expects the parameters ag and ab.
      * @param {Number} ag
      * @param {Number} ab
-     * @returns {Array} Contains the h, s, and v value in this order.
+     * @return {Array} Contains the h, s, and v value in this order.
      * @see http://zach.in.tu-clausthal.de/teaching/cg1_0708/folien/13_color_3_4up.pdf
      */
     JXG.rgb2hsv = function (color, ag, ab) {
@@ -544,7 +544,7 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
      * expects the parameters ag and ab.
      * @param {Number} ag
      * @param {Number} ab
-     * @returns {Array} Contains the l, m, and s value in this order.
+     * @return {Array} Contains the l, m, and s value in this order.
      */
     JXG.rgb2LMS = function (color, ag, ab) {
         var r, g, b, l, m, s, ret,
@@ -581,7 +581,7 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
      * @param {Number} l
      * @param {Number} m
      * @param {Number} s
-     * @returns {Array} Contains the r, g, and b value in this order.
+     * @return {Array} Contains the r, g, and b value in this order.
      */
     JXG.LMS2rgb = function (l, m, s) {
         var r, g, b, ret,
@@ -643,7 +643,7 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
     /**
      * Splits a RGBA color value like #112233AA into it's RGB and opacity parts.
      * @param {String} rgba A RGBA color value
-     * @returns {Array} An array containing the rgb color value in the first and the opacity in the second field.
+     * @return {Array} An array containing the rgb color value in the first and the opacity in the second field.
      */
     JXG.rgba2rgbo = function (rgba) {
         var opacity;
@@ -662,7 +662,7 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
      * Generates a RGBA color value like #112233AA from it's RGB and opacity parts.
      * @param {String} rgb A RGB color value.
      * @param {Number} o The desired opacity >=0, <=1.
-     * @returns {String} The RGBA color value.
+     * @return {String} The RGBA color value.
      */
     JXG.rgbo2rgba = function (rgb, o) {
         var rgba;
@@ -682,7 +682,7 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
     /**
      * Decolorizes the given color.
      * @param {String} color HTML string containing the HTML color code.
-     * @returns {String} Returns a HTML color string
+     * @return {String} Returns a HTML color string
      */
     JXG.rgb2bw = function (color) {
         var x, tmp, arr,
@@ -710,7 +710,7 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
      * @param {String} color HTML string containing the HTML color code.
      * @param {String} deficiency The type of color blindness. Possible
      * options are <i>protanopia</i>, <i>deuteranopia</i>, and <i>tritanopia</i>.
-     * @returns {String} Returns a HTML color string
+     * @return {String} Returns a HTML color string
      */
     JXG.rgb2cb = function (color, deficiency) {
         var rgb, l, m, s, lms, tmp,
@@ -801,7 +801,7 @@ define(['jxg', 'utils/type', 'math/math'], function (JXG, Type, Mat) {
     /**
      * Determines highlight color to a given color. Done by reducing (or increasing) the opacity,
      * @param {String} color HTML RGBA string containing the HTML color code.
-     * @returns {String} Returns a HTML RGBA color string
+     * @return {String} Returns a HTML RGBA color string
      */
     JXG.autoHighlight = function (colstr) {
         var col = JXG.rgba2rgbo(colstr),

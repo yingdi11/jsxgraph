@@ -327,7 +327,7 @@ define([
          * First, the transformation matrix is updated, the do the matrix-vector-multiplication.
          * @param {JXG.GeometryElement} p element which is transformed
          * @param {String} 'self' Apply the transformation to the initialCoords instead of the coords if this is set.
-         * @returns {Array}
+         * @return {Array}
          */
         apply: function (p, self) {
             this.update();
@@ -446,7 +446,7 @@ define([
      * @pseudo
      * @description A transformation consists of a 3x3 matrix, i.e. it is a projective transformation.
      * @name Transformation
-     * @augments JXG.Transformation
+     * @extends JXG.Transformation
      * @constructor
      * @type JXG.Transformation
      * @throws {Exception} If the element cannot be constructed with the given parent objects an exception is thrown.

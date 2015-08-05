@@ -127,7 +127,7 @@
          * @param {String} step.dest_id Id of the generated main element
          * @param {JXG.Board} board
          * @param {Array} step_log The complete step log
-         * @returns {Array} JessieCode to set and reset the step.
+         * @return {Array} JessieCode to set and reset the step.
          */
         generateJCode: function (step, board, step_log) {
             var i, j, k, sub_id, str, str1, str2, objects, pid1, pid2, pid3,

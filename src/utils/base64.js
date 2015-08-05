@@ -53,7 +53,7 @@ define(['jxg', 'utils/encoding'], function (JXG, Encoding) {
      * Extracts one byte from a string and ensures the result is less than or equal to 255.
      * @param {String} s
      * @param {Number} i
-     * @returns {Number} <= 255
+     * @return {Number} <= 255
      * @private
      */
     function _getByte(s, i) {
@@ -64,7 +64,7 @@ define(['jxg', 'utils/encoding'], function (JXG, Encoding) {
      * Determines the index of a base64 character in the base64 alphabet.
      * @param {String} s
      * @param {Number} i
-     * @returns {Number}
+     * @return {Number}
      * @throws {Error} If the character can not be found in the alphabet.
      * @private
      */
@@ -86,7 +86,7 @@ define(['jxg', 'utils/encoding'], function (JXG, Encoding) {
         /**
          * Encode the given string.
          * @param {String} input
-         * @returns {string} base64 encoded version of the input string.
+         * @return {string} base64 encoded version of the input string.
          */
         encode : function (input) {
             var i, bin, len, padLen, encInput,
@@ -131,7 +131,7 @@ define(['jxg', 'utils/encoding'], function (JXG, Encoding) {
          * @param {Boolean} utf8 In case this parameter is true {@link JXG.Util.UTF8.decode} will be applied to
          * the result of the base64 decoder.
          * @throws {Error} If the string has the wrong length.
-         * @returns {String}
+         * @return {String}
          */
         decode : function (input, utf8) {
             var encInput, i, len, padLen, bin, output,

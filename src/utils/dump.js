@@ -111,7 +111,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
         /**
          * Stringifies a string, i.e. puts some quotation marks around <tt>s</tt> if it is of type string.
          * @param {*} s
-         * @returns {String} " + s + "
+         * @return {String} " + s + "
          */
         str: function (s) {
             if (typeof s === 'string' && s.substr(0, 7) !== 'function') {
@@ -126,7 +126,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
          * @param {Object} instance Attribute object of the element
          * @param {Object} s Arbitrary number of objects <tt>instance</tt> will be compared to. Usually these are
          * sub-objects of the {@link JXG.Board#options} structure.
-         * @returns {Object} Minimal attributes object
+         * @return {Object} Minimal attributes object
          */
         minimizeObject: function (instance, s) {
             var p, pl, i,
@@ -159,7 +159,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
          * Prepare the attributes object for an element.
          * @param {JXG.Board} board
          * @param {JXG.GeometryElement} obj Geometry element which attributes object is generated
-         * @returns {Object} An attributes object.
+         * @return {Object} An attributes object.
          */
         prepareAttributes: function (board, obj) {
             var a, s;
@@ -184,7 +184,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
          * Generate a save-able structure with all elements. This is used by {@link JXG.Dump#toJessie} and {@link JXG.Dump#toJavaScript}
          * to generate the script.
          * @param {JXG.Board} board
-         * @returns {Array} An array with all metadata necessary to save the construction.
+         * @return {Array} An array with all metadata necessary to save the construction.
          */
         dump: function (board) {
             var e, obj, element, s,
@@ -245,7 +245,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
          * @param {Array} a
          * @param {function} converter A function that is used to transform the elements of <tt>a</tt>. Usually
          * {@link JXG.toJSON} or {@link JXG.Dump.toJCAN} are used.
-         * @returns {String}
+         * @return {String}
          */
         arrayToParamStr: function (a, converter) {
             var i,
@@ -261,7 +261,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
         /**
          * Converts a JavaScript object into a JCAN (JessieCode Attribute Notation) string.
          * @param {Object} obj A JavaScript object, functions will be ignored.
-         * @returns {String} The given object stored in a JCAN string.
+         * @return {String} The given object stored in a JCAN string.
          */
         toJCAN: function (obj) {
             var s, i, list, prop;
@@ -301,7 +301,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
         /**
          * Saves the construction in <tt>board</tt> to JessieCode.
          * @param {JXG.Board} board
-         * @returns {String} JessieCode
+         * @return {String} JessieCode
          */
         toJessie: function (board) {
             var i, elements,
@@ -335,7 +335,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
         /**
          * Saves the construction in <tt>board</tt> to JavaScript.
          * @param {JXG.Board} board
-         * @returns {String} JavaScript
+         * @return {String} JavaScript
          */
         toJavaScript: function (board) {
             var i, elements,

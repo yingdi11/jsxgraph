@@ -70,7 +70,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
          * @function
          * @param {Array} event
          * @param {Array} args The arguments passed onto the event handler
-         * @returns Reference to the object.
+         * @return Reference to the object.
          */
         trigger: function (event, args) {
             var i, j, h, evt, len1, len2;
@@ -106,7 +106,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
          * @param {String} event
          * @param {Function} handler
          * @param {Object} [context] The context the handler will be called in, default is the element itself.
-         * @returns Reference to the object.
+         * @return Reference to the object.
          */
         on: function (event, handler, context) {
             if (!Type.isArray(this.eventHandlers[event])) {
@@ -129,7 +129,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
          * @function
          * @param {String} event
          * @param {Function} [handler]
-         * @returns Reference to the object.
+         * @return Reference to the object.
          */
         off: function (event, handler) {
             var i;

@@ -155,7 +155,7 @@ define([], function () {
          * Sometimes the target is undefined by the time you want to define the shortcut so we need this little helper.
          * @param {Object} object The object the method we want to create a shortcut for belongs to.
          * @param {String} fun The method we want to create a shortcut for.
-         * @returns {Function} A function that calls the given method.
+         * @return {Function} A function that calls the given method.
          */
         shortcut: function (object, fun) {
             return function () {
@@ -168,7 +168,7 @@ define([], function () {
          * to the element itself. This function returns a reference to the element. Search order: id, name.
          * @param {JXG.Board} board Reference to the board the element belongs to.
          * @param {String} s String or reference to a JSXGraph element.
-         * @returns {Object} Reference to the object given in parameter object
+         * @return {Object} Reference to the object given in parameter object
          * @deprecated Use {@link JXG.Board#select}
          */
         getRef: function (board, s) {

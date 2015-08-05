@@ -170,7 +170,7 @@ define([
          *     <li><b>grid</b>: If set to true, shows the grid. Can also bet set to an object that is given to the grid as its attribute object.</li>
          *     <li><b>registerEvents</b>: Register mouse / touch events.</li>
          * </ul>
-         * @returns {JXG.Board} Reference to the created board.
+         * @return {JXG.Board} Reference to the created board.
          */
         initBoard: function (box, attributes) {
             var originX, originY, unitX, unitY,
@@ -258,7 +258,7 @@ define([
          * @param {String} file base64 encoded string.
          * @param {String} format containing the file format: 'Geonext' or 'Intergeo'.
          * @param {Object} [attributes]
-         * @returns {JXG.Board} Reference to the created board.
+         * @return {JXG.Board} Reference to the created board.
          * @see JXG.FileReader
          * @see JXG.GeonextReader
          * @see JXG.GeogebraReader
@@ -298,7 +298,7 @@ define([
          * @param {String} string base64 encoded string.
          * @param {String} format containing the file format: 'Geonext' or 'Intergeo'.
          * @param {Object} [attributes]
-         * @returns {JXG.Board} Reference to the created board.
+         * @return {JXG.Board} Reference to the created board.
          * @see JXG.FileReader
          * @see JXG.GeonextReader
          * @see JXG.GeogebraReader

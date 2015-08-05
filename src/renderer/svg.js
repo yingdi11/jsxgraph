@@ -52,7 +52,7 @@ define([
     /**
      * Uses SVG to implement the rendering methods defined in {@link JXG.AbstractRenderer}.
      * @class JXG.AbstractRenderer
-     * @augments JXG.AbstractRenderer
+     * @extends JXG.AbstractRenderer
      * @param {Node} container Reference to a DOM node containing the board.
      * @param {Object} dim The dimensions of the board
      * @param {Number} dim.width
@@ -206,7 +206,7 @@ define([
          * @private
          * @param {JXG.GeometryElement} element A JSXGraph element, preferably one that can have an arrow attached.
          * @param {String} [idAppendix=''] A string that is added to the node's id.
-         * @returns {Node} Reference to the node added to the DOM.
+         * @return {Node} Reference to the node added to the DOM.
          */
         _createArrowHead: function (element, idAppendix) {
             var node2, node3,

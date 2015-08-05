@@ -71,7 +71,7 @@ define([
          * @param {String} variable Name for the coordinates, e.g. x or u.
          * @param {String} append Method for how to append the number of the coordinates. Possible values are
          *                        'underscore' (e.g. x_2), 'none' (e.g. x2), 'brace' (e.g. x[2]).
-         * @returns {Number} Number of coordinates given.
+         * @return {Number} Number of coordinates given.
          * @memberof JXG.Math.Symbolic
          */
         generateSymbolicCoordinatesPartial: function (board, element, variable, append) {
@@ -160,7 +160,7 @@ define([
          * @param {JXG.Board} board The board that's points polynomials will be generated.
          * @param {JXG.GeometryElement} element All points in the set of ancestors of this element are used to generate the set of polynomials.
          * @param {Boolean} generateCoords
-         * @returns {Array} An array of polynomials as strings.
+         * @return {Array} An array of polynomials as strings.
          * @memberof JXG.Math.Symbolic
          */
         generatePolynomials: function (board, element, generateCoords) {
@@ -209,7 +209,7 @@ define([
          * Calculate geometric locus of a point given on a board. Invokes python script on server.
          * @param {JXG.Board} board The board on which the point lies.
          * @param {JXG.Point} point The point that will be traced.
-         * @returns {Array} An array of points.
+         * @return {Array} An array of points.
          * @memberof JXG.Math.Symbolic
          */
         geometricLocusByGroebnerBase: function (board, point) {

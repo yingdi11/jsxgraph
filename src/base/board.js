@@ -630,7 +630,7 @@ define([
          * chars prefixed with s_ is used.
          * @method generateName
          * @param {Object} object Reference of an JXG.GeometryElement that is to be named.
-         * @returns {String} Unique name for the object.
+         * @return {String} Unique name for the object.
          */
         generateName: function (object) {
             var possibleNames, i,
@@ -706,7 +706,7 @@ define([
         /**
          * Generates unique id for a board. The result is randomly generated and prefixed with 'jxgBoard'.
          * @method generateId
-         * @returns {String} Unique id for a board.
+         * @return {String} Unique id for a board.
          */
         generateId: function () {
             var r = 1;
@@ -726,7 +726,7 @@ define([
          * @method setId
          * @param {Object} obj Reference of an geometry object that needs an id.
          * @param {Number} type Type of the object.
-         * @returns {String} Unique id for an element.
+         * @return {String} Unique id for an element.
          */
         setId: function (obj, type) {
             var num = this.numObjects,
@@ -774,7 +774,7 @@ define([
         /**
          * Calculates mouse coordinates relative to the boards container.
          * @method getCoordsTopLeftCorner
-         * @returns {Array} Array of coordinates relative the boards container top left corner.
+         * @return {Array} Array of coordinates relative the boards container top left corner.
          */
         getCoordsTopLeftCorner: function () {
             var cPos, doc, crect, scrollLeft, scrollTop,
@@ -892,7 +892,7 @@ define([
          * @param {Event} e Event object given by the browser.
          * @param {Number} [i] Only use in case of touch events. This determines which finger to use and should not be set
          * for mouseevents.
-         * @returns {Array} Contains the mouse coordinates in user coordinates, ready  for {@link JXG.Coords}
+         * @return {Array} Contains the mouse coordinates in user coordinates, ready  for {@link JXG.Coords}
          */
         getMousePosition: function (e, i) {
             var cPos = this.getCoordsTopLeftCorner(),
@@ -949,7 +949,7 @@ define([
          * @param {Number} y current mouse/touch coordinates
          * @param {Object} evt An event object
          * @param {String} type What type of event? 'touch' or 'mouse'.
-         * @returns {Array} A list of geometric elements.
+         * @return {Array} A list of geometric elements.
          */
         initMoveObject: function (x, y, evt, type) {
             var pEl,
@@ -1357,7 +1357,7 @@ define([
          * TODO
          * @method mouseOriginMoveStart
          * @param evt
-         * @returns {*|boolean}
+         * @return {*|boolean}
          */
         mouseOriginMoveStart: function (evt) {
             var r = this.attr.pan.enabled && (!this.attr.pan.needshift || evt.shiftKey),
@@ -1375,7 +1375,7 @@ define([
          * TODO
          * @method mouseOriginMove
          * @param evt
-         * @returns {boolean}
+         * @return {boolean}
          */
         mouseOriginMove: function (evt) {
             var r = (this.mode === this.BOARD_MODE_MOVE_ORIGIN),
@@ -1393,7 +1393,7 @@ define([
          * TODO
          * @method touchOriginMoveStart
          * @param evt
-         * @returns {*|boolean}
+         * @return {*|boolean}
          */
         touchOriginMoveStart: function (evt) {
             var touches = evt[JXG.touchProperty],
@@ -1413,7 +1413,7 @@ define([
          * TODO
          * @method touchOriginMove
          * @param evt
-         * @returns {boolean}
+         * @return {boolean}
          */
         touchOriginMove: function (evt) {
             var r = (this.mode === this.BOARD_MODE_MOVE_ORIGIN),
@@ -1613,7 +1613,7 @@ define([
         /**
          * Handler for click on left arrow in the navigation bar
          * @method clickLeftArrow
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         clickLeftArrow: function () {
             this.moveOrigin(this.origin.scrCoords[1] + this.canvasWidth * 0.1, this.origin.scrCoords[2]);
@@ -1623,7 +1623,7 @@ define([
         /**
          * Handler for click on right arrow in the navigation bar
          * @method clickRightArrow
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         clickRightArrow: function () {
             this.moveOrigin(this.origin.scrCoords[1] - this.canvasWidth * 0.1, this.origin.scrCoords[2]);
@@ -1633,7 +1633,7 @@ define([
         /**
          * Handler for click on up arrow in the navigation bar
          * @method clickUpArrow
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         clickUpArrow: function () {
             this.moveOrigin(this.origin.scrCoords[1], this.origin.scrCoords[2] - this.canvasHeight * 0.1);
@@ -1643,7 +1643,7 @@ define([
         /**
          * Handler for click on down arrow in the navigation bar
          * @method clickDownArrow
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         clickDownArrow: function () {
             this.moveOrigin(this.origin.scrCoords[1], this.origin.scrCoords[2] + this.canvasHeight * 0.1);
@@ -1714,7 +1714,7 @@ define([
          * @method pointerDownListener
          * @param {Event} evt The browsers event object.
          * @param {Object} object If the object to be dragged is already known, it can be submitted via this parameter
-         * @returns {Boolean} ...
+         * @return {Boolean} ...
          */
         pointerDownListener: function (evt, object) {
             var i, j, k, pos, elements, sel,
@@ -2001,7 +2001,7 @@ define([
          * This method is called by the browser when a finger touches the surface of the touch-device.
          * @method touchStartListener
          * @param {Event} evt The browsers event object.
-         * @returns {Boolean} ...
+         * @return {Boolean} ...
          */
         touchStartListener: function (evt) {
             var i, pos, elements, j, k, time,
@@ -2391,7 +2391,7 @@ define([
          * This method is called by the browser when the mouse button is clicked.
          * @method mouseDownListener
          * @param {Event} evt The browsers event object.
-         * @returns {Boolean} True if no element is found under the current mouse pointer, false otherwise.
+         * @return {Boolean} True if no element is found under the current mouse pointer, false otherwise.
          */
         mouseDownListener: function (evt) {
             var pos, elements, result;
@@ -2538,7 +2538,7 @@ define([
          * Handler for mouse wheel events. Used to zoom in and out of the board.
          * @method mouseWheelListener
          * @param {Event} evt
-         * @returns {Boolean}
+         * @return {Boolean}
          */
         mouseWheelListener: function (evt) {
             if (!this.attr.zoom.wheel || (this.attr.zoom.needshift && !evt.shiftKey)) {
@@ -2569,7 +2569,7 @@ define([
          * Updates and displays a little info box to show coordinates of current selected points.
          * @method updateInfobox
          * @param {JXG.GeometryElement} el A GeometryElement
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         updateInfobox: function (el) {
             var x, y, xc, yc;
@@ -2610,7 +2610,7 @@ define([
          * @method highlightcustomInfobox
          * @param {String} text
          * @param {JXG.GeometryElement} [el]
-         * @returns {JXG.Board} Reference to the board.
+         * @return {JXG.Board} Reference to the board.
          */
         highlightCustomInfobox: function (text, el) {
             this.infobox.setText(text);
@@ -2623,7 +2623,7 @@ define([
          * @param {Number} x
          * @param {Number} y
          * @param {JXG.GeometryElement} [el] The element the mouse is pointing at
-         * @returns {JXG.Board} Reference to the board.
+         * @return {JXG.Board} Reference to the board.
          */
         highlightInfobox: function (x, y, el) {
             this.highlightCustomInfobox('(' + x + ', ' + y + ')', el);
@@ -2633,7 +2633,7 @@ define([
         /**
          * Remove highlighting of all elements.
          * @method dehighlightAll
-         * @returns {JXG.Board} Reference to the board.
+         * @return {JXG.Board} Reference to the board.
          */
         dehighlightAll: function () {
             var el, pEl, needsDehighlight = false;
@@ -2677,7 +2677,7 @@ define([
          * @method getScrCoordsOfMouse
          * @param {Number} x X coordinate in screen coordinates
          * @param {Number} y Y coordinate in screen coordinates
-         * @returns {Array} Coordinates of the mouse in screen coordinates.
+         * @return {Array} Coordinates of the mouse in screen coordinates.
          */
         getScrCoordsOfMouse: function (x, y) {
             return [x, y];
@@ -2687,7 +2687,7 @@ define([
          * This method calculates the user coords of the current mouse coordinates.
          * @method getUsrCoordsOfMouse
          * @param {Event} evt Event object containing the mouse coordinates.
-         * @returns {Array} Coordinates of the mouse in screen coordinates.
+         * @return {Array} Coordinates of the mouse in screen coordinates.
          */
         getUsrCoordsOfMouse: function (evt) {
             var cPos = this.getCoordsTopLeftCorner(),
@@ -2703,7 +2703,7 @@ define([
          * Collects all elements under current mouse position plus current user coordinates of mouse cursor.
          * @method getAllUnderMouse
          * @param {Event} evt Event object containing the mouse coordinates.
-         * @returns {Array} Array of elements at the current mouse position plus current user coordinates of mouse.
+         * @return {Array} Array of elements at the current mouse position plus current user coordinates of mouse.
          */
         getAllUnderMouse: function (evt) {
             var elList = this.getAllObjectsUnderMouse(evt);
@@ -2716,7 +2716,7 @@ define([
          * Collects all elements under current mouse position.
          * @method getAllObjectsUnderMouse
          * @param {Event} evt Event object containing the mouse coordinates.
-         * @returns {Array} Array of elements at the current mouse position.
+         * @return {Array} Array of elements at the current mouse position.
          */
         getAllObjectsUnderMouse: function (evt) {
             var cPos = this.getCoordsTopLeftCorner(),
@@ -2742,7 +2742,7 @@ define([
          * Update the coords object of all elements which possess this
          * property. This is necessary after changing the viewport.
          * @method updateCoords
-         * @returns {JXG.Board} Reference to this board.
+         * @return {JXG.Board} Reference to this board.
          **/
         updateCoords: function () {
             var el, ob, len = this.objectsList.length;
@@ -2767,7 +2767,7 @@ define([
          * @param {Number} x
          * @param {Number} y
          * @param {Boolean} [diff=false]
-         * @returns {JXG.Board} Reference to this board.
+         * @return {JXG.Board} Reference to this board.
          */
         moveOrigin: function (x, y, diff) {
             if (Type.exists(x) && Type.exists(y)) {
@@ -2945,7 +2945,7 @@ define([
         /**
          * Calculates adequate snap sizes.
          * @method calculateSnapSize
-         * @returns {JXG.Board} Reference to the board.
+         * @return {JXG.Board} Reference to the board.
          */
         calculateSnapSizes: function () {
             var p1 = new Coords(Const.COORDS_BY_USER, [0, 0], this),
@@ -2971,7 +2971,7 @@ define([
         /**
          * Apply update on all objects with the new zoom-factors. Clears all traces.
          * @method applyZoom
-         * @returns {JXG.Board} Reference to the board.
+         * @return {JXG.Board} Reference to the board.
          */
         applyZoom: function () {
             this.updateCoords().calculateSnapSizes().clearTraces().fullUpdate();
@@ -2984,7 +2984,7 @@ define([
          * @method zoomIn
          * @param {Number} [x]
          * @param {Number} [y]
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         zoomIn: function (x, y) {
             var bb = this.getBoundingBox(),
@@ -3011,7 +3011,7 @@ define([
          * @method zoomOut
          * @param {Number} [x]
          * @param {Number} [y]
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         zoomOut: function (x, y) {
             var bb = this.getBoundingBox(),
@@ -3041,7 +3041,7 @@ define([
         /**
          * Resets zoom factor to 100%.
          * @method zoom100
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         zoom100: function () {
             var bb = this.getBoundingBox(),
@@ -3057,7 +3057,7 @@ define([
         /**
          * Zooms the board so every visible point is shown. Keeps aspect ratio.
          * @method zoomAllPoints
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         zoomAllPoints: function () {
             var el, border, borderX, borderY, pEl,
@@ -3100,7 +3100,7 @@ define([
          * Reset the bounding box and the zoom level to 100% such that a given set of elements is within the board's viewport.
          * @method zoomElements
          * @param {Array} elements A set of elements given by id, reference, or name.
-         * @returns {JXG.Board} Reference to the board.
+         * @return {JXG.Board} Reference to the board.
          */
         zoomElements: function (elements) {
             var i, j, e, box,
@@ -3146,7 +3146,7 @@ define([
          * @method setZoom
          * @param {Number} fX
          * @param {Number} fY
-         * @returns {JXG.Board} Reference to the board.
+         * @return {JXG.Board} Reference to the board.
          */
         setZoom: function (fX, fY) {
             var oX = this.attr.zoom.factorx,
@@ -3167,7 +3167,7 @@ define([
          * Removes object from board and renderer.
          * @method removeObject
          * @param {JXG.GeometryElement} object The object to remove.
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         removeObject: function (object) {
             var el, i;
@@ -3237,7 +3237,7 @@ define([
          * Removes the ancestors of an object an the object itself from board and renderer.
          * @method removeAncestors
          * @param {JXG.GeometryElement} object The object to remove.
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         removeAncestors: function (object) {
             var anc;
@@ -3257,7 +3257,7 @@ define([
          * Initialize some objects which are contained in every GEONExT construction by default,
          * but are not contained in the gxt files.
          * @method initGeonextBoard
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         initGeonextBoard: function () {
             var p1, p2, p3;
@@ -3307,7 +3307,7 @@ define([
          * Initialize the info box object which is used to display
          * the coordinates of points near the mouse pointer.
          * @method initInfobox
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         initInfobox: function () {
             var  attr = Type.copyAttributes({}, this.options, 'infobox');
@@ -3337,7 +3337,7 @@ define([
          * @param {Number} canvasHeight New height of the container.
          * @param {Boolean} [dontset=false] If true do not set the height of the DOM element.
          * @param {Boolean} [dontSetBoundingBox=false] If true do not call setBoundingBox().
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         resizeContainer: function (canvasWidth, canvasHeight, dontset, dontSetBoundingBox) {
             var box;
@@ -3365,7 +3365,7 @@ define([
         /**
          * Lists the dependencies graph in a new HTML-window.
          * @method showDependencies
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         showDependencies: function () {
             var el, t, c, f, i;
@@ -3402,7 +3402,7 @@ define([
         /**
          * Lists the XML code of the construction in a new HTML-window.
          * @method showXML
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         showXML: function () {
             var f = window.open('');
@@ -3415,7 +3415,7 @@ define([
         /**
          * Sets for all objects the needsUpdate flag to "true".
          * @method prepareUpdate
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         prepareUpdate: function () {
             var el, pEl, len = this.objectsList.length;
@@ -3445,7 +3445,7 @@ define([
          * Runs through all elements and calls their update() method.
          * @method updateElements
          * @param {JXG.GeometryElement} drag Element that caused the update.
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         updateElements: function (drag) {
             var el, pEl;
@@ -3494,7 +3494,7 @@ define([
         /**
          * Runs through all elements and calls their update() method.
          * @method updateRenderer
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         updateRenderer: function () {
             var el, pEl,
@@ -3529,7 +3529,7 @@ define([
          * This is a special version for the CanvasRenderer.
          * Here, we have to do our own layer handling.
          * @method updateRendererCanvas
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         updateRendererCanvas: function () {
             var el, pEl, i, mini, la,
@@ -3569,7 +3569,7 @@ define([
          * @param {String} [m='update'] When the hook is to be called. Possible values are <i>mouseup</i>, <i>mousedown</i> and <i>update</i>.
          * @param {Object} [context=board] Determines the execution context the hook is called. This parameter is optional, default is the
          * board object the hook is attached to.
-         * @returns {Number} Id of the hook, required to remove the hook from the board.
+         * @return {Number} Id of the hook, required to remove the hook from the board.
          * @deprecated
          */
         addHook: function (hook, m, context) {
@@ -3594,7 +3594,7 @@ define([
          * Please use {@link JXG.Board#off} instead.
          * @method removeHook
          * @param {Number|function} id The number you got when you added the hook or a reference to the event handler.
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          * @deprecated
          */
         removeHook: function (id) {
@@ -3616,7 +3616,7 @@ define([
         /**
          * Runs through all hooked functions and calls them.
          * @method updateHooks
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          * @deprecated
          */
         updateHooks: function (m) {
@@ -3634,7 +3634,7 @@ define([
          * Adds a dependent board to this board.
          * @method addChild
          * @param {JXG.Board} board A reference to board which will be updated after an update of this board occured.
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         addChild: function (board) {
             if (Type.exists(board) && Type.exists(board.containerObj)) {
@@ -3648,7 +3648,7 @@ define([
          * Deletes a board from the list of dependent boards.
          * @method removeChild
          * @param {JXG.Board} board Reference to the board which will be removed.
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         removeChild: function (board) {
             var i;
@@ -3665,7 +3665,7 @@ define([
          * Runs through most elements and calls their update() method and update the conditions.
          * @method update
          * @param {JXG.GeometryElement} [drag] Element that caused the update.
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         update: function (drag) {
             var i, len, b, insert;
@@ -3718,7 +3718,7 @@ define([
          * Runs through all elements and calls their update() method and update the conditions.
          * This is necessary after zooming and changing the bounding box.
          * @method fullUpdate
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         fullUpdate: function () {
             this.needsFullUpdate = true;
@@ -3730,7 +3730,7 @@ define([
         /**
          * Adds a grid to the board according to the settings given in board.options.
          * @method addGrid
-         * @returns {JXG.Board} Reference to the board.
+         * @return {JXG.Board} Reference to the board.
          */
         addGrid: function () {
             this.create('grid', []);
@@ -3742,7 +3742,7 @@ define([
          * Removes all grids assigned to this board. Warning: This method also removes all objects depending on one or
          * more of the grids.
          * @method removeGrids
-         * @returns {JXG.Board} Reference to the board object.
+         * @return {JXG.Board} Reference to the board object.
          */
         removeGrids: function () {
             var i;
@@ -3766,7 +3766,7 @@ define([
          * methods for a list of possible parameters.
          * @param {Object} [attributes] An object containing the attributes to be set. This also depends on the elementType.
          * Common attributes are name, visible, strokeColor.
-         * @returns {Object} Reference to the created element. This is usually a GeometryElement, but can be an array containing
+         * @return {Object} Reference to the created element. This is usually a GeometryElement, but can be an array containing
          * two or more elements.
          */
         create: function (elementType, parents, attributes) {
@@ -3818,7 +3818,7 @@ define([
         /**
          * Delete the elements drawn as part of a trace of an element.
          * @method clearTraces
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         clearTraces: function () {
             var el;
@@ -3834,7 +3834,7 @@ define([
         /**
          * Stop updates of the board.
          * @method suspendUpdate
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         suspendUpdate: function () {
             if (!this.inUpdate) {
@@ -3846,7 +3846,7 @@ define([
         /**
          * Enable updates of the board.
          * @method unsuspendUpdate
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         unsuspendUpdate: function () {
             if (this.isSuspendedUpdate) {
@@ -3862,7 +3862,7 @@ define([
          * @param {Array} bbox New bounding box [x1,y1,x2,y2]
          * @param {Boolean} [keepaspectratio=false] If set to true, the aspect ratio will be 1:1, but
          * the resulting viewport may be larger.
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         setBoundingBox: function (bbox, keepaspectratio) {
             var h, w,
@@ -3902,7 +3902,7 @@ define([
         /**
          * Get the bounding box of the board.
          * @method getBoundingBox
-         * @returns {Array} bounding box [x1,y1,x2,y2] upper left corner, lower right corner
+         * @return {Array} bounding box [x1,y1,x2,y2] upper left corner, lower right corner
          */
         getBoundingBox: function () {
             var ul = new Coords(Const.COORDS_BY_SCREEN, [0, 0], this),
@@ -3916,7 +3916,7 @@ define([
          * animated elements. This function tells the board about new elements to animate.
          * @method addAnimation
          * @param {JXG.GeometryElement} element The element which is to be animated.
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         addAnimation: function (element) {
             var that = this;
@@ -3935,7 +3935,7 @@ define([
         /**
          * Cancels all running animations.
          * @method stopAllAnimation
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         stopAllAnimation: function () {
             var el;
@@ -3957,7 +3957,7 @@ define([
          * General purpose animation function. This currently only supports moving points from one place to another. This
          * is faster than managing the animation per point, especially if there is more than one animated point at the same time.
          * @method animate
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         animate: function () {
             var props, el, o, newCoords, r, p, c, cbtmp,
@@ -4041,7 +4041,7 @@ define([
          * @param {JXG.Point} dest New point with the dependencies of src.
          * @param {Boolean} copyName Flag which decides if the name of the src element is copied to the
          *  dest element.
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         migratePoint: function (src, dest, copyName) {
             var child, childId, prop, found, i, srcLabelId, srcHasLabel = false;
@@ -4117,7 +4117,7 @@ define([
          * Initializes color blindness simulation.
          * @method emulateColorblindness
          * @param {String} deficiency Describes the color blindness deficiency which is simulated. Accepted values are 'protanopia', 'deuteranopia', and 'tritanopia'.
-         * @returns {JXG.Board} Reference to the board
+         * @return {JXG.Board} Reference to the board
          */
         emulateColorblindness: function (deficiency) {
             var e, o;
@@ -4169,7 +4169,7 @@ define([
          * @method select
          * @param {String|Object|function} str The name, id or a reference to a JSXGraph element on this board. An object will
          * be used as a filter to return multiple elements at once filtered by the properties of the object.
-         * @returns {JXG.GeometryElement|JXG.Composition}
+         * @return {JXG.GeometryElement|JXG.Composition}
          * @example
          * // select the element with name A
          * board.select('A');
@@ -4236,7 +4236,7 @@ define([
          * @method hasPoint
          * @param {Number|JXG.Coords} x User coordinate or {@link JXG.Coords} object.
          * @param {Number} [y] User coordinate. May be omitted in case <tt>x</tt> is a {@link JXG.Coords} object.
-         * @returns {Boolean}
+         * @return {Boolean}
          */
         hasPoint: function (x, y) {
             var px = x,

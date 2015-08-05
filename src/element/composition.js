@@ -90,7 +90,7 @@ define([
      * @constructor
      * @name Orthogonalprojection
      * @type JXG.Point
-     * @augments JXG.Point
+     * @extends JXG.Point
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
      * @param {JXG.Line_JXG.Point} p,l The constructed point is the orthogonal projection of p onto l.
      * @example
@@ -211,7 +211,7 @@ define([
      * @name Perpendicular
      * @constructor
      * @type JXG.Line
-     * @augments Segment
+     * @extends Segment
      * @return A {@link JXG.Line} object through the given point that is orthogonal to the given line.
      * @throws {Error} If the elements cannot be constructed with the given parent objects an exception is thrown.
      * @param {JXG.Line_JXG.Point} l,p The perpendicular line will be orthogonal to l and
@@ -280,7 +280,7 @@ define([
      * @constructor
      * @name PerpendicularPoint
      * @type JXG.Point
-     * @augments JXG.Point
+     * @extends JXG.Point
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
      * @param {JXG.Line_JXG.Point} p,l The constructed point is the orthogonal projection of p onto l.
      * @example
@@ -396,7 +396,7 @@ define([
      * @name PerpendicularSegment
      * @constructor
      * @type JXG.Line
-     * @augments Segment
+     * @extends Segment
      * @return An array containing two elements: A {@link JXG.Line} object in the first component and a
      * {@link JXG.Point} element in the second component. The line segment is orthogonal to the given line and meets it
      * in the returned point.
@@ -478,7 +478,7 @@ define([
      * @constructor
      * @name Midpoint
      * @type JXG.Point
-     * @augments JXG.Point
+     * @extends JXG.Point
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
      * @param {JXG.Point_JXG.Point} p1,p2 The constructed point will be in the middle of p1 and p2.
      * @param {JXG.Line} l The midpoint will be in the middle of {@link JXG.Line#point1} and {@link JXG.Line#point2} of
@@ -598,7 +598,7 @@ define([
      * @constructor
      * @name Parallelpoint
      * @type JXG.Point
-     * @augments JXG.Point
+     * @extends JXG.Point
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
      * @param {JXG.Point_JXG.Point_JXG.Point} p1,p2,p3 Taking the euclidean vector <tt>v=p2-p1</tt> the parallel point is determined by
      * <tt>p4 = p3+v</tt>
@@ -731,7 +731,7 @@ define([
      * @class A parallel is a line through a given point with the same slope as a given line.
      * @pseudo
      * @name Parallel
-     * @augments Line
+     * @extends Line
      * @constructor
      * @type JXG.Line
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -826,7 +826,7 @@ define([
      * @constructor
      * @name Arrowparallel
      * @type Parallel
-     * @augments Parallel
+     * @extends Parallel
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
      * @param {JXG.Line_JXG.Point} l,p The constructed arrow contains p and has the same slope as l.
      * @example
@@ -876,7 +876,7 @@ define([
      * @constructor
      * @name Normal
      * @type JXG.Line
-     * @augments JXG.Line
+     * @extends JXG.Line
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
      * @param {JXG.Line,JXG.Circle,JXG.Curve,JXG.Turtle_JXG.Point} o,p The constructed line contains p which lies on the object and is orthogonal
      * to the tangent to the object in the given point.
@@ -1115,7 +1115,7 @@ define([
      * @constructor
      * @name Bisector
      * @type JXG.Line
-     * @augments JXG.Line
+     * @extends JXG.Line
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
      * @param {JXG.Point_JXG.Point_JXG.Point} p1,p2,p3 The angle described by <tt>p1</tt>, <tt>p2</tt> and <tt>p3</tt> will
      * be divided into two equal angles.
@@ -1193,7 +1193,7 @@ define([
      * @constructor
      * @name Bisectorlines
      * @type JXG.Composition
-     * @augments JXG.Composition
+     * @extends JXG.Composition
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
      * @param {JXG.Line_JXG.Line} l1,l2 The four angles described by the lines <tt>l1</tt> and <tt>l2</tt> will each
      * be divided into two equal angles.
@@ -1324,7 +1324,7 @@ define([
      * @constructor
      * @name Circumcenter
      * @type JXG.Point
-     * @augments JXG.Point
+     * @extends JXG.Point
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
      * @param {JXG.Point_JXG.Point_JXG.Point} p1,p2,p3 The constructed point is the midpoint of the circle determined
      * by p1, p2, and p3.
@@ -1406,7 +1406,7 @@ define([
      * @constructor
      * @name Incenter
      * @type JXG.Point
-     * @augments JXG.Point
+     * @extends JXG.Point
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
      * @param {JXG.Point_JXG.Point_JXG.Point} p1,p2,p3 The constructed point is the incenter of the triangle described
      * by p1, p2, and p3.
@@ -1462,7 +1462,7 @@ define([
      * @constructor
      * @name Circumcircle
      * @type JXG.Circle
-     * @augments JXG.Circle
+     * @extends JXG.Circle
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
      * @param {JXG.Point_JXG.Point_JXG.Point} p1,p2,p3 The constructed element is the circle determined by <tt>p1</tt>, <tt>p2</tt>, and <tt>p3</tt>.
      * @example
@@ -1524,7 +1524,7 @@ define([
      * @constructor
      * @name Incircle
      * @type JXG.Circle
-     * @augments JXG.Circle
+     * @extends JXG.Circle
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
      * @param {JXG.Point_JXG.Point_JXG.Point} p1,p2,p3 The constructed point is the midpoint of the incircle of
      * <tt>p1</tt>, <tt>p2</tt>, and <tt>p3</tt>.
@@ -1604,7 +1604,7 @@ define([
      * @constructor
      * @name Reflection
      * @type JXG.Point
-     * @augments JXG.Point
+     * @extends JXG.Point
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
      * @param {JXG.Point_JXG.Line} p,l The reflection point is the reflection of p against l.
      * @example
@@ -1688,7 +1688,7 @@ define([
      * @constructor
      * @name Mirrorpoint
      * @type JXG.Point
-     * @augments JXG.Point
+     * @extends JXG.Point
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
      * @param {JXG.Point_JXG.Point} p1,p2 The constructed point is the reflection of p2 against p1.
      * @example
@@ -1742,7 +1742,7 @@ define([
      * @constructor
      * @name Integral
      * @type JXG.Curve
-     * @augments JXG.Curve
+     * @extends JXG.Curve
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
      * @param {Array_JXG.Curve} i,c The constructed element covers the area between the curve <tt>c</tt> and the x-axis
      * within the interval <tt>i</tt>.
@@ -2066,7 +2066,7 @@ define([
      * @constructor
      * @name Grid
      * @type JXG.Curve
-     * @augments JXG.Curve
+     * @extends JXG.Curve
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
      * @example
      * grid = board.create('grid', []);
@@ -2186,7 +2186,7 @@ define([
      * @constructor
      * @name Inequality
      * @type JXG.Curve
-     * @augments JXG.Curve
+     * @extends JXG.Curve
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
      * @example
      * var p = board.create('point', [1, 3]),

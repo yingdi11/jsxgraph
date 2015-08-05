@@ -371,7 +371,7 @@ define(['jxg', 'renderer/abstract'], function (JXG, AbstractRenderer) {
          * Creates a node of a given type with a given id.
          * @param {String} type The type of the node to create.
          * @param {String} id Set the id attribute to this.
-         * @returns {Node} Reference to the created node.
+         * @return {Node} Reference to the created node.
          */
         createPrim: function (type, id) {
             /* stub */
@@ -571,14 +571,14 @@ define(['jxg', 'renderer/abstract'], function (JXG, AbstractRenderer) {
         /**
          * Highlights an object, i.e. changes the current colors of the object to its highlighting colors
          * @param {JXG.GeometryElement} element Reference of the object that will be highlighted.
-         * @returns {JXG.AbstractRenderer} Reference to the renderer
+         * @return {JXG.AbstractRenderer} Reference to the renderer
          */
         highlight: function (element) { },
 
         /**
          * Uses the normal colors of an object, i.e. the opposite of {@link JXG.AbstractRenderer#highlight}.
          * @param {JXG.GeometryElement} element Reference of the object that will get its normal colors.
-         * @returns {JXG.AbstractRenderer} Reference to the renderer
+         * @return {JXG.AbstractRenderer} Reference to the renderer
          */
         noHighlight: function (element) { },
 
@@ -610,7 +610,7 @@ define(['jxg', 'renderer/abstract'], function (JXG, AbstractRenderer) {
         /**
          * Wrapper for getElementById for maybe other renderers which elements are not directly accessible by DOM methods like document.getElementById().
          * @param {String} id Unique identifier for element.
-         * @returns {Object} Reference to a JavaScript object. In case of SVG/VMLRenderer it's a reference to a SVG/VML node.
+         * @return {Object} Reference to a JavaScript object. In case of SVG/VMLRenderer it's a reference to a SVG/VML node.
          */
         getElementById: function (id) {
             return null;

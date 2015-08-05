@@ -67,7 +67,7 @@ define([
      * @constructor
      * @name Locus
      * @type JXG.Curve
-     * @augments JXG.Curve
+     * @extends JXG.Curve
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
      * @param {JXG.Point} p The constructed curve is the geometric locus of the given point.
      * @example

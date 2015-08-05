@@ -853,7 +853,7 @@ define([
          * method does not have to be implemented in a new renderer.
          * @param {JXG.GeometryElement} element A JSXGraph element. We only need its board property.
          * @param {Array} transformations An array of JXG.Transformations.
-         * @returns {Array} A matrix represented by a two dimensional array of numbers.
+         * @return {Array} A matrix represented by a two dimensional array of numbers.
          * @see JXG.AbstractRenderer#transformImage
          */
         joinTransforms: function (element, transformations) {
@@ -961,7 +961,7 @@ define([
          * Creates a node of a given type with a given id.
          * @param {String} type The type of the node to create.
          * @param {String} id Set the id attribute to this.
-         * @returns {Node} Reference to the created node.
+         * @return {Node} Reference to the created node.
          */
         createPrim: function (type, id) {
             /* stub */
@@ -1193,7 +1193,7 @@ define([
         /**
          * Highlights an object, i.e. changes the current colors of the object to its highlighting colors
          * @param {JXG.GeometryElement} element Reference of the object that will be highlighted.
-         * @returns {JXG.AbstractRenderer} Reference to the renderer
+         * @return {JXG.AbstractRenderer} Reference to the renderer
          * @see JXG.AbstractRenderer#updateTextStyle
          */
         highlight: function (element) {
@@ -1227,7 +1227,7 @@ define([
         /**
          * Uses the normal colors of an object, i.e. the opposite of {@link JXG.AbstractRenderer#highlight}.
          * @param {JXG.GeometryElement} element Reference of the object that will get its normal colors.
-         * @returns {JXG.AbstractRenderer} Reference to the renderer
+         * @return {JXG.AbstractRenderer} Reference to the renderer
          * @see JXG.AbstractRenderer#updateTextStyle
          */
         noHighlight: function (element) {
@@ -1368,7 +1368,7 @@ define([
          * Wrapper for getElementById for maybe other renderers which elements are not directly accessible by DOM
          * methods like document.getElementById().
          * @param {String} id Unique identifier for element.
-         * @returns {Object} Reference to a JavaScript object. In case of SVG/VMLRenderer it's a reference to a SVG/VML
+         * @return {Object} Reference to a JavaScript object. In case of SVG/VMLRenderer it's a reference to a SVG/VML
          * node.
          */
         getElementById: function (id) {
@@ -1380,7 +1380,7 @@ define([
          * is taken from this article {@link https://developers.google.com/speed/articles/javascript-dom}.
          * @author KeeKim Heng, Google Web Developer
          * @param {Element} element The element to be temporarily removed
-         * @returns {Function} A function that inserts the element into its original position
+         * @return {Function} A function that inserts the element into its original position
          */
         removeToInsertLater: function (element) {
             var parentNode = element.parentNode,

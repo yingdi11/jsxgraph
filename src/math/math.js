@@ -249,7 +249,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
          * @method matVecMult
          * @param {Array} mat Two dimensional array of numbers. The inner arrays describe the columns, the outer ones the matrix' rows.
          * @param {Array} vec Array of numbers
-         * @returns {Array} Array of numbers containing mat * vec
+         * @return {Array} Array of numbers containing mat * vec
          * @example
          *     var A = [[2, 1],
          *   	       [1, 3]],
@@ -529,7 +529,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
          *
          * @method sinh
          * @param {Number} x The number the sine hyperbolicus will be calculated of.
-         * @returns {Number} Sine hyperbolicus of the given value.
+         * @return {Number} Sine hyperbolicus of the given value.
          */
         sinh: function (x) {
             return (Math.exp(x) - Math.exp(-x)) * 0.5;
@@ -609,7 +609,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
          * @method squampow
          * @param {Number} base
          * @param {Number} exponent
-         * @returns {Number} Base to the power of exponent
+         * @return {Number} Base to the power of exponent
          */
         squampow: function (base, exponent) {
             var result;

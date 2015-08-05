@@ -60,7 +60,7 @@ define([
      * @pseudo
      * @description
      * @name Tapemeasure
-     * @augments Segment
+     * @extends Segment
      * @constructor
      * @type JXG.Segment
      * @throws {Exception} If the element cannot be constructed with the given parent objects an exception is thrown.

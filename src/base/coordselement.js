@@ -65,7 +65,7 @@ define([
      * @class Creates a new coords element object. Do not use this constructor to create an element.
      *
      * @private
-     * @augments JXG.GeometryElement
+     * @extends JXG.GeometryElement
      * @param {Array} coordinates An array with the affine user coordinates of the point.
      * {@link JXG.Options#elements}, and - optionally - a name and an id.
      */
@@ -635,7 +635,7 @@ define([
 
         /**
          * Getter method for x, this is used by for CAS-points to access point coordinates.
-         * @returns {Number} User coordinate of point in x direction.
+         * @return {Number} User coordinate of point in x direction.
          */
         X: function () {
             return this.coords.usrCoords[1];
@@ -643,7 +643,7 @@ define([
 
         /**
          * Getter method for y, this is used by CAS-points to access point coordinates.
-         * @returns {Number} User coordinate of point in y direction.
+         * @return {Number} User coordinate of point in y direction.
          */
         Y: function () {
             return this.coords.usrCoords[2];
@@ -651,7 +651,7 @@ define([
 
         /**
          * Getter method for z, this is used by CAS-points to access point coordinates.
-         * @returns {Number} User coordinate of point in z direction.
+         * @return {Number} User coordinate of point in z direction.
          */
         Z: function () {
             return this.coords.usrCoords[0];
@@ -660,7 +660,7 @@ define([
         /**
          * New evaluation of the function term.
          * This is required for CAS-points: Their XTerm() method is overwritten in {@link #addConstraint}
-         * @returns {Number} User coordinate of point in x direction.
+         * @return {Number} User coordinate of point in x direction.
          * @private
          */
         XEval: function () {
@@ -670,7 +670,7 @@ define([
         /**
          * New evaluation of the function term.
          * This is required for CAS-points: Their YTerm() method is overwritten in {@link #addConstraint}
-         * @returns {Number} User coordinate of point in y direction.
+         * @return {Number} User coordinate of point in y direction.
          * @private
          */
         YEval: function () {
@@ -680,7 +680,7 @@ define([
         /**
          * New evaluation of the function term.
          * This is required for CAS-points: Their ZTerm() method is overwritten in {@link #addConstraint}
-         * @returns {Number} User coordinate of point in z direction.
+         * @return {Number} User coordinate of point in z direction.
          * @private
          */
         ZEval: function () {
@@ -691,7 +691,7 @@ define([
          * Getter method for the distance to a second point, this is required for CAS-elements.
          * Here, function inlining seems to be worthwile  (for plotting).
          * @param {JXG.Point} point2 The point to which the distance shall be calculated.
-         * @returns {Number} Distance in user coordinate to the given point
+         * @return {Number} Distance in user coordinate to the given point
          */
         Dist: function (point2) {
             if (this.isReal && point2.isReal) {
@@ -703,7 +703,7 @@ define([
         /**
          * Alias for {@link JXG.Element#handleSnapToGrid}
          * @param {Boolean} force force snapping independent from what the snaptogrid attribute says
-         * @returns {JXG.Point} Reference to this element
+         * @return {JXG.Point} Reference to this element
          */
         snapToGrid: function (force) {
             return this.handleSnapToGrid(force);
@@ -715,7 +715,7 @@ define([
          * The function uses the coords object of the point as
          * its actual position.
          * @param {Boolean} force force snapping independent from what the snaptogrid attribute says
-         * @returns {JXG.Point} Reference to this element
+         * @return {JXG.Point} Reference to this element
          */
         handleSnapToPoints: function (force) {
             var i, pEl, pCoords,
@@ -774,7 +774,7 @@ define([
         /**
          * Alias for {@link #handleSnapToPoints}.
          * @param {Boolean} force force snapping independent from what the snaptogrid attribute says
-         * @returns {JXG.Point} Reference to this element
+         * @return {JXG.Point} Reference to this element
          */
         snapToPoints: function (force) {
             return this.handleSnapToPoints(force);
@@ -788,7 +788,7 @@ define([
          * apart from one of its attractor elements.
          * If attractorDistance is equal to zero, the point stays in its
          * current form.
-         * @returns {JXG.Point} Reference to this element
+         * @return {JXG.Point} Reference to this element
          */
         handleAttractors: function () {
             var i, el, projCoords,
@@ -843,7 +843,7 @@ define([
          * @param {Number} method The type of coordinates used here.
          * Possible values are {@link JXG.COORDS_BY_USER} and {@link JXG.COORDS_BY_SCREEN}.
          * @param {Array} coords coordinates <tt>([z], x, y)</tt> in screen/user units
-         * @returns {JXG.Point} this element
+         * @return {JXG.Point} this element
          */
         setPositionDirectly: function (method, coords) {
             var i, c, dc,
@@ -900,7 +900,7 @@ define([
          * @param {Number} method The type of coordinates used here.
          * Possible values are {@link JXG.COORDS_BY_USER} and {@link JXG.COORDS_BY_SCREEN}.
          * @param {Number} tv (x, y)
-         * @returns {JXG.Point}
+         * @return {JXG.Point}
          */
         setPositionByTransform: function (method, tv) {
             var t;
@@ -925,7 +925,7 @@ define([
          * @param {Number} method The type of coordinates used here.
          * Possible values are {@link JXG.COORDS_BY_USER} and {@link JXG.COORDS_BY_SCREEN}.
          * @param {Array} coords coordinates in screen/user units
-         * @returns {JXG.Point}
+         * @return {JXG.Point}
          */
         setPosition: function (method, coords) {
             return this.setPositionDirectly(method, coords);
@@ -935,7 +935,7 @@ define([
          * Sets the position of a glider relative to the defining elements
          * of the {@link JXG.Point#slideObject}.
          * @param {Number} x
-         * @returns {JXG.Point} Reference to the point element.
+         * @return {JXG.Point} Reference to the point element.
          */
         setGliderPosition: function (x) {
             if (this.type === Const.OBJECT_TYPE_GLIDER) {
@@ -1283,7 +1283,7 @@ define([
         /**
          * Applies the transformations of the element.
          * This method applies to text and images. Point transformations are handled differently.
-         * @returns {JXG.CoordsElement} Reference to this object.
+         * @return {JXG.CoordsElement} Reference to this object.
          */
         updateTransform: function () {
             var i;
@@ -1304,7 +1304,7 @@ define([
          * @param {JXG.GeometryElement} el
          * @param {JXG.Transformation|Array} transform Either one {@link JXG.Transformation}
          * or an array of {@link JXG.Transformation}s.
-         * @returns {JXG.Point} Reference to this point object.
+         * @return {JXG.Point} Reference to this point object.
          */
         addTransform: function (el, transform) {
             var i,
@@ -1374,7 +1374,7 @@ define([
          * @param {Boolean} [options.interpolate=true] If <tt>path</tt> is an array moveAlong()
          * will interpolate the path
          * using {@link JXG.Math.Numerics#Neville}. Set this flag to false if you don't want to use interpolation.
-         * @returns {JXG.Point} Reference to the point.
+         * @return {JXG.Point} Reference to the point.
          */
         moveAlong: function (path, time, options) {
             options = options || {};
@@ -1448,7 +1448,7 @@ define([
          * @param {String} [options.effect='<>'] animation effects like speed fade in and out. possible values are
          * '<>' for speed increase on start and slow down at the end (default) and '--' for constant speed during
          * the whole animation.
-         * @returns {JXG.Point} Reference to itself.
+         * @return {JXG.Point} Reference to itself.
          * @see #animate
          */
         moveTo: function (where, time, options) {
@@ -1505,7 +1505,7 @@ define([
          * '<>' for speed increase on start and slow down at the end (default) and '--' for constant speed during
          * the whole animation.
          * @param {Number} [options.repeat=1] How often this animation should be repeated.
-         * @returns {JXG.Point} Reference to itself.
+         * @return {JXG.Point} Reference to itself.
          * @see #animate
          */
         visit: function (where, time, options) {
@@ -1679,7 +1679,7 @@ define([
      * in case of an image this is the url.
      * @param{Array} arg2 Optional argument 2: in case of image this is an array containing the size of
      * the image.
-     * @returns{Object} returns the created object or false.
+     * @return{Object} returns the created object or false.
      */
     JXG.CoordsElement.create = function (Callback, board, coords, attr, arg1, arg2) {
         var el, isConstrained = false, i;

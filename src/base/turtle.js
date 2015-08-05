@@ -203,7 +203,7 @@ define([
         /**
          * Move the turtle forward.
          * @param {Number} len of forward move in user coordinates
-         * @returns {JXG.Turtle} pointer to the turtle object
+         * @return {JXG.Turtle} pointer to the turtle object
          */
         forward: function (len) {
             if (len === 0) {
@@ -244,7 +244,7 @@ define([
         /**
          * Move the turtle backwards.
          * @param {Number} len of backwards move in user coordinates
-         * @returns {JXG.Turtle} pointer to the turtle object
+         * @return {JXG.Turtle} pointer to the turtle object
          */
         back: function (len) {
             return this.forward(-len);
@@ -253,7 +253,7 @@ define([
         /**
          * Rotate the turtle direction to the right
          * @param {Number} angle of the rotation in degrees
-         * @returns {JXG.Turtle} pointer to the turtle object
+         * @return {JXG.Turtle} pointer to the turtle object
          */
         right: function (angle) {
             this.dir -= angle;
@@ -271,7 +271,7 @@ define([
         /**
          * Rotate the turtle direction to the right.
          * @param {Number} angle of the rotation in degrees
-         * @returns {JXG.Turtle} pointer to the turtle object
+         * @return {JXG.Turtle} pointer to the turtle object
          */
         left: function (angle) {
             return this.right(-angle);
@@ -279,7 +279,7 @@ define([
 
         /**
          * Pen up, stops visible drawing
-         * @returns {JXG.Turtle} pointer to the turtle object
+         * @return {JXG.Turtle} pointer to the turtle object
          */
         penUp: function () {
             this.isPenDown = false;
@@ -288,7 +288,7 @@ define([
 
         /**
          * Pen down, continues visible drawing
-         * @returns {JXG.Turtle} pointer to the turtle object
+         * @return {JXG.Turtle} pointer to the turtle object
          */
         penDown: function () {
             this.isPenDown = true;
@@ -300,7 +300,7 @@ define([
 
         /**
          * Removes the turtle curve from the board. The turtle stays in its position.
-         * @returns {JXG.Turtle} pointer to the turtle object
+         * @return {JXG.Turtle} pointer to the turtle object
          */
         clean: function () {
             var i, el;
@@ -322,7 +322,7 @@ define([
 
         /**
          *  Removes the turtle completely and resets it to its initial position and direction.
-         * @returns {JXG.Turtle} pointer to the turtle object
+         * @return {JXG.Turtle} pointer to the turtle object
          */
         clearScreen: function () {
             var i, el,
@@ -341,7 +341,7 @@ define([
          *  Moves the turtle without drawing to a new position
          * @param {Number} x new x- coordinate
          * @param {Number} y new y- coordinate
-         * @returns {JXG.Turtle} pointer to the turtle object
+         * @return {JXG.Turtle} pointer to the turtle object
          */
         setPos: function (x, y) {
             var t;
@@ -370,7 +370,7 @@ define([
          *  Sets the pen size. Equivalent to setAttribute({strokeWidth:size})
          * but affects only the future turtle.
          * @param {Number} size
-         * @returns {JXG.Turtle} pointer to the turtle object
+         * @return {JXG.Turtle} pointer to the turtle object
          */
         setPenSize: function (size) {
             //this.visProp.strokewidth = size;
@@ -383,7 +383,7 @@ define([
          *  Sets the pen color. Equivalent to setAttribute({strokeColor:color})
          * but affects only the future turtle.
          * @param {String} color
-         * @returns {JXG.Turtle} pointer to the turtle object
+         * @return {JXG.Turtle} pointer to the turtle object
          */
         setPenColor: function (color) {
             this.curve = this.board.create('curve', [[this.pos[0]], [this.pos[1]]], this.copyAttr('strokeColor', color));
@@ -396,7 +396,7 @@ define([
          *  Sets the highlight pen color. Equivalent to setAttribute({highlightStrokeColor:color})
          * but affects only the future turtle.
          * @param {String} color
-         * @returns {JXG.Turtle} pointer to the turtle object
+         * @return {JXG.Turtle} pointer to the turtle object
          */
         setHighlightPenColor: function (color) {
             //this.visProp.highlightstrokecolor = colStr;
@@ -409,7 +409,7 @@ define([
          * Sets properties of the turtle, see also {@link JXG.GeometryElement#setAttribute}.
          * Sets the property for all curves of the turtle in the past and in the future.
          * @param {Object} attributes key:value pairs
-         * @returns {JXG.Turtle} pointer to the turtle object
+         * @return {JXG.Turtle} pointer to the turtle object
          */
         setAttribute: function (attributes) {
             var i, el, tmp,
@@ -437,7 +437,7 @@ define([
          * @private
          * @param {String} key
          * @param {Number|String} val
-         * @returns {Object} pointer to the attributes object
+         * @return {Object} pointer to the attributes object
          */
         copyAttr: function (key, val) {
             this._attributes[key.toLowerCase()] = val;
@@ -446,7 +446,7 @@ define([
 
         /**
          * Sets the visibility of the turtle head to true,
-         * @returns {JXG.Turtle} pointer to the turtle object
+         * @return {JXG.Turtle} pointer to the turtle object
          */
         showTurtle: function () {
             this.turtleIsHidden = false;
@@ -460,7 +460,7 @@ define([
 
         /**
          * Sets the visibility of the turtle head to false,
-         * @returns {JXG.Turtle} pointer to the turtle object
+         * @return {JXG.Turtle} pointer to the turtle object
          */
         hideTurtle: function () {
             this.turtleIsHidden = true;
@@ -473,7 +473,7 @@ define([
 
         /**
          * Moves the turtle to position [0,0].
-         * @returns {JXG.Turtle} pointer to the turtle object
+         * @return {JXG.Turtle} pointer to the turtle object
          */
         home: function () {
             this.pos = [0, 0];
@@ -484,7 +484,7 @@ define([
 
         /**
          *  Pushes the position of the turtle on the stack.
-         * @returns {JXG.Turtle} pointer to the turtle object
+         * @return {JXG.Turtle} pointer to the turtle object
          */
         pushTurtle: function () {
             this.stack.push([this.pos[0], this.pos[1], this.dir]);
@@ -495,7 +495,7 @@ define([
         /**
          *  Gets the last position of the turtle on the stack, sets the turtle to this position and removes this
          * position from the stack.
-         * @returns {JXG.Turtle} pointer to the turtle object
+         * @return {JXG.Turtle} pointer to the turtle object
          */
         popTurtle: function () {
             var status = this.stack.pop();
@@ -512,7 +512,7 @@ define([
          * There are two possibilities:
          * @param {Number|Array} target If a number is given, it is interpreted as the new direction to look to; If an array
          * consisting of two Numbers is given targeted is used as a pair coordinates.
-         * @returns {JXG.Turtle} pointer to the turtle object
+         * @return {JXG.Turtle} pointer to the turtle object
          */
         lookTo: function (target) {
             var ax, ay, bx, by, beta;
@@ -536,7 +536,7 @@ define([
          * Moves the turtle to a given coordinate pair.
          * The direction is not changed.
          * @param {Array} target Coordinates of the point where the turtle looks to.
-         * @returns {JXG.Turtle} pointer to the turtle object
+         * @return {JXG.Turtle} pointer to the turtle object
          */
         moveTo: function (target) {
             var dx, dy, t;
@@ -621,7 +621,7 @@ define([
          * the "co"-coordinate of the turtle curve at position t is returned.
          * @param {Number} t parameter
          * @param {String} co. Either 'X' or 'Y'.
-         * @returns {Number} x-coordinate of the turtle position or x-coordinate of turtle at position t
+         * @return {Number} x-coordinate of the turtle position or x-coordinate of turtle at position t
          */
         evalAt: function (t, co) {
             var i, j, el, tc,
@@ -646,7 +646,7 @@ define([
          * if t is not supplied the x-coordinate of the turtle is returned. Otherwise
          * the x-coordinate of the turtle curve at position t is returned.
          * @param {Number} t parameter
-         * @returns {Number} x-coordinate of the turtle position or x-coordinate of turtle at position t
+         * @return {Number} x-coordinate of the turtle position or x-coordinate of turtle at position t
          */
         X: function (t) {
             if (!Type.exists(t)) {
@@ -660,7 +660,7 @@ define([
          * if t is not supplied the y-coordinate of the turtle is returned. Otherwise
          * the y-coordinate of the turtle curve at position t is returned.
          * @param {Number} t parameter
-         * @returns {Number} x-coordinate of the turtle position or x-coordinate of turtle at position t
+         * @return {Number} x-coordinate of the turtle position or x-coordinate of turtle at position t
          */
         Y: function (t) {
             if (!Type.exists(t)) {
@@ -670,7 +670,7 @@ define([
         },
 
         /**
-         * @returns {Number} z-coordinate of the turtle position
+         * @return {Number} z-coordinate of the turtle position
          */
         Z: function (t) {
             return 1.0;
@@ -705,7 +705,7 @@ define([
          * Checks whether (x,y) is near the curve.
          * @param {Number} x Coordinate in x direction, screen coordinates.
          * @param {Number} y Coordinate in y direction, screen coordinates.
-         * @returns {Boolean} True if (x,y) is near the curve, False otherwise.
+         * @return {Boolean} True if (x,y) is near the curve, False otherwise.
          */
         hasPoint: function (x, y) {
             var i, el;
@@ -731,14 +731,14 @@ define([
      * @pseudo
      * @description  Creates a new turtle
      * @name Turtle
-     * @augments JXG.Turtle
+     * @extends JXG.Turtle
      * @constructor
      * @type JXG.Turtle
      * 
      * @param {JXG.Board} board The board the turtle is put on.
      * @param {Array} parents
      * @param {Object} attributes Object containing properties for the element such as stroke-color and visibility. See {@link JXG.GeometryElement#setAttribute}
-     * @returns {JXG.Turtle} Reference to the created turtle object.
+     * @return {JXG.Turtle} Reference to the created turtle object.
      */
     JXG.createTurtle = function (board, parents, attributes) {
         var attr;

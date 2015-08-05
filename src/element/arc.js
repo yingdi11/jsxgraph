@@ -64,7 +64,7 @@ define([
      * defines the radius, and a third point that defines the angle of the arc.
      * @pseudo
      * @name Arc
-     * @augments Curve
+     * @extends Curve
      * @constructor
      * @type JXG.Curve
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -199,7 +199,7 @@ define([
          * @memberOf Arc.prototype
          * @name Radius
          * @function
-         * @returns {Number} The arc's radius
+         * @return {Number} The arc's radius
          */
         el.Radius = function () {
             return this.radiuspoint.Dist(this.center);
@@ -210,7 +210,7 @@ define([
          * @memberOf Arc.prototype
          * @name getRadius
          * @function
-         * @returns {Number}
+         * @return {Number}
          */
         el.getRadius = function () {
             JXG.deprecated('Arc.getRadius()', 'Arc.Radius()');
@@ -222,7 +222,7 @@ define([
          * @memberOf Arc.prototype
          * @name Value
          * @function
-         * @returns {Number} The arc length
+         * @return {Number} The arc length
          */
         el.Value = function () {
             return this.Radius() * Geometry.rad(this.radiuspoint, this.center, this.anglepoint);
@@ -278,7 +278,7 @@ define([
          * @function
          * @param {Number} x Coordinate in x direction, screen coordinates.
          * @param {Number} y Coordinate in y direction, screen coordinates.
-         * @returns {Boolean} True if (x,y) is within the sector defined by the arc, False otherwise.
+         * @return {Boolean} True if (x,y) is within the sector defined by the arc, False otherwise.
          */
         el.hasPointSector = function (x, y) {
             var angle, alpha, beta,
@@ -371,7 +371,7 @@ define([
      * @class A semicircle is a special arc defined by two points. The arc hits both points.
      * @pseudo
      * @name Semicircle
-     * @augments Arc
+     * @extends Arc
      * @constructor
      * @type Arc
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -434,7 +434,7 @@ define([
      * @class A circumcircle arc is an {@link Arc} defined by three points. All three points lie on the arc.
      * @pseudo
      * @name CircumcircleArc
-     * @augments Arc
+     * @extends Arc
      * @constructor
      * @type Arc
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -504,7 +504,7 @@ define([
      * defines the radius, and a third point that defines the angle of the arc.
      * @pseudo
      * @name MinorArc
-     * @augments Curve
+     * @extends Curve
      * @constructor
      * @type JXG.Curve
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -543,7 +543,7 @@ define([
      * defines the radius, and a third point that defines the angle of the arc.
      * @pseudo
      * @name MajorArc
-     * @augments Curve
+     * @extends Curve
      * @constructor
      * @type JXG.Curve
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.

@@ -57,7 +57,7 @@ define([
     /**
      * Uses HTML Canvas to implement the rendering methods defined in {@link JXG.AbstractRenderer}.
      * @class JXG.AbstractRenderer
-     * @augments JXG.AbstractRenderer
+     * @extends JXG.AbstractRenderer
      * @param {Node} container Reference to a DOM node containing the board.
      * @param {Object} dim The dimensions of the board
      * @param {Number} dim.width
@@ -150,7 +150,7 @@ define([
          * @param {Number} angle An angle, given in rad.
          * @param {Number} x X coordinate of the point.
          * @param {Number} y Y coordinate of the point.
-         * @returns {Array} An array containing the x and y coordinate of the rotated point.
+         * @return {Array} An array containing the x and y coordinate of the rotated point.
          * @private
          */
         _rotatePoint: function (angle, x, y) {
@@ -164,7 +164,7 @@ define([
          * Rotates an array of points around <tt>(0, 0)</tt>.
          * @param {Array} shape An array of array of point coordinates.
          * @param {Number} angle The angle in rad the points are rotated by.
-         * @returns {Array} Array of array of two dimensional point coordinates.
+         * @return {Array} Array of array of two dimensional point coordinates.
          * @private
          */
         _rotateShape: function (shape, angle) {
@@ -188,7 +188,7 @@ define([
          * @param {JXG.GeometryElement} element Any JSXGraph element.
          * @param {String} [type='stroke'] Either <em>fill</em> or <em>stroke</em>.
          * @param {String} [targetType=type] (optional) Either <em>fill</em> or <em>stroke</em>.
-         * @returns {Boolean} If the color could be set, <tt>true</tt> is returned.
+         * @return {Boolean} If the color could be set, <tt>true</tt> is returned.
          * @private
          */
         _setColor: function (element, type, targetType) {
@@ -275,7 +275,7 @@ define([
          * @param {Array} shape An array of point coordinates.
          * @param {Number} x Translation in X direction.
          * @param {Number} y Translation in Y direction.
-         * @returns {Array} An array of translated point coordinates.
+         * @return {Array} An array of translated point coordinates.
          * @private
          */
         _translateShape: function (shape, x, y) {

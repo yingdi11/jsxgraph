@@ -63,7 +63,7 @@ define([
      * Curves are the common object for function graphs, parametric curves, polar curves, and data plots.
      * @class Creates a new curve object. Do not use this constructor to create a curve. Use {@link JXG.Board#create} with
      * type {@link Curve}, or {@link Functiongraph} instead.
-     * @augments JXG.GeometryElement
+     * @extends JXG.GeometryElement
      * @param {String|JXG.Board} board The board the new curve is drawn on.
      * @param {Array} parents defining terms An array with the functon terms or the data points of the curve.
      * @param {Object} attributes Defines the visual appearance of the curve.
@@ -138,7 +138,7 @@ define([
         /**
          * Gives the default value of the left bound for the curve.
          * May be overwritten in {@link JXG.Curve#generateTerm}.
-         * @returns {Number} Left bound for the curve.
+         * @return {Number} Left bound for the curve.
          */
         minX: function () {
             var leftCoords;
@@ -154,7 +154,7 @@ define([
         /**
          * Gives the default value of the right bound for the curve.
          * May be overwritten in {@link JXG.Curve#generateTerm}.
-         * @returns {Number} Right bound for the curve.
+         * @return {Number} Right bound for the curve.
          */
         maxX: function () {
             var rightCoords;
@@ -304,7 +304,7 @@ define([
 
         /**
          * Computes for equidistant points on the x-axis the values of the function
-         * @returns {JXG.Curve} Reference to the curve object.
+         * @return {JXG.Curve} Reference to the curve object.
          * @see JXG.Curve#updateCurve
          */
         update: function () {
@@ -320,7 +320,7 @@ define([
 
         /**
          * Updates the visual contents of the curve.
-         * @returns {JXG.Curve} Reference to the curve object.
+         * @return {JXG.Curve} Reference to the curve object.
          */
         updateRenderer: function () {
             var wasReal;
@@ -376,7 +376,7 @@ define([
          * If the mousemove event triggers this update, we use only few
          * points. Otherwise, e.g. on mouseup, many points are used.
          * @see JXG.Curve#update
-         * @returns {JXG.Curve} Reference to the curve object.
+         * @return {JXG.Curve} Reference to the curve object.
          */
         updateCurve: function () {
             var len, mi, ma, x, y, i,
@@ -501,7 +501,7 @@ define([
          * @param {Number} mi Left bound of curve
          * @param {Number} ma Right bound of curve
          * @param {Number} len Number of data points
-         * @returns {JXG.Curve} Reference to the curve object.
+         * @return {JXG.Curve} Reference to the curve object.
          */
         updateParametricCurveNaive: function (mi, ma, len) {
             var i, t,
@@ -524,7 +524,7 @@ define([
          * @deprecated
          * @param {Number} mi Left bound of curve
          * @param {Number} ma Right bound of curve
-         * @returns {JXG.Curve} Reference to the curve object.
+         * @return {JXG.Curve} Reference to the curve object.
          */
         updateParametricCurveOld: function (mi, ma) {
             var i, t, t0, d,
@@ -670,7 +670,7 @@ define([
          * @param {Number} y0
          * @param {Number} x1
          * @param {Number} y1
-         * @returns {Boolean} <tt>true</tt> if the given segment is outside the visible area.
+         * @return {Boolean} <tt>true</tt> if the given segment is outside the visible area.
          */
         isSegmentOutside: function (x0, y0, x1, y1) {
             return (y0 < 0 && y1 < 0) || (y0 > this.board.canvasHeight && y1 > this.board.canvasHeight) ||
@@ -686,7 +686,7 @@ define([
          * @param {Number} dy
          * @param {Number} MAXX
          * @param {Number} MAXY
-         * @returns {Boolean} <tt>true</tt>, if <tt>|dx| &lt; MAXX</tt> and <tt>|dy| &lt; MAXY</tt>.
+         * @return {Boolean} <tt>true</tt>, if <tt>|dx| &lt; MAXX</tt> and <tt>|dy| &lt; MAXY</tt>.
          */
         isDistOK: function (dx, dy, MAXX, MAXY) {
             return (Math.abs(dx) < MAXX && Math.abs(dy) < MAXY) && !isNaN(dx + dy);
@@ -743,7 +743,7 @@ define([
          * @param {Number} tb Parameter which evaluates to b, i.e. [1, X(tb), Y(tb)] = b in screen coordinates
          * @param {Number} tc (ta + tb) / 2 = tc. Parameter which evaluates to b, i.e. [1, X(tc), Y(tc)] = c in screen coordinates
          * @param {Number} depth Actual recursion depth. The recursion stops if depth is equal to 0.
-         * @returns {JXG.Boolean} true if the point is inserted and the recursion should stop, false otherwise.
+         * @return {JXG.Boolean} true if the point is inserted and the recursion should stop, false otherwise.
          */
         _borderCase: function (a, b, c, ta, tb, tc, depth) {
             var t, pnt, p, p_good = null,
@@ -822,7 +822,7 @@ define([
          * @param {Array} a Screen coordinates of the left interval bound
          * @param {Array} b Screen coordinates of the right interval bound
          * @param {Array} c Screen coordinates of the bisection point at (ta + tb) / 2
-         * @returns {Array} array of distances in screen coordinates between: ab, ac, cb, and cd.
+         * @return {Array} array of distances in screen coordinates between: ab, ac, cb, and cd.
          */
         _triangleDists: function (a, b, c) {
             var d, d_ab, d_ac, d_cb, d_cd;
@@ -891,7 +891,7 @@ define([
          * @param {Number} depth Actual recursion depth. The recursion stops if depth is equal to 0.
          * @param {Number} delta If the distance of the bisection point at (ta + tb) / 2 from the point (a + b) / 2 is less then delta,
          *                 the segment [a,b] is regarded as straight line.
-         * @returns {JXG.Curve} Reference to the curve object.
+         * @return {JXG.Curve} Reference to the curve object.
          */
         _plotRecursive: function (a, ta, b, tb, depth, delta) {
             var tc, c,
@@ -953,7 +953,7 @@ define([
          * Updates the data points of a parametric curve. This version is used if {@link JXG.Curve#doadvancedplot} is <tt>true</tt>.
          * @param {Number} mi Left bound of curve
          * @param {Number} ma Right bound of curve
-         * @returns {JXG.Curve} Reference to the curve object.
+         * @return {JXG.Curve} Reference to the curve object.
          */
         updateParametricCurve: function (mi, ma) {
             var ta, tb, a, b,
@@ -1007,7 +1007,7 @@ define([
          * Applies the transformations of the curve to the given point <tt>p</tt>.
          * Before using it, {@link JXG.Curve#updateTransformMatrix} has to be called.
          * @param {JXG.Point} p
-         * @returns {JXG.Point} The given point.
+         * @return {JXG.Point} The given point.
          */
         updateTransform: function (p) {
             var c,
@@ -1024,7 +1024,7 @@ define([
         /**
          * Add transformations to this curve.
          * @param {JXG.Transformation|Array} transform Either one {@link JXG.Transformation} or an array of {@link JXG.Transformation}s.
-         * @returns {JXG.Curve} Reference to the curve object.
+         * @return {JXG.Curve} Reference to the curve object.
          */
         addTransform: function (transform) {
             var i,
@@ -1043,7 +1043,7 @@ define([
          * and generate the method curve.Y() in case curve.dataY is an array.
          * @private
          * @param {String} which Either 'X' or 'Y'
-         * @returns {function}
+         * @return {function}
          **/
         interpolationFunctionFromArray: function (which) {
             var data = 'data' + which;
@@ -1345,7 +1345,7 @@ define([
      * @pseudo
      * @description
      * @name Curve
-     * @augments JXG.Curve
+     * @extends JXG.Curve
      * @constructor
      * @type JXG.Curve
      *
@@ -1481,7 +1481,7 @@ define([
      * @pseudo
      * @description
      * @name Functiongraph
-     * @augments JXG.Curve
+     * @extends JXG.Curve
      * @constructor
      * @type JXG.Curve
      * @param {function_number,function_number,function} f,a_,b_ Parent elements are a function term f(x) describing the function graph.
@@ -1534,7 +1534,7 @@ define([
      * @param {JXG.Board} board Reference to the board the spline is drawn on.
      * @param {Array} parents Array of points the spline interpolates
      * @param {Object} attributes Define color, width, ... of the spline
-     * @returns {JXG.Curve} Returns reference to an object of type JXG.Curve.
+     * @return {JXG.Curve} Returns reference to an object of type JXG.Curve.
      */
     JXG.createSpline = function (board, parents, attributes) {
         var f;
@@ -1614,7 +1614,7 @@ define([
      * @pseudo
      * @description
      * @name Riemannsum
-     * @augments JXG.Curve
+     * @extends JXG.Curve
      * @constructor
      * @type JXG.Curve
      * @param {function,array_number,function_string,function_function,number_function,number} f,n,type_,a_,b_ Parent elements of Riemannsum are a
@@ -1724,7 +1724,7 @@ define([
      * @pseudo
      * @description
      * @name Tracecurve
-     * @augments JXG.Curve
+     * @extends JXG.Curve
      * @constructor
      * @type JXG.Curve
      * @param {Point,Point} Parent elements of Tracecurve are a
@@ -1871,7 +1871,7 @@ define([
      * @pseudo
      * @description
      * @name Stepfunction
-     * @augments JXG.Curve
+     * @extends JXG.Curve
      * @constructor
      * @type JXG.Curve
      * @param {Array,Array|Function} Parent elements of Stepfunction are two arrays containing the coordinates.
