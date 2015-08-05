@@ -782,7 +782,7 @@ define([
      *   or the function's return value. If two parent elements are given the coordinates will be interpreted as 2D affine Euclidean coordinates, if three such
      *   parent elements are given they will be interpreted as homogeneous coordinates.
      *   <p>
-     *   The text to display may be given as string or as function returning a string.
+     *   The text to be displayed may be given as string or as function returning a string.
      *
      * There is the attribute 'display' which takes the values 'html' or 'internal'. In case of 'html' a HTML division tag is created to display
      * the text. In this case it is also possible to use ASCIIMathML. Incase of 'internal', a SVG or VML text element is used to display the text.
