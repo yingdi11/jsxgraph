@@ -29,6 +29,19 @@ function run() {
             target.pseudo = true;
         };
 
+        Y.DocParser.DIGESTERS['see'] = function (tagname, value, target, block) {
+            var reference = value.split('#');
+
+            if (typeof target.references === 'undefined') {
+                target.references = [];
+            }
+
+            target.references.push({
+                className: reference[0] || '',
+                propertyName: reference[1] || ''
+            });
+        };
+
         json = yuidoc.run();
 
         postProcess(json);
