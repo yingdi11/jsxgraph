@@ -55,6 +55,10 @@ define([
 
     /**
      * Construct and handle images
+     *
+     * Creates a new image object. Do not use this constructor to create a image. Use {@link JXG.Board#create} with
+     * type {@link Image} instead.
+     *
      * The coordinates can be relative to the coordinates of an element
      * given in {@link JXG.Options#text.anchor}.
      *
@@ -62,9 +66,7 @@ define([
      * like "data:image/png;base64, /9j/4AAQSkZJRgA..." or a function returning
      * an URL: function(){ return 'xxx.png; }.
      *
-     * @class Creates a new image object. Do not use this constructor to create a image. Use {@link JXG.Board#create} with
-     * type {@link Image} instead.
-     * @extends JXG.GeometryElement
+     * @class JXG.Image
      * @extends JXG.CoordsElement
      * @param {string|JXG.Board} board The board the new text is drawn on.
      * @param {Array} coordinates An array with the user coordinates of the text.
@@ -78,16 +80,55 @@ define([
         this.element = this.board.select(attributes.anchor);
         this.coordsConstructor(coords);
 
+        /**
+         * Function returning the width of the image in user view coordinates.
+         *
+         * @method W
+         * @return {Number}
+         */
         this.W = Type.createFunction(size[0], this.board, '');
+
+        /**
+         * Function returning the height of the image in user view coordinates.
+         *
+         * @method H
+         * @return {Number}
+         */
         this.H = Type.createFunction(size[1], this.board, '');
+
+        /**
+         * Size of the image in user view coordinates: [w, h].
+         *
+         * @property usrSize
+         * @type Array
+         */
         this.usrSize = [this.W(), this.H()];
+
+        /**
+         * Size of the image in screen view coordinates, i.e. pixel: [w, h].
+         *
+         * @property size
+         * @type Array
+         */
         this.size = [Math.abs(this.usrSize[0] * board.unitX), Math.abs(this.usrSize[1] * board.unitY)];
+
+        /**
+         * URL of the image. This might also be a data url.
+         *
+         * @property url
+         * @type {String}
+         */
         this.url = url;
 
         this.elType = 'image';
 
-        // span contains the anchor point and the two vectors
-        // spanning the image rectangle.
+        /**
+         * `span` contains the anchor point and the two vectors
+         * spanning the image rectangle.
+         *
+         * @property span
+         * @type {Array}
+         */
         this.span = [
             this.coords.usrCoords.slice(0),
             [this.coords.usrCoords[0], this.W(), 0],
@@ -113,6 +154,8 @@ define([
 
         /**
          * Checks whether (x,y) is over or near the image;
+         *
+         * @method hasPoint
          * @param {Number} x Coordinate in x direction, screen coordinates.
          * @param {Number} y Coordinate in y direction, screen coordinates.
          * @return {Boolean} True if (x,y) is over the image, False otherwise.
@@ -154,8 +197,12 @@ define([
         },
 
         /**
-         * Recalculate the coordinates of lower left corner and the width amd the height.
+         * Update coordinates and recalculate the coordinates of lower left corner and the width and the height.
+         *
+         * @method update
          * @private
+         * @return {JXG.Image} Reference to the image object.
+         * @chainable
          */
         update: function (fromParent) {
             if (!this.needsUpdate) {
@@ -170,23 +217,31 @@ define([
             return this;
         },
 
-        /**
-         * Send an update request to the renderer.
-         */
+        // Documented in GeometryElement
         updateRenderer: function () {
             return this.updateRendererGeneric('updateImage');
         },
 
         /**
          * Updates the size of the image.
+         *
+         * @method updateSize
+         * @return {JXG.Image} Reference to the image object.
+         * @chainable
          */
         updateSize: function () {
             this.coords.setCoordinates(Const.COORDS_BY_USER, [this.W(), this.H()]);
+            return this;
         },
 
         /**
          * Update the anchor point of the image, i.e. the lower left corner
          * and the two vectors which span the rectangle.
+         *
+         * @method updateSpan
+         * @private
+         * @return {JXG.Image} Reference to the image object.
+         * @chainable
          */
         updateSpan: function () {
             var i, j, len = this.transformations.length, v = [];
@@ -226,6 +281,7 @@ define([
             return this;
         },
 
+        // Documented in GeometryElement
         addTransform: function (transform) {
             var i;
 
@@ -240,13 +296,11 @@ define([
     });
 
     /**
-     * @class Displays an image.
+     * Displays an image.
      * @pseudo
-     * @description
-     * @name Image
+     * @class Image
      * @type JXG.Image
      * @extends JXG.Image
-     * @constructor
      * @constructor
      * @throws {Exception} If the element cannot be constructed with the given parent objects an exception is thrown.
      * @param {string,function_Array_Array} url,coords,size url defines the location of the image data. The array coords contains the user coordinates
@@ -260,13 +314,16 @@ define([
      * <p>
      * The array size defines the image's width and height in user coordinates.
      * @example
-     * var im = board.create('image', ['http://jsxgraph.uni-bayreuth.de/jsxgraph/distrib/images/uccellino.jpg', [-3,-2], [3,3]]);
      *
-     * </pre><div id="9850cda0-7ea0-4750-981c-68bacf9cca57" style="width: 400px; height: 400px;"></div>
+     *     var im = board.create('image', ['http://jsxgraph.uni-bayreuth.de/jsxgraph/distrib/images/uccellino.jpg', [-3,-2], [3,3]]);
+     *
+     * <div id="9850cda0-7ea0-4750-981c-68bacf9cca57" style="width: 400px; height: 400px;"></div>
      * <script type="text/javascript">
-     *   var image_board = JXG.JSXGraph.initBoard('9850cda0-7ea0-4750-981c-68bacf9cca57', {boundingbox: [-4, 4, 4, -4], axis: true, showcopyright: false, shownavigation: false});
-     *   var image_im = image_board.create('image', ['http://jsxgraph.uni-bayreuth.de/distrib/images/uccellino.jpg', [-3,-2],[3,3]]);
-     * </script><pre>
+     * (function(){
+     *   var board = JXG.JSXGraph.initBoard('9850cda0-7ea0-4750-981c-68bacf9cca57', {boundingbox: [-4, 4, 4, -4], axis: true, showcopyright: false, shownavigation: false});
+     *   var im = board.create('image', ['http://jsxgraph.uni-bayreuth.de/distrib/images/uccellino.jpg', [-3,-2],[3,3]]);
+     * })();
+     * </script>
      */
     JXG.createImage = function (board, parents, attributes) {
         var attr, im,
