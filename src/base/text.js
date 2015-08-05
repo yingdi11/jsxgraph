@@ -65,14 +65,15 @@ define([
 
     /**
      * Construct and handle texts.
+     * Creates a new text object. Do not use this constructor to create a text. Use {@link JXG.Board#create} with
+     * type {@link Text} instead.
      *
      * The coordinates can be relative to the coordinates of an element
      * given in {@link JXG.Options#text.anchor}.
      *
      * MathJax, HTML and GEONExT syntax can be handled.
-     * @class Creates a new text object. Do not use this constructor to create a text. Use {@link JXG.Board#create} with
-     * type {@link Text} instead.
-     * @extends JXG.GeometryElement
+     *
+     * @class JXG.Text
      * @extends JXG.CoordsElement
      * @param {string|JXG.Board} board The board the new text is drawn on.
      * @param {Array} coordinates An array with the user coordinates of the text.
@@ -83,17 +84,58 @@ define([
     JXG.Text = function (board, coords, attributes, content) {
         this.constructor(board, attributes, Const.OBJECT_TYPE_TEXT, Const.OBJECT_CLASS_TEXT);
 
+        /**
+         * Anchor element which define the origin for the relative coordinates.
+         * If defined the coordinates of the text are relative coordinates.
+         * 
+         * @property element
+         * @type {JXG.CoordsElement}
+         * @private
+         */
         this.element = this.board.select(attributes.anchor);
         this.coordsConstructor(coords, this.visProp.islabel);
 
+        /**
+         * 
+         * @property content
+         * @type {String}
+         * @private
+         */
         this.content = '';
+
+        /**
+         * 
+         * @property plaintext
+         * @type {String}
+         * @private
+         */
         this.plaintext = '';
         this.plaintextOld = null;
+        
+        /**
+         * 
+         * @property orgText
+         * @type {String}
+         * @private
+         */
         this.orgText = '';
 
         this.needsSizeUpdate = false;
+        
+        /**
+         * @property hiddenByParent
+         * @type Boolean
+         * @default false
+         * @private
+         */
         this.hiddenByParent = false;
 
+        /**
+         * Size of the text in screen view coordinates, i.e. pixel: [w, h].
+         *
+         * @property size
+         * @type Array
+         */
         this.size = [1.0, 1.0];
         this.id = this.board.setId(this, 'T');
 
@@ -121,12 +163,14 @@ define([
 
     JXG.extend(JXG.Text.prototype, /** @lends JXG.Text.prototype */ {
         /**
-         * @private
          * Test if the the screen coordinates (x,y) are in a small stripe
          * at the left side or at the right side of the text.
          * Sensitivity is set in this.board.options.precision.hasPoint.
          * If dragarea is set to 'all' (default), tests if the the screen
-        * coordinates (x,y) are in within the text boundary.
+         * coordinates (x,y) are in within the text boundary.
+         * 
+         * @method hasPoint
+         * @private
          * @param {Number} x
          * @param {Number} y
          * @return {Boolean}
@@ -175,7 +219,11 @@ define([
         /**
          * This sets the updateText function of this element that depending on the type of text content passed.
          * Used by {@link JXG.Text#_setText} and {@link JXG.Text} constructor.
+         * 
+         * @method _setUpdateText
          * @param {String|Function|Number} text
+         * @return {JXG.Text} Reference to the text object.
+         * @chainable
          * @private
          */
         _setUpdateText: function (text) {
@@ -214,13 +262,17 @@ define([
                     this.plaintext = updateText();
                 };
             }
+            return this;
         },
 
         /**
          * Defines new content. This is used by {@link JXG.Text#setTextJessieCode} and {@link JXG.Text#setText}. This is required because
          * JessieCode needs to filter all Texts inserted into the DOM and thus has to replace setText by setTextJessieCode.
+         * 
+         * @method _setText
          * @param {String|Function|Number} text
-         * @return {JXG.Text}
+         * @return {JXG.Text} Reference to the text object.
+         * @chainable
          * @private
          */
         _setText: function (text) {
@@ -241,7 +293,11 @@ define([
 
         /**
          * Defines new content but converts &lt; and &gt; to HTML entities before updating the DOM.
+         * 
+         * @method setTextJessieCode
          * @param {String|function} text
+         * @return {JXG.Text} Reference to the text object.
+         * @chainable
          */
         setTextJessieCode: function (text) {
             var s;
@@ -265,8 +321,11 @@ define([
 
         /**
          * Defines new content.
+         * 
+         * @method setText
          * @param {String|function} text
          * @return {JXG.Text} Reference to the text object.
+         * @chainable
          */
         setText: function (text) {
             return this._setText(text);
@@ -274,13 +333,17 @@ define([
 
         /**
          * Recompute the width and the height of the text box.
-         * Update array this.size with pixel values.
+         * Update array `this.size` with pixel values.
          * The result may differ from browser to browser
          * by some pixels.
          * In canvas an old IEs we use a very crude estimation of the dimensions of
          * the textbox.
          * In JSXGraph this.size is necessary for applying rotations in IE and
          * for aligning text.
+         * 
+         * @method updateSize
+         * @return {JXG.Text} Reference to the text object.
+         * @chainable
          */
         updateSize: function () {
             var tmp, s, that, node;
@@ -324,7 +387,10 @@ define([
 
         /**
          * A very crude estimation of the dimensions of the textbox in case nothing else is available.
+         * 
+         * @method crudeSizeEstimate
          * @return {Array}
+         * @private
          */
         crudeSizeEstimate: function () {
             return [parseFloat(this.visProp.fontsize) * this.plaintext.length * 0.45, parseFloat(this.visProp.fontsize) * 0.9];
@@ -332,6 +398,8 @@ define([
 
         /**
          * Decode unicode entities into characters.
+         * 
+         * @method utf8_decode
          * @param {String} string
          * @return {String}
          */
@@ -343,8 +411,11 @@ define([
 
         /**
          * Replace _{} by &lt;sub&gt;
+         * 
+         * @method replaceSub
          * @param {String} te String containing _{}.
          * @return {String} Given string with _{} replaced by &lt;sub&gt;.
+         * @private
          */
         replaceSub: function (te) {
             if (!te.indexOf) {
@@ -378,8 +449,11 @@ define([
 
         /**
          * Replace ^{} by &lt;sup&gt;
+         * 
+         * @method replaceSup
          * @param {String} te String containing ^{}.
          * @return {String} Given string with ^{} replaced by &lt;sup&gt;.
+         * @private
          */
         replaceSup: function (te) {
             if (!te.indexOf) {
@@ -413,6 +487,8 @@ define([
 
         /**
          * Return the width of the text element.
+         * 
+         * @method getSize
          * @return {Array} [width, height] in pixel
          */
         getSize: function () {
@@ -421,9 +497,12 @@ define([
 
         /**
          * Move the text to new coordinates.
+         * 
+         * @method setCoords
          * @param {number} x
          * @param {number} y
-         * @return {object} reference to the text object.
+         * @return {JXG.Text} reference to the text object.
+         * @chainable
          */
         setCoords: function (x, y) {
             var coordsAnchor, dx, dy;
@@ -458,11 +537,7 @@ define([
             return this;
         },
 
-        /**
-         * Evaluates the text.
-         * Then, the update function of the renderer
-         * is called.
-         */
+        // Documented in GeometryElement
         update: function (fromParent) {
             if (!this.needsUpdate) {
                 return this;
@@ -484,13 +559,16 @@ define([
         },
 
         /**
-         * Used to save updateSize() calls.
-         * Called in JXG.Text.update
-         * That means this.update() has been called.
-         * More tests are in JXG.Renderer.updateTextStyle. The latter tests
+         * Used to avoid updateSize() calls.
+         * Called in `JXG.Text.update`.
+         * If true it means that `this.update` has been called.
+         * More tests for size changes are in `JXG.Renderer.updateTextStyle`. The latter tests
          * are one update off. But this should pose not too many problems, since
          * it affects fontSize and cssClass changes.
          *
+         * @method checkForSizeUpdate
+         * @return {JXG.Text} reference to the text object.
+         * @chainable
          * @private
          */
         checkForSizeUpdate: function () {
@@ -505,14 +583,11 @@ define([
                     this.plaintextOld = this.plaintext;
                 }
             }
+            return this;
 
         },
 
-        /**
-         * The update function of the renderert
-         * is called.
-         * @private
-         */
+        // Documented in GeometryElement
         updateRenderer: function () {
             return this.updateRendererGeneric('updateText');
         },
@@ -521,9 +596,10 @@ define([
          * Converts shortened math syntax into correct syntax:  3x instead of 3*x or
          * (a+b)(3+1) instead of (a+b)*(3+1).
          *
+         * @method expandShortMath
          * @private
          * @param{String} expr Math term
-         * @return {string} expanded String
+         * @return {String} expanded String
          */
         expandShortMath: function(expr) {
             var re = /([\)0-9\.])\s*([\(a-zA-Z_])/g;
@@ -535,10 +611,12 @@ define([
          * Also, all Objects whose name appears in the term are searched and
          * the text is added as child to these objects.
          *
+         * @method generateTerm
          * @param{String} contentStr String to be parsed
          * @param{Boolean} [expand] Optional flag if shortened math syntax is allowed (e.g. 3x instead of 3*x).
          * @private
          * @see JXG.GeonextParser.geonext2JS.
+         * @return {String} Plaintext String
          */
         generateTerm: function (contentStr, expand) {
             var res, term, i, j,
@@ -606,6 +684,9 @@ define([
         /**
          * Converts the GEONExT tags <overline> and <arrow> to
          * HTML span tags with proper CSS formating.
+         * 
+         * @method convertGeonext2CSS
+         * @return {String} Converted HTML text
          * @private
          * @see JXG.Text.generateTerm @see JXG.Text._setText
          */
@@ -627,8 +708,12 @@ define([
         /**
          * Finds dependencies in a given term and notifies the parents by adding the
          * dependent object to the found objects child elements.
+         * 
+         * @method notifyParents
          * @param {String} content String containing dependencies for the given object.
          * @private
+         * @return {JXG.Text} reference to the text object.
+         * @chainable
          */
         notifyParents: function (content) {
             var search,
@@ -663,6 +748,7 @@ define([
             return p;
         },
 
+        // documented in element.js
         bounds: function () {
             var c = this.coords.usrCoords;
 
@@ -675,71 +761,77 @@ define([
     });
 
     /**
-     * @class Construct and handle texts.
+     * Construct and handle texts.
      *
      * The coordinates can be relative to the coordinates of an element
      * given in {@link JXG.Options#text.anchor}.
      *
      * MathJaX, HTML and GEONExT syntax can be handled.
      * @pseudo
-     * @description
-     * @name Text
+     * @class Text
      * @extends JXG.Text
      * @constructor
      * @type JXG.Text
      *
      * @param {number,function_number,function_number,function_String,function} z_,x,y,str Parent elements for text elements.
-     *                     <p>
+     *   <p>
      *   Parent elements can be two or three elements of type number, a string containing a GEONE<sub>x</sub>T
      *   constraint, or a function which takes no parameter and returns a number. Every parent element determines one coordinate. If a coordinate is
      *   given by a number, the number determines the initial position of a free text. If given by a string or a function that coordinate will be constrained
      *   that means the user won't be able to change the texts's position directly by mouse because it will be calculated automatically depending on the string
      *   or the function's return value. If two parent elements are given the coordinates will be interpreted as 2D affine Euclidean coordinates, if three such
      *   parent elements are given they will be interpreted as homogeneous coordinates.
-     *                     <p>
-     *                     The text to display may be given as string or as function returning a string.
+     *   <p>
+     *   The text to display may be given as string or as function returning a string.
      *
      * There is the attribute 'display' which takes the values 'html' or 'internal'. In case of 'html' a HTML division tag is created to display
      * the text. In this case it is also possible to use ASCIIMathML. Incase of 'internal', a SVG or VML text element is used to display the text.
      * @see JXG.Text
      * @example
-     * // Create a fixed text at position [0,1].
-     *   var t1 = board.create('text',[0,1,"Hello World"]);
-     * </pre><div id="896013aa-f24e-4e83-ad50-7bc7df23f6b7" style="width: 300px; height: 300px;"></div>
+     * 
+     *      // Create a fixed text at position [0,1].
+     *      var t1 = board.create('text',[0,1,"Hello World"]);
+     * <div id="896013aa-f24e-4e83-ad50-7bc7df23f6b7" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
-     *   var t1_board = JXG.JSXGraph.initBoard('896013aa-f24e-4e83-ad50-7bc7df23f6b7', {boundingbox: [-3, 6, 5, -3], axis: true, showcopyright: false, shownavigation: false});
-     *   var t1 = t1_board.create('text',[0,1,"Hello World"]);
-     * </script><pre>
+     * (function(){
+     *   var board = JXG.JSXGraph.initBoard('896013aa-f24e-4e83-ad50-7bc7df23f6b7', {boundingbox: [-3, 6, 5, -3], axis: true, showcopyright: false, shownavigation: false});
+     *   var t1 = board.create('text',[0,1,"Hello World"]);
+     * })();
+     * </script>
+     * 
      * @example
-     * // Create a variable text at a variable position.
-     *   var s = board.create('slider',[[0,4],[3,4],[-2,0,2]]);
-     *   var graph = board.create('text',
+     * 
+     *      // Create a variable text at a variable position.
+     *      var s = board.create('slider',[[0,4],[3,4],[-2,0,2]]);
+     *      var txt = board.create('text',
      *                        [function(x){ return s.Value();}, 1,
      *                         function(){return "The value of s is"+s.Value().toFixed(2);}
      *                        ]
      *                     );
-     * </pre><div id="5441da79-a48d-48e8-9e53-75594c384a1c" style="width: 300px; height: 300px;"></div>
+     * <div id="5441da79-a48d-48e8-9e53-75594c384a1c" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
-     *   var t2_board = JXG.JSXGraph.initBoard('5441da79-a48d-48e8-9e53-75594c384a1c', {boundingbox: [-3, 6, 5, -3], axis: true, showcopyright: false, shownavigation: false});
-     *   var s = t2_board.create('slider',[[0,4],[3,4],[-2,0,2]]);
-     *   var t2 = t2_board.create('text',[function(x){ return s.Value();}, 1, function(){return "The value of s is "+s.Value().toFixed(2);}]);
-     * </script><pre>
+     * (function(){
+     *   var _board = JXG.JSXGraph.initBoard('5441da79-a48d-48e8-9e53-75594c384a1c', {boundingbox: [-3, 6, 5, -3], axis: true, showcopyright: false, shownavigation: false});
+     *   var s = board.create('slider',[[0,4],[3,4],[-2,0,2]]);
+     *   var t2 = board.create('text',[function(x){ return s.Value();}, 1, function(){return "The value of s is "+s.Value().toFixed(2);}]);
+     * })();
+     * </script>
+     * 
      * @example
-     * // Create a text bound to the point A
-     * var p = board.create('point',[0, 1]),
-     *     t = board.create('text',[0, -1,"Hello World"], {anchor: p});
-     *
-     * </pre><div id="ff5a64b2-2b9a-11e5-8dd9-901b0e1b8723" style="width: 300px; height: 300px;"></div>
+     * 
+     *      // Create a text bound to the point A
+     *      var p = board.create('point',[0, 1]),
+     *      t = board.create('text',[0, -1,"Hello World"], {anchor: p});
+     * 
+     * <div id="ff5a64b2-2b9a-11e5-8dd9-901b0e1b8723" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
-     *     (function() {
-     *         var board = JXG.JSXGraph.initBoard('ff5a64b2-2b9a-11e5-8dd9-901b0e1b8723',
-     *             {boundingbox: [-8, 8, 8,-8], axis: true, showcopyright: false, shownavigation: false});
-     *     var p = board.create('point',[0, 1]),
-     *         t = board.create('text',[0, -1,"Hello World"], {anchor: p});
-     *
-     *     })();
-     *
-     * </script><pre>
+     * (function() {
+     *  var board = JXG.JSXGraph.initBoard('ff5a64b2-2b9a-11e5-8dd9-901b0e1b8723',
+     *   {boundingbox: [-8, 8, 8,-8], axis: true, showcopyright: false, shownavigation: false});
+     *   var p = board.create('point',[0, 1]),
+     *      t = board.create('text',[0, -1,"Hello World"], {anchor: p});
+     * })();
+     * </script>
      *
      */
     JXG.createText = function (board, parents, attributes) {

@@ -53,8 +53,10 @@ define([
 
     /**
      * Creates a new instance of JXG.Polygon.
-     * @class Polygon stores all style and functional properties that are required
+     * Stores all style and functional properties that are required
      * to draw and to interactact with a polygon.
+     * 
+     * @class JXG.Polygon 
      * @param {JXG.Board} board Reference to the board the polygon is to be drawn on.
      * @param {Array} vertices Unique identifiers for the points defining the polygon.
      * Last point must be first point. Otherwise, the first point will be added at the list.
@@ -70,11 +72,20 @@ define([
         var i, vertex, l, len, j,
             attr_line = Type.copyAttributes(attributes, board.options, 'polygon', 'borders');
 
+        /**
+         * If false the polygon has no edges (borders).
+         * 
+         * @property withLines
+         * @type Boolean
+         * @private
+         */
         this.withLines = attributes.withlines;
         this.attr_line = attr_line;
 
         /**
          * References to the points defining the polygon. The last vertex is the same as the first vertex.
+         * 
+         * @property vertices
          * @type Array
          */
         this.vertices = [];
@@ -90,6 +101,8 @@ define([
 
         /**
          * References to the border lines of the polygon.
+         * 
+         * @property borders
          * @type Array
          */
         this.borders = [];
@@ -152,6 +165,8 @@ define([
     JXG.extend(JXG.Polygon.prototype, /** @lends JXG.Polygon.prototype */ {
         /**
          * Checks whether (x,y) is near the polygon.
+         * 
+         * @method hasPoint
          * @param {Number} x Coordinate in x direction, screen coordinates.
          * @param {Number} y Coordinate in y direction, screen coordinates.
          * @return {Boolean} Returns true, if (x,y) is inside or at the boundary the polygon, otherwise false.
@@ -185,9 +200,7 @@ define([
             return c;
         },
 
-        /**
-         * Uses the boards renderer to update the polygon.
-         */
+        // Documented in GeometryElement
         updateRenderer: function () {
             if (this.needsUpdate && this.visProp.visible) {
                 this.board.renderer.updatePolygon(this);
@@ -202,9 +215,7 @@ define([
             return this;
         },
 
-        /**
-         * return TextAnchor
-         */
+        // Documented in GeometryElement
         getTextAnchor: function () {
             var a, b, x, y, i;
 
@@ -262,8 +273,13 @@ define([
 
         /**
          * Hide the polygon including its border lines. It will still exist but not visible on the board.
+         * 
+         * @method hideElement
          * @param {Boolean} [borderless=false] If set to true, the polygon is treated as a polygon without
          * borders, i.e. the borders will not be hidden.
+         * 
+         * @return {JXG.Polygon} Reference to this polygon
+         * @chainable
          */
         hideElement: function (borderless) {
             var i;
@@ -283,12 +299,17 @@ define([
                     this.label.hideElement();
                 }
             }
+            return this;
         },
 
         /**
          * Make the element visible.
+         * 
+         * @method showElement
          * @param {Boolean} [borderless=false] If set to true, the polygon is treated as a polygon without
          * borders, i.e. the borders will not be shown.
+         * @return {JXG.Polygon} Reference to this polygon
+         * @chainable
          */
         showElement: function (borderless) {
             var i;
@@ -313,6 +334,8 @@ define([
 
         /**
          * Area of (not self-intersecting) polygon
+         * 
+         * @method Area
          * @return {Number} Area of (not self-intersecting) polygon
          */
         Area: function () {
@@ -323,13 +346,15 @@ define([
          * Bounding box of a polygon. The bounding box is an array of four numbers: the first two numbers
          * determine the upper left corner, the last two number determine the lower right corner of the bounding box.
          *
-         * The width and height of a polygon can then determined like this:
-         * @example
-         * var box = polygon.boundingBox();
-         * var width = box[2] - box[0];
-         * var height = box[1] - box[3];
-         *
+         * @method boundingBox
          * @return {Array} Array containing four numbers: [minX, maxY, maxX, minY]
+         * @example
+         * The width and height of a polygon can then determined like this:
+         * 
+         *      var box = polygon.boundingBox();
+         *      var width = box[2] - box[0];
+         *      var height = box[1] - box[3];
+         *
          */
         boundingBox: function () {
             var box = [0, 0, 0, 0], i, v,
@@ -370,6 +395,9 @@ define([
         /**
          * This method removes the SVG or VML nodes of the lines and the filled area from the renderer, to remove
          * the object completely you should use {@link JXG.Board#removeObject}.
+         * 
+         * @method remove
+         * @private
          */
         remove: function () {
             var i;
@@ -383,7 +411,11 @@ define([
 
         /**
          * Finds the index to a given point reference.
+         * 
+         * @method findPoint
          * @param {JXG.Point} p Reference to an element of type {@link JXG.Point}
+         * 
+         * @return {Number} Index of the point in `vertices` or -1 if not found.
          */
         findPoint: function (p) {
             var i;
@@ -403,8 +435,11 @@ define([
 
         /**
          * Add more points to the polygon. The new points will be inserted at the end.
+         * 
+         * @method addPoint
          * @param {JXG.Point} p Arbitrary number of points
          * @return {JXG.Polygon} Reference to the polygon
+         * @chainable
          */
         addPoints: function (p) {
             var args = Array.prototype.slice.call(arguments);
@@ -414,9 +449,12 @@ define([
 
         /**
          * Adds more points to the vertex list of the polygon, starting with index <tt><i</tt>
+         * 
+         * @method insertPoints
          * @param {Number} idx The position where the new vertices are inserted, starting with 0.
          * @param {JXG.Point} p Arbitrary number of points to insert.
          * @return {JXG.Polygon} Reference to the polygon object
+         * @chainable
          */
         insertPoints: function (idx, p) {
             var i, npoints = [], tmp;
@@ -458,8 +496,11 @@ define([
 
         /**
          * Removes given set of vertices from the polygon
+         * 
+         * @method removePoints
          * @param {JXG.Point} p Arbitrary number of vertices as {@link JXG.Point} elements or index numbers
          * @return {JXG.Polygon} Reference to the polygon
+         * @chainable
          */
         removePoints: function (p) {
             var i, j, idx, nvertices = [], nborders = [],
@@ -574,6 +615,7 @@ define([
             return this.parents;
         },
 
+        // documented in element.js
         getAttributes: function () {
             var attr = GeometryElement.prototype.getAttributes.call(this), i;
 
@@ -591,6 +633,7 @@ define([
             return attr;
         },
 
+        // documented in element.js
         snapToGrid: function () {
             var i;
 
@@ -601,10 +644,13 @@ define([
 
         /**
          * Moves the polygon by the difference of two coordinates.
+         * 
+         * @method setPositionDirectly
          * @param {Number} method The type of coordinates used here. Possible values are {@link JXG.COORDS_BY_USER} and {@link JXG.COORDS_BY_SCREEN}.
          * @param {Array} coords coordinates in screen/user units
          * @param {Array} oldcoords previous coordinates in screen/user units
          * @return {JXG.Polygon} this element
+         * @chainable
          */
         setPositionDirectly: function (method, coords, oldcoords) {
             var dc, t, i, len,
@@ -631,6 +677,7 @@ define([
         * See <a href="https://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman_algorithm">wikipedia entry</a>.
         * Called by {@link JXG.Polygon#intersect}.
         *
+        * @method sutherlandHodgman
         * @private
         *
         * @param {JXG.Polygon} polygon Polygon which will be clipped.
@@ -701,25 +748,27 @@ define([
          * Both polygons have to be convex.
          * Calls {@link JXG.Polygon#sutherlandHodgman}.
          *
+         * @method intersect
          * @param {JXG.Polygon} polygon Polygon which will be clipped.
          *
          * @return {Array} of (normalized homogeneous user) coordinates (i.e. [z, x, y], where z==1 in most cases,
          *   representing the vertices of the intersection polygon.
          *
          * @example
-         *  // Static intersection of two polygons pol1 and pol2
-         *  var pol1 = board.create('polygon', [[-2, 3], [-4, -3], [2, 0], [4, 4]], {
+         * 
+         *      // Static intersection of two polygons pol1 and pol2
+         *      var pol1 = board.create('polygon', [[-2, 3], [-4, -3], [2, 0], [4, 4]], {
          *                name:'pol1', withLabel: true,
          *                fillColor: 'yellow'
          *             });
-         *  var pol2 = board.create('polygon', [[-2, -3], [-4, 1], [0, 4], [5, 1]], {
+         *      var pol2 = board.create('polygon', [[-2, -3], [-4, 1], [0, 4], [5, 1]], {
          *                name:'pol2', withLabel: true
          *             });
          *
-         *  // Static version:
-         *  // the intersection polygon does not adapt to changes of pol1 or pol2.
-         *  var pol3 = board.create('polygon', pol1.intersect(pol2), {fillColor: 'blue'});
-         * </pre><div id="d1fe5ea9-309f-494a-af07-ee3d033acb7c" style="width: 300px; height: 300px;"></div>
+         *      // Static version:
+         *      // the intersection polygon does not adapt to changes of pol1 or pol2.
+         *      var pol3 = board.create('polygon', pol1.intersect(pol2), {fillColor: 'blue'});
+         * <div id="d1fe5ea9-309f-494a-af07-ee3d033acb7c" style="width: 300px; height: 300px;"></div>
          * <script type="text/javascript">
          *   (function() {
          *       var board = JXG.JSXGraph.initBoard('d1fe5ea9-309f-494a-af07-ee3d033acb7c', {boundingbox: [-8, 8, 8,-8], axis: true, showcopyright: false, shownavigation: false});
@@ -731,39 +780,40 @@ define([
          *       var pol2 = board.create('polygon', [[-2, -3], [-4, 1], [0, 4], [5, 1]], {
          *                name:'pol2', withLabel: true
          *             });
-         *
          *       // Static version: the intersection polygon does not adapt to changes of pol1 or pol2.
          *       var pol3 = board.create('polygon', pol1.intersect(pol2), {fillColor: 'blue'});
          *   })();
-         * </script><pre>
+         * </script>
          *
          * @example
-         *  // Dynamic intersection of two polygons pol1 and pol2
-         *  var pol1 = board.create('polygon', [[-2, 3], [-4, -3], [2, 0], [4, 4]], {
+         * 
+         *      // Dynamic intersection of two polygons pol1 and pol2
+         *      var pol1 = board.create('polygon', [[-2, 3], [-4, -3], [2, 0], [4, 4]], {
          *                name:'pol1', withLabel: true,
          *                fillColor: 'yellow'
          *             });
-         *  var pol2 = board.create('polygon', [[-2, -3], [-4, 1], [0, 4], [5, 1]], {
+         *      var pol2 = board.create('polygon', [[-2, -3], [-4, 1], [0, 4], [5, 1]], {
          *                name:'pol2', withLabel: true
          *             });
          *
-         *  // Dynamic version:
-         *  // the intersection polygon does  adapt to changes of pol1 or pol2.
-         *  // For this a curve element is used.
-         *  var curve = board.create('curve', [[],[]], {fillColor: 'blue', fillOpacity: 0.4});
-         *  curve.updateDataArray = function() {
-         *      var mat = JXG.Math.transpose(pol1.intersect(pol2));
+         *      // Dynamic version:
+         *      // the intersection polygon does  adapt to changes of pol1 or pol2.
+         *      // For this a curve element is used.
+         *      var curve = board.create('curve', [[],[]], {fillColor: 'blue', fillOpacity: 0.4});
+         *      curve.updateDataArray = function() {
+         *          var mat = JXG.Math.transpose(pol1.intersect(pol2));
          *
-         *      if (mat.length == 3) {
-         *          this.dataX = mat[1];
-         *          this.dataY = mat[2];
-         *      } else {
-         *          this.dataX = [];
-         *          this.dataY = [];
-         *      }
-         *  };
-         *  board.update();
-         * </pre><div id="f870d516-ca1a-4140-8fe3-5d64fb42e5f2" style="width: 300px; height: 300px;"></div>
+         *          if (mat.length == 3) {
+         *              this.dataX = mat[1];
+         *              this.dataY = mat[2];
+         *          } else {
+         *              this.dataX = [];
+         *              this.dataY = [];
+         *          }
+         *      };
+         *      board.update();
+         * 
+         * <div id="f870d516-ca1a-4140-8fe3-5d64fb42e5f2" style="width: 300px; height: 300px;"></div>
          * <script type="text/javascript">
          *   (function() {
          *       var board = JXG.JSXGraph.initBoard('f870d516-ca1a-4140-8fe3-5d64fb42e5f2', {boundingbox: [-8, 8, 8,-8], axis: true, showcopyright: false, shownavigation: false});
@@ -775,14 +825,12 @@ define([
          *       var pol2 = board.create('polygon', [[-2, -3], [-4, 1], [0, 4], [5, 1]], {
          *                name:'pol2', withLabel: true
          *             });
-         *
          *  // Dynamic version:
          *  // the intersection polygon does  adapt to changes of pol1 or pol2.
          *  // For this a curve element is used.
          *    var curve = board.create('curve', [[],[]], {fillColor: 'blue', fillOpacity: 0.4});
          *    curve.updateDataArray = function() {
          *        var mat = JXG.Math.transpose(pol1.intersect(pol2));
-         *
          *        if (mat.length == 3) {
          *            this.dataX = mat[1];
          *            this.dataY = mat[2];
@@ -793,7 +841,7 @@ define([
          *    };
          *    board.update();
          *   })();
-         * </script><pre>
+         * </script>
          *
          */
         intersect: function(polygon) {
@@ -805,29 +853,31 @@ define([
 
 
     /**
-     * @class A polygon is an area enclosed by a set of border lines which are determined by
-     * <ul>
-     *    <li> a list of points or
-     *    <li> a list of coordinate arrays or
-     *    <li> a function returning a list of coordinate arrays.
-     * </ul>
+     * A polygon is an area enclosed by a set of border lines which are determined by
+     * 
+     *  * a list of points or
+     *  * a list of coordinate arrays or
+     *  * a function returning a list of coordinate arrays.
+     * 
      * Each two consecutive points of the list define a line.
+     * 
      * @pseudo
+     * @class Polygon
      * @constructor
-     * @name Polygon
      * @type Polygon
      * @extends JXG.Polygon
      * @throws {Exception} If the element cannot be constructed with the given parent objects an exception is thrown.
      * @param {Array} vertices The polygon's vertices. If the first and the last vertex don't match the first one will be
      * added to the array by the creator.
      * @example
-     * var p1 = board.create('point', [0.0, 2.0]);
-     * var p2 = board.create('point', [2.0, 1.0]);
-     * var p3 = board.create('point', [4.0, 6.0]);
-     * var p4 = board.create('point', [1.0, 4.0]);
+     * 
+     *      var p1 = board.create('point', [0.0, 2.0]);
+     *      var p2 = board.create('point', [2.0, 1.0]);
+     *      var p3 = board.create('point', [4.0, 6.0]);
+     *      var p4 = board.create('point', [1.0, 4.0]);
      *
-     * var pol = board.create('polygon', [p1, p2, p3, p4]);
-     * </pre><div id="682069e9-9e2c-4f63-9b73-e26f8a2b2bb1" style="width: 400px; height: 400px;"></div>
+     *      var pol = board.create('polygon', [p1, p2, p3, p4]);
+     * <div id="682069e9-9e2c-4f63-9b73-e26f8a2b2bb1" style="width: 400px; height: 400px;"></div>
      * <script type="text/javascript">
      *  (function () {
      *   var board = JXG.JSXGraph.initBoard('682069e9-9e2c-4f63-9b73-e26f8a2b2bb1', {boundingbox: [-1, 9, 9, -1], axis: false, showcopyright: false, shownavigation: false}),
@@ -837,29 +887,31 @@ define([
      *       p4 = board.create('point', [1.0, 4.0]),
      *       cc1 = board.create('polygon', [p1, p2, p3, p4]);
      *  })();
-     * </script><pre>
+     * </script>
      *
      * @example
-     * var p = [[0.0, 2.0], [2.0, 1.0], [4.0, 6.0], [4.0, 6.0], [4.0, 6.0], [1.0, 3.0]];
+     * 
+     *      var p = [[0.0, 2.0], [2.0, 1.0], [4.0, 6.0], [4.0, 6.0], [1.0, 3.0]];
      *
-     * var pol = board.create('polygon', p, {hasInnerPoints: true});
-     * </pre><div id="9f9a5946-112a-4768-99ca-f30792bcdefb" style="width: 400px; height: 400px;"></div>
+     *      var pol = board.create('polygon', p, {hasInnerPoints: true});
+     * <div id="9f9a5946-112a-4768-99ca-f30792bcdefb" style="width: 400px; height: 400px;"></div>
      * <script type="text/javascript">
      *  (function () {
      *   var board = JXG.JSXGraph.initBoard('9f9a5946-112a-4768-99ca-f30792bcdefb', {boundingbox: [-1, 9, 9, -1], axis: false, showcopyright: false, shownavigation: false}),
-     *       p = [[0.0, 2.0], [2.0, 1.0], [4.0, 6.0], [4.0, 6.0], [4.0, 6.0], [1.0, 4.0]],
+     *       p = [[0.0, 2.0], [2.0, 1.0], [4.0, 6.0], [4.0, 6.0], [1.0, 4.0]],
      *       cc1 = board.create('polygon', p, {hasInnerPoints: true});
      *  })();
-     * </script><pre>
+     * </script>
      *
      * @example
-     *   var f1 = function() { return [0.0, 2.0]; },
-     *       f2 = function() { return [2.0, 1.0]; },
-     *       f3 = function() { return [4.0, 6.0]; },
-     *       f4 = function() { return [1.0, 4.0]; },
-     *       cc1 = board.create('polygon', [f1, f2, f3, f4]);
+     * 
+     *      var f1 = function() { return [0.0, 2.0]; },
+     *          f2 = function() { return [2.0, 1.0]; },
+     *          f3 = function() { return [4.0, 6.0]; },
+     *          f4 = function() { return [1.0, 4.0]; },
+     *          cc1 = board.create('polygon', [f1, f2, f3, f4]);
      *
-     * </pre><div id="ceb09915-b783-44db-adff-7877ae3534c8" style="width: 400px; height: 400px;"></div>
+     * <div id="ceb09915-b783-44db-adff-7877ae3534c8" style="width: 400px; height: 400px;"></div>
      * <script type="text/javascript">
      *  (function () {
      *   var board = JXG.JSXGraph.initBoard('ceb09915-b783-44db-adff-7877ae3534c8', {boundingbox: [-1, 9, 9, -1], axis: false, showcopyright: false, shownavigation: false}),
@@ -869,7 +921,7 @@ define([
      *       f4 = function() { return [1.0, 4.0]; },
      *       cc1 = board.create('polygon', [f1, f2, f3, f4]);
      *  })();
-     * </script><pre>
+     * </script>
      */
     JXG.createPolygon = function (board, parents, attributes) {
         var el, i, points = [],
@@ -889,21 +941,22 @@ define([
 
 
     /**
-     * @class Constructs a regular polygon. It needs two points which define the base line and the number of vertices.
+     * Constructs a regular polygon. It needs two points which define the base line and the number of vertices, or a set of points.
+     * 
+     * @class RegularPolygon
      * @pseudo
-     * @description Constructs a regular polygon. It needs two points which define the base line and the number of vertices, or a set of points.
      * @constructor
-     * @name RegularPolygon
      * @type Polygon
      * @extends Polygon
      * @throws {Exception} If the element cannot be constructed with the given parent objects an exception is thrown.
      * @param {JXG.Point_JXG.Point_Number} p1,p2,n The constructed regular polygon has n vertices and the base line defined by p1 and p2.
      * @example
-     * var p1 = board.create('point', [0.0, 2.0]);
-     * var p2 = board.create('point', [2.0, 1.0]);
+     * 
+     *      var p1 = board.create('point', [0.0, 2.0]);
+     *      var p2 = board.create('point', [2.0, 1.0]);
      *
-     * var pol = board.create('regularpolygon', [p1, p2, 5]);
-     * </pre><div id="682069e9-9e2c-4f63-9b73-e26f8a2b2bb1" style="width: 400px; height: 400px;"></div>
+     *      var pol = board.create('regularpolygon', [p1, p2, 5]);
+     * <div id="682069e9-9e2c-4f63-9b73-e26f8a2b2bb1" style="width: 400px; height: 400px;"></div>
      * <script type="text/javascript">
      *  (function () {
      *   var board = JXG.JSXGraph.initBoard('682069e9-9e2c-4f63-9b73-e26f8a2b2bb1', {boundingbox: [-1, 9, 9, -1], axis: false, showcopyright: false, shownavigation: false}),
@@ -911,14 +964,16 @@ define([
      *       p2 = board.create('point', [2.0, 1.0]),
      *       cc1 = board.create('regularpolygon', [p1, p2, 5]);
      *  })();
-     * </script><pre>
+     * </script>
+     * 
      * @example
-     * var p1 = board.create('point', [0.0, 2.0]);
-     * var p2 = board.create('point', [4.0,4.0]);
-     * var p3 = board.create('point', [2.0,0.0]);
+     * 
+     *      var p1 = board.create('point', [0.0, 2.0]);
+     *      var p2 = board.create('point', [4.0,4.0]);
+     *      var p3 = board.create('point', [2.0,0.0]);
      *
-     * var pol = board.create('regularpolygon', [p1, p2, p3]);
-     * </pre><div id="096a78b3-bd50-4bac-b958-3be5e7df17ed" style="width: 400px; height: 400px;"></div>
+     *      var pol = board.create('regularpolygon', [p1, p2, p3]);
+     * <div id="096a78b3-bd50-4bac-b958-3be5e7df17ed" style="width: 400px; height: 400px;"></div>
      * <script type="text/javascript">
      * (function () {
      *   var board = JXG.JSXGraph.initBoard('096a78b3-bd50-4bac-b958-3be5e7df17ed', {boundingbox: [-1, 9, 9, -1], axis: false, showcopyright: false, shownavigation: false}),
@@ -927,7 +982,7 @@ define([
      *       p3 = board.create('point', [2.0,0.0]),
      *       cc1 = board.create('regularpolygon', [p1, p2, p3]);
      * })();
-     * </script><pre>
+     * </script>
      */
     JXG.createRegularPolygon = function (board, parents, attributes) {
         var el, i, n,
