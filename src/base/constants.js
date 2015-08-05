@@ -48,11 +48,18 @@ define(['jxg'], function (JXG) {
         version = major + '.' + minor + '.' + patch + (add ? '-' + add : ''),
         constants;
 
+    /**
+     * Constants for JSXGraph
+     *
+     * @static
+     */
     constants = /** @lends JXG */ {
         // copyright, version, ...
 
         /**
          * Represents the currently used JSXGraph version.
+         *
+         * @property version
          * @type {String}
          */
         version: version,
@@ -60,6 +67,8 @@ define(['jxg'], function (JXG) {
         /**
          * The small gray version indicator in the top left corner of every JSXGraph board (if
          * showCopyright is not set to false on board creation).
+         *
+         * @property licenseText
          * @type String
          */
         licenseText: 'JSXGraph v' + version + ' Copyright (C) see http://jsxgraph.org',

@@ -52,14 +52,15 @@ define([
      */
 
     /**
+    * This is the Coordinates class.
      * Constructs a new Coordinates object.
-     * @class This is the Coordinates class.
      * All members a coordinate has to provide
      * are defined here.
+     * @class JXG.Coords
      * @param {Number} method The type of coordinates given by the user. Accepted values are <b>COORDS_BY_SCREEN</b> and <b>COORDS_BY_USER</b>.
      * @param {Array} coordinates An array of affine coordinates.
      * @param {JXG.Board} board A reference to a board.
-     * @oaram {Boolean} [emitter=true]
+     * @param {Boolean} [emitter=true]
      * @borrows JXG.EventEmitter#on as this.on
      * @borrows JXG.EventEmitter#off as this.off
      * @borrows JXG.EventEmitter#triggerEventHandlers as this.triggerEventHandlers
@@ -69,19 +70,25 @@ define([
     JXG.Coords = function (method, coordinates, board, emitter) {
         /**
          * Stores the board the object is used on.
+         *
+         * @property board
          * @type JXG.Board
          */
         this.board = board;
 
         /**
          * Stores coordinates for user view as homogeneous coordinates.
+         *
+         * @property usrCoords
          * @type Array
          */
         this.usrCoords = [];
         //this.usrCoords = new Float64Array(3);
 
         /**
-         * Stores coordinates for screen view as homogeneous coordinates.
+         * Stores coordinates for screen view as homogeneous coordinates. The values are pixels.
+         *
+         * @property scrCoords
          * @type Array
          */
         this.scrCoords = [];
@@ -90,7 +97,8 @@ define([
         /**
          * If true, this coordinates object will emit update events every time
          * the coordinates are set.
-         * @type {boolean}
+         * @property emitter
+         * @type {Boolean}
          * @default true
          */
         this.emitter = !Type.exists(emitter) || emitter;
@@ -104,7 +112,10 @@ define([
     JXG.extend(JXG.Coords.prototype, /** @lends JXG.Coords.prototype */ {
         /**
          * Normalize homogeneous coordinates
+         *
+         * @method normalizeUsrCoords
          * @private
+         * @chainable
          */
         normalizeUsrCoords: function () {
             var eps = Mat.eps;
@@ -113,11 +124,17 @@ define([
                 this.usrCoords[2] /= this.usrCoords[0];
                 this.usrCoords[0] = 1.0;
             }
+            return this;
         },
 
         /**
          * Compute screen coordinates out of given user coordinates.
+         *
+         * @method usr2screen
+         * @param doRound {Boolean} Force rounding of the pixel values to the next integer.
+         * This is necessary for old IE versions.
          * @private
+         * @chainable
          */
         usr2screen: function (doRound) {
             var mround = Math.round,  // Is faster on IE, maybe slower with JIT compilers
@@ -134,11 +151,15 @@ define([
                 this.scrCoords[1] = uc[0] * oc[1] + uc[1] * b.unitX;
                 this.scrCoords[2] = uc[0] * oc[2] - uc[2] * b.unitY;
             }
+            return this;
         },
 
         /**
          * Compute user coordinates out of given screen coordinates.
+         *
+         * @method screen2usr
          * @private
+         * @chainable
          */
         screen2usr: function () {
             var o = this.board.origin.scrCoords,
@@ -148,13 +169,17 @@ define([
             this.usrCoords[0] =  1.0;
             this.usrCoords[1] = (sc[1] - o[1]) / b.unitX;
             this.usrCoords[2] = (o[2] - sc[2]) / b.unitY;
+            return this;
         },
 
         /**
-         * Calculate distance of one point to another.
-         * @param {Number} coord_type The type of coordinates used here. Possible values are <b>JXG.COORDS_BY_USER</b> and <b>JXG.COORDS_BY_SCREEN</b>.
-         * @param {JXG.Coords} coordinates The Coords object to which the distance is calculated.
-         * @return {Number} The distance
+         * Calculate distance of one point to another either in screen view or in user view.
+         *
+         * @method distance
+         * @param {Number} coord_type The type of coordinates used here.
+         *    Possible values are `JXG.COORDS_BY_USER` and `JXG.COORDS_BY_SCREEN`.
+         * @param {JXG.Coords} coordinates The `JXG.Coords` object to which the distance is calculated.
+         * @return {Number} The distance between the two coordinates.
          */
         distance: function (coord_type, coordinates) {
             var sum = 0,
@@ -190,12 +215,17 @@ define([
 
         /**
          * Set coordinates by either user coordinates or screen coordinates and recalculate the other one.
-         * @param {Number} coord_type The type of coordinates used here. Possible values are <b>COORDS_BY_USER</b> and <b>COORDS_BY_SCREEN</b>.
+         *
+         * @method setCoordinates
+         * @param {Number} coord_type The type of coordinates used here.
+         *    Possible values are `JXG.COORDS_BY_USER` and `COORDS_BY_SCREEN`.
          * @param {Array} coordinates An array of affine coordinates the Coords object is set to.
-         * @param {Boolean} [doRound=true] flag If true or null round the coordinates in usr2screen. This is used in smooth curve plotting.
-         * The IE needs rounded coordinates. Id doRound==false we have to round in updatePathString.
+         * @param {Boolean} [doRound=true] flag If true or null round the coordinates in usr2screen.
+         * This is used in smooth curve plotting.
+         * The IE needs rounded coordinates. If doRound==false we have to round in updatePathString.
          * @param {Boolean} [noevent=false]
          * @return {JXG.Coords} Reference to the coords object.
+         * @chainable
          */
         setCoordinates: function (coord_type, coordinates, doRound, noevent) {
             var uc = this.usrCoords,
@@ -229,11 +259,11 @@ define([
         },
 
         /**
-        * Copy array, either srcCoords or usrCoords
+        * Copy array, either `JXG.Coords.srcCoords` or `JXG.Coords.usrCoords`
         * Uses slice() in case of standard arrays and set() in case of
         * typed arrays.
         * @private
-        * @param {String} obj Either 'srcCoords' or 'usrCoords'
+        * @param {Array} obj Either `JXG.Coords.srcCoords` or `JXG.Coords.usrCoords`
         * @param {Number} offset Offset, defaults to 0 if not given
         * @return {Array} Returns copy of the coords array either as standard array or as
         *   typed array.
@@ -248,10 +278,9 @@ define([
 
         /**
          * Triggered whenever the coordinates change.
-         * @name JXG.Coords#update
+         * @event update
          * @param {Array} ou Old user coordinates
          * @param {Array} os Old screen coordinates
-         * @event
          */
         __evt__update: function (ou, os) { },
 
