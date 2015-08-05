@@ -79,7 +79,17 @@ define([
      */
     JXG.Point = function (board, coordinates, attributes) {
         this.constructor(board, attributes, Const.OBJECT_TYPE_POINT, Const.OBJECT_CLASS_POINT);
+
+        /**
+         * Anchor element which define the origin for the relative coordinates.
+         * If defined the coordinates of the point are relative coordinates.
+         *
+         * @property element
+         * @type {JXG.CoordsElement}
+         * @private
+         */
         this.element = this.board.select(attributes.anchor);
+
         this.coordsConstructor(coordinates);
 
         this.elType = 'point';
@@ -101,6 +111,8 @@ define([
     JXG.extend(JXG.Point.prototype, /** @lends JXG.Point.prototype */ {
         /**
          * Checks whether (x,y) is near the point.
+         *
+         * @method hasPoint
          * @param {Number} x Coordinate in x direction, screen coordinates.
          * @param {Number} y Coordinate in y direction, screen coordinates.
          * @return {Boolean} True if (x,y) is near the point, False otherwise.
@@ -116,9 +128,7 @@ define([
             return ((Math.abs(coordsScr[1] - x) < r + 2) && (Math.abs(coordsScr[2] - y) < r + 2));
         },
 
-        /**
-         * Updates the position of the point.
-         */
+        // Documented in GeometryElement
         update: function (fromParent) {
             if (!this.needsUpdate) {
                 return this;
@@ -133,11 +143,7 @@ define([
             return this;
         },
 
-        /**
-         * Applies the transformations of the element to {@link JXG.Point#baseElement}.
-         * Point transformations are relative to a base element.
-         * @return {JXG.CoordsElement} Reference to this object.
-         */
+         // Documented in GeometryElement
         updateTransform: function () {
             var c, i;
 
@@ -161,10 +167,7 @@ define([
             return this;
         },
 
-        /**
-         * Calls the renderer to update the drawing.
-         * @private
-         */
+        // Documented in GeometryElement
         updateRenderer: function () {
             if (this.visProp.size > 0) {
                 this.updateRendererGeneric('updatePoint');
@@ -178,10 +181,17 @@ define([
         },
 
         /**
-         * Convert the point to intersection point and update the construction.
-         * To move the point visual onto the intersection, a call of board update is necessary.
-         * TODO docu.
-         * @param {String|Object} el1, el2, i, j The intersecting objects and the numbers.
+         * Convert the point into an intersection point and update the construction.
+         * To move the point visual onto the intersection, a subsequent call of board update is necessary.
+         * Uses `addConstraint` to set the defining functions for this point.
+         *
+         * @method makeIntersection
+         * @param {String|JXG.GeometryElement} el1 First object to be intersected
+         * @param {String|JXG.GeometryElement} el2 Second object to be intersected
+         * @param {Number} i The ith intersection point between `el1` and `el2` is determined
+         * @param {Number} j Unused
+         * @return {JXG.Point} Reference to the point object.
+         * @chainable
          **/
         makeIntersection: function (el1, el2, i, j) {
             var func;
@@ -216,13 +226,19 @@ define([
             };
 
             this.prepareUpdate().update();
+
+            return this;
         },
 
         /**
          * Set the style of a point.
          * Used for GEONExT import and should not be used to set the point's face and size.
+         *
+         * @method setStyle
          * @param {Number} i Integer to determine the style.
          * @private
+         * @return {JXG.Point} Reference to the point object.
+         * @chainable
          */
         setStyle: function (i) {
             var facemap = [
@@ -253,7 +269,10 @@ define([
         },
 
         /**
-         * @deprecated Use JXG#normalizePointFace instead
+         * Use JXG#normalizePointFace instead
+         *
+         * @method normalizeFace
+         * @deprecated
          * @param s
          * @return {*}
          */
@@ -263,10 +282,12 @@ define([
         },
 
         /**
-         * Set the face of a point element.
+         * Set the face of a point element. Use `setAttribute()`` instead.
+         *
+         * @method face
          * @param {String} f String which determines the face of the point. See {@link JXG.GeometryElement#face} for a list of available faces.
          * @see JXG.GeometryElement#face
-         * @deprecated Use setAttribute()
+         * @deprecated
          */
         face: function (f) {
             JXG.deprecated('Point.face()', 'Point.setAttribute()');
@@ -274,10 +295,12 @@ define([
         },
 
         /**
-         * Set the size of a point element
+         * Set the size of a point element. Use `setAttribute()` instead.
+         *
+         * @method size
          * @param {Number} s Integer which determines the size of the point.
          * @see JXG.GeometryElement#size
-         * @deprecated Use setAttribute()
+         * @deprecated
          */
         size: function (s) {
             JXG.deprecated('Point.size()', 'Point.setAttribute()');
@@ -303,18 +326,17 @@ define([
 
             return this;
         }
-
     });
 
 
     /**
-     * @class This element is used to provide a constructor for a general point. A free point is created if the given parent elements are all numbers
+     * This element is used to provide a constructor for a general point. A free point is created if the given parent elements are all numbers
      * and the property fixed is not set or set to false. If one or more parent elements is not a number but a string containing a GEONE<sub>x</sub>T
      * constraint or a function the point will be considered as constrained). That means that the user won't be able to change the point's
      * position directly.
+     *
      * @pseudo
-     * @description
-     * @name Point
+     * @class  Point
      * @extends JXG.Point
      * @constructor
      * @type JXG.Point
@@ -325,36 +347,48 @@ define([
      * that means the user won't be able to change the point's position directly by mouse because it will be calculated automatically depending on the string
      * or the function's return value. If two parent elements are given the coordinates will be interpreted as 2D affine Euclidean coordinates, if three such
      * parent elements are given they will be interpreted as homogeneous coordinates.
-     * @param {JXG.Point_JXG.Transformation} Point,Transformation A point can also be created providing a transformation. The resulting point is a clone of the base
+     * @param {JXG.Point_JXG.Transformation} Point,Transformation A point can also be created providing a transformation.
+     * The resulting point is a clone of the base
      * point transformed by the given Transformation. {@see JXG.Transformation}.
+     *
      * @example
-     * // Create a free point using affine euclidean coordinates
-     * var p1 = board.create('point', [3.5, 2.0]);
-     * </pre><div id="672f1764-7dfa-4abc-a2c6-81fbbf83e44b" style="width: 200px; height: 200px;"></div>
+     *
+     *     // Create a free point using affine euclidean coordinates
+     *     var p1 = board.create('point', [3.5, 2.0]);
+     * <div id="672f1764-7dfa-4abc-a2c6-81fbbf83e44b" style="width: 200px; height: 200px;"></div>
      * <script type="text/javascript">
+     * (function(){
      *   var board = JXG.JSXGraph.initBoard('672f1764-7dfa-4abc-a2c6-81fbbf83e44b', {boundingbox: [-1, 5, 5, -1], axis: true, showcopyright: false, shownavigation: false});
      *   var p1 = board.create('point', [3.5, 2.0]);
-     * </script><pre>
+     * })();
+     * </script>
+     *
      * @example
-     * // Create a constrained point using anonymous function
-     * var p2 = board.create('point', [3.5, function () { return p1.X(); }]);
-     * </pre><div id="4fd4410c-3383-4e80-b1bb-961f5eeef224" style="width: 200px; height: 200px;"></div>
+     *
+     *     // Create a constrained point using anonymous function
+     *     var p2 = board.create('point', [3.5, function () { return p1.X(); }]);
+     * <div id="4fd4410c-3383-4e80-b1bb-961f5eeef224" style="width: 200px; height: 200px;"></div>
      * <script type="text/javascript">
-     *   var fpex1_board = JXG.JSXGraph.initBoard('4fd4410c-3383-4e80-b1bb-961f5eeef224', {boundingbox: [-1, 5, 5, -1], axis: true, showcopyright: false, shownavigation: false});
-     *   var fpex1_p1 = fpex1_board.create('point', [3.5, 2.0]);
-     *   var fpex1_p2 = fpex1_board.create('point', [3.5, function () { return fpex1_p1.X(); }]);
-     * </script><pre>
+     * (function(){
+     *   var board = JXG.JSXGraph.initBoard('4fd4410c-3383-4e80-b1bb-961f5eeef224', {boundingbox: [-1, 5, 5, -1], axis: true, showcopyright: false, shownavigation: false});
+     *   var p1 = board.create('point', [3.5, 2.0]);
+     *   var p2 = board.create('point', [3.5, function () { return p1.X(); }]);
+     * })();
+     * </script>
+     *
      * @example
-     * // Create a point using transformations
-     * var trans = board.create('transform', [2, 0.5], {type:'scale'});
-     * var p3 = board.create('point', [p2, trans]);
-     * </pre><div id="630afdf3-0a64-46e0-8a44-f51bd197bb8d" style="width: 400px; height: 400px;"></div>
+     *     // Create a point using transformations
+     *     var trans = board.create('transform', [2, 0.5], {type:'scale'});
+     *     var p3 = board.create('point', [p2, trans]);
+     * <div id="630afdf3-0a64-46e0-8a44-f51bd197bb8d" style="width: 400px; height: 400px;"></div>
      * <script type="text/javascript">
-     *   var fpex2_board = JXG.JSXGraph.initBoard('630afdf3-0a64-46e0-8a44-f51bd197bb8d', {boundingbox: [-1, 9, 9, -1], axis: true, showcopyright: false, shownavigation: false});
-     *   var fpex2_trans = fpex2_board.create('transform', [2, 0.5], {type:'scale'});
-     *   var fpex2_p2 = fpex2_board.create('point', [3.5, 2.0]);
-     *   var fpex2_p3 = fpex2_board.create('point', [fpex2_p2, fpex2_trans]);
-     * </script><pre>
+     * (function(){
+     *   var board = JXG.JSXGraph.initBoard('630afdf3-0a64-46e0-8a44-f51bd197bb8d', {boundingbox: [-1, 9, 9, -1], axis: true, showcopyright: false, shownavigation: false});
+     *   var trans = board.create('transform', [2, 0.5], {type:'scale'});
+     *   var p2 = board.create('point', [3.5, 2.0]);
+     *   var p3 = board.create('point', [p2, trans]);
+     * })();
+     * </script>
      */
     JXG.createPoint = function (board, parents, attributes) {
         var el, attr;
@@ -371,10 +405,11 @@ define([
     };
 
     /**
-     * @class This element is used to provide a constructor for a glider point.
+     * This element is used to provide a constructor for a glider point.
+     * A glider is a point which lives on another geometric element like a line, circle, curve, turtle.
+     *
      * @pseudo
-     * @description A glider is a point which lives on another geometric element like a line, circle, curve, turtle.
-     * @name Glider
+     * @class Glider
      * @extends JXG.Point
      * @constructor
      * @type JXG.Point
@@ -382,31 +417,37 @@ define([
      * @param {Number_Number_Number_JXG.GeometryElement} z_,x_,y_,GlideObject Parent elements can be two or three elements of type number and the object the glider lives on.
      * The coordinates are completely optional. If not given the origin is used. If you provide two numbers for coordinates they will be interpreted as affine euclidean
      * coordinates, otherwise they will be interpreted as homogeneous coordinates. In any case the point will be projected on the glide object.
+     *
      * @example
-     * // Create a glider with user defined coordinates. If the coordinates are not on
-     * // the circle (like in this case) the point will be projected onto the circle.
-     * var p1 = board.create('point', [2.0, 2.0]);
-     * var c1 = board.create('circle', [p1, 2.0]);
-     * var p2 = board.create('glider', [2.0, 1.5, c1]);
-     * </pre><div id="4f65f32f-e50a-4b50-9b7c-f6ec41652930" style="width: 300px; height: 300px;"></div>
+     *
+     *     // Create a glider with user defined coordinates. If the coordinates are not on
+     *     // the circle (like in this case) the point will be projected onto the circle.
+     *     var p1 = board.create('point', [2.0, 2.0]);
+     *     var c1 = board.create('circle', [p1, 2.0]);
+     *     var p2 = board.create('glider', [2.0, 1.5, c1]);
+     * <div id="4f65f32f-e50a-4b50-9b7c-f6ec41652930" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
-     *   var gpex1_board = JXG.JSXGraph.initBoard('4f65f32f-e50a-4b50-9b7c-f6ec41652930', {boundingbox: [-1, 5, 5, -1], axis: true, showcopyright: false, shownavigation: false});
-     *   var gpex1_p1 = gpex1_board.create('point', [2.0, 2.0]);
-     *   var gpex1_c1 = gpex1_board.create('circle', [gpex1_p1, 2.0]);
-     *   var gpex1_p2 = gpex1_board.create('glider', [2.0, 1.5, gpex1_c1]);
-     * </script><pre>
+     * (function(){
+     *   var board = JXG.JSXGraph.initBoard('4f65f32f-e50a-4b50-9b7c-f6ec41652930', {boundingbox: [-1, 5, 5, -1], axis: true, showcopyright: false, shownavigation: false});
+     *   var p1 = board.create('point', [2.0, 2.0]);
+     *   var c1 = board.create('circle', [p1, 2.0]);
+     *   var p2 = board.create('glider', [2.0, 1.5, c1]);
+     *  })();
+     * </script>
      * @example
-     * // Create a glider with default coordinates (1,0,0). Same premises as above.
-     * var p1 = board.create('point', [2.0, 2.0]);
-     * var c1 = board.create('circle', [p1, 2.0]);
-     * var p2 = board.create('glider', [c1]);
-     * </pre><div id="4de7f181-631a-44b1-a12f-bc4d995609e8" style="width: 200px; height: 200px;"></div>
+     *     // Create a glider with default coordinates (1,0,0). Same premises as above.
+     *     var p1 = board.create('point', [2.0, 2.0]);
+     *     var c1 = board.create('circle', [p1, 2.0]);
+     *     var p2 = board.create('glider', [c1]);
+     * <div id="4de7f181-631a-44b1-a12f-bc4d995609e8" style="width: 200px; height: 200px;"></div>
      * <script type="text/javascript">
-     *   var gpex2_board = JXG.JSXGraph.initBoard('4de7f181-631a-44b1-a12f-bc4d995609e8', {boundingbox: [-1, 5, 5, -1], axis: true, showcopyright: false, shownavigation: false});
-     *   var gpex2_p1 = gpex2_board.create('point', [2.0, 2.0]);
-     *   var gpex2_c1 = gpex2_board.create('circle', [gpex2_p1, 2.0]);
-     *   var gpex2_p2 = gpex2_board.create('glider', [gpex2_c1]);
-     * </script><pre>
+     * (function(){
+     *   var board = JXG.JSXGraph.initBoard('4de7f181-631a-44b1-a12f-bc4d995609e8', {boundingbox: [-1, 5, 5, -1], axis: true, showcopyright: false, shownavigation: false});
+     *   var p1 = board.create('point', [2.0, 2.0]);
+     *   var c1 = board.create('circle', [p1, 2.0]);
+     *   var p2 = board.create('glider', [c1]);
+     *  })();
+     * </script>
      */
     JXG.createGlider = function (board, parents, attributes) {
         var el, coords,
@@ -427,11 +468,13 @@ define([
 
 
     /**
-     * @class This element is used to provide a constructor for an intersection point.
-     * @pseudo
-     * @description An intersection point is a point which lives on two Lines or Circles or one Line and one Circle at the same time, i.e.
+     * This element is used to provide a constructor for an intersection point.
+     *
+     * An intersection point is a point which lives on two Lines or Circles or one Line and one Circle at the same time, i.e.
      * an intersection point of the two elements.
-     * @name Intersection
+     *
+     * @pseudo
+     * @class Intersection
      * @extends JXG.Point
      * @constructor
      * @type JXG.Point
@@ -440,26 +483,29 @@ define([
      * intersection point if two points are available: <ul>
      *   <li>i==0: use the positive square root,</li>
      *   <li>i==1: use the negative square root.</li></ul>
+     *
      * @example
-     * // Create an intersection point of circle and line
-     * var p1 = board.create('point', [2.0, 2.0]);
-     * var c1 = board.create('circle', [p1, 2.0]);
+     *     // Create an intersection point of circle and line
+     *     var p1 = board.create('point', [2.0, 2.0]);
+     *     var c1 = board.create('circle', [p1, 2.0]);
      *
-     * var p2 = board.create('point', [2.0, 2.0]);
-     * var p3 = board.create('point', [2.0, 2.0]);
-     * var l1 = board.create('line', [p2, p3]);
+     *     var p2 = board.create('point', [2.0, 2.0]);
+     *     var p3 = board.create('point', [2.0, 2.0]);
+     *     var l1 = board.create('line', [p2, p3]);
      *
-     * var i = board.create('intersection', [c1, l1, 0]);
-     * </pre><div id="e5b0e190-5200-4bc3-b995-b6cc53dc5dc0" style="width: 300px; height: 300px;"></div>
+     *     var i = board.create('intersection', [c1, l1, 0]);
+     * <div id="e5b0e190-5200-4bc3-b995-b6cc53dc5dc0" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
-     *   var ipex1_board = JXG.JSXGraph.initBoard('e5b0e190-5200-4bc3-b995-b6cc53dc5dc0', {boundingbox: [-1, 7, 7, -1], axis: true, showcopyright: false, shownavigation: false});
-     *   var ipex1_p1 = ipex1_board.create('point', [4.0, 4.0]);
-     *   var ipex1_c1 = ipex1_board.create('circle', [ipex1_p1, 2.0]);
-     *   var ipex1_p2 = ipex1_board.create('point', [1.0, 1.0]);
-     *   var ipex1_p3 = ipex1_board.create('point', [5.0, 3.0]);
-     *   var ipex1_l1 = ipex1_board.create('line', [ipex1_p2, ipex1_p3]);
-     *   var ipex1_i = ipex1_board.create('intersection', [ipex1_c1, ipex1_l1, 0]);
-     * </script><pre>
+     * (function(){
+     *   var board = JXG.JSXGraph.initBoard('e5b0e190-5200-4bc3-b995-b6cc53dc5dc0', {boundingbox: [-1, 7, 7, -1], axis: true, showcopyright: false, shownavigation: false});
+     *   var p1 = board.create('point', [4.0, 4.0]);
+     *   var c1 = board.create('circle', [p1, 2.0]);
+     *   var p2 = board.create('point', [1.0, 1.0]);
+     *   var p3 = board.create('point', [5.0, 3.0]);
+     *   var l1 = board.create('line', [p2, p3]);
+     *   var i = board.create('intersection', [c1, l1, 0]);
+     *  })();
+     * </script>
      */
     JXG.createIntersectionPoint = function (board, parents, attributes) {
         var el, el1, el2, func, i, j,
@@ -518,39 +564,48 @@ define([
     };
 
     /**
-     * @class This element is used to provide a constructor for the "other" intersection point.
+     * This element is used to provide a constructor for the "other" intersection point.
+     * An intersection point is a point which lives on two
+     * lines or circles or one line and one circle at the same time, i.e.
+     * an intersection point of the two elements.
+     *
+     * Additionally, one intersection point is provided.
+     * The function returns the other intersection point.
+     *
      * @pseudo
-     * @description An intersection point is a point which lives on two Lines or Circles or one Line and one Circle at the same time, i.e.
-     * an intersection point of the two elements. Additionally, one intersection point is provided. The function returns the other intersection point.
-     * @name OtherIntersection
+     * @description
+     * @class OtherIntersection
      * @extends JXG.Point
      * @constructor
      * @type JXG.Point
      * @throws {Exception} If the element cannot be constructed with the given parent objects an exception is thrown.
      * @param {JXG.Line,JXG.Circle_JXG.Line,JXG.Circle_JXG.Point} el1,el2,p The result will be a intersection point on el1 and el2. i determines the
-     * intersection point different from p:
+     * intersection point different from p.
+     *
      * @example
-     * // Create an intersection point of circle and line
-     * var p1 = board.create('point', [2.0, 2.0]);
-     * var c1 = board.create('circle', [p1, 2.0]);
+     *     // Create an intersection point of circle and line
+     *     var p1 = board.create('point', [2.0, 2.0]);
+     *     var c1 = board.create('circle', [p1, 2.0]);
      *
-     * var p2 = board.create('point', [2.0, 2.0]);
-     * var p3 = board.create('point', [2.0, 2.0]);
-     * var l1 = board.create('line', [p2, p3]);
+     *     var p2 = board.create('point', [2.0, 2.0]);
+     *     var p3 = board.create('point', [2.0, 2.0]);
+     *     var l1 = board.create('line', [p2, p3]);
      *
-     * var i = board.create('intersection', [c1, l1, 0]);
-     * var j = board.create('otherintersection', [c1, l1, i]);
-     * </pre><div id="45e25f12-a1de-4257-a466-27a2ae73614c" style="width: 300px; height: 300px;"></div>
+     *     var i = board.create('intersection', [c1, l1, 0]);
+     *     var j = board.create('otherintersection', [c1, l1, i]);
+     * <div id="45e25f12-a1de-4257-a466-27a2ae73614c" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
-     *   var ipex2_board = JXG.JSXGraph.initBoard('45e25f12-a1de-4257-a466-27a2ae73614c', {boundingbox: [-1, 7, 7, -1], axis: true, showcopyright: false, shownavigation: false});
-     *   var ipex2_p1 = ipex2_board.create('point', [4.0, 4.0]);
-     *   var ipex2_c1 = ipex2_board.create('circle', [ipex2_p1, 2.0]);
-     *   var ipex2_p2 = ipex2_board.create('point', [1.0, 1.0]);
-     *   var ipex2_p3 = ipex2_board.create('point', [5.0, 3.0]);
-     *   var ipex2_l1 = ipex2_board.create('line', [ipex2_p2, ipex2_p3]);
-     *   var ipex2_i = ipex2_board.create('intersection', [ipex2_c1, ipex2_l1, 0], {name:'D'});
-     *   var ipex2_j = ipex2_board.create('otherintersection', [ipex2_c1, ipex2_l1, ipex2_i], {name:'E'});
-     * </script><pre>
+     * (function(){
+     *   var board = JXG.JSXGraph.initBoard('45e25f12-a1de-4257-a466-27a2ae73614c', {boundingbox: [-1, 7, 7, -1], axis: true, showcopyright: false, shownavigation: false});
+     *   var p1 = board.create('point', [4.0, 4.0]);
+     *   var c1 = board.create('circle', [p1, 2.0]);
+     *   var p2 = board.create('point', [1.0, 1.0]);
+     *   var p3 = board.create('point', [5.0, 3.0]);
+     *   var l1 = board.create('line', [p2, p3]);
+     *   var i = board.create('intersection', [c1, l1, 0], {name:'D'});
+     *   var j = board.create('otherintersection', [c1, l1, i], {name:'E'});
+     *  })();
+     * </script>
      */
     JXG.createOtherIntersectionPoint = function (board, parents, attributes) {
         var el, el1, el2, other;
@@ -603,13 +658,15 @@ define([
     };
 
     /**
-     * @class This element is used to provide a constructor for the pole point of a line with respect to a conic or a circle.
-     * @pseudo
-     * @description The pole point is the unique reciprocal relationship of a line with respect to a conic.
+     * This element is used to provide a constructor for the pole point of a line with respect to a conic or a circle.
+     *
+     * The pole point is the unique reciprocal relationship of a line with respect to a conic.
      * The lines tangent to the intersections of a conic and a line intersect at the pole point of that line with respect to that conic.
      * A line tangent to a conic has the pole point of that line with respect to that conic as the tangent point.
      * See {@link http://en.wikipedia.org/wiki/Pole_and_polar} for more information on pole and polar.
-     * @name PolePoint
+     *
+     * @pseudo
+     * @class PolePoint
      * @extends JXG.Point
      * @constructor
      * @type JXG.Point
@@ -617,7 +674,21 @@ define([
      * @param {JXG.Conic,JXG.Circle_JXG.Point} el1,el2 or
      * @param {JXG.Point_JXG.Conic,JXG.Circle} el1,el2 The result will be the pole point of the line with respect to the conic or the circle.
      * @example
-     * // Create the pole point of a line with respect to a conic
+     *     // Create the pole point of a line with respect to a conic
+     *     var p1 = board.create('point', [-1, 2]);
+     *     var p2 = board.create('point', [ 1, 4]);
+     *     var p3 = board.create('point', [-1,-2]);
+     *     var p4 = board.create('point', [ 0, 0]);
+     *     var p5 = board.create('point', [ 4,-2]);
+     *     var c1 = board.create('conic',[p1,p2,p3,p4,p5]);
+     *     var p6 = board.create('point', [-1, 4]);
+     *     var p7 = board.create('point', [2, -2]);
+     *     var l1 = board.create('line', [p6, p7]);
+     *     var p8 = board.create('polepoint', [c1, l1]);
+     * <div id='7b7233a0-f363-47dd-9df5-8018d0d17a98' class='jxgbox' style='width:400px; height:400px;'></div>
+     * <script type='text/javascript'>
+     * (function(){
+     * var board = JXG.JSXGraph.initBoard('7b7233a0-f363-47dd-9df5-8018d0d17a98', {boundingbox: [-3, 5, 5, -3], axis: true, showcopyright: false, shownavigation: false});
      * var p1 = board.create('point', [-1, 2]);
      * var p2 = board.create('point', [ 1, 4]);
      * var p3 = board.create('point', [-1,-2]);
@@ -628,22 +699,22 @@ define([
      * var p7 = board.create('point', [2, -2]);
      * var l1 = board.create('line', [p6, p7]);
      * var p8 = board.create('polepoint', [c1, l1]);
-     * </pre><div id='7b7233a0-f363-47dd-9df5-8018d0d17a98' class='jxgbox' style='width:400px; height:400px;'></div>
-     * <script type='text/javascript'>
-     * var ppex1_board = JXG.JSXGraph.initBoard('7b7233a0-f363-47dd-9df5-8018d0d17a98', {boundingbox: [-3, 5, 5, -3], axis: true, showcopyright: false, shownavigation: false});
-     * var ppex1_p1 = ppex1_board.create('point', [-1, 2]);
-     * var ppex1_p2 = ppex1_board.create('point', [ 1, 4]);
-     * var ppex1_p3 = ppex1_board.create('point', [-1,-2]);
-     * var ppex1_p4 = ppex1_board.create('point', [ 0, 0]);
-     * var ppex1_p5 = ppex1_board.create('point', [ 4,-2]);
-     * var ppex1_c1 = ppex1_board.create('conic',[ppex1_p1,ppex1_p2,ppex1_p3,ppex1_p4,ppex1_p5]);
-     * var ppex1_p6 = ppex1_board.create('point', [-1, 4]);
-     * var ppex1_p7 = ppex1_board.create('point', [2, -2]);
-     * var ppex1_l1 = ppex1_board.create('line', [ppex1_p6, ppex1_p7]);
-     * var ppex1_p8 = ppex1_board.create('polepoint', [ppex1_c1, ppex1_l1]);
-     * </script><pre>
+     * })();
+     * </script>
+     *
      * @example
-     * // Create the pole point of a line with respect to a circle
+     *     // Create the pole point of a line with respect to a circle
+     *     var p1 = board.create('point', [1, 1]);
+     *     var p2 = board.create('point', [2, 3]);
+     *     var c1 = board.create('circle',[p1,p2]);
+     *     var p3 = board.create('point', [-1, 4]);
+     *     var p4 = board.create('point', [4, -1]);
+     *     var l1 = board.create('line', [p3, p4]);
+     *     var p5 = board.create('polepoint', [c1, l1]);
+     * <div id='7b7233a0-f363-47dd-9df5-9018d0d17a98' class='jxgbox' style='width:400px; height:400px;'></div>
+     * <script type='text/javascript'>
+     * (function(){
+     * var board = JXG.JSXGraph.initBoard('7b7233a0-f363-47dd-9df5-9018d0d17a98', {boundingbox: [-3, 7, 7, -3], axis: true, showcopyright: false, shownavigation: false});
      * var p1 = board.create('point', [1, 1]);
      * var p2 = board.create('point', [2, 3]);
      * var c1 = board.create('circle',[p1,p2]);
@@ -651,17 +722,8 @@ define([
      * var p4 = board.create('point', [4, -1]);
      * var l1 = board.create('line', [p3, p4]);
      * var p5 = board.create('polepoint', [c1, l1]);
-     * </pre><div id='7b7233a0-f363-47dd-9df5-9018d0d17a98' class='jxgbox' style='width:400px; height:400px;'></div>
-     * <script type='text/javascript'>
-     * var ppex2_board = JXG.JSXGraph.initBoard('7b7233a0-f363-47dd-9df5-9018d0d17a98', {boundingbox: [-3, 7, 7, -3], axis: true, showcopyright: false, shownavigation: false});
-     * var ppex2_p1 = ppex2_board.create('point', [1, 1]);
-     * var ppex2_p2 = ppex2_board.create('point', [2, 3]);
-     * var ppex2_c1 = ppex2_board.create('circle',[ppex2_p1,ppex2_p2]);
-     * var ppex2_p3 = ppex2_board.create('point', [-1, 4]);
-     * var ppex2_p4 = ppex2_board.create('point', [4, -1]);
-     * var ppex2_l1 = ppex2_board.create('line', [ppex2_p3, ppex2_p4]);
-     * var ppex2_p5 = ppex2_board.create('polepoint', [ppex2_c1, ppex2_l1]);
-     * </script><pre>
+     * })();
+     * </script>
      */
     JXG.createPolePoint = function (board, parents, attributes) {
         var el, el1, el2,
