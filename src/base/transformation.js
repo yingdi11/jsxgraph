@@ -52,18 +52,20 @@ define([
 
     /**
      * A transformation consists of a 3x3 matrix, i.e. it is a projective transformation.
-     * @class Creates a new transformation object. Do not use this constructor to create a transformation. Use {@link JXG.Board#create} with
+     * Creates a new transformation object. Do not use this constructor to create a transformation. Use {@link JXG.Board#create} with
      * type {@link Transformation} instead.
+     * 
+     * @class JXG.Transformation
      * @constructor
      * @param {JXG.Board} board The board the new circle is drawn on.
      * @param {String} type Can be
-     * <ul><li> 'translate'
-     * <li> 'scale'
-     * <li> 'reflect'
-     * <li> 'rotate'
-     * <li> 'shear'
-     * <li> 'generic'
-     * </ul>
+     * 
+     * * 'translate'
+     * * 'scale'
+     * * 'reflect'
+     * * 'rotate'
+     * * 'shear'
+     * + 'generic'
      * @param {Object} params The parameters depend on the transformation type
      *
      * <p>
@@ -130,8 +132,10 @@ define([
 
     JXG.extend(JXG.Transformation.prototype, /** @lends JXG.Transformation.prototype */ {
         /**
+         * @method update
          * @private
          * @return {JXG.Transform} returns pointer to itself
+         * @chainable
          */
         update: function () {
             return this;
@@ -139,6 +143,8 @@ define([
 
         /**
          * Set the transformation matrix for different types of standard transforms.
+         * 
+         * @method setMatrix
          * @param {JXG.Board} board
          * @param {String} type   Transformation type, possible values are
          *                        'translate', 'scale', 'reflect', 'rotate',
@@ -166,6 +172,8 @@ define([
          * ( g  h  i )   ( y )
          * </pre>
          *
+         * @return {JXG.Transform} returns pointer to itself
+         * @chainable
          */
         setMatrix: function (board, type, params) {
             var i;
@@ -320,11 +328,15 @@ define([
                     this.matrix[2][2] = this.evalParam(8);
                 };
             }
+            
+            return this;
         },
 
         /**
          * Transform a GeometryElement:
          * First, the transformation matrix is updated, the do the matrix-vector-multiplication.
+         * 
+         * @method apply
          * @param {JXG.GeometryElement} p element which is transformed
          * @param {String} 'self' Apply the transformation to the initialCoords instead of the coords if this is set.
          * @return {Array}
@@ -342,7 +354,11 @@ define([
          * Applies a transformation once to a GeometryElement.
          * If it is a free point, then it can be dragged around later
          * and will overwrite the transformed coordinates.
+         * 
+         * @method applyOnce
          * @param {JXG.Point,Array} p
+         * @return {JXG.Transform} returns pointer to itself
+         * @chainable
          */
         applyOnce: function (p) {
             var c, len, i;
@@ -358,13 +374,19 @@ define([
                 c = Mat.matVecMult(this.matrix, p[i].coords.usrCoords);
                 p[i].coords.setCoordinates(Const.COORDS_BY_USER, c);
             }
+            
+            return this;
         },
 
         /**
          * Binds a transformation to a GeometryElement. In every update of the
          * GeometryElement, the transformation is executed.
+         * 
+         * @method bindTo
          * @param  {Array,JXG.Object} p JXG.Object or array of JXG.Object to
          *                            which the transformation is bound to.
+         * @return {JXG.Transform} returns pointer to itself
+         * @chainable
          */
         bindTo: function (p) {
             var i, len;
@@ -377,12 +399,16 @@ define([
             } else {
                 p.transformations.push(this);
             }
+            
+            return this;
         },
 
         /**
-         * Unused
-         * @deprecated Use setAttribute
-         * @param term
+         * Unused. USe setAttribute.
+         * 
+         * @method setProperty
+         * @deprecated
+         * @param {Object} term
          */
         setProperty: function (term) {
             JXG.deprecated('Transformation.setProperty()', 'Transformation.setAttribute()');
@@ -390,9 +416,15 @@ define([
 
         /**
          * Empty method. Unused.
+         * 
+         * @method setAttribute
          * @param {Object} term Key-value pairs of the attributes.
+         * @return {JXG.Transform} returns pointer to itself
+         * @chainable
          */
-        setAttribute: function (term) { },
+        setAttribute: function (term) { 
+            return this;
+        },
 
         /**
          * Combine two transformations to one transformations. This only works if
@@ -401,8 +433,11 @@ define([
          *
          * Multiplies the transformation with a transformation t from the left.
          * i.e. (this) = (t) join (this)
+         * 
+         * @method melt
          * @param  {JXG.Transform} t Transformation which is the left multiplicand
-         * @return {JXG.Transform} the transformation object.
+         * @return {JXG.Transform} returns pointer to itself
+         * @chainable
          */
         melt: function (t) {
             var res = [], i, len, len0, k, s, j;
@@ -442,10 +477,11 @@ define([
     });
 
     /**
-     * @class This element is used to provide projective transformations.
+     * This element is used to provide projective transformations.
+     * A transformation consists of a 3x3 matrix, i.e. it is a projective transformation.
+     * 
      * @pseudo
-     * @description A transformation consists of a 3x3 matrix, i.e. it is a projective transformation.
-     * @name Transformation
+     * @class Transformation
      * @extends JXG.Transformation
      * @constructor
      * @type JXG.Transformation
@@ -500,213 +536,200 @@ define([
      * </pre>
      *
      * @example
-     * // The point B is determined by taking twice the vector A from the origin
+     * 
+     *      // The point B is determined by taking twice the vector A from the origin
      *
-     * var p0 = board.create('point', [0, 3], {name: 'A'}),
-     *     t = board.create('transform', [function(){ return p0.X(); }, "Y(A)"], {type: 'translate'}),
-     *     p1 = board.create('point', [p0, t], {color: 'blue'});
+     *      var p0 = board.create('point', [0, 3], {name: 'A'}),
+     *          t = board.create('transform', [function(){ return p0.X(); }, "Y(A)"], {type: 'translate'}),
+     *          p1 = board.create('point', [p0, t], {color: 'blue'});
      *
-     * </pre><div id="14167b0c-2ad3-11e5-8dd9-901b0e1b8723" style="width: 300px; height: 300px;"></div>
+     * <div id="14167b0c-2ad3-11e5-8dd9-901b0e1b8723" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
-     *     (function() {
-     *         var board = JXG.JSXGraph.initBoard('14167b0c-2ad3-11e5-8dd9-901b0e1b8723',
-     *             {boundingbox: [-8, 8, 8,-8], axis: true, showcopyright: false, shownavigation: false});
-     *     var p0 = board.create('point', [0, 3], {name: 'A'}),
-     *         t = board.create('transform', [function(){ return p0.X(); }, "Y(A)"], {type:'translate'}),
-     *         p1 = board.create('point', [p0, t], {color: 'blue'});
-     *
+     * (function() {
+     *    var board = JXG.JSXGraph.initBoard('14167b0c-2ad3-11e5-8dd9-901b0e1b8723',
+     *         {boundingbox: [-8, 8, 8,-8], axis: true, showcopyright: false, shownavigation: false});
+     *    var p0 = board.create('point', [0, 3], {name: 'A'}),
+     *        t = board.create('transform', [function(){ return p0.X(); }, "Y(A)"], {type:'translate'}),
+     *        p1 = board.create('point', [p0, t], {color: 'blue'});
      *     })();
-     *
-     * </script><pre>
+     * </script>
      *
      * @example
-     * // The point B is the result of scaling the point A with factor 2 in horizontal direction
-     * // and with factor 0.5 in vertical direction.
+     * 
+     *      // The point B is the result of scaling the point A with factor 2 in horizontal direction
+     *      // and with factor 0.5 in vertical direction.
      *
+     *      var p1 = board.create('point', [1, 1]),
+     *          t = board.create('transform', [2, 0.5], {type: 'scale'}),
+     *          p2 = board.create('point', [p1, t], {color: 'blue'});
+     *
+     * <div id="a6827a72-2ad3-11e5-8dd9-901b0e1b8723" style="width: 300px; height: 300px;"></div>
+     * <script type="text/javascript">
+     * (function() {
+     *     var board = JXG.JSXGraph.initBoard('a6827a72-2ad3-11e5-8dd9-901b0e1b8723',
+     *         {boundingbox: [-8, 8, 8,-8], axis: true, showcopyright: false, shownavigation: false});
      * var p1 = board.create('point', [1, 1]),
      *     t = board.create('transform', [2, 0.5], {type: 'scale'}),
      *     p2 = board.create('point', [p1, t], {color: 'blue'});
-     *
-     * </pre><div id="a6827a72-2ad3-11e5-8dd9-901b0e1b8723" style="width: 300px; height: 300px;"></div>
-     * <script type="text/javascript">
-     *     (function() {
-     *         var board = JXG.JSXGraph.initBoard('a6827a72-2ad3-11e5-8dd9-901b0e1b8723',
-     *             {boundingbox: [-8, 8, 8,-8], axis: true, showcopyright: false, shownavigation: false});
-     *     var p1 = board.create('point', [1, 1]),
-     *         t = board.create('transform', [2, 0.5], {type: 'scale'}),
-     *         p2 = board.create('point', [p1, t], {color: 'blue'});
-     *
-     *     })();
-     *
-     * </script><pre>
+     * })();
+     * </script>
      *
      * @example
-     * // The point B is rotated around C which gives point D. The angle is determined
-     * // by the vertical height of point A.
+     *  
+     *      // The point B is rotated around C which gives point D. The angle is determined
+     *      // by the vertical height of point A.
      *
-     * var p0 = board.create('point', [0, 3], {name: 'A'}),
-     *     p1 = board.create('point', [1, 1]),
-     *     p2 = board.create('point', [2, 1], {name:'C', fixed: true}),
+     *      var p0 = board.create('point', [0, 3], {name: 'A'}),
+     *          p1 = board.create('point', [1, 1]),
+     *          p2 = board.create('point', [2, 1], {name:'C', fixed: true}),
      *
-     *     // angle, rotation center:
-     *     t = board.create('transform', ['Y(A)', p2], {type: 'rotate'}),
-     *     p3 = board.create('point', [p1, t], {color: 'blue'});
+     *          // angle, rotation center:
+     *          t = board.create('transform', ['Y(A)', p2], {type: 'rotate'}),
+     *          p3 = board.create('point', [p1, t], {color: 'blue'});
      *
-     * </pre><div id="747cf11e-2ad4-11e5-8dd9-901b0e1b8723" style="width: 300px; height: 300px;"></div>
+     * <div id="747cf11e-2ad4-11e5-8dd9-901b0e1b8723" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
-     *     (function() {
-     *         var board = JXG.JSXGraph.initBoard('747cf11e-2ad4-11e5-8dd9-901b0e1b8723',
-     *             {boundingbox: [-8, 8, 8,-8], axis: true, showcopyright: false, shownavigation: false});
-     *     var p0 = board.create('point', [0, 3], {name: 'A'}),
-     *         p1 = board.create('point', [1, 1]),
-     *         p2 = board.create('point', [2, 1], {name:'C', fixed: true}),
-     *
-     *         // angle, rotation center:
-     *         t = board.create('transform', ['Y(A)', p2], {type: 'rotate'}),
-     *         p3 = board.create('point', [p1, t], {color: 'blue'});
-     *
-     *     })();
-     *
-     * </script><pre>
+     * (function() {
+     *  var board = JXG.JSXGraph.initBoard('747cf11e-2ad4-11e5-8dd9-901b0e1b8723',
+     *         {boundingbox: [-8, 8, 8,-8], axis: true, showcopyright: false, shownavigation: false});
+     *  var p0 = board.create('point', [0, 3], {name: 'A'}),
+     *   p1 = board.create('point', [1, 1]),
+     *   p2 = board.create('point', [2, 1], {name:'C', fixed: true}),
+     *   // angle, rotation center:
+     *   t = board.create('transform', ['Y(A)', p2], {type: 'rotate'}),
+     *   p3 = board.create('point', [p1, t], {color: 'blue'});
+     * })();
+     * </script>
      *
      * @example
-     * // A concatenation of several transformations.
+     * 
+     *      // A concatenation of several transformations.
+     *      var p1 = board.create('point', [1, 1]),
+     *          t1 = board.create('transform', [-2, -1], {type: 'translate'}),
+     *          t2 = board.create('transform', [Math.PI/4], {type: 'rotate'}),
+     *          t3 = board.create('transform', [2, 1], {type: 'translate'}),
+     *          p2 = board.create('point', [p1, [t1, t2, t3]], {color: 'blue'});
+     *
+     * <div id="f516d3de-2ad5-11e5-8dd9-901b0e1b8723" style="width: 300px; height: 300px;"></div>
+     * <script type="text/javascript">
+     * (function() {
+     * var board = JXG.JSXGraph.initBoard('f516d3de-2ad5-11e5-8dd9-901b0e1b8723',
+     *   {boundingbox: [-8, 8, 8,-8], axis: true, showcopyright: false, shownavigation: false});
      * var p1 = board.create('point', [1, 1]),
-     *     t1 = board.create('transform', [-2, -1], {type: 'translate'}),
-     *     t2 = board.create('transform', [Math.PI/4], {type: 'rotate'}),
-     *     t3 = board.create('transform', [2, 1], {type: 'translate'}),
-     *     p2 = board.create('point', [p1, [t1, t2, t3]], {color: 'blue'});
-     *
-     * </pre><div id="f516d3de-2ad5-11e5-8dd9-901b0e1b8723" style="width: 300px; height: 300px;"></div>
-     * <script type="text/javascript">
-     *     (function() {
-     *         var board = JXG.JSXGraph.initBoard('f516d3de-2ad5-11e5-8dd9-901b0e1b8723',
-     *             {boundingbox: [-8, 8, 8,-8], axis: true, showcopyright: false, shownavigation: false});
-     *     var p1 = board.create('point', [1, 1]),
-     *         t1 = board.create('transform', [-2, -1], {type:'translate'}),
-     *         t2 = board.create('transform', [Math.PI/4], {type:'rotate'}),
-     *         t3 = board.create('transform', [2, 1], {type:'translate'}),
-     *         p2 = board.create('point', [p1, [t1, t2, t3]], {color: 'blue'});
-     *
-     *     })();
-     *
-     * </script><pre>
+     *    t1 = board.create('transform', [-2, -1], {type:'translate'}),
+     *    t2 = board.create('transform', [Math.PI/4], {type:'rotate'}),
+     *    t3 = board.create('transform', [2, 1], {type:'translate'}),
+     *    p2 = board.create('point', [p1, [t1, t2, t3]], {color: 'blue'});
+     * })();
+     * </script>
      *
      * @example
-     * // Reflection of point A
-     * var p1 = board.create('point', [1, 1]),
-     *     p2 = board.create('point', [1, 3]),
-     *     p3 = board.create('point', [-2, 0]),
-     *     l = board.create('line', [p2, p3]),
-     *     t = board.create('transform', [l], {type: 'reflect'}),  // Possible are l, l.id, l.name
-     *     p4 = board.create('point', [p1, t], {color: 'blue'});
+     * 
+     *      // Reflection of point A
+     *      var p1 = board.create('point', [1, 1]),
+     *          p2 = board.create('point', [1, 3]),
+     *          p3 = board.create('point', [-2, 0]),
+     *          l = board.create('line', [p2, p3]),
+     *          t = board.create('transform', [l], {type: 'reflect'}),  // Possible are l, l.id, l.name
+     *          p4 = board.create('point', [p1, t], {color: 'blue'});
      *
-     * </pre><div id="6f374a04-2ad6-11e5-8dd9-901b0e1b8723" style="width: 300px; height: 300px;"></div>
+     * <div id="6f374a04-2ad6-11e5-8dd9-901b0e1b8723" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
-     *     (function() {
-     *         var board = JXG.JSXGraph.initBoard('6f374a04-2ad6-11e5-8dd9-901b0e1b8723',
-     *             {boundingbox: [-8, 8, 8,-8], axis: true, showcopyright: false, shownavigation: false});
-     *     var p1 = board.create('point', [1, 1]),
-     *         p2 = board.create('point', [1, 3]),
-     *         p3 = board.create('point', [-2, 0]),
-     *         l = board.create('line', [p2, p3]),
-     *         t = board.create('transform', [l], {type:'reflect'}),  // Possible are l, l.id, l.name
-     *         p4 = board.create('point', [p1, t], {color: 'blue'});
-     *
-     *     })();
-     *
-     * </script><pre>
+     * (function() {
+     *    var board = JXG.JSXGraph.initBoard('6f374a04-2ad6-11e5-8dd9-901b0e1b8723',
+     *        {boundingbox: [-8, 8, 8,-8], axis: true, showcopyright: false, shownavigation: false});
+     *  var p1 = board.create('point', [1, 1]),
+     *      p2 = board.create('point', [1, 3]),
+     *      p3 = board.create('point', [-2, 0]),
+     *      l = board.create('line', [p2, p3]),
+     *      t = board.create('transform', [l], {type:'reflect'}),  // Possible are l, l.id, l.name
+     *      p4 = board.create('point', [p1, t], {color: 'blue'});
+     *  })();
+     * </script>
      *
      * @example
-     * // One time application of a transform to points A, B
-     * var p1 = board.create('point', [1, 1]),
-     *     p2 = board.create('point', [1, 1]),
-     *     t = board.create('transform', [3, 2], {type: 'shear'});
-     * t.applyOnce([p1, p2]);
+     * 
+     *      // One time application of a transform to points A, B
+     *      var p1 = board.create('point', [1, 1]),
+     *          p2 = board.create('point', [1, 1]),
+     *          t = board.create('transform', [3, 2], {type: 'shear'});
+     *      t.applyOnce([p1, p2]);
      *
-     * </pre><div id="b6cee1c4-2ad6-11e5-8dd9-901b0e1b8723" style="width: 300px; height: 300px;"></div>
+     * <div id="b6cee1c4-2ad6-11e5-8dd9-901b0e1b8723" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
-     *     (function() {
-     *         var board = JXG.JSXGraph.initBoard('b6cee1c4-2ad6-11e5-8dd9-901b0e1b8723',
-     *             {boundingbox: [-8, 8, 8,-8], axis: true, showcopyright: false, shownavigation: false});
-     *     var p1 = board.create('point', [1, 1]),
-     *         p2 = board.create('point', [-1, -2]),
-     *         t = board.create('transform', [3, 2], {type: 'shear'});
-     *     t.applyOnce([p1, p2]);
-     *
-     *     })();
-     *
-     * </script><pre>
+     * (function() {
+     *  var board = JXG.JSXGraph.initBoard('b6cee1c4-2ad6-11e5-8dd9-901b0e1b8723',
+     *      {boundingbox: [-8, 8, 8,-8], axis: true, showcopyright: false, shownavigation: false});
+     *  var p1 = board.create('point', [1, 1]),
+     *  p2 = board.create('point', [-1, -2]),
+     *  t = board.create('transform', [3, 2], {type: 'shear'});
+     *  t.applyOnce([p1, p2]);
+     * })();
+     * </script>
      *
      * @example
-     * // Construct a square of side length 2 with the
-     * // help of transformations
-     *     var sq = [],
-     *         right = board.create('transform', [2, 0], {type: 'translate'}),
-     *         up = board.create('transform', [0, 2], {type: 'translate'}),
-     *         pol, rot, p0;
+     * 
+     *      // Construct a square of side length 2 with the
+     *      // help of transformations
+     *      var sq = [],
+     *          right = board.create('transform', [2, 0], {type: 'translate'}),
+     *          up = board.create('transform', [0, 2], {type: 'translate'}),
+     *          pol, rot, p0;
      *
-     *     // The first point is free
-     *     sq[0] = board.create('point', [0, 0], {name: 'Drag me'}),
+     *      // The first point is free
+     *      sq[0] = board.create('point', [0, 0], {name: 'Drag me'}),
      *
-     *     // Construct the other free points by transformations
-     *     sq[1] = board.create('point', [sq[0], right]),
-     *     sq[2] = board.create('point', [sq[0], [right, up]]),
-     *     sq[3] = board.create('point', [sq[0], up]),
+     *      // Construct the other free points by transformations
+     *      sq[1] = board.create('point', [sq[0], right]),
+     *      sq[2] = board.create('point', [sq[0], [right, up]]),
+     *      sq[3] = board.create('point', [sq[0], up]),
      *
-     *     // Polygon through these four points
-     *     pol = board.create('polygon', sq, {
+     *      // Polygon through these four points
+     *      pol = board.create('polygon', sq, {
      *             fillColor:'blue',
      *             gradient:'radial',
      *             gradientsecondcolor:'white',
      *             gradientSecondOpacity:'0'
-     *     }),
+     *      }),
      *
-     *     p0 = board.create('point', [0, 3], {name: 'angle'}),
-     *     // Rotate the square around point sq[0] by dragging A
-     *     rot = board.create('transform', ['Y(angle)', sq[0]], {type: 'rotate'});
+     *      p0 = board.create('point', [0, 3], {name: 'angle'}),
+     *      // Rotate the square around point sq[0] by dragging A
+     *      rot = board.create('transform', ['Y(angle)', sq[0]], {type: 'rotate'});
      *
-     *     // Apply the rotation to all but the first point of the square
-     *     rot.bindTo(sq.slice(1));
+     *      // Apply the rotation to all but the first point of the square
+     *      rot.bindTo(sq.slice(1));
      *
-     * </pre><div id="c7f9097e-2ad7-11e5-8dd9-901b0e1b8723" style="width: 300px; height: 300px;"></div>
+     * <div id="c7f9097e-2ad7-11e5-8dd9-901b0e1b8723" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
-     *     (function() {
-     *         var board = JXG.JSXGraph.initBoard('c7f9097e-2ad7-11e5-8dd9-901b0e1b8723',
-     *             {boundingbox: [-8, 8, 8,-8], axis: true, showcopyright: false, shownavigation: false});
-     *     // Construct a square of side length 2 with the
-     *     // help of transformations
-     *     var sq = [],
-     *         right = board.create('transform', [2, 0], {type: 'translate'}),
-     *         up = board.create('transform', [0, 2], {type: 'translate'}),
-     *         pol, rot, p0;
-     *
-     *     // The first point is free
-     *     sq[0] = board.create('point', [0, 0], {name: 'Drag me'}),
-     *
-     *     // Construct the other free points by transformations
-     *     sq[1] = board.create('point', [sq[0], right]),
-     *     sq[2] = board.create('point', [sq[0], [right, up]]),
-     *     sq[3] = board.create('point', [sq[0], up]),
-     *
-     *     // Polygon through these four points
-     *     pol = board.create('polygon', sq, {
-     *             fillColor:'blue',
-     *             gradient:'radial',
-     *             gradientsecondcolor:'white',
-     *             gradientSecondOpacity:'0'
-     *     }),
-     *
-     *     p0 = board.create('point', [0, 3], {name: 'angle'}),
-     *     // Rotate the square around point sq[0] by dragging A
-     *     rot = board.create('transform', ['Y(angle)', sq[0]], {type: 'rotate'});
-     *
-     *     // Apply the rotation to all but the first point of the square
-     *     rot.bindTo(sq.slice(1));
-     *
-     *     })();
-     *
-     * </script><pre>
+     * (function() {
+     *  var board = JXG.JSXGraph.initBoard('c7f9097e-2ad7-11e5-8dd9-901b0e1b8723',
+     *      {boundingbox: [-8, 8, 8,-8], axis: true, showcopyright: false, shownavigation: false});
+     *  // Construct a square of side length 2 with the
+     *  // help of transformations
+     *  var sq = [],
+     *    right = board.create('transform', [2, 0], {type: 'translate'}),
+     *    up = board.create('transform', [0, 2], {type: 'translate'}),
+     *    pol, rot, p0;
+     *   // The first point is free
+     *   sq[0] = board.create('point', [0, 0], {name: 'Drag me'}),
+     *   // Construct the other free points by transformations
+     *   sq[1] = board.create('point', [sq[0], right]),
+     *   sq[2] = board.create('point', [sq[0], [right, up]]),
+     *   sq[3] = board.create('point', [sq[0], up]),
+     *   // Polygon through these four points
+     *   pol = board.create('polygon', sq, {
+     *        fillColor:'blue',
+     *        gradient:'radial',
+     *        gradientsecondcolor:'white',
+     *        gradientSecondOpacity:'0'
+     *  }),
+     *  p0 = board.create('point', [0, 3], {name: 'angle'}),
+     * // Rotate the square around point sq[0] by dragging A
+     * rot = board.create('transform', ['Y(angle)', sq[0]], {type: 'rotate'});
+     * // Apply the rotation to all but the first point of the square
+     * rot.bindTo(sq.slice(1));
+     * })();
+     * </script>
      *
      */
     JXG.createTransform = function (board, parents, attributes) {
