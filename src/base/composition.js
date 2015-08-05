@@ -44,19 +44,21 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
 
     /**
      * A composition is a simple container that manages none or more {@link JXG.GeometryElement}s.
+     *
+     * @class JXG.composition
+     * @constructor
      * @param {Object} elements A list of elements with a descriptive name for the element as the key and a reference
      * to the element as the value of every list entry. The name is used to access the element later on.
      * @example
-     * var p1 = board.create('point', [1, 2]),
-     *     p2 = board.create('point', [2, 3]),
-     *     c = new JXG.Composition({
-     *         start: p1,
-     *         end: p2
-     *     });
+     *     var p1 = board.create('point', [1, 2]),
+     *         p2 = board.create('point', [2, 3]),
+     *         c = new JXG.Composition({
+     *             start: p1,
+     *             end: p2
+     *         });
      *
-     * // moves p1 to [3, 3]
-     * c.start.moveTo([3, 3]);
-     * @class JXG.Composition
+     *     // moves p1 to [3, 3]
+     *     c.start.moveTo([3, 3]);
      */
     JXG.Composition = function (elements) {
         var e,
@@ -65,54 +67,48 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
                 /**
                  * Invokes setAttribute for every stored element with a setAttribute method and hands over the given arguments.
                  * See {@link JXG.GeometryElement#setAttribute} for further description, valid parameters and return values.
-                 * @name setAttribute
+                 * @method setAttribute
                  * @memberOf JXG.Composition.prototype
-                 * @function
                  */
                 'setAttribute',
 
                 /**
                  * Invokes prepareUpdate for every stored element with a prepareUpdate method and hands over the given arguments.
                  * See {@link JXG.GeometryElement#prepareUpdate} for further description, valid parameters and return values.
-                 * @name prepareUpdate
+                 * @method prepareUpdate
                  * @memberOf JXG.Composition.prototype
-                 * @function
                  */
                 'prepareUpdate',
 
                 /**
                  * Invokes updateRenderer for every stored element with a updateRenderer method and hands over the given arguments.
                  * See {@link JXG.GeometryElement#updateRenderer} for further description, valid parameters and return values.
-                 * @name updateRenderer
+                 * @method updateRenderer
                  * @memberOf JXG.Composition.prototype
-                 * @function
                  */
                 'updateRenderer',
 
                 /**
                  * Invokes update for every stored element with a update method and hands over the given arguments.
                  * See {@link JXG.GeometryElement#update} for further description, valid parameters and return values.
-                 * @name update
+                 * @method update
                  * @memberOf JXG.Composition.prototype
-                 * @function
                  */
                 'update',
 
                 /**
                  * Invokes highlight for every stored element with a highlight method and hands over the given arguments.
                  * See {@link JXG.GeometryElement#highlight} for further description, valid parameters and return values.
-                 * @name highlight
+                 * @method highlight
                  * @memberOf JXG.Composition.prototype
-                 * @function
                  */
                 'highlight',
 
                 /**
                  * Invokes noHighlight for every stored element with a noHighlight method and hands over the given arguments.
                  * See {@link JXG.GeometryElement#noHighlight} for further description, valid parameters and return values.
-                 * @name noHighlight
+                 * @method noHighlight
                  * @memberOf JXG.Composition.prototype
-                 * @function
                  */
                 'noHighlight'
             ],
@@ -166,6 +162,8 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
 
         /**
          * Adds an element to the composition container.
+         *
+         * @method add
          * @param {String} what Descriptive name for the element, e.g. <em>startpoint</em> or <em>area</em>. This is used to
          * access the element later on. There are some reserved names: <em>elements, add, remove, update, prepareUpdate,
          * updateRenderer, highlight, noHighlight</em>, and all names that would form invalid object property names in
@@ -203,6 +201,8 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
 
         /**
          * Remove an element from the composition container.
+         *
+         * @method remove
          * @param {String} what The name used to access the element.
          * @return {Boolean} True, if the element has been removed successfully.
          */
@@ -227,11 +227,32 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
             return found;
         },
 
+        /**
+         * Change element list of composition
+         *
+         * @method nameListener
+         * @param  {String} oval Name of old entry, will be removed from composition
+         * @param  {String} nval Name of new entry
+         * @param  {JXG.GeometryElement} el   New entry
+         * @return {Object}      this
+         * @chainable
+         */
         nameListener: function (oval, nval, el) {
             delete this.elementsByName[oval];
             this.elementsByName[nval] = el;
+
+            return this;
         },
 
+        /**
+         * Select elements of the composition.
+         * For the filter {@see JXG.Board}
+         *
+         * @method select
+         * @param  {String|Object|Function} filter The name, id or a reference to a JSXGraph element on this board.
+         *   An object will be used as a filter to return multiple elements at once filtered by the properties of the object.
+         * @return {JXG.GeometryElement|JXG.Composition}        Composition or element
+         */
         select: function (filter) {
             // for now, hijack JXG.Board's select() method
             if (Type.exists(JXG.Board)) {
@@ -241,14 +262,34 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
             return new JXG.Composition();
         },
 
+        /**
+         * List of the element ids resp. values. Unused.
+         *
+         * @method getParents
+         * @return {Array}
+         */
         getParents: function () {
-            return this.parents;
+            return [];
+            //return this.parents;
         },
 
+        /**
+         * Type of composition. Unused.
+         *
+         * @method getType
+         * @return {String} Empty sring
+         */
         getType: function () {
-            return this.elType;
+            return '';
+            //return this.elType;
         },
 
+        /**
+         * Return list of attributes. Unused
+         *
+         * @method getAttributes
+         * @return {Object} List of attributes
+         */
         getAttributes: function () {
             var attr = {},
                 e;
