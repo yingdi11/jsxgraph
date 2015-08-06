@@ -920,6 +920,205 @@ define([
      * @param {Object} attributes Object containing properties for the element such as stroke-color and visibility. See {@link JXG.GeometryElement#setAttribute}
      * @return {JXG.Turtle} Reference to the created turtle object.
      *
+     * @example
+     *
+     *     var board = JXG.JSXGraph.initBoard('box', {boundingbox: [-300, 300, 300, -300]});
+     *     var t = board.create('turtle');
+     *
+     *     var side = function(size, level) {
+     *         if (level == 0) {
+     *             t.fd(size);
+     *             return;
+     *         }
+     *         side(size/3, level-1);
+     *         t.lt(60);
+     *         side(size/3, level-1);
+     *         t.rt(120);
+     *         side(size/3, level-1);
+     *         t.lt(60);
+     *         side(size/3, level-1);
+     *     };
+     *
+     *     var snowflake = function (size, level) {
+     *         var i;
+     *         for (i = 0; i < 3; i++) {
+     *             side(size, level);
+     *             t.rt(120);
+     *         };
+     *     }
+     *
+     *     t.clearScreen().hideTurtle();
+     *     t.setPenSize(1).setPenColor("#000000");
+     *     t.lt(30).setPos(0, -100);
+     *
+     *     snowflake(250, 3);
+     *
+     * <div id="280aee5e-3c1c-11e5-8dd9-901b0e1b8723" style="width: 300px; height: 300px;"></div>
+     * <script type="text/javascript">
+     * (function() {
+     * var board = JXG.JSXGraph.initBoard('280aee5e-3c1c-11e5-8dd9-901b0e1b8723',
+     *     {boundingbox: [-300, 300, 300, -300], axis: false, showcopyright: false, shownavigation: false});
+     * var t = board.create('turtle');
+     * var side = function(size, level) {
+     * if (level == 0) {
+     * t.fd(size);
+     * return;
+     * }
+     * side(size/3, level-1);
+     * t.lt(60);
+     * side(size/3, level-1);
+     * t.rt(120);
+     * side(size/3, level-1);
+     * t.lt(60);
+     * side(size/3, level-1);
+     * };
+     * var snowflake = function (size, level) {
+     * var i;
+     * for (i = 0; i < 3; i++) {
+     * side(size, level);
+     * t.rt(120);
+     * };
+     * }
+     * t.clearScreen().hideTurtle();
+     * t.setPenSize(1).setPenColor("#000000");
+     * t.lt(30).setPos(0, -100);
+     * snowflake(250, 3);
+     * })();
+     * </script>
+     *
+     * @example
+     *     var board = JXG.JSXGraph.initBoard('box', {boundingbox: [-300, 300, 300, -300]});
+     *     var t = board.create('turtle');
+     *
+     *     var branch = function(length, level) {
+     *         if  (level == 0)
+     *             return;
+     *
+     *         t.fd(length).lt(45);
+     *         branch(length / 2, level - 1);
+     *         t.rt(90);
+     *         branch(length / 2, level - 1);
+     *         t.lt(45).bk(length);
+     *     };
+     *
+     *     var lbranch = function(length, angle, level) {
+     *         t.fd(2 * length);
+     *         node(length, angle, level);
+     *         t.bk(2 * length);
+     *     };
+     *
+     *     var rbranch = function (length, angle, level) {
+     *         t.fd(length);
+     *         node(length, angle, level);
+     *         t.bk(length);
+     *     };
+     *
+     *     var node = function (length, angle, level) {
+     *         if (level == 0)
+     *             return;
+     *
+     *         t.lt(angle);
+     *         lbranch(length, angle, level - 1);
+     *         t.rt(2 * angle);
+     *         rbranch(length, angle, level - 1);
+     *         t.lt(angle);
+     *     };
+     *
+     *     t.clearScreen().hideTurtle();
+     *     t.setPenSize(5).setPenColor("#008800");
+     *     t.setPos(30, -150);
+     *     lbranch(25, 20, 7);
+     *
+     * <div id="092cf60c-3c1d-11e5-8dd9-901b0e1b8723" style="width: 300px; height: 300px;"></div>
+     * <script type="text/javascript">
+     * (function() {
+     * var board = JXG.JSXGraph.initBoard('092cf60c-3c1d-11e5-8dd9-901b0e1b8723',
+     *     {boundingbox: [-300, 300, 300, -300], showcopyright: false, shownavigation: false});
+     * var t = board.create('turtle');
+     * var branch = function(length, level) {
+     * if  (level == 0)
+     * return;
+     * t.fd(length).lt(45);
+     * branch(length / 2, level - 1);
+     * t.rt(90);
+     * branch(length / 2, level - 1);
+     * t.lt(45).bk(length);
+     * };
+     * var lbranch = function(length, angle, level) {
+     * t.fd(2 * length);
+     * node(length, angle, level);
+     * t.bk(2 * length);
+     * };
+     * var rbranch = function (length, angle, level) {
+     * t.fd(length);
+     * node(length, angle, level);
+     * t.bk(length);
+     * };
+     * var node = function (length, angle, level) {
+     * if (level == 0)
+     * return;
+     * t.lt(angle);
+     * lbranch(length, angle, level - 1);
+     * t.rt(2 * angle);
+     * rbranch(length, angle, level - 1);
+     * t.lt(angle);
+     * };
+     * t.clearScreen().hideTurtle();
+     * t.setPenSize(5).setPenColor("#008800");
+     * t.setPos(30, -150);
+     * lbranch(25, 20, 7);
+     * })();
+     * </script>
+     *
+     * @example
+     *     var board = JXG.JSXGraph.initBoard('jxgbox',{boundingbox: [-250, 250, 250, -250]});
+     *     var t = brd.create('turtle', [0, 0], {strokeOpacity:0.5});
+     *     t.setPenSize(3);
+     *     t.right(90);
+     *     var alpha = 0;
+     *
+     *     var run = function() {
+     *        t.forward(2);
+     *        if (Math.floor(alpha / 360) % 2 === 0) {
+     *           t.left(1);        // turn left by 1 degree
+     *        } else {
+     *           t.right(1);       // turn right by 1 degree
+     *        }
+     *
+     *        alpha += 1;
+     *
+     *        if (alpha < 1440) {  // stop after two rounds
+     *            setTimeout(run, 20);
+     *        }
+     *     }
+     *
+     *     run();
+     *
+     * <div id="af9140b6-3c1d-11e5-8dd9-901b0e1b8723" style="width: 300px; height: 300px;"></div>
+     * <script type="text/javascript">
+     * (function() {
+     * var board = JXG.JSXGraph.initBoard('af9140b6-3c1d-11e5-8dd9-901b0e1b8723',
+     *     {boundingbox: [-250, 250, 250, -250], showcopyright: false, shownavigation: false});
+     * var t = board.create('turtle',[0, 0], {strokeOpacity:0.5});
+     * t.setPenSize(3);
+     * t.right(90);
+     * var alpha = 0;
+     * var run = function() {
+     * t.forward(2);
+     * if (Math.floor(alpha / 360) % 2 === 0) {
+     * t.left(1);        // turn left by 1 degree
+     * } else {
+     * t.right(1);       // turn right by 1 degree
+     * }
+     * alpha += 1;
+     * if (alpha < 1440) {  // stop after two rounds
+     * setTimeout(run, 20);
+     * }
+     * }
+     * run();
+     * })();
+     * </script>
+     *
      */
     JXG.createTurtle = function (board, parents, attributes) {
         var attr;

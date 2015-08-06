@@ -32,24 +32,23 @@ if __name__ == '__main__':
     tab = "    "
     
     print "%s%s" % (space, "@example")
+    
     ''' Print original code '''
     for line in code:
-        print "%s%s" % (space, line.rstrip())
+        print "%s%s%s" % (space, tab, line.rstrip())
     print space
     
     uid = uuid.uuid1()
     ''' Print live code '''
-    print "%s%s%s%s" % (space, "</pre><div id=\"", uid, "\" style=\"width: 300px; height: 300px;\"></div>")
+    print "%s%s%s%s" % (space, "<div id=\"", uid, "\" style=\"width: 300px; height: 300px;\"></div>")
     print "%s%s"     % (space, "<script type=\"text/javascript\">")
-    print "%s%s%s"   % (space, tab, "(function() {")
-    print "%s%s%s%s%s"   % (space, tab+tab, "var board = JXG.JSXGraph.initBoard('", uid, "',")
-    print "%s%s%s"   % (space, tab+tab+tab, "{boundingbox: [-8, 8, 8,-8], axis: true, showcopyright: false, shownavigation: false});")
+    print "%s%s"   % (space, "(function() {")
+    print "%s%s%s%s"   % (space, "var board = JXG.JSXGraph.initBoard('", uid, "',")
+    print "%s%s%s"   % (space, tab, "{boundingbox: [-8, 8, 8,-8], axis: true, showcopyright: false, shownavigation: false});")
     
     for line in code:
-        print "%s%s%s" % (space, tab, line.rstrip())
-    print space
-
-    print "%s%s%s"   % (space, tab, "})();")
-    print "%s"       % (space)
-    print "%s%s"     % (space, "</script><pre>")
+        if line.strip() != "":
+            print "%s%s" % (space, line.strip())
+    print "%s%s"   % (space, "})();")
+    print "%s%s"   % (space, "</script>")
     print space
