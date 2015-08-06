@@ -1437,10 +1437,10 @@ define([
      * <div id="7b7233a0-f363-47dd-9df5-4018d0d17a98" style="width: 400px; height: 400px;"></div>
      * <script type="text/javascript">
      * (function(){
-     *     var tlex1_board = JXG.JSXGraph.initBoard('7b7233a0-f363-47dd-9df5-4018d0d17a98', {boundingbox: [-6, 6, 6, -6], axis: true, showcopyright: false, shownavigation: false});
-     *   var tlex1_c1 = tlex1_board.create('curve', [function(t){return t},function(t){return t*t*t;}]);
-     *   var tlex1_g1 = tlex1_board.create('glider', [0.6, 1.2, tlex1_c1]);
-     *   var tlex1_t1 = tlex1_board.create('tangent', [tlex1_g1]);
+     *   var board = JXG.JSXGraph.initBoard('7b7233a0-f363-47dd-9df5-4018d0d17a98', {boundingbox: [-6, 6, 6, -6], axis: true, showcopyright: false, shownavigation: false});
+     *   var c1 = board.create('curve', [function(t){return t},function(t){return t*t*t;}]);
+     *   var g1 = board.create('glider', [0.6, 1.2, c1]);
+     *   var t1 = board.create('tangent', [g1]);
      * })();
      * </script>
      */
@@ -1652,12 +1652,13 @@ define([
     };
 
     /**
-     * @class RadicalAxis
      * This element is used to provide a constructor for the radical axis with respect to two circles with distinct centers.
      * The angular bisector of the polar lines of the circle centers with respect to the other circle is always the radical axis.
      * The radical axis passes through the intersection points when the circles intersect.
      * When a circle about the midpoint of circle centers, passing through the circle centers, intersects the circles, the polar lines pass through those intersection points.
+     *
      * @pseudo
+     * @class RadicalAxis
      * @extends JXG.Line
      * @constructor
      * @type JXG.Line
@@ -1677,14 +1678,14 @@ define([
      * <div id='7b7233a0-f363-47dd-9df5-5018d0d17a98' class='jxgbox' style='width:400px; height:400px;'></div>
      * <script type='text/javascript'>
      * (function(){
-     *   var rlex1_board = JXG.JSXGraph.initBoard('7b7233a0-f363-47dd-9df5-5018d0d17a98', {boundingbox: [-1, 9, 9, -1], axis: true, showcopyright: false, shownavigation: false});
-     *   var rlex1_p1 = rlex1_board.create('point', [2, 3]);
-     *   var rlex1_p2 = rlex1_board.create('point', [1, 4]);
-     *   var rlex1_c1 = rlex1_board.create('circle', [rlex1_p1, rlex1_p2]);
-     *   var rlex1_p3 = rlex1_board.create('point', [6, 5]);
-     *   var rlex1_p4 = rlex1_board.create('point', [8, 6]);
-     *   var rlex1_c2 = rlex1_board.create('circle', [rlex1_p3, rlex1_p4]);
-     *   var rlex1_r1 = rlex1_board.create('radicalaxis', [rlex1_c1, rlex1_c2]);
+     *   var board = JXG.JSXGraph.initBoard('7b7233a0-f363-47dd-9df5-5018d0d17a98', {boundingbox: [-1, 9, 9, -1], axis: true, showcopyright: false, shownavigation: false});
+     *   var p1 = board.create('point', [2, 3]);
+     *   var p2 = board.create('point', [1, 4]);
+     *   var c1 = board.create('circle', [p1, p2]);
+     *   var p3 = board.create('point', [6, 5]);
+     *   var p4 = board.create('point', [8, 6]);
+     *   var c2 = board.create('circle', [p3, p4]);
+     *   var r1 = board.create('radicalaxis', [c1, c2]);
      * })();
      * </script>
      */
@@ -1749,15 +1750,15 @@ define([
      * <div id='7b7233a0-f363-47dd-9df5-6018d0d17a98' class='jxgbox' style='width:400px; height:400px;'></div>
      * <script type='text/javascript'>
      * (function(){
-     * var plex1_board = JXG.JSXGraph.initBoard('7b7233a0-f363-47dd-9df5-6018d0d17a98', {boundingbox: [-3, 5, 5, -3], axis: true, showcopyright: false, shownavigation: false});
-     * var plex1_p1 = plex1_board.create('point', [-1, 2]);
-     * var plex1_p2 = plex1_board.create('point', [ 1, 4]);
-     * var plex1_p3 = plex1_board.create('point', [-1,-2]);
-     * var plex1_p4 = plex1_board.create('point', [ 0, 0]);
-     * var plex1_p5 = plex1_board.create('point', [ 4,-2]);
-     * var plex1_c1 = plex1_board.create('conic',[plex1_p1,plex1_p2,plex1_p3,plex1_p4,plex1_p5]);
-     * var plex1_p6 = plex1_board.create('point', [-1, 1]);
-     * var plex1_l1 = plex1_board.create('polarline', [plex1_c1, plex1_p6]);
+     * var board = JXG.JSXGraph.initBoard('7b7233a0-f363-47dd-9df5-6018d0d17a98', {boundingbox: [-3, 5, 5, -3], axis: true, showcopyright: false, shownavigation: false});
+     * var p1 = board.create('point', [-1, 2]);
+     * var p2 = board.create('point', [ 1, 4]);
+     * var p3 = board.create('point', [-1,-2]);
+     * var p4 = board.create('point', [ 0, 0]);
+     * var p5 = board.create('point', [ 4,-2]);
+     * var c1 = board.create('conic',[p1,p2,p3,p4,p5]);
+     * var p6 = board.create('point', [-1, 1]);
+     * var l1 = board.create('polarline', [c1, p6]);
      * })();
      * </script>
      * @example
@@ -1770,12 +1771,12 @@ define([
      * <div id='7b7233a0-f363-47dd-9df5-7018d0d17a98' class='jxgbox' style='width:400px; height:400px;'></div>
      * <script type='text/javascript'>
      * (function(){
-     * var plex2_board = JXG.JSXGraph.initBoard('7b7233a0-f363-47dd-9df5-7018d0d17a98', {boundingbox: [-3, 7, 7, -3], axis: true, showcopyright: false, shownavigation: false});
-     * var plex2_p1 = plex2_board.create('point', [ 1, 1]);
-     * var plex2_p2 = plex2_board.create('point', [ 2, 3]);
-     * var plex2_c1 = plex2_board.create('circle',[plex2_p1,plex2_p2]);
-     * var plex2_p3 = plex2_board.create('point', [ 6, 6]);
-     * var plex2_l1 = plex2_board.create('polarline', [plex2_c1, plex2_p3]);
+     * var board = JXG.JSXGraph.initBoard('7b7233a0-f363-47dd-9df5-7018d0d17a98', {boundingbox: [-3, 7, 7, -3], axis: true, showcopyright: false, shownavigation: false});
+     * var p1 = board.create('point', [ 1, 1]);
+     * var p2 = board.create('point', [ 2, 3]);
+     * var c1 = board.create('circle',[p1,p2]);
+     * var p3 = board.create('point', [ 6, 6]);
+     * var l1 = board.create('polarline', [c1, p3]);
      * })();
      * </script>
      */

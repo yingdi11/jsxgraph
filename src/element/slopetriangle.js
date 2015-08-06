@@ -65,56 +65,55 @@ define([
         };
 
     /**
-     * @class Slope triangle for a point on a line.
+     * Slope triangle for a point on a line.
+     *
      * @pseudo
-     * @name Slopetriangle
+     * @class Slopetriangle
      * @extends JXG.Line
      * @constructor
      * @type JXG.Polygon
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
      * Parameter options:
      * @param {JXG.Line} t A tangent based on a glider on some object, e.g. curve, circle, line or turtle.
-     * @param {JXG.Line_JXG.Point} li, p A line and a point on that line. 
+     * @param {JXG.Line_JXG.Point} li, p A line and a point on that line.
      *  The user has to take care that the point is a member of the line.
      * @example
-     * // Create a slopetriangle on a tangent
-     * var f = board.create('plot', ['sin(x)']),
-     *     g = board.create('glider', [1, 2, f]),
-     *     t = board.create('tangent', [g]),
-     *     
-     *     st = board.create('slopetriangle', [t]);
-     *     
+     *     // Create a slopetriangle on a tangent
+     *     var f = board.create('plot', ['sin(x)']),
+     *         g = board.create('glider', [1, 2, f]),
+     *         t = board.create('tangent', [g]),
+     *
+     *         st = board.create('slopetriangle', [t]);
+     *
      * <div id="951ccb6a-52bc-4dc2-80e9-43db064f0f1b" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
      * (function () {
      *   var board = JXG.JSXGraph.initBoard('951ccb6a-52bc-4dc2-80e9-43db064f0f1b', {boundingbox: [-5, 5, 5, -5], axis: true, showcopyright: false, shownavigation: false}),
-     *     f = board.create('plot', ['sin(x)']),
-     *     g = board.create('glider', [1, 2, f]),
-     *     t = board.create('tangent', [g]),
-     *     
-     *     st = board.create('slopetriangle', [t]);
+     *   f = board.create('plot', ['sin(x)']),
+     *   g = board.create('glider', [1, 2, f]),
+     *   t = board.create('tangent', [g]),
+     *   st = board.create('slopetriangle', [t]);
      * })();
      * </script>
-     * 
+     *
      * @example
-     * // Create a on a line and a point on that line
-     * var p1 = board.create('point', [-2, 3]),
-     *     p2 = board.create('point', [2, -3]),
-     *     li = board.create('line', [p1, p2]),
-     *     p = board.create('glider', [0, 0, li]),
-     * 
-     *     st = board.create('slopetriangle', [li, p]);
+     *     // Create a glider on a line and a slope triangle on that line
+     *     var p1 = board.create('point', [-2, 3]),
+     *         p2 = board.create('point', [2, -3]),
+     *         li = board.create('line', [p1, p2]),
+     *         p = board.create('glider', [0, 0, li]),
+     *
+     *         st = board.create('slopetriangle', [li, p]);
      *
      * <div id="b52f451c-22cf-4677-852a-0bb9d764ee95" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
      * (function () {
      *   var board = JXG.JSXGraph.initBoard('b52f451c-22cf-4677-852a-0bb9d764ee95', {boundingbox: [-5, 5, 5, -5], axis: true, showcopyright: false, shownavigation: false}),
-     *     p1 = board.create('point', [-2, 3]),
-     *     p2 = board.create('point', [2, -3]),
-     *     li = board.create('line', [p1, p2]),
-     *     p = board.create('glider', [0, 0, li]),
-     * 
-     *     st = board.create('slopetriangle', [li, p]);
+     *   p1 = board.create('point', [-2, 3]),
+     *   p2 = board.create('point', [2, -3]),
+     *   li = board.create('line', [p1, p2]),
+     *   p = board.create('glider', [0, 0, li]),
+     *   st = board.create('slopetriangle', [li, p]);
      * })();
      * </script>
      */
@@ -164,10 +163,49 @@ define([
         label._setText(function () { return el.Value().toFixed(label.visProp.digits); });
         label.prepareUpdate().update().updateRenderer();
 
+        /**
+         * The glider the slope triangle is bound to.
+         *
+         * @property glider
+         * @type JXG.Point
+         * @private
+         */
         el.glider = glider;
+
+        /**
+         * The base point defining - together with the glider - the horizontal side of the slope triangle
+         *
+         * @property basepoint
+         * @type JXG.Point
+         * @private
+         */
         el.basepoint = basepoint;
+
+        /**
+         * The baseline the glider is bound to.
+         *
+         * @property baseline
+         * @type JXG.Line
+         * @private
+         */
         el.baseline = baseline;
+
+        /**
+         * Third point of the triangle, lying on the tangent
+         *
+         * @property toppoint
+         * @type JXG.Point
+         * @private
+         */
         el.toppoint = toppoint;
+
+        /**
+         * Slope triangle label
+         *
+         * @property label
+         * @type JXG.Text
+         * @private
+         */
         el.label = label;
 
         el.methodMap = JXG.deepCopy(el.methodMap, {

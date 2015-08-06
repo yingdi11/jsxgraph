@@ -61,17 +61,30 @@ define([
     "use strict";
 
     /**
-     * @class This element is used to visualize the locus of a given dependent point.
+     * The locus element is used to visualize the curve a given point describes.
+     *
      * @pseudo
-     * @description The locus element is used to visualize the curve a given point describes.
      * @constructor
-     * @name Locus
+     * @class Locus
      * @type JXG.Curve
      * @extends JXG.Curve
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
      * @param {JXG.Point} p The constructed curve is the geometric locus of the given point.
      * @example
-     *  // This examples needs JXG.Server up and running, otherwise it won't work.
+     *     // This examples needs JXG.Server up and running, otherwise it won't work.
+     *     p1 = board.create('point', [0, 0]);
+     *     p2 = board.create('point', [6, -1]);
+     *     c1 = board.create('circle', [p1, 2]);
+     *     c2 = board.create('circle', [p2, 1.5]);
+     *     g1 = board.create('glider', [6, 3, c1]);
+     *     c3 = board.create('circle', [g1, 4]);
+     *     g2 = board.create('intersection', [c2,c3,0]);
+     *     m1 = board.create('midpoint', [g1,g2]);
+     *     loc = board.create('locus', [m1], {strokeColor: 'red'});
+     * <div id="d45d7188-6624-4d6e-bebb-1efa2a305c8a" style="width: 400px; height: 400px;"></div>
+     * <script type="text/javascript">
+     * (function(){
+     *  board = JXG.JSXGraph.initBoard('d45d7188-6624-4d6e-bebb-1efa2a305c8a', {boundingbox:[-4, 6, 10, -6], axis: true, grid: false, keepaspectratio: true});
      *  p1 = board.create('point', [0, 0]);
      *  p2 = board.create('point', [6, -1]);
      *  c1 = board.create('circle', [p1, 2]);
@@ -81,18 +94,7 @@ define([
      *  g2 = board.create('intersection', [c2,c3,0]);
      *  m1 = board.create('midpoint', [g1,g2]);
      *  loc = board.create('locus', [m1], {strokeColor: 'red'});
-     * <div id="d45d7188-6624-4d6e-bebb-1efa2a305c8a" style="width: 400px; height: 400px;"></div>
-     * <script type="text/javascript">
-     *  lcex_board = JXG.JSXGraph.initBoard('d45d7188-6624-4d6e-bebb-1efa2a305c8a', {boundingbox:[-4, 6, 10, -6], axis: true, grid: false, keepaspectratio: true});
-     *  lcex_p1 = lcex_board.create('point', [0, 0]);
-     *  lcex_p2 = lcex_board.create('point', [6, -1]);
-     *  lcex_c1 = lcex_board.create('circle', [lcex_p1, 2]);
-     *  lcex_c2 = lcex_board.create('circle', [lcex_p2, 1.5]);
-     *  lcex_g1 = lcex_board.create('glider', [6, 3, lcex_c1]);
-     *  lcex_c3 = lcex_board.create('circle', [lcex_g1, 4]);
-     *  lcex_g2 = lcex_board.create('intersection', [lcex_c2,lcex_c3,0]);
-     *  lcex_m1 = lcex_board.create('midpoint', [lcex_g1,lcex_g2]);
-     *  lcex_loc = board.create('locus', [lcex_m1], {strokeColor: 'red'});
+     * })();
      * </script>
      */
     JXG.createLocus = function (board, parents, attributes) {

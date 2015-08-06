@@ -56,10 +56,10 @@ define([
     "use strict";
 
     /**
-     * @class A tape measure can be used to measure distances between points.
+     * A tape measure can be used to measure distances between points.
+     *
      * @pseudo
-     * @description
-     * @name Tapemeasure
+     * @class Tapemeasure
      * @extends Segment
      * @constructor
      * @type JXG.Segment
@@ -67,20 +67,20 @@ define([
      * @param {Array_Array} start,end, The two arrays give the initial position where the tape measure
      * is drawn on the board.
      * @example
-     * // Create atape measure
-     * var p1 = board.create('point', [0,0]);
-     * var p2 = board.create('point', [1,1]);
-     * var p3 = board.create('point', [3,1]);
-     * var tape = board.create('tapemeasure', [[1, 2], [4, 2]], {name:'dist'});
-     * <div id="6d9a2cda-22fe-4cd1-9d94-34283b1bdc01" style="width: 200px; height: 200px;"></div>
-     * <script type="text/javascript">
-     *   (function () {
-     *     var board = JXG.JSXGraph.initBoard('6d9a2cda-22fe-4cd1-9d94-34283b1bdc01', {boundingbox: [-1, 5, 5, -1], axis: true, showcopyright: false, shownavigation: false});
+     *     // Create atape measure
      *     var p1 = board.create('point', [0,0]);
      *     var p2 = board.create('point', [1,1]);
      *     var p3 = board.create('point', [3,1]);
-     *     var tape = board.create('tapemeasure', [[1, 2], [4, 2]], {name:'dist'} );
-     *   })();
+     *     var tape = board.create('tapemeasure', [[1, 2], [4, 2]], {name:'dist'});
+     * <div id="6d9a2cda-22fe-4cd1-9d94-34283b1bdc01" style="width: 200px; height: 200px;"></div>
+     * <script type="text/javascript">
+     * (function () {
+     *   var board = JXG.JSXGraph.initBoard('6d9a2cda-22fe-4cd1-9d94-34283b1bdc01', {boundingbox: [-1, 5, 5, -1], axis: true, showcopyright: false, shownavigation: false});
+     *   var p1 = board.create('point', [0,0]);
+     *   var p2 = board.create('point', [1,1]);
+     *   var p3 = board.create('point', [3,1]);
+     *   var tape = board.create('tapemeasure', [[1, 2], [4, 2]], {name:'dist'} );
+     * })();
      * </script>
      */
     JXG.createTapemeasure = function (board, parents, attributes) {
@@ -144,7 +144,12 @@ define([
             GeometryElement.prototype.remove.call(this);
         };
 
-        /** @ignore */
+        /**
+         * Length of the tape measure
+         *
+         * @method Value
+         * @return {Number}
+         */
         li.Value = function () {
             return p1.Dist(p2);
         };

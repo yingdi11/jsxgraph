@@ -62,10 +62,11 @@ define([
     "use strict";
 
     /**
-     * @class A slider can be used to choose values from a given range of numbers.
+     * A slider can be used to choose values from a given range of numbers.
+     *
      * @pseudo
      * @description
-     * @name Slider
+     * @class Slider
      * @extends Glider
      * @constructor
      * @type JXG.Point
@@ -73,25 +74,27 @@ define([
      * @param {Array_Array_Array} start,end,data The first two arrays give the start and the end where the slider is drawn
      * on the board. The third array gives the start and the end of the range the slider operates as the first resp. the
      * third component of the array. The second component of the third array gives its start value.
+     *
      * @example
-     * // Create a slider with values between 1 and 10, initial position is 5.
-     * var s = board.create('slider', [[1, 2], [3, 2], [1, 5, 10]]);
+     *     // Create a slider with values between 1 and 10, initial position is 5.
+     *     var s = board.create('slider', [[1, 2], [3, 2], [1, 5, 10]]);
      * <div id="cfb51cde-2603-4f18-9cc4-1afb452b374d" style="width: 200px; height: 200px;"></div>
      * <script type="text/javascript">
-     *   (function () {
-     *     var board = JXG.JSXGraph.initBoard('cfb51cde-2603-4f18-9cc4-1afb452b374d', {boundingbox: [-1, 5, 5, -1], axis: true, showcopyright: false, shownavigation: false});
-     *     var s = board.create('slider', [[1, 2], [3, 2], [1, 5, 10]]);
-     *   })();
+     * (function () {
+     * var board = JXG.JSXGraph.initBoard('cfb51cde-2603-4f18-9cc4-1afb452b374d', {boundingbox: [-1, 5, 5, -1], axis: true, showcopyright: false, shownavigation: false});
+     * var s = board.create('slider', [[1, 2], [3, 2], [1, 5, 10]]);
+     * })();
      * </script>
+     *
      * @example
-     * // Create a slider taking integer values between 1 and 50. Initial value is 50.
-     * var s = board.create('slider', [[1, 3], [3, 1], [1, 10, 50]], {snapWidth: 1});
+     *     // Create a slider taking integer values between 1 and 50. Initial value is 50.
+     *     var s = board.create('slider', [[1, 3], [3, 1], [1, 10, 50]], {snapWidth: 1});
      * <div id="e17128e6-a25d-462a-9074-49460b0d66f4" style="width: 200px; height: 200px;"></div>
      * <script type="text/javascript">
-     *   (function () {
-     *     var board = JXG.JSXGraph.initBoard('e17128e6-a25d-462a-9074-49460b0d66f4', {boundingbox: [-1, 5, 5, -1], axis: true, showcopyright: false, shownavigation: false});
-     *     var s = board.create('slider', [[1, 3], [3, 1], [1, 10, 50]], {snapWidth: 1});
-     *   })();
+     *  (function () {
+     *  var board = JXG.JSXGraph.initBoard('e17128e6-a25d-462a-9074-49460b0d66f4', {boundingbox: [-1, 5, 5, -1], axis: true, showcopyright: false, shownavigation: false});
+     *  var s = board.create('slider', [[1, 3], [3, 1], [1, 10, 50]], {snapWidth: 1});
+     *  })();
      * </script>
      */
     JXG.createSlider = function (board, parents, attributes) {
@@ -166,8 +169,8 @@ define([
 
         /**
          * Returns the current slider value.
-         * @memberOf Slider.prototype
-         * @name Value
+         *
+         * @property Value
          * @return {Number}
          */
         p3.Value = function () {
@@ -185,26 +188,27 @@ define([
 
         /**
          * End value of the slider range.
-         * @memberOf Slider.prototype
-         * @name _smax
+         *
+         * @property _smax
          * @type Number
          */
         p3._smax = smax;
 
         /**
          * Start value of the slider range.
-         * @memberOf Slider.prototype
-         * @name _smin
+         *
+         * @property _smin
          * @type Number
          */
         p3._smin = smin;
 
         /**
          * Sets the maximum value of the slider.
-         * @memberOf Slider.prototype
-         * @name setMax
+         *
+         * @method setMax
          * @param {Number} val New maximum value
          * @return {Object} this object
+         * @chainable
          */
         p3.setMax = function(val) {
             this._smax = val;
@@ -214,10 +218,11 @@ define([
         /**
          * Sets the value of the slider. This call must be followed
          * by a board update call.
-         * @memberOf Slider.prototype
-         * @name setValue
+         *
+         * @method setValue
          * @param {Number} val New value
          * @return {Object} this object
+         * @chainable
          */
         p3.setValue = function(val) {
             var sdiff = this._smax - this._smin;
@@ -228,13 +233,14 @@ define([
             }
             return this;
         };
-        
+
         /**
          * Sets the minimum value of the slider.
-         * @memberOf Slider.prototype
-         * @name setMin
+         *
+         * @method setMin
          * @param {Number} val New minimum value
          * @return {Object} this object
+         * @chainable
          */
         p3.setMin = function(val) {
             this._smin = val;
@@ -265,8 +271,8 @@ define([
 
             /**
              * The text element to the right of the slider, indicating its current value.
-             * @memberOf Slider.prototype
-             * @name label
+             *
+             * @property label
              * @type JXG.Text
              */
             p3.label = t;
@@ -278,30 +284,31 @@ define([
 
         /**
          * Start point of the base line.
-         * @memberOf Slider.prototype
-         * @name point1
+         *
+         * @property point1
          * @type JXG.Point
          */
         p3.point1 = p1;
         /**
          * End point of the base line.
-         * @memberOf Slider.prototype
-         * @name point2
+         *
+         * @property point2
          * @type JXG.Point
          */
         p3.point2 = p2;
 
         /**
          * The baseline the glider is bound to.
-         * @memberOf Slider.prototype
-         * @name baseline
+         *
+         * @property baseline
          * @type JXG.Line
          */
         p3.baseline = l1;
+        
         /**
          * A line on top of the baseline, indicating the slider's progress.
-         * @memberOf Slider.prototype
-         * @name highline
+         *
+         * @property highline
          * @type JXG.Line
          */
         p3.highline = l2;
@@ -309,8 +316,8 @@ define([
         if (withTicks) {
             /**
              * Ticks give a rough indication about the slider's current value.
-             * @memberOf Slider.prototype
-             * @name ticks
+             *
+             * @property ticks
              * @type JXG.Ticks
              */
             p3.ticks = ti;

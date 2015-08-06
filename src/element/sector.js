@@ -55,9 +55,10 @@ define([
     "use strict";
 
     /**
-     * @class A circular sector is a subarea of the area enclosed by a circle. It is enclosed by two radii and an arc.
+     * A circular sector is a subarea of the area enclosed by a circle. It is enclosed by two radii and an arc.
+     *
      * @pseudo
-     * @name Sector
+     * @class Sector
      * @extends JXG.Curve
      * @constructor
      * @type JXG.Curve
@@ -75,51 +76,48 @@ define([
      *
      *
      * @example
-     * // Create a sector out of three free points
-     * var p1 = board.create('point', [1.5, 5.0]),
-     *     p2 = board.create('point', [1.0, 0.5]),
-     *     p3 = board.create('point', [5.0, 3.0]),
+     *     // Create a sector out of three free points
+     *     var p1 = board.create('point', [1.5, 5.0]),
+     *         p2 = board.create('point', [1.0, 0.5]),
+     *         p3 = board.create('point', [5.0, 3.0]),
      *
-     *     a = board.create('sector', [p1, p2, p3]);
+     *         a = board.create('sector', [p1, p2, p3]);
      * <div id="49f59123-f013-4681-bfd9-338b89893156" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
      * (function () {
      *   var board = JXG.JSXGraph.initBoard('49f59123-f013-4681-bfd9-338b89893156', {boundingbox: [-1, 7, 7, -1], axis: true, showcopyright: false, shownavigation: false}),
-     *     p1 = board.create('point', [1.5, 5.0]),
-     *     p2 = board.create('point', [1.0, 0.5]),
-     *     p3 = board.create('point', [5.0, 3.0]),
-     *
-     *     a = board.create('sector', [p1, p2, p3]);
+     *   p1 = board.create('point', [1.5, 5.0]),
+     *   p2 = board.create('point', [1.0, 0.5]),
+     *   p3 = board.create('point', [5.0, 3.0]),
+     *   a = board.create('sector', [p1, p2, p3]);
      * })();
      * </script>
      *
      * @example
-     * // Create a sector out of two lines, two directions and a radius
-     * var p1 = board.create('point', [-1, 4]),
-     *  p2 = board.create('point', [4, 1]),
-     *  q1 = board.create('point', [-2, -3]),
-     *  q2 = board.create('point', [4,3]),
+     *     // Create a sector out of two lines, two directions and a radius
+     *     var p1 = board.create('point', [-1, 4]),
+     *         p2 = board.create('point', [4, 1]),
+     *         q1 = board.create('point', [-2, -3]),
+     *         q2 = board.create('point', [4,3]),
      *
-     *  li1 = board.create('line', [p1,p2], {strokeColor:'black', lastArrow:true}),
-     *  li2 = board.create('line', [q1,q2], {lastArrow:true}),
+     *         li1 = board.create('line', [p1,p2], {strokeColor:'black', lastArrow:true}),
+     *         li2 = board.create('line', [q1,q2], {lastArrow:true}),
      *
-     *  sec1 = board.create('sector', [li1, li2, [5.5, 0], [4, 3], 3]),
-     *  sec2 = board.create('sector', [li1, li2, 1, -1, 4]);
+     *         sec1 = board.create('sector', [li1, li2, [5.5, 0], [4, 3], 3]),
+     *         sec2 = board.create('sector', [li1, li2, 1, -1, 4]);
      *
      * <div id="bb9e2809-9895-4ff1-adfa-c9c71d50aa53" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
      * (function () {
      *   var board = JXG.JSXGraph.initBoard('bb9e2809-9895-4ff1-adfa-c9c71d50aa53', {boundingbox: [-1, 7, 7, -1], axis: true, showcopyright: false, shownavigation: false}),
-     *     p1 = board.create('point', [-1, 4]),
-     *     p2 = board.create('point', [4, 1]),
-     *     q1 = board.create('point', [-2, -3]),
-     *     q2 = board.create('point', [4,3]),
-     *
-     *     li1 = board.create('line', [p1,p2], {strokeColor:'black', lastArrow:true}),
-     *     li2 = board.create('line', [q1,q2], {lastArrow:true}),
-     *
-     *     sec1 = board.create('sector', [li1, li2, [5.5, 0], [4, 3], 3]),
-     *     sec2 = board.create('sector', [li1, li2, 1, -1, 4]);
+     *  p1 = board.create('point', [-1, 4]),
+     *  p2 = board.create('point', [4, 1]),
+     *  q1 = board.create('point', [-2, -3]),
+     *  q2 = board.create('point', [4,3]),
+     *  li1 = board.create('line', [p1,p2], {strokeColor:'black', lastArrow:true}),
+     *  li2 = board.create('line', [q1,q2], {lastArrow:true}),
+     *  sec1 = board.create('sector', [li1, li2, [5.5, 0], [4, 3], 3]),
+     *  sec2 = board.create('sector', [li1, li2, 1, -1, 4]);
      * })();
      * </script>
      */
@@ -550,13 +548,13 @@ define([
 
     JXG.registerElement('sector', JXG.createSector);
 
-
     /**
-     * @class A circumcircle sector is different from a {@link Sector} mostly in the way the parent elements are interpreted.
+     * A circumcircle sector is different from a {@link Sector} mostly in the way the parent elements are interpreted.
      * At first, the circum centre is determined from the three given points. Then the sector is drawn from <tt>p1</tt> through
      * <tt>p2</tt> to <tt>p3</tt>.
+     *
      * @pseudo
-     * @name CircumcircleSector
+     * @class CircumcircleSector
      * @extends Sector
      * @constructor
      * @type Sector
@@ -564,22 +562,21 @@ define([
      * @param {JXG.Point_JXG.Point_JXG.Point} p1,p2,p1 A circumcircle sector is defined by the circumcircle which is determined
      * by these three given points. The circumcircle sector is always drawn from <tt>p1</tt> through <tt>p2</tt> to <tt>p3</tt>.
      * @example
-     * // Create an arc out of three free points
-     * var p1 = board.create('point', [1.5, 5.0]),
-     *     p2 = board.create('point', [1.0, 0.5]),
-     *     p3 = board.create('point', [5.0, 3.0]),
+     *     // Create an arc out of three free points
+     *     var p1 = board.create('point', [1.5, 5.0]),
+     *         p2 = board.create('point', [1.0, 0.5]),
+     *         p3 = board.create('point', [5.0, 3.0]),
      *
-     *     a = board.create('circumcirclesector', [p1, p2, p3]);
+     *         a = board.create('circumcirclesector', [p1, p2, p3]);
      * <div id="695cf0d6-6d7a-4d4d-bfc9-34c6aa28cd04" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
      * (function () {
- *   var board = JXG.JSXGraph.initBoard('695cf0d6-6d7a-4d4d-bfc9-34c6aa28cd04', {boundingbox: [-1, 7, 7, -1], axis: true, showcopyright: false, shownavigation: false}),
- *     p1 = board.create('point', [1.5, 5.0]),
- *     p2 = board.create('point', [1.0, 0.5]),
- *     p3 = board.create('point', [5.0, 3.0]),
- *
- *     a = board.create('circumcirclesector', [p1, p2, p3]);
- * })();
+     *   var board = JXG.JSXGraph.initBoard('695cf0d6-6d7a-4d4d-bfc9-34c6aa28cd04', {boundingbox: [-1, 7, 7, -1], axis: true, showcopyright: false, shownavigation: false}),
+     *   p1 = board.create('point', [1.5, 5.0]),
+     *   p2 = board.create('point', [1.0, 0.5]),
+     *   p3 = board.create('point', [5.0, 3.0]),
+     *   a = board.create('circumcirclesector', [p1, p2, p3]);
+     * })();
      * </script>
      */
     JXG.createCircumcircleSector = function (board, parents, attributes) {
@@ -617,33 +614,33 @@ define([
     JXG.registerElement('circumcirclesector', JXG.createCircumcircleSector);
 
     /**
-     * @class A minor sector is a sector of a circle having measure less than or equal to
-     * 180 degrees (pi radians). It is defined by a center, one point that
+     * A minor sector is a sector of a circle having measure less than or equal to
+     * 180 degrees (&pi; radians). It is defined by a center, one point that
      * defines the radius, and a third point that defines the angle of the sector.
+     *
      * @pseudo
-     * @name MinorSector
+     * @class MinorSector
      * @extends Curve
      * @constructor
      * @type JXG.Curve
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
      * @param {JXG.Point_JXG.Point_JXG.Point} p1,p2,p3 . Minor sector is a sector of a circle around p1 having measure less than or equal to
-     * 180 degrees (pi radians) and starts at p2. The radius is determined by p2, the angle by p3.
+     * 180 degrees (&pi; radians) and starts at p2. The radius is determined by p2, the angle by p3.
      * @example
-     * // Create sector out of three free points
-     * var p1 = board.create('point', [2.0, 2.0]);
-     * var p2 = board.create('point', [1.0, 0.5]);
-     * var p3 = board.create('point', [3.5, 1.0]);
+     *     // Create sector out of three free points
+     *     var p1 = board.create('point', [2.0, 2.0]);
+     *     var p2 = board.create('point', [1.0, 0.5]);
+     *     var p3 = board.create('point', [3.5, 1.0]);
      *
-     * var a = board.create('minorsector', [p1, p2, p3]);
+     *     var a = board.create('minorsector', [p1, p2, p3]);
      * <div id="af27ddcc-265f-428f-90dd-d31ace945800" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
      * (function () {
      *   var board = JXG.JSXGraph.initBoard('af27ddcc-265f-428f-90dd-d31ace945800', {boundingbox: [-1, 7, 7, -1], axis: true, showcopyright: false, shownavigation: false}),
-     *       p1 = board.create('point', [2.0, 2.0]),
-     *       p2 = board.create('point', [1.0, 0.5]),
-     *       p3 = board.create('point', [3.5, 1.0]),
-     *
-     *       a = board.create('minorsector', [p1, p2, p3]);
+     *  p1 = board.create('point', [2.0, 2.0]),
+     *  p2 = board.create('point', [1.0, 0.5]),
+     *  p3 = board.create('point', [3.5, 1.0]),
+     *  a = board.create('minorsector', [p1, p2, p3]);
      * })();
      * </script>
      */
@@ -655,8 +652,8 @@ define([
     JXG.registerElement('minorsector', JXG.createMinorSector);
 
     /**
-     * @class A major sector is a sector of a circle having measure greater than or equal to
-     * 180 degrees (pi radians). It is defined by a center, one point that
+     * A major sector is a sector of a circle having measure greater than or equal to
+     * 180 degrees (&pi; radians). It is defined by a center, one point that
      * defines the radius, and a third point that defines the angle of the sector.
      * @pseudo
      * @name MajorSector
@@ -665,23 +662,22 @@ define([
      * @type JXG.Curve
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
      * @param {JXG.Point_JXG.Point_JXG.Point} p1,p2,p3 . Major sector is a sector of a circle around p1 having measure greater than or equal to
-     * 180 degrees (pi radians) and starts at p2. The radius is determined by p2, the angle by p3.
+     * 180 degrees (&pi; radians) and starts at p2. The radius is determined by p2, the angle by p3.
      * @example
-     * // Create an arc out of three free points
-     * var p1 = board.create('point', [2.0, 2.0]);
-     * var p2 = board.create('point', [1.0, 0.5]);
-     * var p3 = board.create('point', [3.5, 1.0]);
+     *      // Create an arc out of three free points
+     *      var p1 = board.create('point', [2.0, 2.0]);
+     *      var p2 = board.create('point', [1.0, 0.5]);
+     *      var p3 = board.create('point', [3.5, 1.0]);
      *
-     * var a = board.create('majorsector', [p1, p2, p3]);
+     *      var a = board.create('majorsector', [p1, p2, p3]);
      * <div id="83c6561f-7561-4047-b98d-036248a00932" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
      * (function () {
      *   var board = JXG.JSXGraph.initBoard('83c6561f-7561-4047-b98d-036248a00932', {boundingbox: [-1, 7, 7, -1], axis: true, showcopyright: false, shownavigation: false}),
-     *       p1 = board.create('point', [2.0, 2.0]),
-     *       p2 = board.create('point', [1.0, 0.5]),
-     *       p3 = board.create('point', [3.5, 1.0]),
-     *
-     *       a = board.create('majorsector', [p1, p2, p3]);
+     *  p1 = board.create('point', [2.0, 2.0]),
+     *  p2 = board.create('point', [1.0, 0.5]),
+     *  p3 = board.create('point', [3.5, 1.0]),
+     *  a = board.create('majorsector', [p1, p2, p3]);
      * })();
      * </script>
      */
@@ -693,15 +689,16 @@ define([
     JXG.registerElement('majorsector', JXG.createMajorSector);
 
     /**
-     * @class The angle element is used to denote an angle defined by three points. Visually it is just a {@link Sector}
+     * The angle element is used to denote an angle defined by three points. Visually it is just a {@link Sector}
      * element with a radius not defined by the parent elements but by an attribute <tt>radius</tt>. As opposed to the sector,
      * an angle has two angle points and no radius point.
      * Sector is displayed if type=="sector".
      * If type=="square", instead of a sector a parallelogram is displayed.
      * In case of type=="auto", a square is displayed if the angle is near orthogonal.
      * If no name is provided the angle label is automatically set to a lower greek letter.
+     *
      * @pseudo
-     * @name Angle
+     * @class Angle
      * @extends Sector
      * @constructor
      * @type Sector
@@ -717,54 +714,50 @@ define([
      * The other possibility is to supply directions (+/- 1).
      *
      * @example
-     * // Create an angle out of three free points
-     * var p1 = board.create('point', [5.0, 3.0]),
-     *     p2 = board.create('point', [1.0, 0.5]),
-     *     p3 = board.create('point', [1.5, 5.0]),
+     *     // Create an angle out of three free points
+     *     var p1 = board.create('point', [5.0, 3.0]),
+     *         p2 = board.create('point', [1.0, 0.5]),
+     *         p3 = board.create('point', [1.5, 5.0]),
      *
-     *     a = board.create('angle', [p1, p2, p3]),
-     *     t = board.create('text', [4, 4, function() { return a.Value().toFixed(2); }]);
+     *         a = board.create('angle', [p1, p2, p3]),
+     *         t = board.create('text', [4, 4, function() { return a.Value().toFixed(2); }]);
      * <div id="a34151f9-bb26-480a-8d6e-9b8cbf789ae5" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
      * (function () {
      *   var board = JXG.JSXGraph.initBoard('a34151f9-bb26-480a-8d6e-9b8cbf789ae5', {boundingbox: [-1, 7, 7, -1], axis: true, showcopyright: false, shownavigation: false}),
-     *     p1 = board.create('point', [5.0, 3.0]),
-     *     p2 = board.create('point', [1.0, 0.5]),
-     *     p3 = board.create('point', [1.5, 5.0]),
-     *
-     *     a = board.create('angle', [p1, p2, p3]),
-     *     t = board.create('text', [4, 4, function() { return a.Value().toFixed(2); }]);
+     *  p1 = board.create('point', [5.0, 3.0]),
+     *  p2 = board.create('point', [1.0, 0.5]),
+     *  p3 = board.create('point', [1.5, 5.0]),
+     *  a = board.create('angle', [p1, p2, p3]),
+     *  t = board.create('text', [4, 4, function() { return a.Value().toFixed(2); }]);
      * })();
      * </script>
      *
      * @example
-     * // Create an angle out of two lines and two directions
-     * var p1 = board.create('point', [-1, 4]),
-     *  p2 = board.create('point', [4, 1]),
-     *  q1 = board.create('point', [-2, -3]),
-     *  q2 = board.create('point', [4,3]),
+     *     // Create an angle out of two lines and two directions
+     *      var p1 = board.create('point', [-1, 4]),
+     *          p2 = board.create('point', [4, 1]),
+     *          q1 = board.create('point', [-2, -3]),
+     *          q2 = board.create('point', [4,3]),
      *
-     *  li1 = board.create('line', [p1,p2], {strokeColor:'black', lastArrow:true}),
-     *  li2 = board.create('line', [q1,q2], {lastArrow:true}),
+     *          li1 = board.create('line', [p1,p2], {strokeColor:'black', lastArrow:true}),
+     *          li2 = board.create('line', [q1,q2], {lastArrow:true}),
      *
-     *  a1 = board.create('angle', [li1, li2, [5.5, 0], [4, 3]], { radius:1 }),
-     *  a2 = board.create('angle', [li1, li2, 1, -1], { radius:2 });
-     *
+     *          a1 = board.create('angle', [li1, li2, [5.5, 0], [4, 3]], { radius:1 }),
+     *          a2 = board.create('angle', [li1, li2, 1, -1], { radius:2 });
      *
      * <div id="3a667ddd-63dc-4594-b5f1-afac969b371f" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
      * (function () {
      *   var board = JXG.JSXGraph.initBoard('3a667ddd-63dc-4594-b5f1-afac969b371f', {boundingbox: [-1, 7, 7, -1], axis: true, showcopyright: false, shownavigation: false}),
-     *     p1 = board.create('point', [-1, 4]),
-     *     p2 = board.create('point', [4, 1]),
-     *     q1 = board.create('point', [-2, -3]),
-     *     q2 = board.create('point', [4,3]),
-     *
-     *     li1 = board.create('line', [p1,p2], {strokeColor:'black', lastArrow:true}),
-     *     li2 = board.create('line', [q1,q2], {lastArrow:true}),
-     *
-     *     a1 = board.create('angle', [li1, li2, [5.5, 0], [4, 3]], { radius:1 }),
-     *     a2 = board.create('angle', [li1, li2, 1, -1], { radius:2 });
+     *   p1 = board.create('point', [-1, 4]),
+     *  p2 = board.create('point', [4, 1]),
+     *  q1 = board.create('point', [-2, -3]),
+     *  q2 = board.create('point', [4,3]),
+     *  li1 = board.create('line', [p1,p2], {strokeColor:'black', lastArrow:true}),
+     *  li2 = board.create('line', [q1,q2], {lastArrow:true}),
+     *  a1 = board.create('angle', [li1, li2, [5.5, 0], [4, 3]], { radius:1 }),
+     *  a2 = board.create('angle', [li1, li2, 1, -1], { radius:2 });
      * })();
      * </script>
      */
@@ -1124,35 +1117,35 @@ define([
     JXG.registerElement('angle', JXG.createAngle);
 
     /**
-     * @class A non-reflex angle is the acute or obtuse instance of an angle.
+     * A non-reflex angle is the acute or obtuse instance of an angle.
      * It is defined by a center, one point that
      * defines the radius, and a third point that defines the angle of the sector.
+     *
      * @pseudo
-     * @name NonReflexAngle
+     * @class NonReflexAngle
      * @extends Angle
      * @constructor
      * @type Sector
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
      * @param {JXG.Point_JXG.Point_JXG.Point} p1,p2,p3 . Minor sector is a sector of a circle around p1 having measure less than or equal to
-     * 180 degrees (pi radians) and starts at p2. The radius is determined by p2, the angle by p3.
+     * 180 degrees (&pi; radians) and starts at p2. The radius is determined by p2, the angle by p3.
      * @example
-     * // Create a non-reflex angle out of three free points
-     * var p1 = board.create('point', [5.0, 3.0]),
-     *     p2 = board.create('point', [1.0, 0.5]),
-     *     p3 = board.create('point', [1.5, 5.0]),
+     *     // Create a non-reflex angle out of three free points
+     *     var p1 = board.create('point', [5.0, 3.0]),
+     *         p2 = board.create('point', [1.0, 0.5]),
+     *         p3 = board.create('point', [1.5, 5.0]),
      *
-     *     a = board.create('nonreflexangle', [p1, p2, p3], {radius: 2}),
-     *     t = board.create('text', [4, 4, function() { return a.Value().toFixed(2); }]);
+     *         a = board.create('nonreflexangle', [p1, p2, p3], {radius: 2}),
+     *         t = board.create('text', [4, 4, function() { return a.Value().toFixed(2); }]);
      * <div id="d0ab6d6b-63a7-48b2-8749-b02bb5e744f9" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
      * (function () {
      *   var board = JXG.JSXGraph.initBoard('d0ab6d6b-63a7-48b2-8749-b02bb5e744f9', {boundingbox: [-1, 7, 7, -1], axis: true, showcopyright: false, shownavigation: false}),
-     *     p1 = board.create('point', [5.0, 3.0]),
-     *     p2 = board.create('point', [1.0, 0.5]),
-     *     p3 = board.create('point', [1.5, 5.0]),
-     *
-     *     a = board.create('nonreflexangle', [p1, p2, p3], {radius: 2}),
-     *     t = board.create('text', [4, 4, function() { return a.Value().toFixed(2); }]);
+     *   p1 = board.create('point', [5.0, 3.0]),
+     *   p2 = board.create('point', [1.0, 0.5]),
+     *   p3 = board.create('point', [1.5, 5.0]),
+     *   a = board.create('nonreflexangle', [p1, p2, p3], {radius: 2}),
+     *   t = board.create('text', [4, 4, function() { return a.Value().toFixed(2); }]);
      * })();
      * </script>
      */
@@ -1172,35 +1165,35 @@ define([
     JXG.registerElement('nonreflexangle', JXG.createNonreflexAngle);
 
     /**
-     * @class A reflex angle is the neither acute nor obtuse instance of an angle.
+     * A reflex angle is the neither acute nor obtuse instance of an angle.
      * It is defined by a center, one point that
      * defines the radius, and a third point that defines the angle of the sector.
+     *
      * @pseudo
-     * @name ReflexAngle
+     * @class ReflexAngle
      * @extends Angle
      * @constructor
      * @type Sector
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
      * @param {JXG.Point_JXG.Point_JXG.Point} p1,p2,p3 . Minor sector is a sector of a circle around p1 having measure less than or equal to
-     * 180 degrees (pi radians) and starts at p2. The radius is determined by p2, the angle by p3.
+     * 180 degrees (&pi; radians) and starts at p2. The radius is determined by p2, the angle by p3.
      * @example
-     * // Create a non-reflex angle out of three free points
-     * var p1 = board.create('point', [5.0, 3.0]),
-     *     p2 = board.create('point', [1.0, 0.5]),
-     *     p3 = board.create('point', [1.5, 5.0]),
+     *     // Create a non-reflex angle out of three free points
+     *     var p1 = board.create('point', [5.0, 3.0]),
+     *         p2 = board.create('point', [1.0, 0.5]),
+     *         p3 = board.create('point', [1.5, 5.0]),
      *
-     *     a = board.create('reflexangle', [p1, p2, p3], {radius: 2}),
-     *     t = board.create('text', [4, 4, function() { return a.Value().toFixed(2); }]);
+     *         a = board.create('reflexangle', [p1, p2, p3], {radius: 2}),
+     *         t = board.create('text', [4, 4, function() { return a.Value().toFixed(2); }]);
      * <div id="f2a577f2-553d-4f9f-a895-2d6d4b8c60e8" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
      * (function () {
      * var board = JXG.JSXGraph.initBoard('f2a577f2-553d-4f9f-a895-2d6d4b8c60e8', {boundingbox: [-1, 7, 7, -1], axis: true, showcopyright: false, shownavigation: false}),
-     *     p1 = board.create('point', [5.0, 3.0]),
-     *     p2 = board.create('point', [1.0, 0.5]),
-     *     p3 = board.create('point', [1.5, 5.0]),
-     *
-     *     a = board.create('reflexangle', [p1, p2, p3], {radius: 2}),
-     *     t = board.create('text', [4, 4, function() { return a.Value().toFixed(2); }]);
+     * p1 = board.create('point', [5.0, 3.0]),
+     * p2 = board.create('point', [1.0, 0.5]),
+     * p3 = board.create('point', [1.5, 5.0]),
+     * a = board.create('reflexangle', [p1, p2, p3], {radius: 2}),
+     * t = board.create('text', [4, 4, function() { return a.Value().toFixed(2); }]);
      * })();
      * </script>
      */
