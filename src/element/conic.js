@@ -56,11 +56,10 @@ define([
     "use strict";
 
     /**
-     * @class This element is used to provide a constructor for an ellipse. An ellipse is given by two points (the foci) and a third point on the the ellipse or
+     * This element is used to provide a constructor for an ellipse. An ellipse is given by two points (the foci) and a third point on the the ellipse or
      * the length of the major axis.
      * @pseudo
-     * @description
-     * @name Ellipse
+     * @class Ellipse
      * @extends Conic
      * @constructor
      * @type JXG.Curve
@@ -71,18 +70,20 @@ define([
      * numbers describing the coordinates of a point. The third parameter is a number/function which defines the length of the major axis
      * Optional parameters four and five are numbers which define the curve length (e.g. start/end). Default values are -pi and pi.
      * @example
-     * // Create an Ellipse by three points
-     * var A = board.create('point', [-1,4]);
-     * var B = board.create('point', [-1,-4]);
-     * var C = board.create('point', [1,1]);
-     * var el = board.create('ellipse',[A,B,C]);
+     *     // Create an Ellipse by three points
+     *     var A = board.create('point', [-1,4]);
+     *     var B = board.create('point', [-1,-4]);
+     *     var C = board.create('point', [1,1]);
+     *     var el = board.create('ellipse',[A,B,C]);
      * <div id="a4d7fb6f-8708-4e45-87f2-2379ae2bd2c0" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
-     *   var glex1_board = JXG.JSXGraph.initBoard('a4d7fb6f-8708-4e45-87f2-2379ae2bd2c0', {boundingbox:[-6,6,6,-6], keepaspectratio:true, showcopyright: false, shownavigation: false});
-     *   var A = glex1_board.create('point', [-1,4]);
-     *   var B = glex1_board.create('point', [-1,-4]);
-     *   var C = glex1_board.create('point', [1,1]);
-     *   var el = glex1_board.create('ellipse',[A,B,C]);
+     * (function(){
+     *   var board = JXG.JSXGraph.initBoard('a4d7fb6f-8708-4e45-87f2-2379ae2bd2c0', {boundingbox:[-6,6,6,-6], axis:true, keepaspectratio:true, showcopyright: false, shownavigation: false});
+     *   var A = board.create('point', [-1,4]);
+     *   var B = board.create('point', [-1,-4]);
+     *   var C = board.create('point', [1,1]);
+     *   var el = board.create('ellipse',[A,B,C]);
+     * })();
      * </script>
      */
     JXG.createEllipse = function (board, parents, attributes) {
@@ -172,6 +173,12 @@ define([
             parents[3],
             parents[4]], attr_curve);
 
+        /**
+         * Length of major axis of the ellipse
+         *
+         * @method majorAxis
+         * @return {Number}
+         */
         curve.majorAxis = majorAxis;
 
         // Save the original hasPoint method. It will be called inside of the new hasPoint method.
@@ -230,6 +237,8 @@ define([
         /**
          * Checks whether (x,y) is near the ellipse line or inside of the ellipse
          * (in case JXG.Options.conic#hasInnerPoints is true).
+         *
+         * @method hasPoint
          * @param {Number} x Coordinate in x direction, screen coordinates.
          * @param {Number} y Coordinate in y direction, screen coordinates.
          * @return {Boolean} True if (x,y) is near the ellipse, False otherwise.
@@ -266,11 +275,10 @@ define([
     };
 
     /**
-     * @class This element is used to provide a constructor for an hyperbola. An hyperbola is given by two points (the foci) and a third point on the the hyperbola or
+     * This element is used to provide a constructor for an hyperbola. An hyperbola is given by two points (the foci) and a third point on the the hyperbola or
      * the length of the major axis.
      * @pseudo
-     * @description
-     * @name Hyperbola
+     * @class Hyperbola
      * @extends Conic
      * @constructor
      * @type JXG.Curve
@@ -281,18 +289,20 @@ define([
      * numbers describing the coordinates of a point. The third parameter is a number/function which defines the length of the major axis
      * Optional parameters four and five are numbers which define the curve length (e.g. start/end). Default values are -pi and pi.
      * @example
-     * // Create an Hyperbola by three points
-     * var A = board.create('point', [-1,4]);
-     * var B = board.create('point', [-1,-4]);
-     * var C = board.create('point', [1,1]);
-     * var el = board.create('hyperbola',[A,B,C]);
+     *     // Create an Hyperbola by three points
+     *     var A = board.create('point', [-1,4]);
+     *     var B = board.create('point', [-1,-4]);
+     *     var C = board.create('point', [1,1]);
+     *     var el = board.create('hyperbola',[A,B,C]);
      * <div id="cf99049d-a3fe-407f-b936-27d76550f8c4" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
-     *   var glex1_board = JXG.JSXGraph.initBoard('cf99049d-a3fe-407f-b936-27d76550f8c4', {boundingbox:[-6,6,6,-6], keepaspectratio:true, showcopyright: false, shownavigation: false});
-     *   var A = glex1_board.create('point', [-1,4]);
-     *   var B = glex1_board.create('point', [-1,-4]);
-     *   var C = glex1_board.create('point', [1,1]);
-     *   var el = glex1_board.create('hyperbola',[A,B,C]);
+     * (function(){
+     *   var board = JXG.JSXGraph.initBoard('cf99049d-a3fe-407f-b936-27d76550f8c4', {boundingbox:[-6,6,6,-6], axis:true, keepaspectratio:true, showcopyright: false, shownavigation: false});
+     *   var A = board.create('point', [-1,4]);
+     *   var B = board.create('point', [-1,-4]);
+     *   var C = board.create('point', [1,1]);
+     *   var el = board.create('hyperbola',[A,B,C]);
+     * })();
      * </script>
      */
     JXG.createHyperbola = function (board, parents, attributes) {
@@ -379,6 +389,12 @@ define([
                 return 0;
             }, parents[3], parents[4]], attr_curve);
 
+        /**
+         * Length of major axis of the ellipse
+         *
+         * @method majorAxis
+         * @return {Number}
+         */
         curve.majorAxis = majorAxis;
 
         // Hyperbola is defined by (a*sec(t),b*tan(t)) and sec(t) = 1/cos(t)
@@ -447,10 +463,10 @@ define([
     };
 
     /**
-     * @class This element is used to provide a constructor for a parabola. A parabola is given by one point (the focus) and a line (the directrix).
+     * This element is used to provide a constructor for a parabola. A parabola is given by one point (the focus) and a line (the directrix).
+     *
      * @pseudo
-     * @description
-     * @name Parabola
+     * @class Parabola
      * @extends Conic
      * @constructor
      * @type JXG.Curve
@@ -458,20 +474,22 @@ define([
      * @param {JXG.Point,array_JXG.Line} point,line Parent elements are a point and a line.
      * Optional parameters three and four are numbers which define the curve length (e.g. start/end). Default values are -pi and pi.
      * @example
-     * // Create a parabola by a point C and a line l.
-     * var A = board.create('point', [-1,4]);
-     * var B = board.create('point', [-1,-4]);
-     * var l = board.create('line', [A,B]);
-     * var C = board.create('point', [1,1]);
-     * var el = board.create('parabola',[C,l]);
+     *     // Create a parabola by a point C and a line l.
+     *     var A = board.create('point', [-1,4]);
+     *     var B = board.create('point', [-1,-4]);
+     *     var l = board.create('line', [A,B]);
+     *     var C = board.create('point', [1,1]);
+     *     var el = board.create('parabola',[C,l]);
      * <div id="524d1aae-217d-44d4-ac58-a19c7ab1de36" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
-     *   var glex1_board = JXG.JSXGraph.initBoard('524d1aae-217d-44d4-ac58-a19c7ab1de36', {boundingbox:[-6,6,6,-6], keepaspectratio:true, showcopyright: false, shownavigation: false});
-     *   var A = glex1_board.create('point', [-1,4]);
-     *   var B = glex1_board.create('point', [-1,-4]);
-     *   var l = glex1_board.create('line', [A,B]);
-     *   var C = glex1_board.create('point', [1,1]);
-     *   var el = glex1_board.create('parabola',[C,l]);
+     * (function(){
+     *   var board = JXG.JSXGraph.initBoard('524d1aae-217d-44d4-ac58-a19c7ab1de36', {boundingbox:[-6,6,6,-6], axis:true, keepaspectratio:true, showcopyright: false, shownavigation: false});
+     *   var A = board.create('point', [-1,4]);
+     *   var B = board.create('point', [-1,-4]);
+     *   var l = board.create('line', [A,B]);
+     *   var C = board.create('point', [1,1]);
+     *   var el = board.create('parabola',[C,l]);
+     * })();
      * </script>
      */
     JXG.createParabola = function (board, parents, attributes) {
@@ -612,10 +630,9 @@ define([
 
     /**
      *
-     * @class This element is used to provide a constructor for a generic conic section uniquely defined by five points.
+     * This element is used to provide a constructor for a generic conic section uniquely defined by five points.
      * @pseudo
-     * @description
-     * @name Conic
+     * @class Conic
      * @extends JXG.Curve
      * @constructor
      * @type JXG.Conic
@@ -623,22 +640,24 @@ define([
      * @param {JXG.Point,Array_JXG.Point,Array_JXG.Point,Array_JXG.Point,Array_JXG.Point,Array} a,b,c,d,e Parent elements are five points.
      * @param {Number_Number_Number_Number_Number_Number} a_00,a_11,a_22,a_01,a_12,a_22 6 numbers
      * @example
-     * // Create a conic section through the points A, B, C, D, and E.
-     *  var A = board.create('point', [1,5]);
-     *  var B = board.create('point', [1,2]);
-     *  var C = board.create('point', [2,0]);
-     *  var D = board.create('point', [0,0]);
-     *  var E = board.create('point', [-1,5]);
-     *  var conic = board.create('conic',[A,B,C,D,E]);
+     *     // Create a conic section through the points A, B, C, D, and E.
+     *     var A = board.create('point', [1,5]);
+     *     var B = board.create('point', [1,2]);
+     *     var C = board.create('point', [2,0]);
+     *     var D = board.create('point', [0,0]);
+     *     var E = board.create('point', [-1,5]);
+     *     var conic = board.create('conic',[A,B,C,D,E]);
      * <div id="2d79bd6a-db9b-423c-9cba-2497f0b06320" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
-     *   var glex1_board = JXG.JSXGraph.initBoard('2d79bd6a-db9b-423c-9cba-2497f0b06320', {boundingbox:[-6,6,6,-6], keepaspectratio:true, showcopyright: false, shownavigation: false});
-     *   var A = glex1_board.create('point', [1,5]);
-     *   var B = glex1_board.create('point', [1,2]);
-     *   var C = glex1_board.create('point', [2,0]);
-     *   var D = glex1_board.create('point', [0,0]);
-     *   var E = glex1_board.create('point', [-1,5]);
-     *   var conic = glex1_board.create('conic',[A,B,C,D,E]);
+     * (function(){
+     *   var board = JXG.JSXGraph.initBoard('2d79bd6a-db9b-423c-9cba-2497f0b06320', {boundingbox:[-6,6,6,-6], axis:true, keepaspectratio:true, showcopyright: false, shownavigation: false});
+     *   var A = board.create('point', [1,5]);
+     *   var B = board.create('point', [1,2]);
+     *   var C = board.create('point', [2,0]);
+     *   var D = board.create('point', [0,0]);
+     *   var E = board.create('point', [-1,5]);
+     *   var conic = board.create('conic',[A,B,C,D,E]);
+     * })();
      * </script>
      */
     JXG.createConic = function (board, parents, attributes) {
@@ -867,7 +886,12 @@ define([
             return polarForm(phi, suspendUpdate)[2];
         };
 
-        // Center coordinates see http://en.wikipedia.org/wiki/Matrix_representation_of_conic_sections
+        /**
+         * Center coordinates see http://en.wikipedia.org/wiki/Matrix_representation_of_conic_sections
+         *
+         * @property midpoint
+         * @type JXG.Point
+         */
         curve.midpoint = board.create('point', [
             function () {
                 var m = curve.quadraticform;
