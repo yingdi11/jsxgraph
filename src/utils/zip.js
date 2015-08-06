@@ -11,9 +11,9 @@
 
     JSXGraph is free software dual licensed under the GNU LGPL or MIT License.
     JSXCompressor is free software dual licensed under the GNU LGPL or Apache License.
-    
+
     You can redistribute it and/or modify it under the terms of the
-    
+
       * GNU Lesser General Public License as published by
         the Free Software Foundation, either version 3 of the License, or
         (at your option) any later version
@@ -21,12 +21,12 @@
       * MIT License: https://github.com/jsxgraph/jsxgraph/blob/master/LICENSE.MIT
       OR
       * Apache License Version 2.0
-    
+
     JSXGraph is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU Lesser General Public License for more details.
-    
+
     You should have received a copy of the GNU Lesser General Public License, Apache
     License, and the MIT License along with JSXGraph. If not, see
     <http://www.gnu.org/licenses/>, <https://www.apache.org/licenses/LICENSE-2.0.html>,
@@ -118,7 +118,8 @@ define(['jxg'], function (JXG) {
     JXG.Util = JXG.Util || {};
 
     /**
-     * @class Unzip class
+     * Unzip class
+     *
      * Class for gunzipping, unzipping and base64 decoding of files.
      * It is used for reading GEONExT, Geogebra and Intergeo files.
      *
@@ -126,6 +127,8 @@ define(['jxg'], function (JXG) {
      * The code is based on the source code for gunzip.c by Pasi Ojala
      * @see http://www.cs.tut.fi/~albert/Dev/gunzip/gunzip.c
      * @see http://www.cs.tut.fi/~albert
+     *
+     * @class JXG.Util.Unzip
      */
     JXG.Util.Unzip = function (barray) {
         var gpflags, crc, SIZE, fileout, flens, fmax, skipdir,
@@ -792,6 +795,13 @@ define(['jxg'], function (JXG) {
             }
         };
 
+        /**
+         * Extract file given by name from zip archive.
+         *
+         * @method unzipFile
+         * @param  {String} name File name of file in zip archhive
+         * @return {String}      File as string (usually base64 encoded)
+         */
         JXG.Util.Unzip.prototype.unzipFile = function (name) {
             var i;
 
@@ -806,6 +816,12 @@ define(['jxg'], function (JXG) {
             return '';
         };
 
+        /**
+         * Extract next file from zip archive.
+         *
+         * @method unzip
+         * @return {String}      File as string (usually base64 encoded)
+         */
         JXG.Util.Unzip.prototype.unzip = function () {
             nextFile();
             return unzipped;

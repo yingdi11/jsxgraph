@@ -62,8 +62,10 @@ define([
 
     /**
      * Constructs a new JSXGraph singleton object.
-     * @class The JXG.JSXGraph singleton stores all properties required
+     * The JXG.JSXGraph singleton stores all properties required.
      * to load, save, create and free a board.
+     *
+     * @class JXG.JSXGraph
      */
     JXG.JSXGraph = {
         /**
