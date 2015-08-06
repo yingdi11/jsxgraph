@@ -57,68 +57,67 @@ define([
         };
 
     /**
-     * @class This element is used to provide a constructor for special texts containing a form checkbox element.
+     * This element is used to provide a constructor for special texts containing a form checkbox element.
      *
      * @pseudo
      * @description
-     * @name Checkbox
+     * @class Checkbox
      * @extends Text
      * @constructor
      * @type JXG.Text
      *
      * @param {number,function_number,function_String_String} x,y,label Parent elements for checkbox elements.
-     *                     <p>
-     *                     x and y are the coordinates of the lower left corner of the text box.
-     *                      The position of the text is fixed,
-     *                     x and y are numbers. The position is variable if x or y are functions.
-     *                     <p>
-     *                     The label of the input element may be given  as string.
+     *  <p>
+     *  x and y are the coordinates of the lower left corner of the text box.
+     *  The position of the text is fixed,
+     *  x and y are numbers. The position is variable if x or y are functions.
+     *   <p>
+     *  The label of the input element may be given  as string.
      *
      * @example
-     *   // Create a checkbox element at position [0,3].
-     *   var checkbox = board.create('checkbox', [0, 3, 'Change Y'], {});
-     *   var p = board.create('point', [
-     *       function(){ return 0.5;}, // X-coordinate
-     *       function() {
-     *           y = 0.5;
-     *           if (checkbox.Value()) {
-     *               y += 0.5;
-     *           }
-     *           return y;
-     *       }]);
-     * </pre><div id="0e835e0b-ed0c-4b85-b682-78158c0e6f5c" style="width: 300px; height: 300px;"></div>
+     *     // Create a checkbox element at position [0,3].
+     *     var checkbox = board.create('checkbox', [0, 3, 'Change Y'], {});
+     *     var p = board.create('point', [
+     *               function(){ return 0.5;}, // X-coordinate
+     *               function() {
+     *                   y = 0.5;
+     *                   if (checkbox.Value()) {
+     *                        y += 0.5;
+     *                   }
+     *                   return y;
+     *               }]);
+     * <div id="0e835e0b-ed0c-4b85-b682-78158c0e6f5c" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
-     *   var t1_board = JXG.JSXGraph.initBoard('0e835e0b-ed0c-4b85-b682-78158c0e6f5c', {boundingbox: [-3, 6, 5, -3], axis: true, showcopyright: false, shownavigation: false});
-     *   var checkbox = t1_board.create('checkbox', [0, 3, 'Change Y'], {});
-     *   var p = t1_board.create('point', [
-     *       function(){ return 0.5;}, // X-coordinate
-     *       function() {
-     *           y = 0.5;
-     *           if (checkbox.Value()) {
-     *               y += 0.5;
-     *           }
-     *           return y;
-     *       }]);
-     * </script><pre>
+     *  var t1_board = JXG.JSXGraph.initBoard('0e835e0b-ed0c-4b85-b682-78158c0e6f5c', {boundingbox: [-3, 6, 5, -3], axis: true, showcopyright: false, shownavigation: false});
+     *  var checkbox = t1_board.create('checkbox', [0, 3, 'Change Y'], {});
+     *  var p = t1_board.create('point', [
+     *   function(){ return 0.5;}, // X-coordinate
+     *  function() {
+     *  y = 0.5;
+     *   if (checkbox.Value()) {
+     *    y += 0.5;
+     *   }
+     *  return y;
+     * }]);
+     * </script>
      *
      * The checkbox can be supplied with custom-made events by using the property rendNodeCheckbox.
      * @example
-     * var checkbox = board.create('checkbox', [0, 4, 'Click me']),
-     *     p = board.create('point', [1, 1]);
+     *     var checkbox = board.create('checkbox', [0, 4, 'Click me']),
+     *         p = board.create('point', [1, 1]);
      *
-     * JXG.addEvent(checkbox.rendNodeCheckbox, 'change', function() {
-     *     if (this.Value()) {
-     *         p.moveTo([4, 1]);
-     *     } else {
-     *         p.moveTo([1, 1]);
-     *     }
-     * }, checkbox);
-     * </pre><div id="b2f2345a-057d-44ce-bd7a-6aaff70bc810" style="width: 300px; height: 300px;"></div>
+     *     JXG.addEvent(checkbox.rendNodeCheckbox, 'change', function() {
+     *         if (this.Value()) {
+     *             p.moveTo([4, 1]);
+     *         } else {
+     *             p.moveTo([1, 1]);
+     *         }
+     *     }, checkbox);
+     * <div id="b2f2345a-057d-44ce-bd7a-6aaff70bc810" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
-     * var t1_board = JXG.JSXGraph.initBoard('b2f2345a-057d-44ce-bd7a-6aaff70bc810', {boundingbox: [-3, 6, 5, -3], axis: true, showcopyright: false, shownavigation: false});
+     * var board = JXG.JSXGraph.initBoard('b2f2345a-057d-44ce-bd7a-6aaff70bc810', {boundingbox: [-3, 6, 5, -3], axis: true, showcopyright: false, shownavigation: false});
      * var checkbox = board.create('checkbox', [0, 4, 'Click me']),
-     *     p = board.create('point', [1, 1]);
-     *
+     *  p = board.create('point', [1, 1]);
      * JXG.addEvent(checkbox.rendNodeCheckbox, 'change', function() {
      *     if (this.Value()) {
      *         p.moveTo([4, 1]);
@@ -126,7 +125,7 @@ define([
      *         p.moveTo([1, 1]);
      *     }
      * }, checkbox);
-     * </script><pre>
+     * </script>
      */
     JXG.createCheckbox = function (board, parents, attributes) {
         var t, par,

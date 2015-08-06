@@ -81,14 +81,14 @@ define([
      *      var p = board.create('point', [0.5, 0.5], {id: 'p1'});
      *
      *      // Create a button element at position [1,2].
-     *       var button1 = board.create('button', [1, 2, 'Change Y with JavaScript', function() {
+     *      var button1 = board.create('button', [1, 2, 'Change Y with JavaScript', function() {
      *                  p.moveTo([p.X(), p.Y() + 0.5], 100);
-     *         }], {});
+     *      }], {});
      *
      *      // Create a button element at position [1,4].
-     *       var button2 = board.create('button', [1, 4, 'Change Y with JessieCode',
+     *      var button2 = board.create('button', [1, 4, 'Change Y with JessieCode',
      *              "$('p1').Y = $('p1').Y() - 0.5;"
-     *           ], {});
+     *      ], {});
      *
      * <div id="f19b1bce-dd00-4e35-be97-ff1817d11514" style="width: 500px; height: 300px;"></div>
      * <script type="text/javascript">
