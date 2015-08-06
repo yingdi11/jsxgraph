@@ -1178,7 +1178,7 @@ define([
          * @return {Object}          the svg renderer object.
          *
          * @example
-         * 	board.renderer.dumpToCanvas('canvas');
+         *     board.renderer.dumpToCanvas('canvas');
          */
         dumpToCanvas: function(canvasId) {
             var svgRoot = this.svgRoot,

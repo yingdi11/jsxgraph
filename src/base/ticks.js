@@ -725,10 +725,10 @@ define([
          * @method getXandYdeltas
          * @return {Object} Object of the from
          *
-         * 		{
-         * 			x: Number,
-         * 			y: Number
-         * 		}
+         *         {
+         *             x: Number,
+         *             y: Number
+         *         }
          *
          * @private
          */
@@ -1028,9 +1028,9 @@ define([
      * The third parameter (optional) is a function which determines the tick label. It has as parameter a coords object containing the coordinates of the new tick.
      * @example
      *
-     * 		// Create an axis providing two coord pairs.
-     *   	var p1 = board.create('point', [0, 3]);
-     *    	var p2 = board.create('point', [1, 3]);
+     *         // Create an axis providing two coord pairs.
+     *       var p1 = board.create('point', [0, 3]);
+     *        var p2 = board.create('point', [1, 3]);
      *      var l1 = board.create('line', [p1, p2]);
      *      var t = board.create('ticks', [l1], {ticksDistance: 2});
      *
@@ -1086,10 +1086,10 @@ define([
      * @param {JXG.Line,Number} line,numberofhashes The parents consist of the line the hatch marks are going to be attached to and the
      * number of dashes.
      * @example
-     *  	// Create an axis providing two coord pairs.
-     *   	var p1 = board.create('point', [0, 3]);
-     *    	var p2 = board.create('point', [1, 3]);
-     *     	var l1 = board.create('line', [p1, p2]);
+     *      // Create an axis providing two coord pairs.
+     *       var p1 = board.create('point', [0, 3]);
+     *        var p2 = board.create('point', [1, 3]);
+     *         var l1 = board.create('line', [p1, p2]);
      *      var t = board.create('hatch', [l1, 3]);
      * <div id="4a20af06-4395-451c-b7d1-002757cf01be" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">

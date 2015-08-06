@@ -61,7 +61,7 @@ define([
      * @param {Array} coordinates An array of affine coordinates.
      * @param {JXG.Board} board A reference to a board.
      * @param {Boolean} [emitter=true]
-     * 
+     *
      * @borrows JXG.EventEmitter#on as this.on
      * @borrows JXG.EventEmitter#off as this.off
      * @borrows JXG.EventEmitter#triggerEventHandlers as this.triggerEventHandlers

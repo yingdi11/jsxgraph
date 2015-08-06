@@ -63,7 +63,7 @@ JXG.Options = JXG.merge(JXG.Options, {
     },
 
     angle : {
-	    withLabel:true,
+        withLabel:true,
         radius : 1.0,
         fillColor : '#FF7F00',
         highlightFillColor : '#FF7F00',

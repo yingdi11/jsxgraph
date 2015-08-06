@@ -252,7 +252,7 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
          * @return {Array} Array of numbers containing mat * vec
          * @example
          *     var A = [[2, 1],
-         *   	       [1, 3]],
+         *              [1, 3]],
          *         b = [4, 5],
          *         c;
          *     c = JXG.Math.matVecMult(A, b)
