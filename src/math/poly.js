@@ -49,16 +49,15 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
     "use strict";
 
     /**
-     * The JXG.Math.Poly namespace holds algorithms to create and manipulate polynomials.
-     * @name JXG.Math.Poly
-     * @namespace
+     * The JXG.Math.Poly namespace holds algorithms to create and manipulate multi-variate polynomials.
+     * @class JXG.Math.Poly
      */
     Mat.Poly = {};
 
     /**
      * Define a polynomial ring over R.
-     * @class
-     * @name JXG.Math.Poly.Ring
+     * 
+     * @class JXG.Math.Poly.Ring
      * @param {Array} variables List of indeterminates.
      */
     Mat.Poly.Ring = function (variables) {
@@ -76,8 +75,8 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
 
     /**
      * Define a monomial over the polynomial ring <tt>ring</tt>.
-     * @class
-     * @name JXG.Math.Poly.Monomial
+     * 
+     * @class JXG.Math.Poly.Monomial
      * @param {JXG.Math.Poly.Ring} ring
      * @param {Number} coefficient
      * @param {Array} exponents An array of exponents, corresponding to ring
@@ -101,12 +100,16 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
 
         /**
          * A polynomial ring.
+         * 
+         * @property ring
          * @type JXG.Math.Poly.Ring
          */
         this.ring = ring;
 
         /**
          * The monomial's coefficient
+         * 
+         * @property coefficient
          * @type Number
          */
         this.coefficient = coefficient || 0;
@@ -114,6 +117,8 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
         /**
          * Exponent vector, the order depends on the order of the variables
          * in the ring definition.
+         * 
+         * @property exponents
          * @type Array
          */
         this.exponents = Type.deepCopy(exponents);
@@ -123,6 +128,8 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
 
         /**
          * Creates a deep copy of the monomial.
+         * 
+         * @method copy
          * @return {JXG.Math.Poly.Monomial}
          */
         copy: function () {
@@ -131,6 +138,8 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
 
         /**
          * Print the monomial.
+         * 
+         * @method print
          * @return {String} String representation of the monomial
          */
         print: function () {
@@ -148,8 +157,8 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
 
     /**
      * A polynomial is a sum of monomials.
-     * @class
-     * @name JXG.Math.Poly.Polynomial
+     * 
+     * @class JXG.Math.Poly.Polynomial
      * @param {JXG.Math.Poly.Ring} ring A polynomial ring.
      * @param {String} str TODO String representation of the polynomial, will be parsed.
      */
@@ -171,12 +180,16 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
 
         /**
          * A polynomial ring.
+         * 
+         * @property ring
          * @type JXG.Math.Poly.Ring
          */
         this.ring = ring;
 
         /**
          * List of monomials.
+         * 
+         * @property monomials
          * @type Array
          */
         this.monomials = mons;
@@ -185,6 +198,8 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
     JXG.extend(Mat.Poly.Polynomial.prototype, /** @lends JXG.Math.Poly.Polynomial.prototype */ {
         /**
          * Find a monomial with the given signature, i.e. exponent vector.
+         * 
+         * @method findSignature
          * @param {Array} sig An array of numbers
          * @return {Number} The index of the first monomial with the given signature, or -1
          * if no monomial could be found.
@@ -204,6 +219,8 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
         /**
          * Adds a monomial to the polynomial. Checks the existing monomials for the added
          * monomial's signature and just adds the coefficient if one is found.
+         * 
+         * @method addSubMonomial
          * @param {JXG.Math.Poly.Monomial} m
          * @param {Number} factor Either <tt>1</tt> or <tt>-1</tt>.
          */
@@ -222,6 +239,8 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
         /**
          * Adds another polynomial or monomial to this one and merges them by checking for the
          * signature of each new monomial in the existing monomials.
+         * 
+         * @method add
          * @param {JXG.Math.Poly.Polynomial|JXG.Math.Poly.Monomial} mp
          */
         add: function (mp) {
@@ -245,6 +264,8 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
         /**
          * Subtracts another polynomial or monomial from this one and merges them by checking for the
          * signature of each new monomial in the existing monomials.
+         * 
+         * @method sub
          * @param {JXG.Math.Poly.Polynomial|JXG.Math.Poly.Monomial} mp
          */
         sub: function (mp) {
@@ -267,6 +288,8 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
 
         /**
          * Creates a deep copy of the polynomial.
+         * 
+         * @method copy
          * @return {JXG.Math.Poly.Polynomial}
          */
         copy: function () {
@@ -282,6 +305,8 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
 
         /**
          * Prints the polynomial.
+         * 
+         * @method print
          * @return {String} A string representation of the polynomial.
          */
         print: function () {

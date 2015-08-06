@@ -45,6 +45,8 @@ define(['math/math', 'utils/type'], function (Mat, Type) {
     var
         /**
          * Instantiate a new quad tree.
+         * 
+         * @class JXG.Math.Quadtree
          * @param {Array} bbox Bounding box of the new quad (sub)tree.
          * @constructor
          */
@@ -52,6 +54,8 @@ define(['math/math', 'utils/type'], function (Mat, Type) {
             /**
              * The maximum number of points stored in a quad tree node
              * before it is subdivided.
+             * 
+             * @property capacity
              * @type {Number}
              * @default 10
              */
@@ -59,6 +63,8 @@ define(['math/math', 'utils/type'], function (Mat, Type) {
 
             /**
              * Point storage.
+             * 
+             * @property points
              * @type {Array}
              */
             this.points = [];
@@ -70,24 +76,32 @@ define(['math/math', 'utils/type'], function (Mat, Type) {
 
             /**
              * In a subdivided quad tree this represents the top left subtree.
+             * 
+             * @property northWest
              * @type {JXG.Quadtree}
              */
             this.northWest = null;
 
             /**
              * In a subdivided quad tree this represents the top right subtree.
+             * 
+             * @property northEast
              * @type {JXG.Quadtree}
              */
             this.northEast = null;
 
             /**
              * In a subdivided quad tree this represents the bottom right subtree.
+             * 
+             * @property southEast
              * @type {JXG.Quadtree}
              */
             this.southEast = null;
 
             /**
              * In a subdivided quad tree this represents the bottom left subtree.
+             * 
+             * @property southWest
              * @type {JXG.Quadtree}
              */
             this.southWest = null;
@@ -96,6 +110,8 @@ define(['math/math', 'utils/type'], function (Mat, Type) {
     Type.extend(Quadtree.prototype, /** @lends JXG.Quadtree.prototype */ {
         /**
          * Checks if the given coordinates are inside the quad tree.
+         * 
+         * @method contains
          * @param {Number} x
          * @param {Number} y
          * @return {Boolean}
@@ -106,6 +122,8 @@ define(['math/math', 'utils/type'], function (Mat, Type) {
 
         /**
          * Insert a new point into this quad tree.
+         * 
+         * @method insert
          * @param {JXG.Coords} p
          * @return {Boolean}
          */
@@ -142,6 +160,8 @@ define(['math/math', 'utils/type'], function (Mat, Type) {
 
         /**
          * Subdivide the quad tree.
+         * 
+         * @method subdivide
          */
         subdivide: function () {
             var i,
@@ -164,6 +184,8 @@ define(['math/math', 'utils/type'], function (Mat, Type) {
 
         /**
          * Internal _query method that lacks adjustment of the parameter.
+         * 
+         * @method _query
          * @param {Number} x
          * @param {Number} y
          * @return {Boolean|JXG.Quadtree} The quad tree if the point is found, false
@@ -205,6 +227,8 @@ define(['math/math', 'utils/type'], function (Mat, Type) {
 
         /**
          * Retrieve the smallest quad tree that contains the given point.
+         * 
+         * @method query
          * @param {JXG.Coords|Number} xp
          * @param {Number} y
          * @return {Boolean|JXG.Quadtree} The quad tree if the point is found, false
