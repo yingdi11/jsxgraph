@@ -157,7 +157,7 @@ define([
 
         /**
          * Pointer to the DOM node `<input type="checkbox">`
-         * @property rendNodeForm
+         * @property rendNodeCheckbox
          * @type {DOM object}
          * @private
          */
