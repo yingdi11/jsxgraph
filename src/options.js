@@ -769,7 +769,7 @@ define([
              *      },
              *      drawLabels: true
              *  });
-             * </pre><div id="2f6fb842-40bd-4223-aa28-3e9369d2097f" style="width: 300px; height: 300px;"></div>
+             * <div id="2f6fb842-40bd-4223-aa28-3e9369d2097f" style="width: 300px; height: 300px;"></div>
              * <script type="text/javascript">
              * (function () {
              *   var board = JXG.JSXGraph.initBoard('2f6fb842-40bd-4223-aa28-3e9369d2097f', {boundingbox: [-100, 70, 70, -100], showcopyright: false, shownavigation: false});
@@ -778,7 +778,7 @@ define([
              *   var l1 = board.create('line', [p1, p2]);
              *   var t = board.create('ticks', [l1, 1], {insertTicks: true, majorHeight: -1, label: {offset: [4, -9]}, drawLabels: true});
              * })();
-             * </script><pre>
+             * </script>
              */
             insertTicks: false,
             minTicksDistance: 10,

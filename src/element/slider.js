@@ -76,23 +76,23 @@ define([
      * @example
      * // Create a slider with values between 1 and 10, initial position is 5.
      * var s = board.create('slider', [[1, 2], [3, 2], [1, 5, 10]]);
-     * </pre><div id="cfb51cde-2603-4f18-9cc4-1afb452b374d" style="width: 200px; height: 200px;"></div>
+     * <div id="cfb51cde-2603-4f18-9cc4-1afb452b374d" style="width: 200px; height: 200px;"></div>
      * <script type="text/javascript">
      *   (function () {
      *     var board = JXG.JSXGraph.initBoard('cfb51cde-2603-4f18-9cc4-1afb452b374d', {boundingbox: [-1, 5, 5, -1], axis: true, showcopyright: false, shownavigation: false});
      *     var s = board.create('slider', [[1, 2], [3, 2], [1, 5, 10]]);
      *   })();
-     * </script><pre>
+     * </script>
      * @example
      * // Create a slider taking integer values between 1 and 50. Initial value is 50.
      * var s = board.create('slider', [[1, 3], [3, 1], [1, 10, 50]], {snapWidth: 1});
-     * </pre><div id="e17128e6-a25d-462a-9074-49460b0d66f4" style="width: 200px; height: 200px;"></div>
+     * <div id="e17128e6-a25d-462a-9074-49460b0d66f4" style="width: 200px; height: 200px;"></div>
      * <script type="text/javascript">
      *   (function () {
      *     var board = JXG.JSXGraph.initBoard('e17128e6-a25d-462a-9074-49460b0d66f4', {boundingbox: [-1, 5, 5, -1], axis: true, showcopyright: false, shownavigation: false});
      *     var s = board.create('slider', [[1, 3], [3, 1], [1, 10, 50]], {snapWidth: 1});
      *   })();
-     * </script><pre>
+     * </script>
      */
     JXG.createSlider = function (board, parents, attributes) {
         var pos0, pos1, smin, start, smax, sdiff,

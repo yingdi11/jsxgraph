@@ -4451,7 +4451,7 @@ define([
          * var roll = brd.createRoulette(line, circle, 0, Math.PI/20, 1, 100, [C,P,B]);
          * roll.start() // Start the rolling, to be stopped by roll.stop()
          *
-         * </pre><div id="e5e1b53c-a036-4a46-9e35-190d196beca5" style="width: 300px; height: 300px;"></div>
+         * <div id="e5e1b53c-a036-4a46-9e35-190d196beca5" style="width: 300px; height: 300px;"></div>
          * <script type="text/javascript">
          * var brd = JXG.JSXGraph.initBoard('e5e1b53c-a036-4a46-9e35-190d196beca5', {boundingbox: [-5, 5, 5, -5], axis: true, showcopyright:false, shownavigation: false});
          * // Line which will be the floor to roll upon.
@@ -4479,7 +4479,7 @@ define([
          * var B = brd.create('glider',[0,2,circle],{name:'B', color:'blue',trace:false});
          * var roll = brd.createRoulette(line, circle, 0, Math.PI/20, 1, 100, [C,P,B]);
          * roll.start() // Start the rolling, to be stopped by roll.stop()
-         * </script><pre>
+         * </script>
          */
         createRoulette: function (c1, c2, start_c1, stepsize, direction, time, pointlist) {
             var brd = this,

@@ -76,14 +76,14 @@ define([
      * var B = board.create('point', [-1,-4]);
      * var C = board.create('point', [1,1]);
      * var el = board.create('ellipse',[A,B,C]);
-     * </pre><div id="a4d7fb6f-8708-4e45-87f2-2379ae2bd2c0" style="width: 300px; height: 300px;"></div>
+     * <div id="a4d7fb6f-8708-4e45-87f2-2379ae2bd2c0" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
      *   var glex1_board = JXG.JSXGraph.initBoard('a4d7fb6f-8708-4e45-87f2-2379ae2bd2c0', {boundingbox:[-6,6,6,-6], keepaspectratio:true, showcopyright: false, shownavigation: false});
      *   var A = glex1_board.create('point', [-1,4]);
      *   var B = glex1_board.create('point', [-1,-4]);
      *   var C = glex1_board.create('point', [1,1]);
      *   var el = glex1_board.create('ellipse',[A,B,C]);
-     * </script><pre>
+     * </script>
      */
     JXG.createEllipse = function (board, parents, attributes) {
         var polarForm, curve, M, C, majorAxis, i,
@@ -286,14 +286,14 @@ define([
      * var B = board.create('point', [-1,-4]);
      * var C = board.create('point', [1,1]);
      * var el = board.create('hyperbola',[A,B,C]);
-     * </pre><div id="cf99049d-a3fe-407f-b936-27d76550f8c4" style="width: 300px; height: 300px;"></div>
+     * <div id="cf99049d-a3fe-407f-b936-27d76550f8c4" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
      *   var glex1_board = JXG.JSXGraph.initBoard('cf99049d-a3fe-407f-b936-27d76550f8c4', {boundingbox:[-6,6,6,-6], keepaspectratio:true, showcopyright: false, shownavigation: false});
      *   var A = glex1_board.create('point', [-1,4]);
      *   var B = glex1_board.create('point', [-1,-4]);
      *   var C = glex1_board.create('point', [1,1]);
      *   var el = glex1_board.create('hyperbola',[A,B,C]);
-     * </script><pre>
+     * </script>
      */
     JXG.createHyperbola = function (board, parents, attributes) {
         var polarForm, curve, M, C, majorAxis, i,
@@ -464,7 +464,7 @@ define([
      * var l = board.create('line', [A,B]);
      * var C = board.create('point', [1,1]);
      * var el = board.create('parabola',[C,l]);
-     * </pre><div id="524d1aae-217d-44d4-ac58-a19c7ab1de36" style="width: 300px; height: 300px;"></div>
+     * <div id="524d1aae-217d-44d4-ac58-a19c7ab1de36" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
      *   var glex1_board = JXG.JSXGraph.initBoard('524d1aae-217d-44d4-ac58-a19c7ab1de36', {boundingbox:[-6,6,6,-6], keepaspectratio:true, showcopyright: false, shownavigation: false});
      *   var A = glex1_board.create('point', [-1,4]);
@@ -472,7 +472,7 @@ define([
      *   var l = glex1_board.create('line', [A,B]);
      *   var C = glex1_board.create('point', [1,1]);
      *   var el = glex1_board.create('parabola',[C,l]);
-     * </script><pre>
+     * </script>
      */
     JXG.createParabola = function (board, parents, attributes) {
         var polarForm, curve, M, i,
@@ -630,7 +630,7 @@ define([
      *  var D = board.create('point', [0,0]);
      *  var E = board.create('point', [-1,5]);
      *  var conic = board.create('conic',[A,B,C,D,E]);
-     * </pre><div id="2d79bd6a-db9b-423c-9cba-2497f0b06320" style="width: 300px; height: 300px;"></div>
+     * <div id="2d79bd6a-db9b-423c-9cba-2497f0b06320" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
      *   var glex1_board = JXG.JSXGraph.initBoard('2d79bd6a-db9b-423c-9cba-2497f0b06320', {boundingbox:[-6,6,6,-6], keepaspectratio:true, showcopyright: false, shownavigation: false});
      *   var A = glex1_board.create('point', [1,5]);
@@ -639,7 +639,7 @@ define([
      *   var D = glex1_board.create('point', [0,0]);
      *   var E = glex1_board.create('point', [-1,5]);
      *   var conic = glex1_board.create('conic',[A,B,C,D,E]);
-     * </script><pre>
+     * </script>
      */
     JXG.createConic = function (board, parents, attributes) {
         var polarForm, curve, fitConic, degconic, sym,

@@ -84,7 +84,7 @@ define([
      *     
      *     st = board.create('slopetriangle', [t]);
      *     
-     * </pre><div id="951ccb6a-52bc-4dc2-80e9-43db064f0f1b" style="width: 300px; height: 300px;"></div>
+     * <div id="951ccb6a-52bc-4dc2-80e9-43db064f0f1b" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
      * (function () {
      *   var board = JXG.JSXGraph.initBoard('951ccb6a-52bc-4dc2-80e9-43db064f0f1b', {boundingbox: [-5, 5, 5, -5], axis: true, showcopyright: false, shownavigation: false}),
@@ -94,7 +94,7 @@ define([
      *     
      *     st = board.create('slopetriangle', [t]);
      * })();
-     * </script><pre>
+     * </script>
      * 
      * @example
      * // Create a on a line and a point on that line
@@ -105,7 +105,7 @@ define([
      * 
      *     st = board.create('slopetriangle', [li, p]);
      *
-     * </pre><div id="b52f451c-22cf-4677-852a-0bb9d764ee95" style="width: 300px; height: 300px;"></div>
+     * <div id="b52f451c-22cf-4677-852a-0bb9d764ee95" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
      * (function () {
      *   var board = JXG.JSXGraph.initBoard('b52f451c-22cf-4677-852a-0bb9d764ee95', {boundingbox: [-5, 5, 5, -5], axis: true, showcopyright: false, shownavigation: false}),
@@ -116,7 +116,7 @@ define([
      * 
      *     st = board.create('slopetriangle', [li, p]);
      * })();
-     * </script><pre>
+     * </script>
      */
     JXG.createSlopeTriangle = function (board, parents, attributes) {
         var el, tangent, tglide, glider, toppoint, baseline, basepoint, label, attr;

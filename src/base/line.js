@@ -1324,7 +1324,7 @@ define([
      *   var alex1_p2 = alex1_board.create('point', [1.0, 1.0]);
      *   var alex1_l1 = alex1_board.create('arrow', [alex1_p1, alex1_p2]);
      * })();
-     * </script><pre>
+     * </script>
      */
     JXG.createArrow = function (board, parents, attributes) {
         var el;

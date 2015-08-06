@@ -353,7 +353,7 @@ define([
             // -> calculate the foot of the dropped perpendicular
             } else {
                 c = [0, line.stdform[1], line.stdform[2]];
-                c = Mat.crossProduct(c, C);                  // perpendicuar to line
+                c = Mat.crossProduct(c, C);                  // perpendicular to line
                 c = Mat.crossProduct(c, line.stdform);       // intersection of line and perpendicular
                 change = true;
             }
@@ -2442,7 +2442,7 @@ define([
          * var reuleauxTriangle = brd.create('curve', JXG.Math.Geometry.reuleauxPolygon(pol.vertices, 3),
          *                          {strokeWidth:6, strokeColor:'#d66d55', fillColor:'#ad5544', highlightFillColor:'#ad5544'});
          *
-         * </pre><div id="2543a843-46a9-4372-abc1-94d9ad2db7ac" style="width: 300px; height: 300px;"></div>
+         * <div id="2543a843-46a9-4372-abc1-94d9ad2db7ac" style="width: 300px; height: 300px;"></div>
          * <script type="text/javascript">
          * var brd = JXG.JSXGraph.initBoard('2543a843-46a9-4372-abc1-94d9ad2db7ac', {boundingbox: [-5, 5, 5, -5], axis: true, showcopyright:false, shownavigation: false});
          * var A = brd.create('point',[-2,-2]);
@@ -2450,7 +2450,7 @@ define([
          * var pol = brd.create('regularpolygon',[A,B,3], {withLines:false, fillColor:'none', highlightFillColor:'none', fillOpacity:0.0});
          * var reuleauxTriangle = brd.create('curve', JXG.Math.Geometry.reuleauxPolygon(pol.vertices, 3),
          *                          {strokeWidth:6, strokeColor:'#d66d55', fillColor:'#ad5544', highlightFillColor:'#ad5544'});
-         * </script><pre>
+         * </script>
          */
         reuleauxPolygon: function (points, nr) {
             var beta,

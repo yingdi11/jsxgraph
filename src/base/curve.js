@@ -2079,7 +2079,7 @@ define([
      *   var board = JXG.JSXGraph.initBoard('32342ec9-ad17-4339-8a97-ff23dc34f51a', {boundingbox: [-1, 5, 6, -2], axis: true, showcopyright: false, shownavigation: false});
      *   var curve = board.create('stepfunction', [[0,1,2,3,4,5], [1,3,0,2,2,1]]);
      * })();
-     * </script><pre>
+     * </script>
      */
     JXG.createStepfunction = function (board, parents, attributes) {
         var c, attr;
