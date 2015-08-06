@@ -59,9 +59,10 @@ define([
     "use strict";
 
     /**
-     * Creates ticks for an axis.
-     * @class Ticks provides methods for creation and management
-     * of ticks on an axis.
+     * Ticks provides methods for creation and management
+     * of ticks on a line element.
+     *
+     * @class JXG.Ticks
      * @param {JXG.Line} line Reference to the axis the ticks are drawn on.
      * @param {Number|Array} ticks Number defining the distance between two major ticks or an array defining static ticks.
      * @param {Object} attributes Properties
@@ -74,30 +75,39 @@ define([
 
         /**
          * The line the ticks belong to.
+         *
+         * @property line
          * @type JXG.Line
          */
         this.line = line;
 
         /**
          * The board the ticks line is drawn on.
+         * @property board
          * @type JXG.Board
          */
         this.board = this.line.board;
 
         /**
          * A function calculating ticks delta depending on the ticks number.
+         *
+         * @property ticksFunction
          * @type Function
          */
         this.ticksFunction = null;
 
         /**
          * Array of fixed ticks.
+         *
+         * @property fixedTicks
          * @type Array
          */
         this.fixedTicks = null;
 
         /**
          * Equidistant ticks. Distance is defined by ticksFunction
+         *
+         * @property equidistant
          * @type Boolean
          */
         this.equidistant = false;
@@ -125,18 +135,24 @@ define([
 
         /**
          * Least distance between two ticks, measured in pixels.
+         *
+         * @property minTicksDistance
          * @type int
          */
         this.minTicksDistance = attributes.minticksdistance;
 
         /**
          * Stores the ticks coordinates
+         *
+         * @property ticks
          * @type {Array}
          */
         this.ticks = [];
 
         /**
          * Distance between two major ticks in user coordinates
+         *
+         * @property ticksDelta
          * @type {Number}
          */
         this.ticksDelta = 1;
@@ -145,18 +161,24 @@ define([
          * Array where the labels are saved. There is an array element for every tick,
          * even for minor ticks which don't have labels. In this case the array element
          * contains just <tt>null</tt>.
+         *
+         * @property labels
          * @type Array
          */
         this.labels = [];
 
         /**
          * A list of labels that are currently unused and ready for reassignment.
+         *
+         * @property labelsRepo
          * @type {Array}
          */
         this.labelsRepo = [];
 
         /**
          * To ensure the uniqueness of label ids this counter is used.
+         *
+         * @property labelCounter
          * @type {number}
          */
         this.labelCounter = 0;
@@ -174,6 +196,7 @@ define([
          * determines the distance (in user units) of two major ticks.
          * See above in constructor and in @see JXG.GeometryElement#setAttribute
          *
+         * @method makeTicksFunction
          * @private
          * @param {Number} ticks Distance between two major ticks
          * @return {Function} returns method ticksFunction
@@ -199,6 +222,8 @@ define([
 
         /**
          * Checks whether (x,y) is near the line.
+         *
+         * @method hasPoint
          * @param {Number} x Coordinate in x direction, screen coordinates.
          * @param {Number} y Coordinate in y direction, screen coordinates.
          * @return {Boolean} True if (x,y) is near the line, False otherwise.
@@ -247,10 +272,13 @@ define([
 
         /**
          * Sets x and y coordinate of the tick.
+         *
+         * @method setPositionDirectly
          * @param {number} method The type of coordinates used here. Possible values are {@link JXG.COORDS_BY_USER} and {@link JXG.COORDS_BY_SCREEN}.
          * @param {Array} coords coordinates in screen/user units
          * @param {Array} oldcoords previous coordinates in screen/user units
          * @return {JXG.Ticks} this element
+         * @chainable
          */
         setPositionDirectly: function (method, coords, oldcoords) {
             var dx, dy,
@@ -281,7 +309,11 @@ define([
 
          /**
          * (Re-)calculates the ticks coordinates.
+         *
+         * @method calculateTicksCoordinates
          * @private
+         * @return {JXG.Ticks} this element
+         * @chainable
          */
         calculateTicksCoordinates: function () {
             var coordsZero, bounds, i,
@@ -291,7 +323,7 @@ define([
             this.setTicksSizeVariables();
             // If the parent line is not finite, we can stop here.
             if (Math.abs(this.dx) < Mat.eps && Math.abs(this.dy) < Mat.eps) {
-                return;
+                return this;
             }
 
             // Get Zero
@@ -316,12 +348,17 @@ define([
             for (i = oldRepoLength; i < this.labelsRepo.length; i++) {
                 this.labelsRepo[i].setAttribute({visible: false});
             }
+
+            return this;
         },
 
         /**
          * Sets the variables used to set the height and slope of each tick.
          *
+         * @method setTicksSizeVariables
          * @private
+         * @return {JXG.Ticks} this element
+         * @chainable
          */
         setTicksSizeVariables: function () {
             var d,
@@ -358,6 +395,8 @@ define([
             if (this.visProp.majorheight < 0) {
                 this.majStyle = 'infinite';
             }
+
+            return this;
         },
 
         /**
@@ -367,6 +406,7 @@ define([
          *
          * Otherwise, the coordinates of the point that acts as zero are established depending on the value of {@link JXG.Ticks#anchor}
          *
+         * @method getZeroCoordinates
          * @return {JXG.Coords} Coords object for the Zero point on the line
          * @private
          */
@@ -397,6 +437,7 @@ define([
          * Calculate the lower and upper bounds for tick rendering
          * If {@link JXG.Ticks#includeBoundaries} is false, the boundaries will exclude point1 and point2
          *
+         * @method getLowerAndUpperBounds
          * @param  {JXG.Coords} coordsZero
          * @return {String} type  (Optional) If type=='ticksdistance' the bounds are the intersection of the line with the bounding box of the board.
          *              Otherwise it is the projection of the corners of the bounding box to the line. The first case i s needed to automatically
@@ -470,6 +511,7 @@ define([
         /**
          * Calculates the distance in user coordinates from zero to a given point including its sign
          *
+         * @method getDistanceFromZero
          * @param  {JXG.Coords} zero  coordinates of the point considered zero
          * @param  {JXG.Coords} point coordinates of the point to find out the distance
          * @return {Number}           distance between zero and point, including its sign
@@ -502,9 +544,12 @@ define([
          * Creates ticks coordinates and labels automatically.
          * The frequency of ticks is affected by the values of {@link JXG.Ticks#insertTicks} and {@link JXG.Ticks#ticksDistance}
          *
+         * @method generateEquidistantTicks
          * @param  {JXG.Coords} coordsZero coordinates of the point considered zero
          * @param  {Object}     bounds     contains the lower and upper boundaries for ticks placement
          * @private
+         * @return {JXG.Ticks} this element
+         * @chainable
          */
         generateEquidistantTicks: function (coordsZero, bounds) {
             var tickPosition,
@@ -524,7 +569,7 @@ define([
             this.ticksDelta = ticksDelta;
 
             if (ticksDelta < Mat.eps) {
-                return;
+                return this;
             }
 
             // Position ticks from zero to the positive side while not reaching the upper boundary
@@ -550,16 +595,20 @@ define([
                 }
                 tickPosition -= ticksDelta;
             }
+
+            return this;
         },
 
         /**
          * Auxiliary method used by {@link JXG.Ticks#generateEquidistantTicks} to adjust the
          * distance between two ticks depending on {@link JXG.Ticks#minTicksDistance} value
          *
+         * @method adjustTickDistance
          * @param  {Number}     ticksDelta  distance between two major ticks in user coordinates
          * @param  {JXG.Coords} coordsZero  coordinates of the point considered zero
          * @param  {Object}     deltas      x and y distance in pixel between two user units
          * @param  {Object}     bounds      upper and lower bound of the tick positions in user units.
+         * @return {Number} returns the new value of ticksDelta
          * @private
          */
         adjustTickDistance: function (ticksDelta, coordsZero, deltas) {
@@ -590,11 +639,14 @@ define([
          * Auxiliary method used by {@link JXG.Ticks#generateEquidistantTicks} to create a tick
          * in the line at the given tickPosition.
          *
+         * @method processTickPosition
          * @param  {JXG.Coords} coordsZero    coordinates of the point considered zero
          * @param  {Number}     tickPosition  current tick position relative to zero
          * @param  {Number}     ticksDelta    distance between two major ticks in user coordinates
          * @param  {Object}     deltas      x and y distance between two major ticks
          * @private
+         * @return {JXG.Ticks} this element
+         * @chainable
          */
         processTickPosition: function (coordsZero, tickPosition, ticksDelta, deltas) {
             var x, y, tickCoords, ti, labelText;
@@ -621,14 +673,19 @@ define([
                     this.labels.push(null);
                 }
             }
+
+            return this;
         },
 
         /**
          * Creates ticks coordinates and labels based on {@link JXG.Ticks#fixedTicks} and {@link JXG.Ticks#labels}.
          *
+         * @method generateFixedTicks
          * @param  {JXG.Coords} coordsZero Coordinates of the point considered zero
          * @param  {Object}     bounds     contains the lower and upper boundaries for ticks placement
          * @private
+         * @return {JXG.Ticks} this element
+         * @chainable
          */
         generateFixedTicks: function (coordsZero, bounds) {
             var tickCoords, labelText, i, ti,
@@ -658,12 +715,21 @@ define([
                     }
                 }
             }
+
+            return this;
         },
 
         /**
          * Calculates the x and y distance in pixel between two units in user space.
          *
-         * @return {Object}
+         * @method getXandYdeltas
+         * @return {Object} Object of the from
+         *
+         * 		{
+         * 			x: Number,
+         * 			y: Number
+         * 		}
+         *
          * @private
          */
         getXandYdeltas: function () {
@@ -698,6 +764,8 @@ define([
         },
 
         /**
+         *
+         * @method tickEndings
          * @param {JXG.Coords} coords Coordinates of the tick on the line.
          * @param {Boolean} major True if tick is major tick.
          * @return {Array} Array of length 3 containing start and end coordinates in screen coordinates
@@ -758,6 +826,7 @@ define([
         /**
          * Creates the label text for a given tick. A value for the text can be provided as a number or string
          *
+         * @method generateLabelText
          * @param  {JXG.Coords}    tick  The Coords-object of the tick to create a label for
          * @param  {JXG.Coords}    zero  The Coords-object of line's zero
          * @param  {Number|String} value A predefined value for this tick
@@ -810,6 +879,8 @@ define([
 
         /**
          * Create a tick label
+         *
+         * @method generateLabel
          * @param  {String}     labelText
          * @param  {JXG.Coords} tick
          * @param  {Number}     tickNumber
@@ -856,7 +927,11 @@ define([
         /**
          * Removes the HTML divs of the tick labels
          * before repositioning
+         *
+         * @method removeTickLabels
          * @private
+         * @return {JXG.Ticks} this element
+         * @chainable
          */
         removeTickLabels: function () {
             var j;
@@ -872,11 +947,16 @@ define([
                     }
                 }
             }
+
+            return this;
         },
 
         /**
          * Recalculate the tick positions and the labels.
-         * @return {JXG.Ticks}
+         *
+         * @method update
+         * @return {JXG.Ticks} this element
+         * @chainable
          */
         update: function () {
             if (this.needsUpdate) {
@@ -889,10 +969,7 @@ define([
             return this;
         },
 
-        /**
-         * Uses the boards renderer to update the arc.
-         * @return {JXG.Ticks}
-         */
+        // Documented in GeometryElement
         updateRenderer: function () {
             if (this.needsUpdate) {
                 this.board.renderer.updateTicks(this);
@@ -902,6 +979,7 @@ define([
             return this;
         },
 
+        // Documented in GeometryElement
         hideElement: function () {
             var i;
 
@@ -917,6 +995,7 @@ define([
             return this;
         },
 
+        // Documented in GeometryElement
         showElement: function () {
             var i;
 
@@ -934,10 +1013,12 @@ define([
     });
 
     /**
-     * @class Ticks are used as distance markers on a line.
+     * Ticks are used as distance markers on a line.
+     * The class `Ticks` provides methods for creation and management
+     * of ticks on a line element.
+     *
+     * @class Ticks
      * @pseudo
-     * @description
-     * @name Ticks
      * @extends JXG.Ticks
      * @constructor
      * @type JXG.Ticks
@@ -946,12 +1027,14 @@ define([
      * distance between two major ticks.
      * The third parameter (optional) is a function which determines the tick label. It has as parameter a coords object containing the coordinates of the new tick.
      * @example
-     * // Create an axis providing two coord pairs.
-     *   var p1 = board.create('point', [0, 3]);
-     *   var p2 = board.create('point', [1, 3]);
-     *   var l1 = board.create('line', [p1, p2]);
-     *   var t = board.create('ticks', [l1], {ticksDistance: 2});
-     * </pre><div id="ee7f2d68-75fc-4ec0-9931-c76918427e63" style="width: 300px; height: 300px;"></div>
+     *
+     * 		// Create an axis providing two coord pairs.
+     *   	var p1 = board.create('point', [0, 3]);
+     *    	var p2 = board.create('point', [1, 3]);
+     *      var l1 = board.create('line', [p1, p2]);
+     *      var t = board.create('ticks', [l1], {ticksDistance: 2});
+     *
+     * <div id="ee7f2d68-75fc-4ec0-9931-c76918427e63" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
      * (function () {
      *   var board = JXG.JSXGraph.initBoard('ee7f2d68-75fc-4ec0-9931-c76918427e63', {boundingbox: [-1, 7, 7, -1], showcopyright: false, shownavigation: false});
@@ -960,7 +1043,7 @@ define([
      *   var l1 = board.create('line', [p1, p2]);
      *   var t = board.create('ticks', [l1, 2], {ticksDistance: 2});
      * })();
-     * </script><pre>
+     * </script>
      */
     JXG.createTicks = function (board, parents, attributes) {
         var el, dist,
@@ -992,10 +1075,10 @@ define([
     };
 
     /**
-     * @class Hashes can be used to mark congruent lines.
+     * Hashes can be used to mark congruent lines.
+     *
      * @pseudo
-     * @description
-     * @name Hatch
+     * @class Hatch
      * @extends JXG.Ticks
      * @constructor
      * @type JXG.Ticks
@@ -1003,12 +1086,12 @@ define([
      * @param {JXG.Line,Number} line,numberofhashes The parents consist of the line the hatch marks are going to be attached to and the
      * number of dashes.
      * @example
-     * // Create an axis providing two coord pairs.
-     *   var p1 = board.create('point', [0, 3]);
-     *   var p2 = board.create('point', [1, 3]);
-     *   var l1 = board.create('line', [p1, p2]);
-     *   var t = board.create('hatch', [l1, 3]);
-     * </pre><div id="4a20af06-4395-451c-b7d1-002757cf01be" style="width: 300px; height: 300px;"></div>
+     *  	// Create an axis providing two coord pairs.
+     *   	var p1 = board.create('point', [0, 3]);
+     *    	var p2 = board.create('point', [1, 3]);
+     *     	var l1 = board.create('line', [p1, p2]);
+     *      var t = board.create('hatch', [l1, 3]);
+     * <div id="4a20af06-4395-451c-b7d1-002757cf01be" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
      * (function () {
      *   var board = JXG.JSXGraph.initBoard('4a20af06-4395-451c-b7d1-002757cf01be', {boundingbox: [-1, 7, 7, -1], showcopyright: false, shownavigation: false});
@@ -1017,7 +1100,7 @@ define([
      *   var l1 = board.create('line', [p1, p2]);
      *   var t = board.create('hatch', [l1, 3]);
      * })();
-     * </script><pre>
+     * </script>
      */
     JXG.createHatchmark = function (board, parents, attributes) {
         var num, i, base, width, totalwidth, el,
