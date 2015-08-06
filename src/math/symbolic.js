@@ -60,6 +60,7 @@ define([
     /**
      * The JXG.Math.Symbolic namespace holds algorithms for symbolic computations.
      * @class JXG.Math.Symbolic
+     * @static
      */
     Mat.Symbolic = {
         /**

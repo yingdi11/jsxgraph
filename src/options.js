@@ -49,9 +49,11 @@ define([
 
     /**
      * Options Namespace
-     * @description These are the default options of the board and of all geometry elements.
-     * @namespace
-     * @name JXG.Options
+     * 
+     * These are the default options of the board and of all geometry elements.
+     * 
+     * @class JXG.Options
+     * @static
      */
     JXG.Options = {
         jc: {
@@ -61,6 +63,7 @@ define([
 
         /*
          * Options that are used directly within the board class
+         * 
          */
         board: {
             /**#@+
@@ -77,7 +80,7 @@ define([
              * The canvas will be spanned from the upper left corner (<sub>1</sub>, y<sub>1</sub>)
              * to the lower right corner (x<sub>2</sub>, y<sub>2</sub>).
              *
-             * @name JXG.Board#boundingbox
+             * @property JXG.Board#boundingbox
              * @type Array
              * @default [-5, 5, 5, -5]
              */

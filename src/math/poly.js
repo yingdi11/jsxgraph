@@ -51,6 +51,7 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
     /**
      * The JXG.Math.Poly namespace holds algorithms to create and manipulate multi-variate polynomials.
      * @class JXG.Math.Poly
+     * @static
      */
     Mat.Poly = {};
 
