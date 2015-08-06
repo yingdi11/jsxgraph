@@ -45,15 +45,16 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
 
     /**
      * Functions for mathematical statistics. Most functions are like in the statistics package R.
-     * @name JXG.Math.Statistics
-     * @namespace
+     * 
+     * @class JXG.Math.Statistics
      */
     Mat.Statistics = {
         /**
          * Sums up all elements of the given array.
+         * 
+         * @method sum
          * @param {Array} arr An array of numbers.
          * @return {Number}
-         * @memberof JXG.Math.Statistics
          */
         sum: function (arr) {
             var i,
@@ -68,6 +69,8 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
 
         /**
          * Multiplies all elements of the given array.
+         * 
+         * @method prod
          * @param {Array} arr An array of numbers.
          * @return {Number}
          * @memberof JXG.Math.Statistics
@@ -85,6 +88,8 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
 
         /**
          * Determines the mean value of the values given in an array.
+         * 
+         * @method mean
          * @param {Array} arr
          * @return {Number}
          * @memberof JXG.Math.Statistics
@@ -100,6 +105,8 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
         /**
          * The median of a finite set of values is the value that divides the set
          * into two equal sized subsets.
+         * 
+         * @method median
          * @param {Array} arr The set of values.
          * @return {Number}
          * @memberof JXG.Math.Statistics
@@ -127,6 +134,8 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
         /**
          * Bias-corrected sample variance. A variance is a measure of how far a
          * set of numbers are spread out from each other.
+         * 
+         * @method variance
          * @param {Array} arr
          * @return {Number}
          * @memberof JXG.Math.Statistics
@@ -149,6 +158,8 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
         /**
          * Determines the <strong>s</strong>tandard <strong>d</strong>eviation which shows how much
          * variation there is from the average value of a set of numbers.
+         * 
+         * @method sd
          * @param {Array} arr
          * @return {Number}
          * @memberof JXG.Math.Statistics
@@ -161,6 +172,8 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
          * Weighted mean value is basically the same as {@link JXG.Math.Statistics#mean} but here the values
          * are weighted, i.e. multiplied with another value called <em>weight</em>. The weight values are given
          * as a second array with the same length as the value array..
+         * 
+         * @method weightedMean
          * @throws {Error} If the dimensions of the arrays don't match.
          * @param {Array} arr Set of alues.
          * @param {Array} w Weight values.
@@ -181,6 +194,8 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
 
         /**
          * Extracts the maximum value from the array.
+         * 
+         * @method max
          * @param {Array} arr
          * @return {Number} The highest number from the array. It returns <tt>NaN</tt> if not every element could be
          * interpreted as a number and <tt>-Infinity</tt> if an empty array is given or no element could be interpreted
@@ -193,6 +208,8 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
 
         /**
          * Extracts the minimum value from the array.
+         * 
+         * @method min
          * @param {Array} arr
          * @return {Number} The lowest number from the array. It returns <tt>NaN</tt> if not every element could be
          * interpreted as a number and <tt>Infinity</tt> if an empty array is given or no element could be interpreted
@@ -205,6 +222,8 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
 
         /**
          * Determines the lowest and the highest value from the given array.
+         * 
+         * @method range
          * @param {Array} arr
          * @return {Array} The minimum value as the first and the maximum value as the second value.
          * @memberof JXG.Math.Statistics
@@ -215,6 +234,8 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
 
         /**
          * Determines the absolute value of every given value.
+         * 
+         * @method abs
          * @param {Array|Number} arr
          * @return {Array|Number}
          * @memberof JXG.Math.Statistics
@@ -240,6 +261,8 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
          * Adds up two (sequences of) values. If one value is an array and the other one is a number the number
          * is added to every element of the array. If two arrays are given and the lengths don't match the shortest
          * length is taken.
+         * 
+         * @method add
          * @param {Array|Number} arr1
          * @param {Array|Number} arr2
          * @return {Array|Number}
@@ -279,6 +302,8 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
         /**
          * Divides two (sequences of) values. If two arrays are given and the lengths don't match the shortest length
          * is taken.
+         * 
+         * @method div
          * @param {Array|Number} arr1 Dividend
          * @param {Array|Number} arr2 Divisor
          * @return {Array|Number}
@@ -316,8 +341,9 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
         },
 
         /**
-         * @function
-         * @deprecated Use {@link JXG.Math.Statistics#div} instead.
+         * Use {@link JXG.Math.Statistics#div} instead.
+         * @method divide
+         * @deprecated 
          * @memberof JXG.Math.Statistics
          */
         divide: function () {
@@ -328,6 +354,8 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
         /**
          * Divides two (sequences of) values and returns the remainder. If two arrays are given and the lengths don't
          * match the shortest length is taken.
+         * 
+         * @method mod
          * @param {Array|Number} arr1 Dividend
          * @param {Array|Number} arr2 Divisor
          * @param {Boolean} [math=false] Mathematical mod or symmetric mod? Default is symmetric, the JavaScript <tt>%</tt> operator.
@@ -377,6 +405,8 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
          * Multiplies two (sequences of) values. If one value is an array and the other one is a number the number
          * is multiplied to every element of the array. If two arrays are given and the lengths don't match the shortest
          * length is taken.
+         * 
+         * @method multiply
          * @param {Array|Number} arr1
          * @param {Array|Number} arr2
          * @return {Array|Number}
@@ -416,6 +446,8 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
         /**
          * Subtracts two (sequences of) values. If two arrays are given and the lengths don't match the shortest
          * length is taken.
+         * 
+         * @method subtract
          * @param {Array|Number} arr1 Minuend
          * @param {Array|Number} arr2 Subtrahend
          * @return {Array|Number}
@@ -455,6 +487,8 @@ define(['jxg', 'math/math', 'utils/type'], function (JXG, Mat, Type) {
         /**
          * The Theil-Sen estimator can be used to determine a more robust linear regression of a set of sample
          * points than least squares regression in {@link JXG.Math.Numerics.regressionPolynomial}.
+         * 
+         * @method TheilSenRegression
          * @param {Array} coords Array of {@link JXG.Coords}.
          * @return {Array} The stdform of the regression line.
          * @memberof JXG.Math.Statistics

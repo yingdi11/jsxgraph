@@ -59,13 +59,14 @@ define([
 
     /**
      * The JXG.Math.Symbolic namespace holds algorithms for symbolic computations.
-     * @name JXG.Math.Symbolic
-     * @namespace
+     * @class JXG.Math.Symbolic
      */
     Mat.Symbolic = {
         /**
          * Generates symbolic coordinates for the part of a construction including all the elements from that
          * a specific element depends of. These coordinates will be stored in GeometryElement.symbolic.
+         * 
+         * @method generateSymbolicCoordinatesPartial
          * @param {JXG.Board} board The board that's element get some symbolic coordinates.
          * @param {JXG.GeometryElement} element All ancestor of this element get symbolic coordinates.
          * @param {String} variable Name for the coordinates, e.g. x or u.
@@ -131,7 +132,9 @@ define([
         },
 
         /**
-         * Clears all .symbolic.x and .symbolic.y members on every point of a given board.
+         * Clears all `.symbolic.x` and `.symbolic.y` members on every point of a given board.
+         * 
+         * @method clearSymbolicCoordinates
          * @param {JXG.Board} board The board that's points get cleared their symbolic coordinates.
          * @memberof JXG.Math.Symbolic
          */
@@ -157,6 +160,8 @@ define([
         /**
          * Generates polynomials for a part of the construction including all the points from that
          * a specific element depends of.
+         * 
+         * @method generatePolynomials
          * @param {JXG.Board} board The board that's points polynomials will be generated.
          * @param {JXG.GeometryElement} element All points in the set of ancestors of this element are used to generate the set of polynomials.
          * @param {Boolean} generateCoords
@@ -207,6 +212,8 @@ define([
 
         /**
          * Calculate geometric locus of a point given on a board. Invokes python script on server.
+         * 
+         * @method geometricLocusByGroebnerBase
          * @param {JXG.Board} board The board on which the point lies.
          * @param {JXG.Point} point The point that will be traced.
          * @return {Array} An array of points.
