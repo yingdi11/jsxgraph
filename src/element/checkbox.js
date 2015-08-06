@@ -146,15 +146,33 @@ define([
         t = JXG.createText(board, par, attr);
         t.type = Type.OBJECT_TYPE_CHECKBOX;
 
+        /**
+         * Pointer to the DOM node `<form>`
+         * @property rendNodeForm
+         * @type {DOM object}
+         * @private
+         */
         t.rendNodeForm = t.rendNode.childNodes[0];
         t.rendNodeForm.id = t.rendNode.id + '_form';
 
+        /**
+         * Pointer to the DOM node `<input type="checkbox">`
+         * @property rendNodeForm
+         * @type {DOM object}
+         * @private
+         */
         t.rendNodeCheckbox = t.rendNodeForm.childNodes[0];
         t.rendNodeCheckbox.id = t.rendNode.id + '_checkbox';
 
         t.rendNodeTag = t.rendNodeCheckbox; // Needed for unified treatment in setAttribute
         t.rendNodeTag.disabled = !!attr.disabled;
 
+        /**
+         * Pointer to the label of the checkbox
+         * @property rendNodeLabel
+         * @type {DOM object}
+         * @private
+         */
         t.rendNodeLabel = t.rendNodeForm.childNodes[1];
         t.rendNodeLabel.id = t.rendNode.id + '_label';
         t.rendNodeLabel.innerHTML = parents[2];
