@@ -119,6 +119,12 @@ define([
         t = JXG.createText(board, par, attr);
         t.type = Type.OBJECT_TYPE_BUTTON;
 
+        /**
+         * Pointer to the DOM node ``<button>` `
+         * @property rendNodeButton
+         * @type {DOM object}
+         * @private
+         */
         t.rendNodeButton = t.rendNode.childNodes[0];
         t.rendNodeButton.id = t.rendNode.id + '_button';
         t.rendNodeButton.innerHTML = parents[2];
