@@ -265,7 +265,7 @@ define([
             /**
             * Midpoint of the sector.
             * @memberOf Sector.prototype
-            * @name point1
+            * @property point1
             * @type JXG.Point
             */
             el.point1 = points[0];
@@ -273,7 +273,7 @@ define([
             /**
             * This point together with {@link Sector#point1} defines the radius..
             * @memberOf Sector.prototype
-            * @name point2
+            * @property point2
             * @type JXG.Point
             */
             el.point2 = points[1];
@@ -281,7 +281,7 @@ define([
             /**
             * Defines the sector's angle.
             * @memberOf Sector.prototype
-            * @name point3
+            * @property point3
             * @type JXG.Point
             */
             el.point3 = points[2];
@@ -298,7 +298,7 @@ define([
             /**
             * Defines the sectors orientation in case of circumCircleSectors.
             * @memberOf Sector.prototype
-            * @name point4
+            * @property point4
             * @type JXG.Point
             */
             if (Type.exists(points[3])) {
@@ -367,7 +367,7 @@ define([
             /**
             * Returns the radius of the sector.
             * @memberOf Sector.prototype
-            * @name Radius
+            * @property Radius
             * @function
             * @return {Number} The distance between {@link Sector#point1} and {@link Sector#point2}.
             */
@@ -411,7 +411,7 @@ define([
         /**
         * Checks whether (x,y) is within the area defined by the sector.
         * @memberOf Sector.prototype
-        * @name hasPointSector
+        * @property hasPointSector
         * @function
         * @param {Number} x Coordinate in x direction, screen coordinates.
         * @param {Number} y Coordinate in y direction, screen coordinates.
@@ -600,7 +600,7 @@ define([
         /**
          * Center of the circumcirclesector
          * @memberOf CircumcircleSector.prototype
-         * @name center
+         * @property center
          * @type Circumcenter
          */
         el.center = mp;
@@ -656,7 +656,7 @@ define([
      * 180 degrees (&pi; radians). It is defined by a center, one point that
      * defines the radius, and a third point that defines the angle of the sector.
      * @pseudo
-     * @name MajorSector
+     * @property MajorSector
      * @extends Curve
      * @constructor
      * @type JXG.Curve
@@ -811,7 +811,7 @@ define([
             /**
              * The point defining the radius of the angle element. Alias for {@link Angle.prototype#radiuspoint}.
              * @type JXG.Point
-             * @name point
+             * @property point
              * @memberOf Angle.prototype
              */
             el.point = el.point2 = el.radiuspoint = points[0];
@@ -819,7 +819,7 @@ define([
             /**
              * Helper point for angles of type 'square'.
              * @type JXG.Point
-             * @name pointsquare
+             * @property pointsquare
              * @memberOf Angle.prototype
              */
             el.pointsquare = el.point3 = el.anglepoint = points[2];
@@ -861,7 +861,7 @@ define([
             /**
             * Set an angle to a prescribed value given in radians. This is only possible if the third point of the angle, i.e.
             * the anglepoint is a free point.
-            * @name setAngle
+            * @property setAngle
             * @function
             * @param {Number|Function} val Number or Function which returns the size of the angle in Radians
             * @return {Object} Pointer to the angle element..
@@ -884,7 +884,7 @@ define([
             /**
             * Frees an angle from a prescribed value. This is only relevant if the angle size has been set by
             * setAngle() previously. The anglepoint is set to a free point.
-            * @name free
+            * @property free
             * @function
             * @return {Object} Pointer to the angle element..
             * @memberOf Angle.prototype
@@ -996,7 +996,7 @@ define([
          * Though this dot indicates a right angle, it can be visible even if the angle is not a right
          * one.
          * @type JXG.Point
-         * @name dot
+         * @property dot
          * @memberOf Angle.prototype
          */
         attrsub = Type.copyAttributes(attributes, board.options, 'angle', 'dot');
@@ -1097,7 +1097,7 @@ define([
         /**
          * Returns the value of the angle in Radians.
          * @memberOf Angle.prototype
-         * @name Value
+         * @property Value
          * @function
          * @return {Number} The angle value in Radians
          */

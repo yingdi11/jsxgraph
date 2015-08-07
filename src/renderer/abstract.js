@@ -65,7 +65,7 @@ define([
     "use strict";
 
     /**
-     * <p>This class defines the interface to the graphics part of JSXGraph. This class is an abstract class, it
+     * This class defines the interface to the graphics part of JSXGraph. This class is an abstract class, it
      * actually does not render anything. This is up to the {@link JXG.SVGRenderer}, {@link JXG.VMLRenderer},
      * and {@link JXG.CanvasRenderer} classes. We strongly discourage you from using the methods in these classes
      * directly. Only the methods which are defined in this class and are not marked as private are guaranteed

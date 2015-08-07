@@ -68,7 +68,6 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
                  * Invokes setAttribute for every stored element with a setAttribute method and hands over the given arguments.
                  * See {@link JXG.GeometryElement#setAttribute} for further description, valid parameters and return values.
                  * @method setAttribute
-                 * @memberOf JXG.Composition.prototype
                  */
                 'setAttribute',
 
@@ -76,7 +75,6 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
                  * Invokes prepareUpdate for every stored element with a prepareUpdate method and hands over the given arguments.
                  * See {@link JXG.GeometryElement#prepareUpdate} for further description, valid parameters and return values.
                  * @method prepareUpdate
-                 * @memberOf JXG.Composition.prototype
                  */
                 'prepareUpdate',
 
@@ -84,7 +82,6 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
                  * Invokes updateRenderer for every stored element with a updateRenderer method and hands over the given arguments.
                  * See {@link JXG.GeometryElement#updateRenderer} for further description, valid parameters and return values.
                  * @method updateRenderer
-                 * @memberOf JXG.Composition.prototype
                  */
                 'updateRenderer',
 
@@ -92,7 +89,6 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
                  * Invokes update for every stored element with a update method and hands over the given arguments.
                  * See {@link JXG.GeometryElement#update} for further description, valid parameters and return values.
                  * @method update
-                 * @memberOf JXG.Composition.prototype
                  */
                 'update',
 
@@ -100,7 +96,6 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
                  * Invokes highlight for every stored element with a highlight method and hands over the given arguments.
                  * See {@link JXG.GeometryElement#highlight} for further description, valid parameters and return values.
                  * @method highlight
-                 * @memberOf JXG.Composition.prototype
                  */
                 'highlight',
 
@@ -108,7 +103,6 @@ define(['jxg', 'utils/type'], function (JXG, Type) {
                  * Invokes noHighlight for every stored element with a noHighlight method and hands over the given arguments.
                  * See {@link JXG.GeometryElement#noHighlight} for further description, valid parameters and return values.
                  * @method noHighlight
-                 * @memberOf JXG.Composition.prototype
                  */
                 'noHighlight'
             ],

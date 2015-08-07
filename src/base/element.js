@@ -352,7 +352,7 @@ define([
              * Type of the element.
              *
              * @property type
-             * @constant
+             * @final
              * @type number
              */
             this.type = type;
@@ -361,7 +361,7 @@ define([
              * Original type of the element at construction time. Used for removing glider property.
              *
              * @property _org_type
-             * @constant
+             * @final
              * @type number
              */
             this._org_type = type;
@@ -370,7 +370,7 @@ define([
              * The element's class.
              *
              * @property elementClass
-             * @constant
+             * @final
              * @type number
              */
             this.elementClass = oclass || Const.OBJECT_CLASS_OTHER;
@@ -1928,140 +1928,124 @@ define([
 
         //region Event handler documentation
         /**
-         * @event
-         * @description This event is fired whenever the user is hovering over an element.
-         * @name over
+         * This event is fired whenever the user is hovering over an element.
+         * @event over
          * @param {Event} e The browser's event object.
          */
         __evt__over: function (e) { },
 
         /**
-         * @event
-         * @description This event is fired whenever the user puts the mouse over an element.
-         * @name mouseover
+         * This event is fired whenever the user puts the mouse over an element.
+         * @event mouseover
          * @param {Event} e The browser's event object.
          */
         __evt__mouseover: function (e) { },
 
         /**
-         * @event
-         * @description This event is fired whenever the user is leaving an element.
-         * @name out
+         *
+         * This event is fired whenever the user is leaving an element.
+         * @event out
          * @param {Event} e The browser's event object.
          */
         __evt__out: function (e) { },
 
         /**
-         * @event
-         * @description This event is fired whenever the user puts the mouse away from an element.
-         * @name mouseout
+         * This event is fired whenever the user puts the mouse away from an element.
+         * @event mouseout
          * @param {Event} e The browser's event object.
          */
         __evt__mouseout: function (e) { },
 
         /**
-         * @event
-         * @description This event is fired whenever the user is moving over an element.
-         * @name move
+         * This event is fired whenever the user is moving over an element.
+         * @event move
          * @param {Event} e The browser's event object.
          */
         __evt__move: function (e) { },
 
         /**
-         * @event
-         * @description This event is fired whenever the user is moving the mouse over an element.
-         * @name mousemove
+         * This event is fired whenever the user is moving the mouse over an element.
+         * @event mousemove
          * @param {Event} e The browser's event object.
          */
         __evt__mousemove: function (e) { },
 
         /**
-         * @event
-         * @description This event is fired whenever the user drags an element.
-         * @name drag
+         * This event is fired whenever the user drags an element.
+         * @event drag
          * @param {Event} e The browser's event object.
          */
         __evt__drag: function (e) { },
 
         /**
-         * @event
-         * @description This event is fired whenever the user drags the element with a mouse.
-         * @name mousedrag
+         * This event is fired whenever the user drags the element with a mouse.
+         * @event mousedrag
          * @param {Event} e The browser's event object.
          */
         __evt__mousedrag: function (e) { },
 
         /**
-         * @event
-         * @description This event is fired whenever the user drags the element on a touch device.
-         * @name touchdrag
+         * This event is fired whenever the user drags the element on a touch device.
+         * @event touchdrag
          * @param {Event} e The browser's event object.
          */
         __evt__touchdrag: function (e) { },
 
         /**
-         * @event
-         * @description Whenever the user starts to touch or click an element.
-         * @name down
+         * Whenever the user starts to touch or click an element.
+         * @event down
          * @param {Event} e The browser's event object.
          */
         __evt__down: function (e) { },
 
         /**
-         * @event
-         * @description Whenever the user starts to click an element.
-         * @name mousedown
+         * Whenever the user starts to click an element.
+         * @event mousedown
          * @param {Event} e The browser's event object.
          */
         __evt__mousedown: function (e) { },
 
         /**
-         * @event
-         * @description Whenever the user starts to touch an element.
-         * @name touchdown
+         * Whenever the user starts to touch an element.
+         * @event touchdown
          * @param {Event} e The browser's event object.
          */
         __evt__touchdown: function (e) { },
 
         /**
-         * @event
-         * @description Whenever the user stops to touch or click an element.
-         * @name up
+         * Whenever the user stops to touch or click an element.
+         * @event up
          * @param {Event} e The browser's event object.
          */
         __evt__up: function (e) { },
 
         /**
-         * @event
-         * @description Whenever the user releases the mousebutton over an element.
-         * @name mouseup
+         * Whenever the user releases the mousebutton over an element.
+         * @event mouseup
          * @param {Event} e The browser's event object.
          */
         __evt__mouseup: function (e) { },
 
         /**
-         * @event
-         * @description Whenever the user stops touching an element.
-         * @name touchup
+         * Whenever the user stops touching an element.
+         * @event touchup
          * @param {Event} e The browser's event object.
          */
         __evt__touchup: function (e) {},
 
         /**
-         * @event
-         * @description Notify everytime an attribute is changed.
-         * @name attribute
+         * Notify everytime an attribute is changed.
+         * @event attribute
          * @param {Object} o A list of changed attributes and their new value.
          * @param {Object} el Reference to the element
          */
         __evt__attribute: function (o, el) {},
 
         /**
-         * @event
-         * @description This is a generic event handler. It exists for every possible attribute that can be set for
+         * This is a generic event handler. It exists for every possible attribute that can be set for
          * any element, e.g. if you want to be notified everytime an element's strokecolor is changed, is the event
          * <tt>attribute:strokecolor</tt>.
-         * @name attribute:<attribute>
+         * @event attribute:<attribute>
          * @param val The old value.
          * @param nval The new value
          * @param {Object} el Reference to the element

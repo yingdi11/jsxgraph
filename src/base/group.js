@@ -649,7 +649,7 @@ define([
          * Adds a point to the set of rotation points of the group. Dragging at one of these points results into a rotation of the whole group around
          * the rotation center of the group {@see JXG.Group#setRotationCenter}.
          *
-         * @addRotationPoint
+         * @method addRotationPoint
          * @param {JXG.Point} point {@link JXG.Point} element.
          * @return {JXG.Group} returns this group
          * @chainable

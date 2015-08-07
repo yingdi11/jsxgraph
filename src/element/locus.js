@@ -138,7 +138,7 @@ define([
                 /**
                  * The implicit definition of the locus.
                  * @memberOf Locus.prototype
-                 * @name eq
+                 * @property eq
                  * @type String
                  */
                 c.eq = eq;
@@ -146,7 +146,7 @@ define([
                 /**
                  * The time it took to calculate the locus
                  * @memberOf Locus.prototype
-                 * @name ctime
+                 * @property ctime
                  * @type Number
                  */
                 c.ctime = t;

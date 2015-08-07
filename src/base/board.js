@@ -247,7 +247,7 @@ define([
          * Zoom factor in Y direction. It only stores the zoom factor to be able
          * to get back to 100% in zoom100().
          * @type Number
-         * @zoomY
+         * @property zoomY
          */
         this.zoomY = zoomY;
 
@@ -353,7 +353,7 @@ define([
         /**
          * Number of objects ever created on this board. This includes every object, even invisible and deleted ones.
          * @type Number
-         * @numObjects
+         * @property numObjects
          */
         this.numObjects = 0;
 
@@ -765,11 +765,11 @@ define([
             }
         },
 
-        /**********************************************************
+        /*----------------------------------------------------
          *
          * Event Handler helpers
          *
-         **********************************************************/
+         ----------------------------------------------------*/
 
         /**
          * Calculates mouse coordinates relative to the boards container.
@@ -782,7 +782,7 @@ define([
                 docBody = this.document.body,
                 container = this.containerObj;
 
-            /**
+            /*
              * During drags and origin moves the container element is usually not changed.
              * Check the position of the upper left corner at most every 500 msecs
              */
@@ -909,7 +909,7 @@ define([
             // position of mouse cursor relative to containers position of container
             absPos = Env.getPosition(e, i, this.document);
 
-            /**
+            /*
              * In case there has been no down event before.
              */
             if (!Type.exists(this.cssTransMat)) {
@@ -1436,11 +1436,11 @@ define([
             this.mode = this.BOARD_MODE_NONE;
         },
 
-        /**********************************************************
+        /*---------------------------------------------------------
          *
          * Event Handler
          *
-         **********************************************************/
+         --------------------------------------------------------*/
 
         /**
          *  Add all possible event handlers to the board object
@@ -1578,7 +1578,7 @@ define([
 
         /**
          * Remove all registered touch event handlers.
-         * @handler removeTouchEventHandlers
+         * @method removeTouchEventHandlers
          */
         removeTouchEventHandlers: function () {
             if (this.hasTouchHandlers && Env.isBrowser) {
@@ -1705,9 +1705,9 @@ define([
             return false;
         },
 
-        /**
+        /*--------------------------------------
          * pointer-Events
-         */
+         --------------------------------------*/
 
         /**
          * This method is called by the browser when a pointing device is pressed on the screen.
@@ -1993,9 +1993,9 @@ define([
             return true;
         },
 
-        /**
+        /*--------------------------------------
          * Touch-Events
-         */
+         --------------------------------------*/
 
         /**
          * This method is called by the browser when a finger touches the surface of the touch-device.
@@ -2559,11 +2559,11 @@ define([
             return false;
         },
 
-        /**********************************************************
+        /*---------------------------------------------------------
          *
          * End of Event Handlers
          *
-         **********************************************************/
+         ----------------------------------------------------------*/
 
         /**
          * Updates and displays a little info box to show coordinates of current selected points.
@@ -4402,7 +4402,7 @@ define([
          */
         __evt__boundingbox: function () { },
 
-        /**
+        /*
          * @ignore
          */
         __evt: function () {},
@@ -4412,6 +4412,7 @@ define([
         /**
          * Function to animate a curve rolling on another curve.
          * @method Roulette
+         *
          * @pseudo
          * @param {Curve} c1 JSXGraph curve building the floor where c2 rolls
          * @param {Curve} c2 JSXGraph curve which rolls on c1.

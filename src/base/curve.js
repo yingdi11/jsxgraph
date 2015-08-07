@@ -48,7 +48,7 @@
    transform
  */
 
-/**
+/*
  * @fileoverview In this file the geometry element Curve is defined.
  */
 
@@ -214,7 +214,7 @@ define([
             y = checkPoint.usrCoords[2];
 
             if (this.transformations.length > 0) {
-                /**
+                /*
                  * Transform the mouse/touch coordinates
                  * back to the original position of the curve.
                  */
@@ -1315,7 +1315,7 @@ define([
                 this.Y = Type.createFunction(yterm, this.board, varname);
             }
 
-            /**
+            /*
              * Polar form
              * Input data is function xterm() and offset coordinates yterm
              */

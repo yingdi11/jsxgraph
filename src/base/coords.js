@@ -46,7 +46,7 @@ define([
 
     "use strict";
 
-    /**
+    /*
      * @fileoverview In this file the Coords object is defined, a class to manage all
      * properties and methods coordinates usually have.
      */
@@ -263,7 +263,10 @@ define([
         * Copy array, either `JXG.Coords.srcCoords` or `JXG.Coords.usrCoords`
         * Uses slice() in case of standard arrays and set() in case of
         * typed arrays.
+        *
+        * @method copy
         * @private
+        *
         * @param {Array} obj Either `JXG.Coords.srcCoords` or `JXG.Coords.usrCoords`
         * @param {Number} offset Offset, defaults to 0 if not given
         * @return {Array} Returns copy of the coords array either as standard array or as
@@ -285,7 +288,7 @@ define([
          */
         __evt__update: function (ou, os) { },
 
-        /**
+        /*
          * @ignore
          */
         __evt: function () {}

@@ -69,6 +69,8 @@ define([
 
     /**
      * Chart plotting
+     * @class JXG.Chart
+     * @constructor
      */
     JXG.Chart = function (board, parents, attributes) {
         this.constructor(board, attributes);
@@ -81,6 +83,8 @@ define([
 
         /**
          * Contains pointers to the various subelements of the chart.
+         * @property
+         * @ŧype Array
          */
         this.elements = [];
 

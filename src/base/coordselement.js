@@ -46,7 +46,7 @@
    transform
  */
 
-/**
+/*
  * @fileoverview The geometry object CoordsElement is defined in this file.
  * This object provides the coordinate handling of points, images and texts.
  */
@@ -1310,7 +1310,7 @@ define([
                 };
             }
 
-            /**
+            /*
             * We have to do an update. Otherwise, elements relying on this point will receive NaN.
             */
             this.prepareUpdate().update();
@@ -1588,7 +1588,7 @@ define([
                 dX = (where.usrCoords[1] - X),
                 dY = (where.usrCoords[2] - Y),
 
-                /** @ignore */
+                /* @ignore */
                 stepFun = function (i) {
                     if (options.effect && options.effect === '<>') {
                         return Math.pow(Math.sin((i / steps) * Math.PI / 2), 2);
@@ -1646,7 +1646,7 @@ define([
                 dX = (where.usrCoords[1] - X),
                 dY = (where.usrCoords[2] - Y),
 
-                /** @ignore */
+                /* @ignore */
                 stepFun = function (i) {
                     var x = (i < steps / 2 ? 2 * i / steps : 2 * (steps - i) / steps);
 

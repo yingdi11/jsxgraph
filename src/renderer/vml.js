@@ -51,7 +51,7 @@ define([
 
     /**
      * Uses VML to implement the rendering methods defined in {@link JXG.AbstractRenderer}.
-     * @class JXG.AbstractRenderer
+     * @class JXG.VMLRenderer
      * @extends JXG.AbstractRenderer
      * @param {Node} container Reference to a DOM node containing the board.
      * @see JXG.AbstractRenderer

@@ -80,7 +80,8 @@ define(['jxg', 'utils/encoding'], function (JXG, Encoding) {
 
     /**
      * Base64 routines
-     * @namespace
+     * @class JXG.Util.Base64
+     * @static
      */
     JXG.Util.Base64 = {
         /**

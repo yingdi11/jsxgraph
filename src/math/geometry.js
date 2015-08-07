@@ -55,7 +55,7 @@ define([
 
     /**
      * Math.Geometry namespace definition
-     * 
+     *
      * @class JXG.Math.Geometry
      * @static
      */
@@ -64,13 +64,13 @@ define([
 // the splitting is necessary due to the shortcut for the circumcircleMidpoint method to circumcenter.
 
     JXG.extend(Mat.Geometry, /** @lends JXG.Math.Geometry */ {
-        /****************************************/
-        /**** GENERAL GEOMETRIC CALCULATIONS ****/
-        /****************************************/
+        /*--------------------------------------*/
+        /*--- GENERAL GEOMETRIC CALCULATIONS ---*/
+        /*--------------------------------------*/
 
         /**
          * Calculates the angle (in radians) defined by the points A, B, C.
-         * 
+         *
          * @method angle
          * @param {JXG.Point,Array} A A point  or [x,y] array.
          * @param {JXG.Point,Array} B Another point or [x,y] array.
@@ -121,7 +121,7 @@ define([
 
         /**
          * Calculates the angle (in degrees) defined by the three points A, B, C if you're going from A to C around B counterclockwise.
-         * 
+         *
          * @method trueAngle
          * @param {JXG.Point,Array} A Point or [x,y] array
          * @param {JXG.Point,Array} B Point or [x,y] array
@@ -135,7 +135,7 @@ define([
 
         /**
          * Calculates the internal angle defined by the three points A, B, C if you're going from A to C around B counterclockwise.
-         * 
+         *
          * @method rad
          * @param {JXG.Point,Array} A Point or [x,y] array
          * @param {JXG.Point,Array} B Point or [x,y] array
@@ -184,7 +184,7 @@ define([
          * As a result, the bisection line is defined by two points:
          * Parameter B and the point with the coordinates calculated in this function.
          * Does not work for ideal points.
-         * 
+         *
          * @method angleBisector
          * @param {JXG.Point} A Point
          * @param {JXG.Point} B Point
@@ -232,7 +232,7 @@ define([
 
         /**
          * Reflects the point along the line.
-         * 
+         *
          * @method reflection
          * @param {JXG.Line} line Axis of reflection.
          * @param {JXG.Point} point Point to reflect.
@@ -268,7 +268,7 @@ define([
         /**
          * Computes the new position of a point which is rotated
          * around a second point (called rotpoint) by the angle phi.
-         * 
+         *
          * @method rotation
          * @param {JXG.Point} rotpoint Center of the rotation
          * @param {JXG.Point} point point to be rotated
@@ -300,7 +300,7 @@ define([
         /**
          * Calculates the coordinates of a point on the perpendicular to the given line through
          * the given point.
-         * 
+         *
          * @method perpendicular
          * @param {JXG.Line} line A line.
          * @param {JXG.Point} point Point which is projected to the line.
@@ -378,10 +378,10 @@ define([
 
         /**
          * Please use {@link JXG.Math.Geometry#circumcenter} instead.
-         * 
+         *
          * @method circumcenterMidpoint
          * @deprecated
-         * 
+         *
          */
         circumcenterMidpoint: function () {
             JXG.deprecated('Geometry.circumcenterMidpoint()', 'Geometry.circumcenter()');
@@ -390,7 +390,7 @@ define([
 
         /**
          * Calculates the center of the circumcircle of the three given points.
-         * 
+         *
          * @method circumcenter
          * @param {JXG.Point} point1 Point
          * @param {JXG.Point} point2 Point
@@ -421,7 +421,7 @@ define([
 
         /**
          * Calculates the euclidean norm for two given arrays of the same length.
-         * 
+         *
          * @method distance
          * @param {Array} array1 Array of Number
          * @param {Array} array2 Array of Number
@@ -447,7 +447,7 @@ define([
          * Calculates euclidean distance for two given arrays of the same length.
          * If one of the arrays contains a zero in the first coordinate, and the euclidean distance
          * is different from zero it is a point at infinity and we return Infinity.
-         * 
+         *
          * @method affineDistance
          * @param {Array} array1 Array containing elements of type number.
          * @param {Array} array2 Array containing elements of type number.
@@ -601,7 +601,7 @@ define([
          * A line can be a segment, a straight, or a ray. so it is not always delimited by point1 and point2
          * calcStraight determines the visual start point and end point of the line. A segment is only drawn
          * from start to end point, a straight line is drawn until it meets the boards boundaries.
-         * 
+         *
          * @method calcStraight
          * @param {JXG.Line} el Reference to a line object, that needs calculation of start and end point.
          * @param {JXG.Coords} point1 Coordinates of the point where line drawing begins. This value is calculated and
@@ -897,7 +897,7 @@ define([
         /**
          * The vectors <tt>p2-p1</tt> and <tt>i2-i1</tt> are supposed to be collinear. If their cosine is positive
          * they point into the same direction otherwise they point in opposite direction.
-         * 
+         *
          * @method isSameDir
          * @param {JXG.Coords} p1
          * @param {JXG.Coords} p2
@@ -927,7 +927,7 @@ define([
 
         /**
          * If you're looking from point "start" towards point "s" and can see the point "p", true is returned. Otherwise false.
-         * 
+         *
          * @method isSameDirection
          * @private
          * @param {JXG.Coords} start The point you're standing on.
@@ -969,14 +969,14 @@ define([
             return r;
         },
 
-        /****************************************/
-        /****          INTERSECTIONS         ****/
-        /****************************************/
+        /*--------------------------------------*/
+        /*---          INTERSECTIONS         ---*/
+        /*--------------------------------------*/
 
         /**
          * Generate the function which computes the coordinates of the intersection point.
          * Primarily used in {@link JXG.Point#createIntersectionPoint}.
-         * 
+         *
          * @method intersectionFunction
          * @param {JXG.Board} board object
          * @param {JXG.Line,JXG.Circle_JXG.Line,JXG.Circle_Number} el1,el2,i The result will be a intersection point on el1 and el2.
@@ -1068,7 +1068,7 @@ define([
         /**
          * Computes the intersection of a pair of lines, circles or both.
          * It uses the internal data array stdform of these elements.
-         * 
+         *
          * @method meet
          * @param {Array} el1 stdform of the first element (line or circle)
          * @param {Array} el2 stdform of the second element (line or circle)
@@ -1100,7 +1100,7 @@ define([
 
         /**
          * Intersection of the line with the board
-         * 
+         *
          * @method meetLineBoard
          * @param  {Array}     line   stdform of the line
          * @param  {JXG.Board} board  reference to a board.
@@ -1183,7 +1183,7 @@ define([
 
         /**
          * Intersection of two lines.
-         * 
+         *
          * @method meetLineLine
          * @param {Array} l1 stdform of the first line
          * @param {Array} l2 stdform of the second line
@@ -1207,7 +1207,7 @@ define([
 
         /**
          * Intersection of line and circle.
-         * 
+         *
          * @method meetLineCircle
          * @param {Array} lin stdform of the line
          * @param {Array} circ stdform of the circle
@@ -1263,7 +1263,7 @@ define([
 
         /**
          * Intersection of two circles.
-         * 
+         *
          * @method meetCircleCircle
          * @param {Array} circ1 stdform of the first circle
          * @param {Array} circ2 stdform of the second circle
@@ -1309,7 +1309,7 @@ define([
          * c1(t1) = c2(t2), i.e. (c1_x(t1)-c2_x(t2),c1_y(t1)-c2_y(t2)) = (0,0).
          *
          * Methods: segment-wise intersections (default) or generalized Newton method.
-         * 
+         *
          * @method meetCurveCurve
          * @param {JXG.Curve} c1 Curve, Line or Circle
          * @param {JXG.Curve} c2 Curve, Line or Circle
@@ -1338,7 +1338,7 @@ define([
         /**
          * Intersection of curve with line,
          * Order of input does not matter for el1 and el2.
-         * 
+         *
          * @method meetCurveLine
          * @param {JXG.Curve,JXG.Line} el1 Curve or Line
          * @param {JXG.Curve,JXG.Line} el2 Curve or Line
@@ -1425,9 +1425,9 @@ define([
          * Intersection of line and curve, continuous case.
          * Segments are treated as lines. Finding the nr-the intersection point
          * works for nr=0,1 only.
-         * 
+         *
          * BUG: does not respect cu.minX() and cu.maxX()
-         * 
+         *
          *
          * @method meetCurveLineContinuousOld
          * @private
@@ -1504,7 +1504,7 @@ define([
          * Intersection of line and curve, discrete case.
          * Segments are treated as lines.
          * Finding the nr-th intersection point should work for all nr.
-         * 
+         *
          * @method meetCurveLineDiscrete
          * @param {JXG.Curve} cu
          * @param {JXG.Line} li
@@ -1643,7 +1643,7 @@ define([
 
         /**
          * Intersection of two segments.
-         * 
+         *
          * @method meetSegmentSegment
          * @param {Array} p1 First point of segment 1 using homogeneous coordinates [z,x,y]
          * @param {Array} p2 Second point of segment 1 using homogeneous coordinates [z,x,y]
@@ -1673,14 +1673,14 @@ define([
             return [c, t, u];
         },
 
-        /****************************************/
-        /****   BEZIER CURVE ALGORITHMS      ****/
-        /****************************************/
+        /*--------------------------------------*/
+        /*---   BEZIER CURVE ALGORITHMS      ---*/
+        /*--------------------------------------*/
 
         /**
          * Splits a Bezier curve segment defined by four points into
          * two Bezier curve segments. Dissection point is t=1/2.
-         * 
+         *
          * @method _bezierSplit
          * @private
          * @param {Array} curve Array of four coordinate arrays of length 2 defining a
@@ -1705,7 +1705,7 @@ define([
         /**
          * Computes the bounding box [minX, maxY, maxX, minY] of a Bezier curve segment
          * from its control points.
-         * 
+         *
          * @method _bezierBbox
          * @private
          * @param {Array} curve Array of four coordinate arrays of length 2 defining a
@@ -1732,7 +1732,7 @@ define([
 
         /**
          * Decide if two Bezier curve segments overlap by comparing their bounding boxes.
-         * 
+         *
          * @method _bezierOverlap
          * @private
          * @param {Array} bb1 Bounding box of the first Bezier curve segment
@@ -1745,7 +1745,7 @@ define([
 
         /**
          * Append list of intersection points to a list.
-         * 
+         *
          * @method _bezierListConcat
          * @private
          */
@@ -1778,7 +1778,7 @@ define([
         /**
          * Find intersections of two Bezier curve segments by recursive subdivision.
          * Below maxlevel determine intersections by intersection line segments.
-         * 
+         *
          * @method _bezierMeetSubdivision
          * @param {Array} red Array of four coordinate arrays of length 2 defining the first
          * Bezier curve segment, i.e. [[x0,y0], [x1,y1], [x2,y2], [x3,y3]].
@@ -1837,7 +1837,7 @@ define([
         /**
          * Find intersections of Bezier curve segments with a line by recursive subdivision.
          * Below maxlevel determine intersections by intersection line segments.
-         * 
+         *
          * @method _bezierLineMeetSubdivision
          * @private
          * @param {Array} red Array of four coordinate arrays of length 2 defining the first
@@ -1892,7 +1892,7 @@ define([
 
         /**
          * Find the nr-th intersection point of two Bezier curve segments.
-         * 
+         *
          * @method meetBeziersegmentBeziersegment
          * @private
          * @param {Array} red Array of four coordinate arrays of length 2 defining the first
@@ -1929,7 +1929,7 @@ define([
 
         /**
          * Find the nr-th intersection point of two Bezier curves, i.e. curves with bezierDegree == 3.
-         * 
+         *
          * @method meetBezierCurveRedBlueSegments
          * @private
          * @param {JXG.Curve} red Curve with bezierDegree == 3
@@ -1987,11 +1987,11 @@ define([
 
         /**
          * Eval Bezier curve segment at value t.
-         * 
+         *
          * @method bezierSegmentEval
          * @param {Number} t value at which the curve is evaluated
          * @param {Array} curve THe Bezier curve given by four coordinate pairs
-         * @return {Array} Value of the Bezier curve at t given as Euclidean coordinates 
+         * @return {Array} Value of the Bezier curve at t given as Euclidean coordinates
          * in the form [1, x, y].
          */
         bezierSegmentEval: function (t, curve) {
@@ -2024,7 +2024,7 @@ define([
          * Generate the defining points of a 3rd degree bezier curve that approximates
          * a circle sector defined by three arrays A, B,C, each of length three.
          * The coordinate arrays are given in homogeneous coordinates.
-         * 
+         *
          * @method bezierArc
          * @param {Array} A First point
          * @param {Array} B Second point (intersection point)
@@ -2119,15 +2119,15 @@ define([
             return [dataX, dataY];
         },
 
-        /****************************************/
-        /****           PROJECTIONS          ****/
-        /****************************************/
+        /*--------------------------------------*/
+        /*---           PROJECTIONS          ---*/
+        /*--------------------------------------*/
 
         /**
          * Calculates the coordinates of the projection of a given point on a given circle. I.o.w. the
          * nearest one of the two intersection points of the line through the given point and the circles
          * center.
-         * 
+         *
          * @method projectPointToCircle
          * @param {JXG.Point,JXG.Coords} point Point to project or coords object to project.
          * @param {JXG.Circle} circle Circle on that the point is projected.
@@ -2166,7 +2166,7 @@ define([
         /**
          * Calculates the coordinates of the orthogonal projection of a given point on a given line. I.o.w. the
          * intersection point of the given line and its perpendicular through the given point.
-         * 
+         *
          * @method projectPointToLine
          * @param {JXG.Point} point Point to project.
          * @param {JXG.Line} line Line on that the point is projected.
@@ -2189,7 +2189,7 @@ define([
         /**
          * Calculates the coordinates of the orthogonal projection of a given coordinate array on a given line
          * segment defined by two coordinate arrays.
-         * 
+         *
          * @method projectCoordsToSegment
          * @param {Array} p Point to project.
          * @param {Array} q1 Start point of the line segment on that the point is projected.
@@ -2221,7 +2221,7 @@ define([
         /**
          * Finds the coordinates of the closest point on a Bezier segment of a
          * {@link JXG.Curve} to a given coordinate array.
-         * 
+         *
          * @method projectCoordsToBeziersegment
          * @param {Array} pos Point to project in homogeneous coordinates.
          * @param {JXG.Curve} curve Curve of type "plot" having Bezier degree 3.
@@ -2249,7 +2249,7 @@ define([
         /**
          * Calculates the coordinates of the projection of a given point on a given curve.
          * Uses {@link #projectCoordsToCurve}.
-         * 
+         *
          * @method projectPointToCurve
          * @param {JXG.Point} point Point to project.
          * @param {JXG.Curve} curve Curve on that the point is projected.
@@ -2276,7 +2276,7 @@ define([
          * Calculates the coordinates of the projection of a coordinates pair on a given curve. In case of
          * function graphs this is the
          * intersection point of the curve and the parallel to y-axis through the given point.
-         * 
+         *
          * @method projectCoordsToCurve
          * @param {Number} x coordinate to project.
          * @param {Number} y coordinate to project.
@@ -2399,7 +2399,7 @@ define([
         /**
          * Calculates the coordinates of the closest orthogonal projection of a given coordinate array onto the
          * border of a polygon.
-         * 
+         *
          * @method projectCoordsToPolygon
          * @param {Array} p Point to project.
          * @param {JXG.Polygon} pol Polygon element
@@ -2432,7 +2432,7 @@ define([
         /**
          * Calculates the coordinates of the projection of a given point on a given turtle. A turtle consists of
          * one or more curves of curveType 'plot'. Uses {@link #projectPointToCurve}.
-         * 
+         *
          * @method projectPointToTurtle
          * @param {JXG.Point} point Point to project.
          * @param {JXG.Turtle} turtle on that the point is projected.
@@ -2478,7 +2478,7 @@ define([
 
         /**
          * Trivial projection of a point to another point.
-         * 
+         *
          * @method projectPointToPoint
          * @param {JXG.Point} point Point to project (not used).
          * @param {JXG.Point} dest Point on that the point is projected.
@@ -2530,7 +2530,7 @@ define([
         /**
          * Calculates the distance of a point to a line. The point and the line are given by homogeneous
          * coordinates. For lines this can be line.stdform.
-         * 
+         *
          * @method distPointLine
          * @param {Array} point Homogeneous coordinates of a point.
          * @param {Array} line Homogeneous coordinates of a line ([C,A,B] where A*x+B*y+C*z=0).
@@ -2557,7 +2557,7 @@ define([
          * Helper function to create curve which displays a Reuleaux polygons.
          * @param {Array} points Array of points which should be the vertices of the Reuleaux polygon. Typically,
          * these point list is the array vrtices of a regular polygon.
-         * 
+         *
          * @method releauxPolygon
          * @param {Number} nr Number of vertices
          * @return {Array} An array containing the two functions defining the Reuleaux polygon and the two values

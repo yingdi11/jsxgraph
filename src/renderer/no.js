@@ -53,7 +53,8 @@ define(['jxg', 'renderer/abstract'], function (JXG, AbstractRenderer) {
     /**
      * This renderer draws nothing. It is intended to be used in environments where none of our rendering engines
      * are available, e.g. WebWorkers.
-     * @class JXG.AbstractRenderer
+     * @class JXG.NoRenderer
+     * @extends JXG.AbstractRenderer
      */
     JXG.NoRenderer = function () {
         /**

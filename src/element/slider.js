@@ -304,7 +304,7 @@ define([
          * @type JXG.Line
          */
         p3.baseline = l1;
-        
+
         /**
          * A line on top of the baseline, indicating the slider's progress.
          *

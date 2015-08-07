@@ -471,9 +471,10 @@ define([
 
         /**
          * Helper point
+         *
+         * @property point
          * @memberOf PerpendicularSegment.prototype
          * @type PerpendicularPoint
-         * @name point
          */
         pd.point = t;
 
@@ -838,7 +839,7 @@ define([
          * not even with visible set to <tt>true</tt>. Creating another line through this point would make that other line
          * parallel to the create parallel.
          * @memberOf Parallel.prototype
-         * @name point
+         * @property point
          * @type JXG.Point
          */
         pl.point = pp;
@@ -976,7 +977,7 @@ define([
              * A helper point used to create a normal to a {@link JXG.Line} object. For normals to circles or curves this
              * element is <tt>undefined</tt>.
              * @type JXG.Point
-             * @name point
+             * @property point
              * @memberOf Normal.prototype
              */
             l.point = pp;
@@ -1198,8 +1199,8 @@ define([
             /**
              * Helper point
              * @memberOf Bisector.prototype
-             * @type Point
-             * @name point
+             * @type JXG.Point
+             * @property point
              */
             l.point = p;
 
@@ -1320,15 +1321,15 @@ define([
         /**
          * First line.
          * @memberOf Bisectorlines.prototype
-         * @name line1
-         * @type Line
+         * @property line1
+         * @type JXG.Line
          */
 
         /**
          * Second line.
          * @memberOf Bisectorlines.prototype
-         * @name line2
-         * @type Line
+         * @property line2
+         * @type JXG.Line
          */
 
         ret = new Composition({line1: g1, line2: g2});
@@ -1623,7 +1624,7 @@ define([
              * The center of the incircle
              * @memberOf Incircle.prototype
              * @type Incenter
-             * @name center
+             * @property center
              */
             c.center = p;
 
@@ -2066,7 +2067,7 @@ define([
         /**
          * The point on the axis initially corresponding to the lower value of the interval.
          * @memberOf Integral.prototype
-         * @name baseLeft
+         * @property baseLeft
          * @type JXG.Point
          */
         p.baseLeft = pa_on_axis;
@@ -2074,7 +2075,7 @@ define([
         /**
          * The point on the axis initially corresponding to the higher value of the interval.
          * @memberOf Integral.prototype
-         * @name baseRight
+         * @property baseRight
          * @type JXG.Point
          */
         p.baseRight = pb_on_axis;
@@ -2082,7 +2083,7 @@ define([
         /**
          * The glider on the curve corresponding to the lower value of the interval.
          * @memberOf Integral.prototype
-         * @name curveLeft
+         * @property curveLeft
          * @type Glider
          */
         p.curveLeft = pa_on_curve;
@@ -2090,7 +2091,7 @@ define([
         /**
          * The glider on the axis corresponding to the higher value of the interval.
          * @memberOf Integral.prototype
-         * @name curveRight
+         * @property curveRight
          * @type Glider
          */
         p.curveRight = pb_on_curve;

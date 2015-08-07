@@ -1395,8 +1395,7 @@ define([
 
             /**
              * The ticks attached to the axis.
-             * @memberOf Axis.prototype
-             * @name defaultTicks
+             * @property defaultTicks
              * @type JXG.Ticks
              */
             el.defaultTicks = board.create('ticks', [el, dist], attr);
@@ -1730,7 +1729,6 @@ define([
      *
      * @class PolarLine
      * @pseudo
-     * @name
      * @extends JXG.Line
      * @constructor
      * @type JXG.Line

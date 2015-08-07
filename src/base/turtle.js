@@ -847,7 +847,7 @@ define([
          * Gives the lower bound of the parameter if the the turtle is treated as parametric curve.
          *
          * @method minX
-         * @retun {Number} 0
+         * @return {Number} 0
          */
         minX: function () {
             return 0;
