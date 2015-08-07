@@ -207,9 +207,8 @@ define([
     };
 
     /**
-
-     * Constructor for a perpendicular line
-     * .
+     * Constructor for a perpendicular line.
+     * 
      * A perpendicular is a composition of two elements: a line and a point. The line is orthogonal
      * to a given line and contains a given point.
      *
