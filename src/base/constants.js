@@ -50,8 +50,6 @@ define(['jxg'], function (JXG) {
 
     /**
      * Constants for JSXGraph
-     *
-     * @namespace JXG
      */
     constants = /** @lends JXG */ {
         // copyright, version, ...
