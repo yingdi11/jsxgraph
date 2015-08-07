@@ -101,14 +101,16 @@ define([
 
     JXG.extend(JXG.CanvasRenderer.prototype, /** @lends JXG.CanvasRenderer.prototype */ {
 
-        /* **************************
+        /* -------------------------------
          *   private methods only used
          *   in this renderer. Should
          *   not be called from outside.
-         * **************************/
+         * ------------------------------*/
 
         /**
          * Draws a filled polygon.
+         *
+         * @method _drawFilledPolygon
          * @param {Array} shape A matrix presented by a two dimensional array of numbers.
          * @see JXG.AbstractRenderer#makeArrows
          * @private
@@ -132,6 +134,8 @@ define([
 
         /**
          * Sets the fill color and fills an area.
+         *
+         * @method _fill
          * @param {JXG.GeometryElement} element An arbitrary JSXGraph element, preferably one with an area.
          * @private
          */
@@ -147,6 +151,8 @@ define([
 
         /**
          * Rotates a point around <tt>(0, 0)</tt> by a given angle.
+         *
+         * @method _rotatePoint
          * @param {Number} angle An angle, given in rad.
          * @param {Number} x X coordinate of the point.
          * @param {Number} y Y coordinate of the point.
@@ -162,6 +168,8 @@ define([
 
         /**
          * Rotates an array of points around <tt>(0, 0)</tt>.
+         *
+         * @method _rotateShape
          * @param {Array} shape An array of array of point coordinates.
          * @param {Number} angle The angle in rad the points are rotated by.
          * @return {Array} Array of array of two dimensional point coordinates.
@@ -185,6 +193,8 @@ define([
          * Sets color and opacity for filling and stroking.
          * type is the attribute from visProp and targetType the context[targetTypeStyle].
          * This is necessary, because the fill style of a text is set by the stroke attributes of the text element.
+         *
+         * @method _setColor
          * @param {JXG.GeometryElement} element Any JSXGraph element.
          * @param {String} [type='stroke'] Either <em>fill</em> or <em>stroke</em>.
          * @param {String} [targetType=type] (optional) Either <em>fill</em> or <em>stroke</em>.
@@ -247,6 +257,8 @@ define([
 
         /**
          * Sets color and opacity for drawing paths and lines and draws the paths and lines.
+         *
+         * @method _stroke
          * @param {JXG.GeometryElement} element An JSXGraph element with a stroke.
          * @private
          */
@@ -272,6 +284,8 @@ define([
 
         /**
          * Translates a set of points.
+         *
+         * @method _translateShape
          * @param {Array} shape An array of point coordinates.
          * @param {Number} x Translation in X direction.
          * @param {Number} y Translation in Y direction.
@@ -292,9 +306,9 @@ define([
             return rv;
         },
 
-        /* ******************************** *
+        /* -------------------------------- *
          *    Point drawing and updating    *
-         * ******************************** */
+         * -------------------------------- */
 
         // documented in AbstractRenderer
         drawPoint: function (el) {
@@ -419,9 +433,9 @@ define([
             this.drawPoint(el);
         },
 
-        /* ******************************** *
+        /* -------------------------------- *
          *           Lines                  *
-         * ******************************** */
+         * -------------------------------- */
 
         // documented in AbstractRenderer
         drawLine: function (el) {
@@ -510,9 +524,9 @@ define([
             this._stroke(ticks);
         },
 
-        /* **************************
+        /* --------------------------------
          *    Curves
-         * **************************/
+         * --------------------------------*/
 
         // documented in AbstractRenderer
         drawCurve: function (el) {
@@ -528,9 +542,9 @@ define([
             this.drawCurve(el);
         },
 
-        /* **************************
+        /* --------------------------------
          *    Circle related stuff
-         * **************************/
+         * -------------------------------*/
 
         // documented in AbstractRenderer
         drawEllipse: function (el) {
@@ -570,15 +584,15 @@ define([
             return this.drawEllipse(el);
         },
 
-        /* **************************
+        /* --------------------------------
          *    Polygon
-         * **************************/
+         * -------------------------------*/
 
         // nothing here, using AbstractRenderer implementations
 
-        /* **************************
+        /* --------------------------------
          *    Text related stuff
-         * **************************/
+         * -------------------------------*/
 
         // already documented in JXG.AbstractRenderer
         displayCopyright: function (str, fontSize) {
@@ -673,9 +687,9 @@ define([
             el.visPropOld.strokeopacity = o;
         },
 
-        /* **************************
+        /* --------------------------------
          *    Image related stuff
-         * **************************/
+         * -------------------------------*/
 
         // already documented in JXG.AbstractRenderer
         drawImage: function (el) {
@@ -748,9 +762,9 @@ define([
             return false;
         },
 
-        /* **************************
+        /* --------------------------------
          * Render primitive objects
-         * **************************/
+         * -------------------------------*/
 
         // documented in AbstractRenderer
         remove: function (shape) {
@@ -997,9 +1011,9 @@ define([
             }
         },
 
-        /* **************************
+        /* --------------------------------
          *  Set Attributes
-         * **************************/
+         * -------------------------------*/
 
         // documented in AbstractRenderer
         show: function (el) {
@@ -1064,9 +1078,9 @@ define([
             return this;
         },
 
-        /* **************************
+        /* --------------------------------
          * renderer control
-         * **************************/
+         * -------------------------------*/
 
         // documented in AbstractRenderer
         suspendRedraw: function (board) {
