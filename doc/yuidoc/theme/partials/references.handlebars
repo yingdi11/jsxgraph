@@ -1,0 +1,15 @@
+{{#if references}}
+    <h4>See also:</h4>
+    <ul>
+        {{#each references}}
+            <li>
+                {{#if resolved}}
+                    <a href="{{link}}">{{name}}</a>
+                {{else}}
+                    {{name}}
+                {{/if}}
+            </li>
+        {{/each}}
+    </ul>
+{{/if}}
+
