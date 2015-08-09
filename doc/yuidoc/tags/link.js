@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 /*
  Copyright 2015
  Matthias Ehmann,
@@ -29,43 +27,28 @@
  and <http://opensource.org/licenses/MIT/>.
  */
 
-var seeTags = require('./tags/see'),
-    linkTags = require('./tags/link');
+var _for = require('./common/for'),
+    _resolve = require('./common/resolve');
 
-function postProcess(json) {
-    seeTags.process(json);
-    linkTags.process(json);
+
+function replaceReference(json, item, name) {
+    var ref = _resolve.reference(json, item, name);
+
+    return ref.crossLink;
 }
 
-function run() {
-    var yuidoc, json, builder,
-        Y = require('yuidocjs'),
-        options = Y.Options(Y.Array(process.argv, 2));
-
-    options = Y.Project.init(options);
-
-    if (options.server) {
-        Y.Server.start(options);
-    } else {
-        yuidoc = (new Y.YUIDoc(options));
-
-        Y.DocParser.DIGESTERS['pseudo'] = function (tagname, value, target, block) {
-            target.pseudo = true;
+function processJSON(json) {
+    _for.eachItem(json, function (json, item) {
+        var replacer = function (match, substring) {
+            return replaceReference(json, item, substring);
         };
 
-        Y.DocParser.DIGESTERS['see'] = seeTags.digest;
-
-        json = yuidoc.run();
-
-        postProcess(json);
-
-        options = Y.Project.mix(json, options);
-
-        if (!options.parseOnly) {
-            builder = new Y.DocBuilder(options, json);
-            builder.compile();
+        if (item.description) {
+            item.description = item.description.replace(/{@link\s+(.*?)}/g, replacer);
         }
-    }
+    });
 }
 
-run();
+module.exports = {
+    process: processJSON
+};
