@@ -2,5 +2,10 @@
     "name": "JSXGraph",
     "description": "JSXGraph, an API for dynamic geometry with JavaScript",
     "version": "0.99.4",
-    "url": "http://jsxgraph.uni-bayreuth.de/docs"
+    "url": "http://jsxgraph.uni-bayreuth.de/docs",
+    "options": {
+        "paths": ["src/"],
+        "linkNatives": true,
+        "tabtospace": 4
+    }
 }
