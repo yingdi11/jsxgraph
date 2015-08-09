@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="{{projectAssets}}/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="{{projectAssets}}/css/main.css" id="site_styles">
     <link rel="icon" href="{{projectAssets}}/favicon.ico">
-    <script src="http://jsxgraph.uni-bayreuth.de/~alfred/jsxgraph/distrib/jsxgraphcore.js"></script>
-    <link rel="stylesheet" href="http://jsxgraph.uni-bayreuth.de/~alfred/jsxgraph/distrib/jsxgraph.css">
+    <script src="{{projectAssets}}/js/jsxgraphcore.js"></script>
+    <link rel="stylesheet" href="{{projectAssets}}/css/jsxgraph.css">
     <script src="{{yuiSeedUrl}}"></script>
 </head>
 <body class="yui3-skin-sam">
@@ -19,7 +19,6 @@
             {{#if projectLogo}}
                 <h1><img src="{{projectLogo}}" title="{{projectName}}"></h1>
             {{else}}
-                <!--<h1><img src="{{projectAssets}}/css/logo.png" title="{{projectName}}" width="117" height="52"></h1>-->
                 <h1><img src="{{projectAssets}}/css/logo_blue.png" title="{{projectName}}" width="117" height="52"></h1>
             {{/if}}
         </div>
