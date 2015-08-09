@@ -495,7 +495,7 @@ define([
          * updated. This enables us to be fast even on very slow devices.
          * @type Boolean
          * @default false
-         * @property reduecedUpdate
+         * @property reducedUpdate
          */
         this.reducedUpdate = false;
 
