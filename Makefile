@@ -3,7 +3,7 @@
 # build tools
 REQUIREJS=./node_modules/.bin/r.js
 UGLIFYJS=./node_modules/.bin/uglifyjs
-JSDOC=node doc/yuidoc/wrapper.js
+YUIDOC=node doc/yuidoc/wrapper.js
 LINT=./node_modules/.bin/jslint
 HINT=./node_modules/.bin/jshint
 JSTESTDRIVER=java -jar ./node_modules/jstestdriver/lib/jstestdriver.jar 
@@ -23,15 +23,14 @@ BUILD=build
 TMP=tmp
 BUILDBIN=$(BUILD)/bin
 BUILDREADERS=$(BUILDBIN)/readers
-JSDOCPLG=doc/jsdoc-tk/plugins
-JSDOCTPL=doc/jsdoc-tk/template
-JSDOCTPLSTAT=$(JSDOCTPL)/static
+YUIDOCTPL=doc/yuidoc/theme
+YUIDOCOUT=$(TMP)/docs
+YUIDOCASSETS=$(YUIDOCOUT)/assets
 
 # flags
 MKDIRFLAGS=-p
 RMFLAGS=-rf
-#JSDOCFLAGS=-p --destination $(TMP)/docs
-JSDOCFLAGS=--outdir $(TMP)/docs --themedir doc/yuidoc/theme
+YUIDOCFLAGS=--outdir $(YUIDOCOUT) --themedir $(YUIDOCTPL) --config doc/yuidoc/yuidoc.json
 
 ZIPFLAGS=-r
 JSTESTPORT=4224
@@ -85,17 +84,14 @@ docs: core core-min
 	$(MKDIR) $(MKDIRFLAGS) $(TMP)
 	$(MKDIR) $(MKDIRFLAGS) $(OUTPUT)
 
-	# update template related files
-	$(CP) distrib/jquery.min.js $(JSDOCTPLSTAT)/jquery.min.js
-	$(CP) $(BUILDBIN)/jsxgraphcore.min.js $(JSDOCTPLSTAT)/jsxgraphcore.js
-	$(CP) distrib/jsxgraph.css $(JSDOCTPLSTAT)/jsxgraph.css
-
-	# update the plugin
-	$(CP) $(JSDOCPLG)/*.js ./node_modules/jsdoc/plugins/
-
-	# run node-jsdoc
-	$(JSDOC) $(JSDOCFLAGS) src/
+	# run YUIDOC
+	$(YUIDOC) $(YUIDOCFLAGS) src/
 	#src/loadjsxgraph.js src/$(FILELIST).js
+
+	# update jsxgraph and jquery assets
+	$(CP) distrib/jquery.min.js $(YUIDOCASSETS)/js/jquery.min.js
+	$(CP) $(BUILDBIN)/jsxgraphcore.min.js $(YUIDOCASSETS)/js/jsxgraphcore.js
+	$(CP) distrib/jsxgraph.css $(YUIDOCASSETS)/css/jsxgraph.css
 
 	# zip -r tmp/docs.zip tmp/docs/
 	$(CD) $(TMP) && $(ZIP) $(ZIPFLAGS) docs.zip docs/
