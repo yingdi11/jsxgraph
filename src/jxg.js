@@ -71,6 +71,8 @@ define([], function () {
 
     /**
      * Copy all properties of the <tt>extension</tt> object to <tt>object</tt>.
+     * @method extend
+     * @for JXG
      * @param {Object} object
      * @param {Object} extension
      * @param {Boolean} [onlyOwn=false] Only consider properties that belong to extension itself, not any inherited properties.
@@ -101,12 +103,16 @@ define([], function () {
         /**
          * Store a reference to every board in this central list. This will at some point
          * replace JXG.JSXGraph.boards.
+         * @property boards
+         * @for JXG
          * @type Object
          */
         boards: {},
 
         /**
          * Store the available file readers in this structure.
+         * @property readers
+         * @for JXG
          * @type Object
          */
         readers: {},
@@ -114,6 +120,8 @@ define([], function () {
         /**
          * Associative array that keeps track of all constructable elements registered
          * via {@link JXG.JSXGraph.registerElement}.
+         * @property elements
+         * @for JXG
          * @type Object
          */
         elements: {},
@@ -121,6 +129,8 @@ define([], function () {
         /**
          * This registers a new construction element to JSXGraph for the construction via the {@link JXG.Board.create}
          * interface.
+         * @method registerElement
+         * @for JXG
          * @param {String} element The elements name. This is case-insensitive, existing elements with the same name
          * will be overwritten.
          * @param {Function} creator A reference to a function taking three parameters: First the board, the element is
@@ -134,6 +144,8 @@ define([], function () {
 
         /**
          * Register a file reader.
+         * @method extend
+         * @for registerReader
          * @param {function} reader A file reader. This object has to provide two methods: <tt>prepareString()</tt>
          * and <tt>read()</tt>.
          * @param {Array} ext
@@ -153,6 +165,8 @@ define([], function () {
         /**
          * Creates a shortcut to a method, e.g. {@link JXG.Board#createElement} is a shortcut to {@link JXG.Board#create}.
          * Sometimes the target is undefined by the time you want to define the shortcut so we need this little helper.
+         * @method shortcut
+         * @for JXG
          * @param {Object} object The object the method we want to create a shortcut for belongs to.
          * @param {String} fun The method we want to create a shortcut for.
          * @return {Function} A function that calls the given method.
@@ -166,6 +180,8 @@ define([], function () {
         /**
          * s may be a string containing the name or id of an element or even a reference
          * to the element itself. This function returns a reference to the element. Search order: id, name.
+         * @method getRef
+         * @for JXG
          * @param {JXG.Board} board Reference to the board the element belongs to.
          * @param {String} s String or reference to a JSXGraph element.
          * @return {Object} Reference to the object given in parameter object
@@ -179,6 +195,8 @@ define([], function () {
         /**
          * This is just a shortcut to {@link JXG.getRef}.
          * @deprecated Use {@link JXG.Board#select}.
+         * @method getReference
+         * @for JXG
          */
         getReference: function (board, s) {
             jxg.deprecated('JXG.getReference()', 'Board.select()');
@@ -188,6 +206,8 @@ define([], function () {
         /**
          * This method issues a warning to the developer that the given function is deprecated
          * and, if available, offers an alternative to the deprecated function.
+         * @method deprecated
+         * @for JXG
          * @param {String} what Describes the function that is deprecated
          * @param {String} [replacement] The replacement that should be used instead.
          */
@@ -205,6 +225,8 @@ define([], function () {
          * Outputs a warning via console.warn(), if available. If console.warn() is
          * unavailable this function will look for an HTML element with the id 'warning'
          * and append the warning to this element's innerHTML.
+         * @method warn
+         * @for JXG
          * @param {String} warning The warning text
          */
         warn: function (warning) {
@@ -218,6 +240,8 @@ define([], function () {
         /**
          * Add something to the debug log. If available a JavaScript debug console is used. Otherwise
          * we're looking for a HTML div with id "debug". If this doesn't exist, too, the output is omitted.
+         * @method debugInt
+         * @for JXG
          * @param s An arbitrary number of parameters.
          * @see JXG#debugWST
          */
@@ -238,6 +262,8 @@ define([], function () {
          * Add something to the debug log. If available a JavaScript debug console is used. Otherwise
          * we're looking for a HTML div with id "debug". If this doesn't exist, too, the output is omitted.
          * This method adds a stack trace (if available).
+         * @method debugWST
+         * @for JXG
          * @param s An arbitrary number of parameters.
          * @see JXG#debug
          */
@@ -252,6 +278,12 @@ define([], function () {
             }
         },
 
+        /**
+         * TODO
+         * @method debugLine
+         * @for JXG
+         * @param {Object} s Unused
+         */
         debugLine: function (s) {
             var e = new Error();
 
@@ -265,6 +297,8 @@ define([], function () {
         /**
          * Add something to the debug log. If available a JavaScript debug console is used. Otherwise
          * we're looking for a HTML div with id "debug". If this doesn't exist, too, the output is omitted.
+         * @method debug
+         * @for JXG
          * @param s An arbitrary number of parameters.
          * @see JXG#debugWST
          * @see JXG#debugLine
