@@ -102,6 +102,15 @@ docs: core core-min
 	# Test
 	$(CD) $(OUTPUT) && $(UNZIP) -o docs.zip
 
+yuidocs:
+	$(MKDIR) $(MKDIRFLAGS) $(TMP)
+	$(YUIDOC) $(YUIDOCFLAGS) src/
+
+	# update jsxgraph and jquery assets
+	$(CP) distrib/jquery.min.js $(YUIDOCASSETS)/js/jquery.min.js
+	$(CP) $(BUILDBIN)/jsxgraphcore.min.js $(YUIDOCASSETS)/js/jsxgraphcore.js
+	$(CP) distrib/jsxgraph.css $(YUIDOCASSETS)/css/jsxgraph.css
+	
 moodle: core core-min $(READERSOUT) 
 	$(MKDIR) $(MKDIRFLAGS) $(TMP)
 	$(MKDIR) $(MKDIRFLAGS) $(TMP)/jsxgraph

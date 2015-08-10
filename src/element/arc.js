@@ -72,13 +72,12 @@ define([
      * @param {JXG.Point_JXG.Point_JXG.Point} p1,p2,p3 The result will be an arc of a circle around p1 through p2. The arc is drawn
      * counter-clockwise from p2 to p3.
      * @example
-     *
      *     // Create an arc out of three free points
      *     var p1 = board.create('point', [2.0, 2.0]);
      *     var p2 = board.create('point', [1.0, 0.5]);
      *     var p3 = board.create('point', [3.5, 1.0]);
      *
-     *    var a = board.create('arc', [p1, p2, p3]);
+     *     var a = board.create('arc', [p1, p2, p3]);
      * <div id="114ef584-4a5e-4686-8392-c97501befb5b" style="width: 300px; height: 300px;"></div>
      * <script type="text/javascript">
      * (function () {
