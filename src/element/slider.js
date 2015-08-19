@@ -100,6 +100,7 @@ define([
     JXG.createSlider = function (board, parents, attributes) {
         var pos0, pos1, smin, start, smax, sdiff,
             p1, p2, l1, ticks, ti, startx, starty, p3, l2, t,
+            g,
             withText, withTicks, snapWidth, attr, precision, el;
 
         attr = Type.copyAttributes(attributes, board.options, 'slider');
@@ -115,7 +116,7 @@ define([
         // end point
         attr = Type.copyAttributes(attributes, board.options, 'slider', 'point2');
         p2 = board.create('point', parents[1],  attr);
-        board.create('group', [p1, p2]);
+        //g = board.create('group', [p1, p2]);
 
         // slide line
         attr = Type.copyAttributes(attributes, board.options, 'slider', 'baseline');
@@ -180,6 +181,7 @@ define([
 
         p3.methodMap = Type.deepCopy(p3.methodMap, {
             Value: 'Value',
+            setValue: 'setValue',
             smax: '_smax',
             smin: '_smin',
             setMax: 'setMax',
@@ -289,6 +291,7 @@ define([
          * @type JXG.Point
          */
         p3.point1 = p1;
+
         /**
          * End point of the base line.
          *

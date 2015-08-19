@@ -58,6 +58,10 @@ define([
                 this.board.removeObject(this.basepoint);
 
                 this.board.removeObject(this.label);
+
+                if (this.isPrivateTangent) {
+                    this.board.removeObject(this.tangent);
+                }
             },
             Value: function () {
                 return this.tangent.getSlope();
@@ -76,6 +80,9 @@ define([
      * @param {JXG.Line} t A tangent based on a glider on some object, e.g. curve, circle, line or turtle.
      *
      * **Variant 2:**
+     * @param {JXG.Point} p A glider on some element (curve, circle, line, ...).
+     *
+     * **Variant 3:**
      * @param {JXG.Line} li A line
      * @param {JXG.Point} p A point on that line.
      *  The user has to take care that the point is a member of the line.
@@ -102,6 +109,22 @@ define([
      * </script>
      *
      * @example
+     *     // Create a slopetriangle on a glider
+     *     var f = board.create('plot', ['sin(x)']),
+     *         g = board.create('glider', [1, 2, f]),
+     *         st = board.create('slopetriangle', [g]);
+     *
+     * <div id="64da7d87-6308-469a-b822-dfbf3bbb1fb0" style="width: 300px; height: 300px;"></div>
+     * <script type="text/javascript">
+     * (function () {
+     *   var board = JXG.JSXGraph.initBoard('64da7d87-6308-469a-b822-dfbf3bbb1fb0', {boundingbox: [-5, 5, 5, -5], axis: true, showcopyright: false, shownavigation: false}),
+     *   f = board.create('plot', ['sin(x)']),
+     *   g = board.create('glider', [1, 2, f]),
+     *   st = board.create('slopetriangle', [g]);
+     * })();
+     * </script>
+     *
+     * @example
      *     // Create a glider on a line and a slope triangle on that line
      *     var p1 = board.create('point', [-2, 3]),
      *         p2 = board.create('point', [2, -3]),
@@ -123,11 +146,18 @@ define([
      * </script>
      */
     JXG.createSlopeTriangle = function (board, parents, attributes) {
-        var el, tangent, tglide, glider, toppoint, baseline, basepoint, label, attr;
+        var el, tangent, tglide, glider, toppoint, baseline, basepoint, label, attr,
+            isPrivateTangent = false;
 
         if (parents.length === 1 && parents[0].type === Const.OBJECT_TYPE_TANGENT) {
             tangent = parents[0];
             tglide = tangent.glider;
+        } else if (parents.length === 1 && parents[0].type === Const.OBJECT_TYPE_GLIDER) {
+            tglide = parents[0];
+            attr = Type.copyAttributes(attributes, board.options, 'tangent');
+            attr.visivle = false;
+            tangent = board.create('tangent', [tglide], attr);
+            isPrivateTangent = true;
         } else if (parents.length === 2 &&
                 parents[0].elementClass === Const.OBJECT_CLASS_LINE && Type.isPoint(parents[1])) {
             tangent = parents[0];
@@ -157,6 +187,7 @@ define([
 
         el.Value = priv.Value;
         el.tangent = tangent;
+        el._isPrivateTangent = isPrivateTangent;
 
         attr = Type.copyAttributes(attributes, board.options, 'slopetriangle', 'label');
         label = board.create('text', [
