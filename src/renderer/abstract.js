@@ -374,9 +374,7 @@ define([
                 minlen = 10,
                 margin = null;
 
-            if (element.visProp.firstarrow || element.visProp.lastarrow) {
-                margin = -4;
-            }
+            margin = element.visProp.margin;
             Geometry.calcStraight(element, c1, c2, margin);
 
             d1x = d1y = d2x = d2y = 0.0;
@@ -656,7 +654,7 @@ define([
             var node, z, level;
 
             if (element.visProp.display === 'html' && Env.isBrowser) {
-                node = this.container.ownerDocument.createElement('div');
+                node = this.container.ownerDocument.createElement('div'); //createElementNS('http://www.w3.org/1999/xhtml', 'div'); //
                 node.style.position = 'absolute';
 
                 node.className = element.visProp.cssclass;
@@ -665,7 +663,7 @@ define([
                    is used to host the HTML. Then, conversion to canvas works also
                    for HTML text.
                  */
-                if (this.supportsForeignObject) {
+                if (!element.visProp.externalhtml && this.supportsForeignObject) {
                     level = element.visProp.layer;
                     if (!Type.exists(level)) { // trace nodes have level not set
                         level = 0;
@@ -813,7 +811,7 @@ define([
          * @see JXG.AbstractRenderer#updateInternalTextStyle
          */
         updateTextStyle: function (element, doHighlight) {
-            var fs, so, sc, css,
+            var fs, so, sc, css, node, list,
                 ev = element.visProp,
                 display = Env.isBrowser ? ev.display : 'internal';
 
@@ -832,11 +830,20 @@ define([
                 fs = Type.evaluate(element.visProp.fontsize);
                 if (element.visPropOld.fontsize !== fs) {
                     element.needsSizeUpdate = true;
+                    list = ['rendNode', 'rendNodeTag', 'rendNodeLabel'];
                     try {
-                        element.rendNode.style.fontSize = fs + 'px';
+                        for (node in list) {
+                            if (JXG.exists(element[list[node]])) {
+                                element[list[node]].style.fontSize = fs + 'px';
+                            }
+                        }
                     } catch (e) {
                         // IE needs special treatment.
-                        element.rendNode.style.fontSize = fs;
+                        for (node in list) {
+                            if (JXG.exists(element[list[node]])) {
+                                element[list[node]].style.fontSize = fs;
+                            }
+                        }
                     }
                     element.visPropOld.fontsize = fs;
                 }

@@ -2112,6 +2112,7 @@ define([
 
                         } else if (obj.elementClass === Const.OBJECT_CLASS_LINE ||
                                 obj.elementClass === Const.OBJECT_CLASS_CIRCLE ||
+                                obj.elementClass === Const.OBJECT_CLASS_CURVE ||
                                 obj.type === Const.OBJECT_TYPE_POLYGON) {
                             found = false;
 
@@ -3231,7 +3232,6 @@ define([
 
             return this;
         },
-
 
         /**
          * Removes the ancestors of an object an the object itself from board and renderer.

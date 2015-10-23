@@ -1119,6 +1119,7 @@ define([
             straightFirst: true,
             straightLast: true,
             lastArrow: true,
+            margin: -4,
             withLabel: false,
             scalable: false,
 
@@ -1251,7 +1252,18 @@ define([
              * @type Boolean
              * @default false
              */
-            disabled: false
+            disabled: false,
+
+            /**
+             * If true, the element is not placed into a foreignObject element.
+             * Instead, the element is placed into a separate HTML div element "above"
+             * the JSXGraph construction.
+             * This is necessary to enable interaction.
+             * The drawback is that a SVG export will not display this element.
+             *
+             * @type {Boolean}
+             */
+            externalHTML: true
 
             /**#@-*/
         },
@@ -1288,7 +1300,18 @@ define([
              * @type Boolean
              * @default false
              */
-            disabled: false
+            disabled: false,
+
+            /**
+             * If true, the element is not placed into a foreignObject element.
+             * Instead, the element is placed into a separate HTML div element "above"
+             * the JSXGraph construction.
+             * This is necessary to enable interaction.
+             * The drawback is that a SVG export will not display this element.
+             *
+             * @type {Boolean}
+             */
+            externalHTML: true
 
             /**#@-*/
         },
@@ -1846,7 +1869,18 @@ define([
              * @type Boolean
              * @default false
              */
-            disabled: false
+            disabled: false,
+
+            /**
+             * If true, the element is not placed into a foreignObject element.
+             * Instead, the element is placed into a separate HTML div element "above"
+             * the JSXGraph construction.
+             * This is necessary to enable interaction.
+             * The drawback is that a SVG export will not display this element.
+             *
+             * @type {Boolean}
+             */
+            externalHTML: true
 
             /**#@-*/
         },
@@ -1949,6 +1983,15 @@ define([
              * @default false
              */
             lastArrow: false,
+
+            /**
+             * This number (pixel value) controls where infinite lines end at the canvas border. If zero, the line
+             * ends exactly at the border, if negative there is a margin to the inside, if positive the line
+             * ends outside of the canvas (which is invisible).
+             * @type {Number}
+             * @default 0
+             */
+            margin: 0,
 
             /**
              * If true, line stretches infinitely in direction of its first point.
@@ -2920,6 +2963,20 @@ define([
             },
 
             /**
+             * Attributes for the tangent.
+             * The tangent is constructed by slop triangle if the construction
+             * is based on a glider, solely.
+             *
+             * @type Line
+             * @name Slopetriangle#tangent
+             */
+            tangent: {
+                visible: false,
+                withLabel: false,
+                name: ''
+            },
+
+            /**
              * Attributes for the top point.
              *
              * @type Point
@@ -3155,6 +3212,17 @@ define([
              * @type String
              */
             display: 'html',
+
+            /**
+             * If true, the element is not placed into a foreignObject element.
+             * Instead, the element is placed into a separate HTML div element "above"
+             * the JSXGraph construction.
+             * This is necessary to enable interaction.
+             * The drawback is that a SVG export will not display this element.
+             *
+             * @type {Boolean}
+             */
+            externalHTML: true,
 
             /**
              * Anchor element {@link Point}, {@link Text} or {@link Image} of the text. If it exists, the coordinates of the text are relative
