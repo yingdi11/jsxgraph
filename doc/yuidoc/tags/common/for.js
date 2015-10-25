@@ -49,6 +49,10 @@ function forEachModule(json, handler) {
     forEach('modules', json, handler);
 }
 
+function forEachElement(json, handler) {
+    forEach('elements', json, handler);
+}
+
 function forEachClassItem(json, handler) {
     var i, itemData,
         items = json.classitems;
@@ -64,11 +68,13 @@ function forEachClassItem(json, handler) {
 function forEachItem(json, handler) {
     forEachModule(json, handler);
     forEachClass(json, handler);
+    forEachElement(json, handler);
     forEachClassItem(json, handler);
 }
 
 module.exports = {
     eachClass: forEachClass,
+    eachElement: forEachElement,
     eachModule: forEachModule,
     eachClassItem: forEachClassItem,
     eachItem: forEachItem
