@@ -965,7 +965,7 @@ define([
      * a line can be used as an arrow and/or axis.
      * @pseudo
      *
-     * @class Line
+     * @element Line
      * @extends JXG.Line
      * @constructor
      * @type JXG.Line
@@ -1201,7 +1201,7 @@ define([
      * and {@link JXG.Line#straightLast} properties set to false. If there is a third variable then the
      * segment has a fixed length (which may be a function, too).
      *
-     * @class Segment
+     * @element Segment
      * @pseudo
      * @extends JXG.Line
      * @constructor
@@ -1299,7 +1299,7 @@ define([
     /**
      * This element is used to provide a constructor for arrow, which is just a wrapper for element {@link Line} with {@link JXG.Line#straightFirst}
      * and {@link JXG.Line#straightLast} properties set to false and {@link JXG.Line#lastArrow} set to true.
-     * @class Arrow
+     * @element Arrow
      * @pseudo
      * @description
      * @extends JXG.Line
@@ -1345,7 +1345,7 @@ define([
      * This element is used to provide a constructor for an axis. It's strictly spoken just a wrapper for element {@link Line} with {@link JXG.Line#straightFirst}
      * and {@link JXG.Line#straightLast} properties set to true. Additionally {@link JXG.Line#lastArrow} is set to true and default {@link Ticks} will be created.
      *
-     * @class Axis
+     * @element Axis
      * @pseudo
      * @extends JXG.Line
      * @constructor
@@ -1421,7 +1421,7 @@ define([
      * With the element tangent the slope of a line, circle, or curve in a certain point can be visualized. A tangent is always constructed
      * by a glider on a line, circle, or curve and describes the tangent in the glider point on that line, circle, or curve.
 
-     * @class Tangent
+     * @element Tangent
      * @pseudo
      * @extends JXG.Line
      * @constructor
@@ -1657,7 +1657,7 @@ define([
      * When a circle about the midpoint of circle centers, passing through the circle centers, intersects the circles, the polar lines pass through those intersection points.
      *
      * @pseudo
-     * @class RadicalAxis
+     * @element RadicalAxis
      * @extends JXG.Line
      * @constructor
      * @type JXG.Line
@@ -1727,7 +1727,7 @@ define([
      * A point on a conic has the polar line of that point with respect to that conic as the tangent line to that conic at that point.
      * See {@link http://en.wikipedia.org/wiki/Pole_and_polar} for more information on pole and polar.
      *
-     * @class PolarLine
+     * @element PolarLine
      * @pseudo
      * @extends JXG.Line
      * @constructor

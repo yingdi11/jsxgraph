@@ -905,7 +905,7 @@ define([
      * This element is used to provide a constructor for a turtle.
      *
      * @pseudo
-     * @class Turtle
+     * @element Turtle
      * @extends JXG.Turtle
      * @constructor
      * @type JXG.Turtle

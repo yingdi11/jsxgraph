@@ -481,7 +481,7 @@ define([
      * A transformation consists of a 3x3 matrix, i.e. it is a projective transformation.
      * 
      * @pseudo
-     * @class Transformation
+     * @element Transformation
      * @extends JXG.Transformation
      * @constructor
      * @type JXG.Transformation

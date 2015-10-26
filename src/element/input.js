@@ -61,7 +61,7 @@ define([
      *
      * @pseudo
      * @description
-     * @class Input
+     * @element Input
      * @extends Text
      * @constructor
      * @type JXG.Text

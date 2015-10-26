@@ -1514,7 +1514,7 @@ define([
      *  * polar curves: curves commonly written with polar equations like spirals and cardioids.
      *  * data plots: plot line segments through a given list of coordinates.
      *
-     * @class Curve
+     * @element Curve
      * @pseudo
      * @extends JXG.Curve
      * @constructor
@@ -1653,7 +1653,7 @@ define([
      * This element is used to provide a constructor for functiongraph, which is just a wrapper for element {@link Curve} with {@link JXG.Curve#X()}
      * set to x. The graph is drawn for x in the interval [a,b].
      * @pseudo
-     * @class Functiongraph
+     * @element Functiongraph
      * @extends JXG.Curve
      * @constructor
      * @type JXG.Curve
@@ -1795,7 +1795,7 @@ define([
      * The returned element has the method Value() which returns the sum of the areas of the bars.
      *
      * @pseudo
-     * @class Riemannsum
+     * @element Riemannsum
      * @extends JXG.Curve
      * @constructor
      * @type JXG.Curve
@@ -1912,7 +1912,7 @@ define([
      * which is realized as a special curve.
      *
      * @pseudo
-     * @class Tracecurve
+     * @element Tracecurve
      * @extends JXG.Curve
      * @constructor
      * @type JXG.Curve
@@ -2062,7 +2062,7 @@ define([
      * they can be accessed by `curve.xterm` and `curve.yterm`.
      *
      * @pseudo
-     * @class Stepfunction
+     * @element Stepfunction
      * @extends JXG.Curve
      * @constructor
      * @type JXG.Curve

@@ -66,7 +66,7 @@ define([
      *
      * @pseudo
      * @description
-     * @class Slider
+     * @element Slider
      * @extends Glider
      * @constructor
      * @type JXG.Point

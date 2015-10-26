@@ -65,7 +65,7 @@ define([
      *
      * @pseudo
      * @constructor
-     * @class Locus
+     * @element Locus
      * @type JXG.Curve
      * @extends JXG.Curve
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.

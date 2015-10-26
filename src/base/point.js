@@ -336,7 +336,7 @@ define([
      * position directly.
      *
      * @pseudo
-     * @class  Point
+     * @element  Point
      * @extends JXG.Point
      * @constructor
      * @type JXG.Point
@@ -409,7 +409,7 @@ define([
      * A glider is a point which lives on another geometric element like a line, circle, curve, turtle.
      *
      * @pseudo
-     * @class Glider
+     * @element Glider
      * @extends JXG.Point
      * @constructor
      * @type JXG.Point
@@ -474,7 +474,7 @@ define([
      * an intersection point of the two elements.
      *
      * @pseudo
-     * @class Intersection
+     * @element Intersection
      * @extends JXG.Point
      * @constructor
      * @type JXG.Point
@@ -574,7 +574,7 @@ define([
      *
      * @pseudo
      * @description
-     * @class OtherIntersection
+     * @element OtherIntersection
      * @extends JXG.Point
      * @constructor
      * @type JXG.Point
@@ -666,7 +666,7 @@ define([
      * See {@link http://en.wikipedia.org/wiki/Pole_and_polar} for more information on pole and polar.
      *
      * @pseudo
-     * @class PolePoint
+     * @element PolePoint
      * @extends JXG.Point
      * @constructor
      * @type JXG.Point

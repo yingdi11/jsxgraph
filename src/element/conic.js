@@ -59,7 +59,7 @@ define([
      * This element is used to provide a constructor for an ellipse. An ellipse is given by two points (the foci) and a third point on the the ellipse or
      * the length of the major axis.
      * @pseudo
-     * @class Ellipse
+     * @element Ellipse
      * @extends Conic
      * @constructor
      * @type JXG.Curve
@@ -278,7 +278,7 @@ define([
      * This element is used to provide a constructor for an hyperbola. An hyperbola is given by two points (the foci) and a third point on the the hyperbola or
      * the length of the major axis.
      * @pseudo
-     * @class Hyperbola
+     * @element Hyperbola
      * @extends Conic
      * @constructor
      * @type JXG.Curve
@@ -466,7 +466,7 @@ define([
      * This element is used to provide a constructor for a parabola. A parabola is given by one point (the focus) and a line (the directrix).
      *
      * @pseudo
-     * @class Parabola
+     * @element Parabola
      * @extends Conic
      * @constructor
      * @type JXG.Curve
@@ -632,7 +632,7 @@ define([
      *
      * This element is used to provide a constructor for a generic conic section uniquely defined by five points.
      * @pseudo
-     * @class Conic
+     * @element Conic
      * @extends JXG.Curve
      * @constructor
      * @type JXG.Conic

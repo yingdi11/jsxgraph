@@ -72,7 +72,7 @@ define([
      * Slope triangle for a point on a line.
      *
      * @pseudo
-     * @class Slopetriangle
+     * @element Slopetriangle
      * @extends JXG.Line
      * @constructor
      * @type JXG.Polygon

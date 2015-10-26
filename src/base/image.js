@@ -298,7 +298,7 @@ define([
     /**
      * Displays an image.
      * @pseudo
-     * @class Image
+     * @element Image
      * @type JXG.Image
      * @extends JXG.Image
      * @constructor

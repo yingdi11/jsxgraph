@@ -862,7 +862,7 @@ define([
      * Each two consecutive points of the list define a line.
      * 
      * @pseudo
-     * @class Polygon
+     * @element Polygon
      * @constructor
      * @type Polygon
      * @extends JXG.Polygon
@@ -943,7 +943,7 @@ define([
     /**
      * Constructs a regular polygon. It needs two points which define the base line and the number of vertices, or a set of points.
      * 
-     * @class RegularPolygon
+     * @element RegularPolygon
      * @pseudo
      * @constructor
      * @type Polygon

@@ -768,7 +768,7 @@ define([
      *
      * MathJaX, HTML and GEONExT syntax can be handled.
      * @pseudo
-     * @class Text
+     * @element Text
      * @extends JXG.Text
      * @constructor
      * @type JXG.Text

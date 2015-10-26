@@ -64,7 +64,7 @@ define([
      * defines the radius, and a third point that defines the angle of the arc.
      *
      * @pseudo
-     * @class Arc
+     * @element Arc
      * @extends Curve
      * @constructor
      * @type JXG.Curve
@@ -367,7 +367,7 @@ define([
      * A semicircle is a special arc defined by two points. The arc hits both points.
      *
      * @pseudo
-     * @class  Semicircle
+     * @element  Semicircle
      * @extends Arc
      * @constructor
      * @type Arc
@@ -429,7 +429,7 @@ define([
     /**
      * A circumcircle arc is an {@link Arc} defined by three points. All three points lie on the arc.
      * @pseudo
-     * @class CircumcircleArc
+     * @element CircumcircleArc
      * @extends Arc
      * @constructor
      * @type Arc
@@ -499,7 +499,7 @@ define([
      * defines the radius, and a third point that defines the angle of the arc.
      *
      * @pseudo
-     * @class  MinorArc
+     * @element  MinorArc
      * @extends Curve
      * @constructor
      * @type JXG.Curve
@@ -537,7 +537,7 @@ define([
      * defines the radius, and a third point that defines the angle of the arc.
      *
      * @pseudo
-     * @class  MajorArc
+     * @element  MajorArc
      * @extends Curve
      * @constructor
      * @type JXG.Curve

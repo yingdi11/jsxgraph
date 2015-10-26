@@ -58,7 +58,7 @@ define([
      * A circular sector is a subarea of the area enclosed by a circle. It is enclosed by two radii and an arc.
      *
      * @pseudo
-     * @class Sector
+     * @element Sector
      * @extends JXG.Curve
      * @constructor
      * @type JXG.Curve
@@ -554,7 +554,7 @@ define([
      * <tt>p2</tt> to <tt>p3</tt>.
      *
      * @pseudo
-     * @class CircumcircleSector
+     * @element CircumcircleSector
      * @extends Sector
      * @constructor
      * @type Sector
@@ -619,7 +619,7 @@ define([
      * defines the radius, and a third point that defines the angle of the sector.
      *
      * @pseudo
-     * @class MinorSector
+     * @element MinorSector
      * @extends Curve
      * @constructor
      * @type JXG.Curve
@@ -698,7 +698,7 @@ define([
      * If no name is provided the angle label is automatically set to a lower greek letter.
      *
      * @pseudo
-     * @class Angle
+     * @element Angle
      * @extends Sector
      * @constructor
      * @type Sector
@@ -1122,7 +1122,7 @@ define([
      * defines the radius, and a third point that defines the angle of the sector.
      *
      * @pseudo
-     * @class NonReflexAngle
+     * @element NonReflexAngle
      * @extends Angle
      * @constructor
      * @type Sector
@@ -1170,7 +1170,7 @@ define([
      * defines the radius, and a third point that defines the angle of the sector.
      *
      * @pseudo
-     * @class ReflexAngle
+     * @element ReflexAngle
      * @extends Angle
      * @constructor
      * @type Sector

@@ -62,7 +62,7 @@ define([
      * This element is used to provide a constructor for special texts containing a form button element.
      *
      * @pseudo
-     * @class Button
+     * @element Button
      * @extends Text
      * @constructor
      * @type JXG.Text

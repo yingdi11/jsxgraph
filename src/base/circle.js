@@ -756,7 +756,7 @@ define([
      * line, or circle).
      *
      * @pseudo
-     * @class Circle
+     * @element Circle
      * @extends JXG.Circle
      * @constructor
      * @type JXG.Circle

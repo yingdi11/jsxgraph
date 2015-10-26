@@ -878,7 +878,7 @@ define([
      *
      *
      * @pseudo
-     * @class Group
+     * @element Group
      * @extends JXG.Group
      * @constructor
      * @type JXG.Group

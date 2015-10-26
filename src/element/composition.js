@@ -90,7 +90,7 @@ define([
      *
      * @pseudo
      * @constructor
-     * @class Orthogonalprojection
+     * @element Orthogonalprojection
      * @type JXG.Point
      * @extends JXG.Point
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -213,7 +213,7 @@ define([
      * to a given line and contains a given point.
      *
      * @pseudo
-     * @class Perpendicular
+     * @element Perpendicular
      * @constructor
      * @type JXG.Line
      * @extends Segment
@@ -288,7 +288,7 @@ define([
      * This construction may differ from Orthogonalprojection if the point lies on the line.
      * @pseudo
      * @constructor
-     * @class PerpendicularPoint
+     * @element PerpendicularPoint
      * @type JXG.Point
      * @extends JXG.Point
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -406,7 +406,7 @@ define([
      * to a given line and contains a given point and meets the given line in the perpendicular point.
      *
      * @pseudo
-     * @class PerpendicularSegment
+     * @element PerpendicularSegment
      * @constructor
      * @type JXG.Line
      * @extends Segment
@@ -494,7 +494,7 @@ define([
      *
      * @pseudo
      * @constructor
-     * @class Midpoint
+     * @element Midpoint
      * @type JXG.Point
      * @extends JXG.Point
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -618,7 +618,7 @@ define([
      *
      * @pseudo
      * @constructor
-     * @class Parallelpoint
+     * @element Parallelpoint
      * @type JXG.Point
      * @extends JXG.Point
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -754,7 +754,7 @@ define([
      * A parallel is a line through a given point with the same slope as a given line.
      *
      * @pseudo
-     * @class Parallel
+     * @element Parallel
      * @extends Line
      * @constructor
      * @type JXG.Line
@@ -851,7 +851,7 @@ define([
      *
      * @pseudo
      * @constructor
-     * @class Arrowparallel
+     * @element Arrowparallel
      * @type Parallel
      * @extends Parallel
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -903,7 +903,7 @@ define([
      *
      * @pseudo
      * @constructor
-     * @class Normal
+     * @element Normal
      * @type JXG.Line
      * @extends JXG.Line
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -1144,7 +1144,7 @@ define([
      *
      * @pseudo
      * @constructor
-     * @class Bisector
+     * @element Bisector
      * @type JXG.Line
      * @extends JXG.Line
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -1222,7 +1222,7 @@ define([
      * a composition of two lines.
      * @pseudo
      * @constructor
-     * @class Bisectorlines
+     * @element Bisectorlines
      * @type JXG.Composition
      * @extends JXG.Composition
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -1355,7 +1355,7 @@ define([
      *
      * @pseudo
      * @constructor
-     * @class Circumcenter
+     * @element Circumcenter
      * @type JXG.Point
      * @extends JXG.Point
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -1440,7 +1440,7 @@ define([
      *
      * @pseudo
      * @constructor
-     * @class Incenter
+     * @element Incenter
      * @type JXG.Point
      * @extends JXG.Point
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -1499,7 +1499,7 @@ define([
      *
      * @pseudo
      * @constructor
-     * @class Circumcircle
+     * @element Circumcircle
      * @type JXG.Circle
      * @extends JXG.Circle
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -1565,7 +1565,7 @@ define([
      *
      * @pseudo
      * @constructor
-     * @class Incircle
+     * @element Incircle
      * @type JXG.Circle
      * @extends JXG.Circle
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -1649,7 +1649,7 @@ define([
      *
      * @pseudo
      * @constructor
-     * @class Reflection
+     * @element Reflection
      * @type JXG.Point
      * @extends JXG.Point
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -1737,7 +1737,7 @@ define([
      *
      * @pseudo
      * @constructor
-     * @class Mirrorpoint
+     * @element Mirrorpoint
      * @type JXG.Point
      * @extends JXG.Point
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -1795,7 +1795,7 @@ define([
      *
      * @pseudo
      * @constructor
-     * @class Integral
+     * @element Integral
      * @type JXG.Curve
      * @extends JXG.Curve
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -2122,7 +2122,7 @@ define([
      *
      * @pseudo
      * @constructor
-     * @class Grid
+     * @element Grid
      * @type JXG.Curve
      * @extends JXG.Curve
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.
@@ -2244,7 +2244,7 @@ define([
      * @param {JXG.Line} l The area drawn will be the area below this line. With the attribute
      * inverse:true, the inequality 'greater than or equal to' is shown.
      * @constructor
-     * @class Inequality
+     * @element Inequality
      * @type JXG.Curve
      * @extends JXG.Curve
      * @throws {Error} If the element cannot be constructed with the given parent objects an exception is thrown.

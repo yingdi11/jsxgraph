@@ -1017,7 +1017,7 @@ define([
      * The class `Ticks` provides methods for creation and management
      * of ticks on a line element.
      *
-     * @class Ticks
+     * @element Ticks
      * @pseudo
      * @extends JXG.Ticks
      * @constructor
@@ -1078,7 +1078,7 @@ define([
      * Hashes can be used to mark congruent lines.
      *
      * @pseudo
-     * @class Hatch
+     * @element Hatch
      * @extends JXG.Ticks
      * @constructor
      * @type JXG.Ticks

@@ -59,7 +59,7 @@ define([
      * A tape measure can be used to measure distances between points.
      *
      * @pseudo
-     * @class Tapemeasure
+     * @element Tapemeasure
      * @extends Segment
      * @constructor
      * @type JXG.Segment
