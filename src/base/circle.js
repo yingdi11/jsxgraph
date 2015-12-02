@@ -324,7 +324,7 @@ define([
 
                 rsq = '((' + p1 + ')-(' + m1 + '))^2 + ((' + p2 + ')-(' + m2 + '))^2';
             } else if (this.method === "pointRadius") {
-                if (typeof this.radius === 'number') {
+                if (Type.isNumber(this.radius)) {
                     rsq = (this.radius * this.radius).toString();
                 }
             } else if (this.method === "pointLine") {
@@ -456,7 +456,7 @@ define([
          * @chainable
          */
         notifyParents: function (contentStr) {
-            if (typeof contentStr === 'string') {
+            if (Type.isString(contentStr)) {
                 GeonextParser.findDependencies(this, contentStr, this.board);
             }
             return this;

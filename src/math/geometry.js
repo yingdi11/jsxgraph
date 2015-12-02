@@ -541,7 +541,7 @@ define([
                 A = 0,
                 ps = Expect.each(p, Expect.coordsArray);
 
-            if (typeof sort === 'undefined') {
+            if (sort === undefined) {
                 sort = true;
             }
 
@@ -1100,9 +1100,8 @@ define([
 
         /**
          * Intersection of the line with the board
-         *
          * @method meetLineBoard
-         * @param  {Array}     line   stdform of the line
+         * @param  {Array}     line   stdform of the line in screen coordinates
          * @param  {JXG.Board} board  reference to a board.
          * @param  {Number}    margin optional margin, to avoid the display of the small sides of lines.
          * @return {Array}            [intersection coords 1, intersection coords 2]
@@ -1387,8 +1386,11 @@ define([
          *
          */
         meetCurveLineContinuous: function (cu, li, nr, board, testSegment) {
-            var t, func0, func1, v, x, y, z,
-                eps = Mat.eps * 10;
+            var t, func0, func1, func0a, v, x, y, z,
+                eps = Mat.eps,
+                epsLow = Mat.eps,
+                steps, delta, tnew, i,
+                tmin, fmin;
 
             v = this.meetCurveLineDiscrete(cu, li, nr, board, testSegment);
             x = v.usrCoords[1];
@@ -1398,7 +1400,7 @@ define([
                 var c1 = x - cu.X(t),
                     c2 = y - cu.Y(t);
 
-                return Math.sqrt(c1 * c1 + c2 * c2);
+                return c1 * c1 + c2 * c2;
             };
 
             func1 = function (t) {
@@ -1407,12 +1409,30 @@ define([
             };
 
             // Find t
-            t = Numerics.root(func0, [cu.minX(), cu.maxX()]);
+            steps = 40;
+            delta = (cu.maxX() - cu.minX()) / steps;
+            tnew = cu.minX();
+
+            fmin = eps;
+            tmin = NaN;
+            for (i = 0; i < steps; i++) {
+                t = Numerics.root(func0, [tnew, tnew + delta]);
+
+                if (Math.abs(func0(t)) <= fmin  ) {
+                    fmin = Math.abs(func0(t));
+                    tmin = t;
+                    //break;
+                }
+
+                tnew += delta;
+            }
+            t = tmin;
+
             // Compute "exact" t
-            t = Numerics.root(func1, [t - 2 * eps, t + 2 * eps]);
+            t = Numerics.root(func1, [t - delta, t + delta]);
 
             // Is the point on the line?
-            if (Math.abs(func1(t)) > eps) {
+            if (Math.abs(func1(t)) > epsLow) {
                 z = NaN;
             } else {
                 z = 1.0;

@@ -146,7 +146,7 @@ define([
         this.board.renderer.drawText(this);
         this.board.finalizeAdding(this);
 
-        if (typeof this.content === 'string') {
+        if (Type.isString(this.content)) {
             this.notifyParents(this.content);
         }
         this.elType = 'text';
@@ -180,10 +180,8 @@ define([
                 r = this.board.options.precision.hasPoint;
 
             if (this.transformations.length > 0) {
-                /**
-                 * Transform the mouse/touch coordinates
-                 * back to the original position of the text.
-                 */
+                //Transform the mouse/touch coordinates
+                // back to the original position of the text.
                 lft = Mat.matVecMult(Mat.inverse(this.board.renderer.joinTransforms(this, this.transformations)), [1, x, y]);
                 x = lft[1];
                 y = lft[2];
@@ -230,7 +228,7 @@ define([
             var updateText;
 
             this.orgText = text;
-            if (typeof text === 'function') {
+            if (Type.isFunction(text)) {
                 this.updateText = function () {
                     if (this.visProp.parse && !this.visProp.usemathjax) {
                         this.plaintext = this.replaceSub(this.replaceSup(this.convertGeonext2CSS(text())));
@@ -304,7 +302,7 @@ define([
 
             this.visProp.castext = text;
 
-            if (typeof text === 'function') {
+            if (Type.isFunction(text)) {
                 s = function () {
                     return Type.sanitizeHTML(text());
                 };
@@ -691,7 +689,7 @@ define([
          * @see JXG.Text.generateTerm @see JXG.Text._setText
          */
         convertGeonext2CSS: function (s) {
-            if (typeof s === 'string') {
+            if (Type.isString(s)) {
                 s = s.replace(/<overline>/g, '<span style=text-decoration:overline>');
                 s = s.replace(/&lt;overline&gt;/g, '<span style=text-decoration:overline>');
                 s = s.replace(/<\/overline>/g, '</span>');

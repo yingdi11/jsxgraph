@@ -158,7 +158,7 @@ define([
         // this.document = attributes.document || document;
         if (Type.exists(attributes.document) && attributes.document !== false) {
             this.document = attributes.document;
-        } else if (typeof document === 'object') {
+        } else if (Type.isObject(document)) {
             this.document = document;
         }
 
@@ -589,6 +589,28 @@ define([
          */
         this._drag_offset = [0, 0];
 
+        /**
+         * A flag which tells us if the board is in the selecting mode
+         * @type {Boolean}
+         * @default false
+         */
+        this.selectingMode = false;
+
+        /**
+         * A flag which tells us if the user is selecting
+         * @type {Boolean}
+         * @default false
+         */
+        this.isSelecting = false;
+
+        /**
+         * A bounding box for the selection
+         * @type {Array}
+         * @default [ [0,0], [0,0] ]
+         */
+        this.selectingBox = [[0, 0], [0, 0]];
+
+
         if (this.attr.registerevents) {
             this.addEventHandlers();
         }
@@ -797,7 +819,7 @@ define([
             // Check if getBoundingClientRect exists. If so, use this as this covers *everything*
             // even CSS3D transformations etc.
             if (container.getBoundingClientRect) {
-                if (typeof window.pageXOffset === 'number') {
+                if (Type.isNumber(window.pageXOffset)) {
                     scrollLeft = window.pageXOffset;
                 } else {
                     if (docElement.ScrollLeft === 'number') {
@@ -807,7 +829,7 @@ define([
                     }
                 }
 
-                if (typeof window.pageYOffset === 'number') {
+                if (Type.isNumber(window.pageYOffset)) {
                     scrollTop = window.pageYOffset;
                 } else {
                     if (docElement.ScrollTop === 'number') {
@@ -1233,7 +1255,7 @@ define([
                     t4 = this.create('transform', [d, d], {type: 'scale'});
                     t1.melt(t4);
                 }
-                t5 = this.create('transform', [ np1[1], np1[2]], {type: 'translate'});
+                t5 = this.create('transform', [np1[1], np1[2]], {type: 'translate'});
                 t1.melt(t5);
 
                 t1.applyOnce([drag.center]);
@@ -1316,7 +1338,7 @@ define([
                 xy.push(obj.point2.coords.usrCoords);
             } else if (obj.elementClass === Const.OBJECT_CLASS_CIRCLE) {
                 xy.push(obj.center.coords.usrCoords);
-                if (obj.method === "twoPoints") {
+                if (obj.method === 'twoPoints') {
                     xy.push(obj.point2.coords.usrCoords);
                 }
             } else if (obj.type === Const.OBJECT_TYPE_POLYGON) {
@@ -1739,7 +1761,7 @@ define([
             }
 
             // prevent accidental selection of text
-            if (this.document.selection && typeof this.document.selection.empty === 'function') {
+            if (this.document.selection && Type.isFunction(this.document.selection.empty)) {
                 this.document.selection.empty();
             } else if (window.getSelection) {
                 sel = window.getSelection();
@@ -1764,6 +1786,14 @@ define([
             //    b. if an object is found, check the number of pointers. if appropriate, add the pointer.
 
             pos = this.getMousePosition(evt);
+
+            // selection
+            this._testForSelection(evt);
+            if (this.selectingMode) {
+                this._startSelecting(pos);
+                this.triggerEventHandlers(['touchstartselecting', 'pointerstartselecting', 'startselecting'], [evt]);
+                return;     // don't continue as a normal click
+            }
 
             if (object) {
                 elements = [ object ];
@@ -1872,8 +1902,12 @@ define([
             }
             this.updateQuality = this.BOARD_QUALITY_LOW;
 
-            // try with mouseOriginMove because the evt objects are quite similar
-            if (!this.mouseOriginMove(evt)) {
+            // selection
+            if (this.selectingMode) {
+                pos = this.getMousePosition(evt);
+                this._moveSelecting(pos);
+                this.triggerEventHandlers(['touchmoveselecting', 'moveselecting', 'pointermoveselecting'], [evt, this.mode]);
+            } else if (!this.mouseOriginMove(evt)) {
                 if (this.mode === this.BOARD_MODE_DRAG) {
                     // Runs through all elements which are touched by at least one finger.
                     for (i = 0; i < this.touches.length; i++) {
@@ -1887,7 +1921,7 @@ define([
                                     this.moveObject(pos[0], pos[1], this.touches[i], evt, 'touch');
                                 // Touch by two fingers: moving lines
                                 } else if (this.touches[i].targets.length === 2 &&
-                                        this.touches[i].targets[0].num > -1 && this.touches[i].targets[1].num > -1) {
+                                    this.touches[i].targets[0].num > -1 && this.touches[i].targets[1].num > -1) {
 
                                     this.touches[i].targets[j].X = evt.pageX;
                                     this.touches[i].targets[j].Y = evt.pageY;
@@ -1910,7 +1944,6 @@ define([
                                 break;
                             }
                         }
-
                     }
                 } else {
                     pos = this.getMousePosition(evt);
@@ -1958,18 +1991,24 @@ define([
                 }
             }
 
-            for (i = this.downObjects.length - 1; i > -1; i--) {
-                found = false;
-                for (j = 0; j < this.touches.length; j++) {
-                    if (this.touches[j].obj.id === this.downObjects[i].id) {
-                        found = true;
+            // selection
+            if (this.selectingMode) {
+                this._stopSelecting(evt);
+                this.triggerEventHandlers(['touchstopselecting', 'pointerstopselecting', 'stopselecting'], [evt]);
+            } else {
+                for (i = this.downObjects.length - 1; i > -1; i--) {
+                    found = false;
+                    for (j = 0; j < this.touches.length; j++) {
+                        if (this.touches[j].obj.id === this.downObjects[i].id) {
+                            found = true;
+                        }
                     }
-                }
-                if (!found) {
-                    this.downObjects[i].triggerEventHandlers(['touchend', 'up', 'pointerup', 'MSPointerUp'], [evt]);
-                    this.downObjects[i].snapToGrid();
-                    this.downObjects[i].snapToPoints();
-                    this.downObjects.splice(i, 1);
+                    if (!found) {
+                        this.downObjects[i].triggerEventHandlers(['touchend', 'up', 'pointerup', 'MSPointerUp'], [evt]);
+                        this.downObjects[i].snapToGrid();
+                        this.downObjects[i].snapToPoints();
+                        this.downObjects.splice(i, 1);
+                    }
                 }
             }
 
@@ -2021,7 +2060,7 @@ define([
             //}
 
             // prevent accidental selection of text
-            if (this.document.selection && typeof this.document.selection.empty === 'function') {
+            if (this.document.selection && Type.isFunction(this.document.selection.empty)) {
                 this.document.selection.empty();
             } else if (window.getSelection) {
                 window.getSelection().removeAllRanges();
@@ -2091,7 +2130,19 @@ define([
             // we just re-mapped the targettouches to our existing touches list. now we have to initialize some touches from additional targettouches
             for (i = 0; i < evtTouches.length; i++) {
                 if (!evtTouches[i].jxg_isused) {
+
                     pos = this.getMousePosition(evt, i);
+                    // selection
+                    // this._testForSelection(evt); // we do not have shuft or ctrl keys yet.
+                    if (this.selectingMode) {
+                        this._startSelecting(pos);
+                        this.triggerEventHandlers(['touchstartselecting', 'startselecting'], [evt]);
+                        evt.preventDefault();
+                        evt.stopPropagation();
+                        this.options.precision.hasPoint = this.options.precision.mouse;
+                        return this.touches.length > 0; // don't continue as a normal click
+                    }
+
                     elements = this.initMoveObject(pos[0], pos[1], evt, 'touch');
 
                     if (elements.length !== 0) {
@@ -2211,36 +2262,48 @@ define([
             this.options.precision.hasPoint = this.options.precision.touch;
             this.updateQuality = this.BOARD_QUALITY_LOW;
 
-            if (!this.touchOriginMove(evt)) {
-                if (this.mode === this.BOARD_MODE_DRAG) {
-                    // Runs over through all elements which are touched
-                    // by at least one finger.
-                    for (i = 0; i < this.touches.length; i++) {
-                        // Touch by one finger:  this is possible for all elements that can be dragged
-                        if (this.touches[i].targets.length === 1) {
-                            if (evtTouches[this.touches[i].targets[0].num]) {
-                                pos1 = this.getMousePosition(evt, this.touches[i].targets[0].num);
-                                if (pos1[0] < 0 || pos1[0] > this.canvasWidth ||  pos1[1] < 0 || pos1[1] > this.canvasHeight) {
-                                    return;
+            // selection
+            if (this.selectingMode) {
+                for (i = 0; i < evtTouches.length; i++) {
+                    if (!evtTouches[i].jxg_isused) {
+                        pos1 = this.getMousePosition(evt, i);
+                        this._moveSelecting(pos1);
+                        this.triggerEventHandlers(['touchmoves', 'moveselecting'], [evt, this.mode]);
+                        break;
+                    }
+                }
+            } else {
+                if (!this.touchOriginMove(evt)) {
+                    if (this.mode === this.BOARD_MODE_DRAG) {
+                        // Runs over through all elements which are touched
+                        // by at least one finger.
+                        for (i = 0; i < this.touches.length; i++) {
+                            // Touch by one finger:  this is possible for all elements that can be dragged
+                            if (this.touches[i].targets.length === 1) {
+                                if (evtTouches[this.touches[i].targets[0].num]) {
+                                    pos1 = this.getMousePosition(evt, this.touches[i].targets[0].num);
+                                    if (pos1[0] < 0 || pos1[0] > this.canvasWidth ||  pos1[1] < 0 || pos1[1] > this.canvasHeight) {
+                                        return;
+                                    }
+                                    this.touches[i].targets[0].X = evtTouches[this.touches[i].targets[0].num].screenX;
+                                    this.touches[i].targets[0].Y = evtTouches[this.touches[i].targets[0].num].screenY;
+                                    this.moveObject(pos1[0], pos1[1], this.touches[i], evt, 'touch');
                                 }
-                                this.touches[i].targets[0].X = evtTouches[this.touches[i].targets[0].num].screenX;
-                                this.touches[i].targets[0].Y = evtTouches[this.touches[i].targets[0].num].screenY;
-                                this.moveObject(pos1[0], pos1[1], this.touches[i], evt, 'touch');
-                            }
-                            // Touch by two fingers: moving lines
-                        } else if (this.touches[i].targets.length === 2 && this.touches[i].targets[0].num > -1 && this.touches[i].targets[1].num > -1) {
-                            if (evtTouches[this.touches[i].targets[0].num] && evtTouches[this.touches[i].targets[1].num]) {
-                                pos1 = this.getMousePosition(evt, this.touches[i].targets[0].num);
-                                pos2 = this.getMousePosition(evt, this.touches[i].targets[1].num);
-                                if (pos1[0] < 0 || pos1[0] > this.canvasWidth ||  pos1[1] < 0 || pos1[1] > this.canvasHeight ||
-                                        pos2[0] < 0 || pos2[0] > this.canvasWidth ||  pos2[1] < 0 || pos2[1] > this.canvasHeight) {
-                                    return;
+                                // Touch by two fingers: moving lines
+                            } else if (this.touches[i].targets.length === 2 && this.touches[i].targets[0].num > -1 && this.touches[i].targets[1].num > -1) {
+                                if (evtTouches[this.touches[i].targets[0].num] && evtTouches[this.touches[i].targets[1].num]) {
+                                    pos1 = this.getMousePosition(evt, this.touches[i].targets[0].num);
+                                    pos2 = this.getMousePosition(evt, this.touches[i].targets[1].num);
+                                    if (pos1[0] < 0 || pos1[0] > this.canvasWidth ||  pos1[1] < 0 || pos1[1] > this.canvasHeight ||
+                                            pos2[0] < 0 || pos2[0] > this.canvasWidth ||  pos2[1] < 0 || pos2[1] > this.canvasHeight) {
+                                        return;
+                                    }
+                                    this.touches[i].targets[0].X = evtTouches[this.touches[i].targets[0].num].screenX;
+                                    this.touches[i].targets[0].Y = evtTouches[this.touches[i].targets[0].num].screenY;
+                                    this.touches[i].targets[1].X = evtTouches[this.touches[i].targets[1].num].screenX;
+                                    this.touches[i].targets[1].Y = evtTouches[this.touches[i].targets[1].num].screenY;
+                                    this.twoFingerMove(pos1, pos2, this.touches[i], evt);
                                 }
-                                this.touches[i].targets[0].X = evtTouches[this.touches[i].targets[0].num].screenX;
-                                this.touches[i].targets[0].Y = evtTouches[this.touches[i].targets[0].num].screenY;
-                                this.touches[i].targets[1].X = evtTouches[this.touches[i].targets[1].num].screenX;
-                                this.touches[i].targets[1].Y = evtTouches[this.touches[i].targets[1].num].screenY;
-                                this.twoFingerMove(pos1, pos2, this.touches[i], evt);
                             }
                         }
                     }
@@ -2275,7 +2338,11 @@ define([
             this.triggerEventHandlers(['touchend', 'up'], [evt]);
             this.renderer.hide(this.infobox);
 
-            if (evtTouches && evtTouches.length > 0) {
+            // selection
+            if (this.selectingMode) {
+                this._stopSelecting(evt);
+                this.triggerEventHandlers(['touchstopselecting', 'stopselecting'], [evt]);
+            } else if (evtTouches && evtTouches.length > 0) {
                 for (i = 0; i < this.touches.length; i++) {
                     tmpTouches[i] = this.touches[i];
                 }
@@ -2398,7 +2465,7 @@ define([
             var pos, elements, result;
 
             // prevent accidental selection of text
-            if (this.document.selection && typeof this.document.selection.empty === 'function') {
+            if (this.document.selection && Type.isFunction(this.document.selection.empty)) {
                 this.document.selection.empty();
             } else if (window.getSelection) {
                 window.getSelection().removeAllRanges();
@@ -2415,6 +2482,15 @@ define([
             }
 
             pos = this.getMousePosition(evt);
+
+            // selection
+            this._testForSelection(evt);
+            if (this.selectingMode) {
+                this._startSelecting(pos);
+                this.triggerEventHandlers(['mousestartselecting', 'startselecting'], [evt]);
+                return;     // don't continue as a normal click
+            }
+
             elements = this.initMoveObject(pos[0], pos[1], evt, 'mouse');
 
             // if no draggable object can be found, get out here immediately
@@ -2462,46 +2538,7 @@ define([
         },
 
         /**
-         * This method is called by the browser when the mouse button is released.
-         * @method mouseUpListener
-         * @param {Event} evt
-         */
-        mouseUpListener: function (evt) {
-            var i;
-
-            this.triggerEventHandlers(['mouseup', 'up'], [evt]);
-
-            // redraw with high precision
-            this.updateQuality = this.BOARD_QUALITY_HIGH;
-
-            if (this.mouse && this.mouse.obj) {
-                // The parameter is needed for lines with snapToGrid enabled
-                this.mouse.obj.snapToGrid(this.mouse.targets[0]);
-                this.mouse.obj.snapToPoints();
-            }
-
-            this.originMoveEnd();
-            this.dehighlightAll();
-            this.update();
-
-            for (i = 0; i < this.downObjects.length; i++) {
-                this.downObjects[i].triggerEventHandlers(['mouseup', 'up'], [evt]);
-            }
-
-            this.downObjects.length = 0;
-
-            if (this.hasMouseUp) {
-                Env.removeEvent(this.document, 'mouseup', this.mouseUpListener, this);
-                this.hasMouseUp = false;
-            }
-
-            // release dragged mouse object
-            this.mouse = null;
-        },
-
-        /**
          * This method is called by the browser when the mouse is moved.
-         * @method mouseMoveListener
          * @param {Event} evt The browsers event object.
          */
         mouseMoveListener: function (evt) {
@@ -2516,23 +2553,72 @@ define([
                 this.renderer.hide(this.infobox);
             }
 
-            // we have to check for three cases:
+            // we have to check for four cases:
             //   * user moves origin
             //   * user drags an object
             //   * user just moves the mouse, here highlight all elements at
             //     the current mouse position
+            //   * the user is selecting
 
-            if (!this.mouseOriginMove(evt)) {
+            // selection
+            if (this.selectingMode) {
+                this._moveSelecting(pos);
+                this.triggerEventHandlers(['mousemoveselecting', 'moveselecting'], [evt, this.mode]);
+            } else if (!this.mouseOriginMove(evt)) {
                 if (this.mode === this.BOARD_MODE_DRAG) {
                     this.moveObject(pos[0], pos[1], this.mouse, evt, 'mouse');
                 } else { // BOARD_MODE_NONE
                     this.highlightElements(pos[0], pos[1], evt, -1);
                 }
+                this.triggerEventHandlers(['mousemove', 'move'], [evt, this.mode]);
+            }
+            this.updateQuality = this.BOARD_QUALITY_HIGH;
+        },
+
+        /**
+         * This method is called by the browser when the mouse button is released.
+         * @method mouseUpListener
+         * @param {Event} evt
+         */
+        mouseUpListener: function (evt) {
+            var i;
+
+            if (this.selectingMode === false) {
+                this.triggerEventHandlers(['mouseup', 'up'], [evt]);
             }
 
+            // redraw with high precision
             this.updateQuality = this.BOARD_QUALITY_HIGH;
 
-            this.triggerEventHandlers(['mousemove', 'move'], [evt, this.mode]);
+            if (this.mouse && this.mouse.obj) {
+                // The parameter is needed for lines with snapToGrid enabled
+                this.mouse.obj.snapToGrid(this.mouse.targets[0]);
+                this.mouse.obj.snapToPoints();
+            }
+
+            this.originMoveEnd();
+            this.dehighlightAll();
+            this.update();
+
+            // selection
+            if (this.selectingMode) {
+                this._stopSelecting(evt);
+                this.triggerEventHandlers(['mousestopselecting', 'stopselecting'], [evt]);
+            } else {
+                for (i = 0; i < this.downObjects.length; i++) {
+                    this.downObjects[i].triggerEventHandlers(['mouseup', 'up'], [evt]);
+                }
+            }
+
+            this.downObjects.length = 0;
+
+            if (this.hasMouseUp) {
+                Env.removeEvent(this.document, 'mouseup', this.mouseUpListener, this);
+                this.hasMouseUp = false;
+            }
+
+            // release dragged mouse object
+            this.mouse = null;
         },
 
         /**
@@ -2874,7 +2960,7 @@ define([
                 el = this.elementsByName[Type.unescapeHTML(name)];
 
                 property = left.slice(m + 1).replace(/\s+/g, '').toLowerCase(); // remove whitespace in property
-                right = Type.createFunction(right, this, '', true);
+                right = Type.createfunction (right, this, '', true);
 
                 // Debug
                 if (!Type.exists(this.elementsByName[name])) {
@@ -2996,7 +3082,7 @@ define([
                 lr = 0.5,
                 tr = 0.5;
 
-            if (typeof x === 'number' && typeof y === 'number') {
+            if (Type.isNumber(x) && Type.isNumber(y)) {
                 lr = (x - bb[0]) / (bb[2] - bb[0]);
                 tr = (bb[1] - y) / (bb[1] - bb[3]);
             }
@@ -3027,7 +3113,7 @@ define([
                 return this;
             }
 
-            if (typeof x === 'number' && typeof y === 'number') {
+            if (Type.isNumber(x) && Type.isNumber(y)) {
                 lr = (x - bb[0]) / (bb[2] - bb[0]);
                 tr = (bb[1] - y) / (bb[1] - bb[3]);
             }
@@ -3502,7 +3588,7 @@ define([
 
             /*
             objs = this.objectsList.slice(0);
-            objs.sort(function(a, b) {
+            objs.sort(function (a, b) {
                 if (a.visProp.layer < b.visProp.layer) {
                     return -1;
                 } else if (a.visProp.layer === b.visProp.layer) {
@@ -3783,12 +3869,12 @@ define([
             }
 
             for (i = 0; i < parents.length; i++) {
-                if (typeof parents[i] === 'string' && (elementType !== 'text' || i !== 2)) {
+                if (Type.isString(parents[i]) && (elementType !== 'text' || i !== 2)) {
                     parents[i] = this.select(parents[i]);
                 }
             }
 
-            if (typeof JXG.elements[elementType] === 'function') {
+            if (Type.isFunction(JXG.elements[elementType])) {
                 el = JXG.elements[elementType](this, parents, attributes);
             } else {
                 throw new Error("JSXGraph: create: Unknown element type given: " + elementType);
@@ -3812,7 +3898,7 @@ define([
          */
         createElement: function () {
             JXG.deprecated('Board.createElement()', 'Board.create()');
-            this.create.apply(this, arguments);
+            return this.create.apply(this, arguments);
         },
 
         /**
@@ -4201,7 +4287,7 @@ define([
             }
 
             // it's a string, most likely an id or a name.
-            if (typeof s === 'string' && s !== '') {
+            if (Type.isString(s) && s !== '') {
                 // Search by ID
                 if (Type.exists(this.objects[s])) {
                     s = this.objects[s];
@@ -4213,7 +4299,7 @@ define([
                     s = this.groups[s];
                 }
             // it's a function or an object, but not an element
-            } else if (typeof s === 'function' || (typeof s === 'object' && !JXG.isArray(s) && typeof s.setAttribute !== 'function')) {
+        } else if (Type.isFunction(s) || (Type.isObject(s) && !Type.isFunction(s.setAttribute))) {
 
                 flist = Type.filterElements(this.objectsList, s);
 
@@ -4224,7 +4310,7 @@ define([
                 }
                 s = new EComposition(olist);
             // it's an element which has been deleted (and still hangs around, e.g. in an attractor list
-            } else if (typeof s === 'object' && JXG.exists(s.id) && !JXG.exists(this.objects[s.id])) {
+            } else if (Type.isObject(s) && JXG.exists(s.id) && !JXG.exists(this.objects[s.id])) {
                 s = null;
             }
 
@@ -4248,8 +4334,8 @@ define([
                 py = x.usrCoords[2];
             }
 
-            return !!(typeof px === 'number' && typeof py === 'number' &&
-            bbox[0] < px && px < bbox[2] && bbox[1] > py && py > bbox[3]);
+            return !!(Type.isNumber(px) && Type.isNumber(py) &&
+                bbox[0] < px && px < bbox[2] && bbox[1] > py && py > bbox[3]);
 
 
         },
@@ -4295,6 +4381,179 @@ define([
             return this;
         },
 
+        /**
+         * Start selection mode. This function can either be triggered from outside or by
+         * a down event together with correct key pressing. The default keys are
+         * shift+ctrl. But this can be changed in the options.
+         *
+         * Starting from out side can be realized for example with a button like this:
+         * <pre>
+         * 	&lt;button onclick="board.startSelectionMode()"&gt;Start&lt;/button&gt;
+         * </pre>
+         * @example
+         * //
+         * // Set a new bounding box from the selection rectangle
+         * //
+         * var board = JXG.JSXGraph.initBoard('jxgbox', {
+         *         boundingBox:[-3,2,3,-2],
+         *         keepAspectRatio: false,
+         *         axis:true,
+         *         selection: {
+         *             enabled: true,
+         *             needShift: false,
+         *             needCtrl: true,
+         *             withLines: false,
+         *             vertices: {
+         *                 visible: false
+         *             },
+         *             fillColor: '#ffff00',
+         *         }
+         *      });
+         *
+         * var f = function f(x) { return Math.cos(x); },
+         *     curve = board.create('functiongraph', [f]);
+         *
+         * board.on('stopselecting', function(){
+         *     var box = board.stopSelectionMode(),
+         *
+         *         // bbox has the coordinates of the selectionr rectangle.
+         *         // Attention: box[i].usrCoords have the form [1, x, y], i.e.
+         *         // are homogeneous coordinates.
+         *         bbox = box[0].usrCoords.slice(1).concat(box[1].usrCoords.slice(1));
+         *
+         *         // Set a new bounding box
+         *         board.setBoundingBox(bbox, false);
+         *  });
+         *
+         *
+         * </pre><div id="11eff3a6-8c50-11e5-b01d-901b0e1b8723" style="width: 300px; height: 300px;"></div>
+         * <script type="text/javascript">
+         *     (function() {
+         *         var board = JXG.JSXGraph.initBoard('11eff3a6-8c50-11e5-b01d-901b0e1b8723',
+         *             {boundingbox: [-8, 8, 8,-8], axis: true, showcopyright: false, shownavigation: false});
+         *     //
+         *     // Set a new bounding box from the selection rectangle
+         *     //
+         *     var board = JXG.JSXGraph.initBoard('11eff3a6-8c50-11e5-b01d-901b0e1b8723', {
+         *             boundingBox:[-3,2,3,-2],
+         *             keepAspectRatio: false,
+         *             axis:true,
+         *             selection: {
+         *                 enabled: true,
+         *                 needShift: false,
+         *                 needCtrl: true,
+         *                 withLines: false,
+         *                 vertices: {
+         *                     visible: false
+         *                 },
+         *                 fillColor: '#ffff00',
+         *             }
+         *        });
+         *
+         *     var f = function f(x) { return Math.cos(x); },
+         *         curve = board.create('functiongraph', [f]);
+         *
+         *     board.on('stopselecting', function(){
+         *         var box = board.stopSelectionMode(),
+         *
+         *             // bbox has the coordinates of the selectionr rectangle.
+         *             // Attention: box[i].usrCoords have the form [1, x, y], i.e.
+         *             // are homogeneous coordinates.
+         *             bbox = box[0].usrCoords.slice(1).concat(box[1].usrCoords.slice(1));
+         *
+         *             // Set a new bounding box
+         *             board.setBoundingBox(bbox, false);
+         *      });
+         *     })();
+         *
+         * </script><pre>
+         *
+         */
+        startSelectionMode: function () {
+            this.selectingMode = true;
+            this.selectionPolygon.setAttribute({visible: true});
+            this.selectingBox = [[0, 0], [0, 0]];
+            this._setSelectionPolygonFromBox();
+            this.selectionPolygon.prepareUpdate().update().updateRenderer();
+        },
+
+        /**
+         * Finalize the selection: disable selection mode and return the coordinates
+         * of the selection rectangle.
+         * @return {Array} Coordinates of the selection rectangle. The array
+         * contains two {@link JXG.Coords} objects. One the upper left corner and
+         * the second for the lower right corner.
+         */
+        stopSelectionMode: function () {
+            this.selectingMode = false;
+            this.selectionPolygon.setAttribute({visible: false});
+            return [this.selectionPolygon.vertices[0].coords, this.selectionPolygon.vertices[2].coords];
+        },
+
+        /**
+         * Start the selection of a region.
+         * @private
+         * @param  {Array} pos Screen coordiates of the upper left corner of the
+         * selection rectangle.
+         */
+        _startSelecting: function (pos) {
+            this.isSelecting = true;
+            this.selectingBox = [ [pos[0], pos[1]], [pos[0], pos[1]] ];
+            this._setSelectionPolygonFromBox();
+        },
+
+        /**
+         * Update the selection rectangle during a move event.
+         * @private
+         * @param  {Array} pos Screen coordiates of the move event
+         */
+        _moveSelecting: function (pos) {
+            if (this.isSelecting) {
+                this.selectingBox[1] = [pos[0], pos[1]];
+                this._setSelectionPolygonFromBox();
+                this.selectionPolygon.prepareUpdate().update().updateRenderer();
+            }
+        },
+
+        /**
+         * Update the selection rectangle during an up event. Stop selection.
+         * @private
+         * @param  {Object} evt Event object
+         */
+        _stopSelecting:  function (evt) {
+            var pos = this.getMousePosition(evt);
+
+            this.isSelecting = false;
+            this.selectingBox[1] = [pos[0], pos[1]];
+            this._setSelectionPolygonFromBox();
+        },
+
+        /**
+         * Update the Selection rectangle.
+         * @private
+         */
+        _setSelectionPolygonFromBox: function () {
+               var A = this.selectingBox[0],
+                B = this.selectingBox[1];
+
+               this.selectionPolygon.vertices[0].setPositionDirectly(JXG.COORDS_BY_SCREEN, [A[0], A[1]]);
+               this.selectionPolygon.vertices[1].setPositionDirectly(JXG.COORDS_BY_SCREEN, [A[0], B[1]]);
+               this.selectionPolygon.vertices[2].setPositionDirectly(JXG.COORDS_BY_SCREEN, [B[0], B[1]]);
+               this.selectionPolygon.vertices[3].setPositionDirectly(JXG.COORDS_BY_SCREEN, [B[0], A[1]]);
+        },
+
+        /**
+         * Test if a down event should start a selection. Test if the
+         * required keys are pressed. If yes, {@link JXG.Board#startSelectionMode} is called.
+         * @param  {Object} evt Event object
+         */
+        _testForSelection: function (evt) {
+            if (this.attr.selection.enabled &&
+                (!this.attr.selection.needshift || evt.shiftKey) &&
+                (!this.attr.selection.needctrl || evt.ctrlKey)) {
+                    this.startSelectionMode();
+            }
+        },
 
         /* **************************
          *     EVENT DEFINITION
@@ -4318,6 +4577,15 @@ define([
         __evt__mousedown: function (e) { },
 
         /**
+         * @event
+         * @description Whenever the user starts to click on the board with a
+         * device sending pointer events.
+         * @name JXG.Board#pointerdown
+         * @param {Event} e The browser's event object.
+         */
+        __evt__pointerdown: function (e) { },
+
+        /**
          * @event touchstart
          * @description Whenever the user starts to touch the board.
          * @param {Event} e The browser's event object.
@@ -4337,6 +4605,15 @@ define([
          * @param {Event} e The browser's event object.
          */
         __evt__mouseup: function (e) { },
+
+        /**
+         * @event
+         * @description Whenever the user releases the mousebutton over the board with a
+         * device sending pointer events.
+         * @name JXG.Board#pointerup
+         * @param {Event} e The browser's event object.
+         */
+        __evt__pointerup: function (e) { },
 
         /**
          * @event  touchend
@@ -4362,6 +4639,17 @@ define([
          * @see {JXG.Board#mode}
          */
         __evt__mousemove: function (e, mode) { },
+
+        /**
+         * @event
+         * @description This event is fired whenever the user is moving the mouse over the board  with a
+         * device sending pointer events.
+         * @name JXG.Board#pointermove
+         * @param {Event} e The browser's event object.
+         * @param {Number} mode The mode the board currently is in
+         * @see {JXG.Board#mode}
+         */
+        __evt__pointermove: function (e, mode) { },
 
         /**
          * @event touchmove
@@ -4402,7 +4690,104 @@ define([
          */
         __evt__boundingbox: function () { },
 
-        /*
+        /**
+         * @event startselecting
+         * @description Select a region is started during a down event or by calling
+         * {@link JXG.Board#startSelectionMode}
+         * @name JXG.Board#startselecting
+         */
+         __evt__startselecting: function () { },
+
+         /**
+         * @event mousestartselecting
+         * @description Select a region is started during a down event
+         * from a device sending mouse events or by calling
+         * {@link JXG.Board#startSelectionMode}.
+         * @name JXG.Board#mousestartselecting
+         */
+         __evt__mousestartselecting: function () { },
+
+         /**
+         * @event pointerstartselecting
+         * @description Select a region is started during a down event
+         * from a device sending pointer events or by calling
+         * {@link JXG.Board#startSelectionMode}.
+         * @name JXG.Board#pointerstartselecting
+         */
+         __evt__pointerstartselecting: function () { },
+
+         /**
+         * @event touchstartselecting
+         * @description Select a region is started during a down event
+         * from a device sending touch events or by calling
+         * {@link JXG.Board#startSelectionMode}.
+         * @name JXG.Board#touchstartselecting
+         */
+         __evt__touchstartselecting: function () { },
+
+         /**
+          * @event stopselecting
+          * @description Selection of a region is stopped during an up event.
+          * @name JXG.Board#stopselecting
+          */
+         __evt__stopselecting: function () { },
+
+         /**
+         * @event mousestopselecting
+         * @description Selection of a region is stopped during an up event
+         * from a device sending mouse events.
+         * @name JXG.Board#mousestopselecting
+         */
+         __evt__mousestopselecting: function () { },
+
+         /**
+         * @event pointerstopselecting
+         * @description Selection of a region is stopped during an up event
+         * from a device sending pointer events.
+         * @name JXG.Board#pointerstopselecting
+         */
+         __evt__pointerstopselecting: function () { },
+
+         /**
+         * @event touchstopselecting
+         * @description Selection of a region is stopped during an up event
+         * from a device sending touch events.
+         * @name JXG.Board#touchstopselecting
+         */
+         __evt__touchstopselecting: function () { },
+
+         /**
+         * @event moveselecting
+         * @description A move event while selecting of a region is active.
+         * @name JXG.Board#moveselecting
+         */
+         __evt__moveselecting: function () { },
+
+         /**
+         * @event mousemoveselecting
+         * @description A move event while selecting of a region is active
+         * from a device sending mouse events.
+         * @name JXG.Board#mousemoveselecting
+         */
+         __evt__mousemoveselecting: function () { },
+
+         /**
+         * @event pointermoveselecting
+         * @description Select a region is started during a down event
+         * from a device sending mouse events.
+         * @name JXG.Board#pointermoveselecting
+         */
+         __evt__pointermoveselecting: function () { },
+
+         /**
+         * @event touchmoveselecting
+         * @description Select a region is started during a down event
+         * from a device sending touch events.
+         * @name JXG.Board#touchmoveselecting
+         */
+         __evt__touchmoveselecting: function () { },
+
+        /**
          * @ignore
          */
         __evt: function () {},

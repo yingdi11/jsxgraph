@@ -1115,7 +1115,7 @@ define([
                         }
                         break;
                     case 'infoboxtext':
-                        if (typeof value === 'string') {
+                        if (Type.isString(value)) {
                             this.infoboxText = value;
                         } else {
                             this.infoboxText = false;
@@ -1190,12 +1190,12 @@ define([
                         }
                         break;
                     case 'ticksdistance':
-                        if (this.type === Const.OBJECT_TYPE_TICKS && typeof value === 'number') {
+                        if (this.type === Const.OBJECT_TYPE_TICKS && Type.isNumber(value)) {
                             this.ticksFunction = this.makeTicksFunction(value);
                         }
                         break;
                     case 'generatelabelvalue':
-                        if (this.type === Const.OBJECT_TYPE_TICKS && typeof value === 'function') {
+                        if (this.type === Const.OBJECT_TYPE_TICKS && Type.isFunction(value)) {
                             this.generateLabelValue = value;
                         }
                         break;
@@ -1397,7 +1397,7 @@ define([
 
                 if (this.visProp.withlabel) {
                     this.label = JXG.elements.text(this.board, [0, 0, function () {
-                        if (typeof that.name === 'function') {
+                        if (Type.isFunction(that.name)) {
                             return that.name();
                         }
                         return that.name;

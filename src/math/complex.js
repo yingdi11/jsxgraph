@@ -37,7 +37,13 @@
  jxg
  */
 
-define(['jxg', 'math/math'], function (JXG) {
+/**
+ * @fileoverview A class for complex arithmetics JXG.Complex is defined in this
+ * file. Also a namespace JXG.C is included to provide instance-independent
+ * arithmetic functions.
+ */
+
+define(['jxg', 'utils/type'], function (JXG, Type) {
 
     "use strict";
 
@@ -127,7 +133,7 @@ define(['jxg', 'math/math'], function (JXG) {
          * @chainable
          */
         add: function (c) {
-            if (typeof c === 'number') {
+            if (Type.isNumber(c)) {
                 this.real += c;
             } else {
                 this.real += c.real;
@@ -146,7 +152,7 @@ define(['jxg', 'math/math'], function (JXG) {
          * @chainable
          */
         sub: function (c) {
-            if (typeof c === 'number') {
+            if (Type.isNumber(c)) {
                 this.real -= c;
             } else {
                 this.real -= c.real;
@@ -168,7 +174,7 @@ define(['jxg', 'math/math'], function (JXG) {
         mult: function (c) {
             var re, im;
 
-            if (typeof c === 'number') {
+            if (Type.isNumber(c)) {
                 this.real *= c;
                 this.imaginary *= c;
             } else {
@@ -195,7 +201,7 @@ define(['jxg', 'math/math'], function (JXG) {
         div: function (c) {
             var denom, im, re;
 
-            if (typeof c === 'number') {
+            if (Type.isNumber(c)) {
                 if (Math.abs(c) < Math.eps) {
                     this.real = Infinity;
                     this.imaginary = Infinity;

@@ -215,7 +215,7 @@ define([], function () {
             var warning = what + ' is deprecated.';
 
             if (replacement) {
-                warning += ' Please use ' + replacement + 'instead.';
+                warning += ' Please use ' + replacement + ' instead.';
             }
 
             jxg.warn(warning);

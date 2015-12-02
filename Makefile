@@ -110,8 +110,8 @@ yuidocs:
 	$(CP) distrib/jquery.min.js $(YUIDOCASSETS)/js/jquery.min.js
 	$(CP) $(BUILDBIN)/jsxgraphcore.min.js $(YUIDOCASSETS)/js/jsxgraphcore.js
 	$(CP) distrib/jsxgraph.css $(YUIDOCASSETS)/css/jsxgraph.css
-	
-moodle: core core-min $(READERSOUT) 
+
+moodle: core core-min $(READERSOUT)
 	$(MKDIR) $(MKDIRFLAGS) $(TMP)
 	$(MKDIR) $(MKDIRFLAGS) $(TMP)/jsxgraph
 	$(CP) $(BUILDBIN)/jsxgraphcore.min.js $(TMP)/jsxgraph/jsxgraphcore.js	
