@@ -157,7 +157,7 @@ define([
         isPointType: function (board, v) {
             var val;
 
-            if (this.isArray(v)) {
+            if (this.isArray(v) && v.length > 1) {
                 return true;
             }
             if (this.isFunction(v)) {
